@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>深海汤屋 · 海龟汤推理小馆</title>
+<meta name="description" content="海龟汤（汤面猜汤底）推理小游戏：向汤主提问，只能得到「是 / 不是 / 与此无关」，一步步熬出真相。" />
+<meta name="theme-color" content="#0d0a08" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='88'%3E%F0%9F%8D%B2%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="steam-field" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-ico" aria-hidden="true">🍲</span>
+    <div class="brand-txt">
+      <h1>深海汤屋</h1>
+      <p>海龟汤 · 一问一答熬真相</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button type="button" class="btn ghost" id="btn-daily">今日汤</button>
+    <button type="button" class="btn ghost" id="btn-random">随机一题</button>
+    <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
+    <button type="button" class="btn ghost danger" id="btn-wipe">清空存档</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <aside class="col-side" aria-label="汤单">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>汤单</h2>
+        <span class="badge" id="count-solved">0/0</span>
+      </div>
+      <div class="chips" id="filters" role="group" aria-label="按标签筛选"></div>
+      <div class="puzzle-list" id="puzzle-list" role="list"></div>
+    </div>
+  </aside>
+
+  <section class="col-stage" aria-label="汤桌">
+
+    <div class="panel" id="screen-intro">
+      <div class="intro">
+        <div class="pot" aria-hidden="true">🍲</div>
+        <h2>欢迎来到深海汤屋</h2>
+        <p class="intro-lead">汤面（谜面）已经备好，你只能向汤主提问。<br />汤主只会回答三种话：<b class="c-yes">是</b>、<b class="c-no">不是</b>、<b class="c-irr">与此无关</b>。</p>
+        <ul class="rules">
+          <li><b>1.</b> 用提问一点点逼近真相，挖到的线索会留在右边的线索板。</li>
+          <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
+          <li><b>3.</b> 提问越少、提示用得越少，星级越高。汤底可以重熬，存档自动保存。</li>
+        </ul>
+        <div class="intro-actions">
+          <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
+          <button type="button" class="btn ghost" id="btn-start-random">随便来一锅</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-game">
+      <div class="surface-card">
+        <div class="surface-head">
+          <h2 id="p-title">—</h2>
+          <div class="meta">
+            <span class="tag" id="p-tag"></span>
+            <span class="diff" id="p-diff"></span>
+          </div>
+        </div>
+        <p class="surface-text" id="p-surface"></p>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="stat-k">提问</span><b id="s-q">0</b></div>
+        <div class="stat"><span class="stat-k">线索</span><b id="s-clue">0/0</b></div>
+        <div class="stat"><span class="stat-k">提示</span><b id="s-hint">0</b></div>
+        <div class="stat wide">
+          <span class="stat-k">探索度</span>
+          <div class="bar"><i id="s-bar"></i></div>
+          <b id="s-pct">0%</b>
+        </div>
+      </div>
+
+      <div class="log" id="log" role="log" aria-live="polite" aria-label="与汤主的对话"></div>
+
+      <div class="askbar">
+        <input id="q-input" class="input" type="text" placeholder="向汤主提问，例如：他认识死者吗？" autocomplete="off" />
+        <button type="button" class="btn primary" id="btn-ask">提问</button>
+        <button type="button" class="btn ghost" id="btn-hint">要提示</button>
+        <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
+      </div>
+    </div>
+
+  </section>
+
+  <aside class="col-clue" aria-label="线索板">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>线索板</h2>
+        <span class="badge" id="clue-badge">0/0</span>
+      </div>
+      <div class="clue-list" id="clue-list">
+        <p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>汤主的话</h2></div>
+      <p class="tip" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
+    </div>
+  </aside>
+
+</main>
+
+<div class="modal-wrap hidden" id="modal-guess">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="guess-title">
+    <h3 id="guess-title">说出你的推理</h3>
+    <p class="modal-sub">不用复述原文，把关键的那几层讲清楚就行。汤主会判断你有没有真的熬到汤底。</p>
+    <textarea id="guess-input" rows="5" placeholder="我认为，他之所以……是因为……"></textarea>
+    <p class="guess-feedback" id="guess-feedback"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-guess-cancel">再想想</button>
+      <button type="button" class="btn primary" id="btn-guess-submit">提交推理</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap hidden" id="modal-end">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="end-title">
+    <h3 id="end-title">汤底揭晓</h3>
+    <div class="stars" id="end-stars" aria-label="评级">★★★</div>
+    <p class="end-note" id="end-note"></p>
+    <div class="truth-box" id="end-truth"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-replay">重熬这一锅</button>
+      <button type="button" class="btn ghost" id="btn-next">下一题</button>
+      <button type="button" class="btn primary" id="btn-back">回汤单</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
