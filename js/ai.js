@@ -35,6 +35,7 @@
     { id: "siliconflow", label: "硅基流动", kind: "openai", baseUrl: "https://api.siliconflow.cn/v1", model: "Qwen/Qwen2.5-7B-Instruct", note: "聚合站，模型名要写全" },
     { id: "openai", label: "OpenAI", kind: "openai", baseUrl: "https://api.openai.com/v1", model: "gpt-4o-mini", note: "官方接口对浏览器直连不友好，建议自建代理" },
     { id: "anthropic", label: "Anthropic Claude", kind: "anthropic", baseUrl: "https://api.anthropic.com/v1", model: "claude-3-5-haiku-latest", note: "已带上浏览器直连所需的请求头" },
+    { id: "tokenrhythm", label: "TokenRhythm（本地代理）", kind: "openai", baseUrl: "http://127.0.0.1:8787/v1", model: "deepseek-flash", note: "额度站不支持浏览器跨域：先双击 _proxy/start-proxy.bat 开桥，再回来保存。Key 在它官网 API 设置页创建" },
     { id: "custom", label: "自定义（OpenAI 兼容）", kind: "openai", baseUrl: "", model: "", note: "填自己的代理地址，注意服务端要允许 CORS" }
   ];
 
@@ -403,6 +404,13 @@
     if (err.code === "unparsable") return "模型没按格式回答";
     if (err.code === "timeout") return "请求超时";
     if (err.code === "http") return err.message || "接口报错";
+    if (err.code === "network") {
+      var m = String(err.message || "");
+      if (/failed to fetch|networkerror|load failed|fetch failed/i.test(m)) {
+        return "浏览器连不上这个地址：多半是对方没开 CORS 跨域（面板里换 DeepSeek 等预设服务商，或自建代理），也可能是地址写错或断网";
+      }
+      return err.message || "网络请求失败";
+    }
     if (err.code && String(err.code).indexOf("guarded:") === 0) return "回答没通过把关（" + String(err.code).slice(8) + "）";
     return err.message || String(err);
   }
