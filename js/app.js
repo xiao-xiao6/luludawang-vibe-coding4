@@ -10,6 +10,15 @@
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
 
+  /* 触摸端判定：触屏设备载入题目时不自动弹软键盘（iPad 这类宽屏触控机也会中招） */
+  function isTouch() {
+    try {
+      if (window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches) return true;
+      if ("ontouchstart" in window && (navigator.maxTouchPoints || 0) > 0) return true;
+    } catch (e) { /* 忽略 */ }
+    return false;
+  }
+
   var STORE_KEY = "deepsea_soup_v1";
 
   /* 场景 → 背景图 / 特效场景 / 曲目 */
@@ -395,7 +404,7 @@
       paintAiBar();
 
       var input = $("#q-input");
-      if (input) { input.value = ""; if (window.innerWidth > 860) input.focus(); }
+      if (input) { input.value = ""; if (!isTouch() && window.innerWidth > 860) input.focus(); }
       sfx("page");
     });
   }
@@ -829,11 +838,18 @@
 
   var lastFocus = null;
 
+  /* 双端适配：弹窗打开时收起浮动音乐台，小屏才不会被挡住 */
+  function syncModalClass() {
+    var open = $$(".modal-wrap").filter(function (m) { return !m.classList.contains("hidden"); });
+    document.body.classList.toggle("modal-open", open.length > 0);
+  }
+
   function openModal(sel, focusSel) {
     lastFocus = document.activeElement;
     var m = $(sel);
     if (!m) return;
     m.classList.remove("hidden");
+    syncModalClass();
     var f = focusSel ? $(focusSel) : null;
     if (f) setTimeout(function () { f.focus(); }, 30);
   }
@@ -841,6 +857,7 @@
   function closeModal(sel) {
     var m = $(sel);
     if (m) m.classList.add("hidden");
+    syncModalClass();
     if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { } }
   }
 
@@ -1276,6 +1293,46 @@
     };
     document.addEventListener("pointerdown", unlock);
     document.addEventListener("keydown", unlock);
+
+    /* 双端适配：手机软键盘弹出时，收起浮动音乐台、给对话区让位
+       判定要严：只在「宽度没变 + 焦点在输入框 + 高度院降」时才算键盘，
+       否则换屏 / 旋转 / 拖窗口都会被误判（横屏手机最容易中招） */
+    (function watchKeyboard() {
+      var vv = window.visualViewport;
+      var baseW = window.innerWidth;
+      var baseH = window.innerHeight;
+      var editable = function () {
+        var a = document.activeElement;
+        return !!(a && a.closest && a.closest("input,textarea,select,[contenteditable]"));
+      };
+      var apply = function () {
+        var w = window.innerWidth;
+        var h = vv ? vv.height : window.innerHeight;
+        /* 宽度变了 = 旋转 / 换屏，不是键盘：重置基准，不弹 kb-open */
+        if (Math.abs(w - baseW) > 24) { baseW = w; baseH = h; }
+        else if (h > baseH) { baseH = h; }
+        var open = editable() && (baseH - h) > 140;
+        document.body.classList.toggle("kb-open", open);
+        if (open) {
+          var log = $("#log");
+          if (log) log.scrollTop = log.scrollHeight;
+        }
+      };
+      window.addEventListener("resize", apply);
+      window.addEventListener("orientationchange", function () {
+        /* 旋转后基准完全重算，避免拿旧高度去比 */
+        baseW = window.innerWidth;
+        baseH = vv ? vv.height : window.innerHeight;
+        apply();
+      });
+      document.addEventListener("focusin", apply);
+      document.addEventListener("focusout", function () { setTimeout(apply, 60); });
+      if (vv) {
+        vv.addEventListener("resize", apply);
+        vv.addEventListener("scroll", apply);
+      }
+      apply();
+    })();
 
     /* 打雷时轻微震动，增强临场感 */
     window.addEventListener("soup:lightning", function () {

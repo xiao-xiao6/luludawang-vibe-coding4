@@ -23,6 +23,14 @@
   --shadow: 0 18px 44px rgba(0, 0, 0, .55);
   --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, "SimSun", serif;
   --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+
+  /* 双端适配：安全区 / 触控热区 / 动态视口 */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --tap: 44px;
+  --vvh: 100vh;
 }
 
 * { box-sizing: border-box; }
@@ -85,7 +93,7 @@ body {
   gap: 12px;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 22px 14px;
+  padding: calc(20px + var(--sat)) calc(22px + var(--sar)) 14px calc(22px + var(--sal));
   max-width: 1500px;
   margin: 0 auto;
 }
@@ -152,7 +160,7 @@ body {
   grid-template-columns: 272px minmax(0, 1fr) 302px;
   gap: 16px;
   align-items: start;
-  padding: 0 22px 34px;
+  padding: 0 calc(22px + var(--sar)) calc(34px + var(--sab)) calc(22px + var(--sal));
   max-width: 1500px;
   margin: 0 auto;
 }
@@ -211,7 +219,15 @@ body {
   font-weight: 700;
 }
 
-.puzzle-list { display: flex; flex-direction: column; gap: 8px; max-height: min(58vh, 620px); overflow-y: auto; padding-right: 3px; }
+.puzzle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: min(58vh, 620px);
+  max-height: min(58dvh, 620px);
+  overflow-y: auto;
+  padding-right: 3px;
+}
 .puzzle-list::-webkit-scrollbar { width: 7px; }
 .puzzle-list::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 9px; }
 
@@ -334,6 +350,7 @@ body {
   background: rgba(12, 9, 7, .62);
   padding: 12px;
   height: min(44vh, 400px);
+  height: min(44dvh, 400px);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -384,7 +401,15 @@ body {
 .input:focus { outline: none; border-color: var(--broth); box-shadow: 0 0 0 3px rgba(226, 164, 79, .14); }
 
 /* ---------- 线索板 ---------- */
-.clue-list { display: flex; flex-direction: column; gap: 8px; max-height: min(60vh, 640px); overflow-y: auto; padding-right: 3px; }
+.clue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: min(60vh, 640px);
+  max-height: min(60dvh, 640px);
+  overflow-y: auto;
+  padding-right: 3px;
+}
 .clue-list::-webkit-scrollbar { width: 7px; }
 .clue-list::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 9px; }
 .clue {
@@ -408,11 +433,11 @@ body {
 .modal-wrap {
   position: fixed;
   inset: 0;
-  z-index: 60;
+  z-index: 80;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: calc(20px + var(--sat)) calc(20px + var(--sar)) calc(20px + var(--sab)) calc(20px + var(--sal));
   background: rgba(6, 4, 3, .74);
   backdrop-filter: blur(3px);
   animation: fade .18s ease both;
@@ -422,6 +447,7 @@ body {
 .modal {
   width: min(620px, 100%);
   max-height: 88vh;
+  max-height: min(88vh, 88dvh);
   overflow-y: auto;
   border: 1px solid var(--line-2);
   border-radius: 18px;
@@ -476,7 +502,7 @@ body {
 .toast {
   position: fixed;
   left: 50%;
-  bottom: 26px;
+  bottom: calc(26px + var(--sab));
   transform: translate(-50%, 26px);
   z-index: 90;
   background: linear-gradient(180deg, #33251a, #241a12);
@@ -589,7 +615,7 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
   pointer-events: none;
   opacity: .9;
   max-width: 100vw;
-  max-height: 100vh;
+  max-height: var(--vvh);
 }
 .fx-scan {
   position: fixed;
@@ -664,8 +690,8 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
 /* ---------- 音乐台 ---------- */
 .music-dock {
   position: fixed;
-  left: 18px;
-  bottom: 18px;
+  left: calc(18px + var(--sal));
+  bottom: calc(18px + var(--sab));
   z-index: 70;
   display: flex;
   align-items: center;
@@ -1042,3 +1068,115 @@ body[data-scene="hall"] { --broth: #d9a05c; --broth-2: #f0cf9e; }
   .bg-img { transition: none; }
   .scene-fade { display: none; }
 }
+
+/* ============================================================
+ *  双端适配层（v13）
+ *  桌面 / 平板 / 手机 / 横屏手机，键鼠与触屏两种输入都照顾到
+ * ============================================================ */
+
+@supports (height: 100dvh) {
+  :root { --vvh: 100dvh; }
+}
+
+/* ---------- 触屏点击热区：手机 / 平板一律 ≥44px ---------- */
+@media (pointer: coarse) {
+  .btn { min-height: var(--tap); }
+  .chip { min-height: 36px; padding: 6px 12px; }
+  .dock-btn { width: var(--tap); height: var(--tap); }
+  .dock-vol { height: 8px; }
+  .dock-vol::-webkit-slider-thumb { width: 18px; height: 18px; }
+  .dock-vol::-moz-range-thumb { width: 18px; height: 18px; }
+  .ai-link { min-height: 32px; padding: 6px 12px; }
+  .pz-card { padding: 12px 13px; }
+}
+
+@media (max-width: 860px) {
+  .btn { min-height: var(--tap); }
+  .chip { min-height: 34px; padding: 6px 12px; }
+  .ai-link { min-height: 32px; }
+  .dock-btn { width: var(--tap); height: var(--tap); }
+  .dock-vol { height: 8px; }
+  .dock-vol::-webkit-slider-thumb { width: 18px; height: 18px; }
+  .dock-vol::-moz-range-thumb { width: 18px; height: 18px; }
+  /* 输入框字号 <16px 时 iOS 会自动放大整页，横竖屏切完布局就乱 */
+  .input, #guess-input, #ai-provider { font-size: 16px; }
+  .log, .puzzle-list, .clue-list, .modal { overscroll-behavior: contain; }
+}
+
+/* ---------- 触屏设备：去掉悬停位移，避免「点完还飘着」 ---------- */
+@media (hover: none) {
+  .btn:hover { transform: none; }
+  .btn:hover::after { transform: translateX(-130%); }
+  .pz-card:hover { transform: none; }
+  .dock-btn:hover { transform: none; }
+  .stat:hover { box-shadow: none; }
+}
+
+/* ---------- 横屏手机 / 矮视口：先保证竖向空间 ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+  .topbar { padding-top: calc(10px + var(--sat)); padding-bottom: 8px; }
+  .layout { padding-bottom: calc(18px + var(--sab)); }
+  .intro { padding: 12px 10px 10px; }
+  .pot { font-size: 40px; }
+  .intro h2 { font-size: 20px; margin: 6px 0; }
+  .intro-lead { font-size: 13.5px; margin-bottom: 12px; }
+  .rules { font-size: 12.5px; margin-bottom: 12px; }
+  .log { height: min(38vh, 240px); height: min(38dvh, 240px); }
+  .modal { max-height: 94vh; max-height: 94dvh; }
+  .rand { padding: 12px 8px 10px; }
+  .rand h2 { font-size: 20px; margin: 6px 0; }
+  .stars { font-size: 26px; }
+}
+
+/* ---------- 小屏弹窗：给内容让出更多空间 ---------- */
+@media (max-width: 420px) {
+  .modal-wrap { padding: calc(10px + var(--sat)) calc(10px + var(--sar)) calc(10px + var(--sab)) calc(10px + var(--sal)); }
+  .modal { padding: 16px 15px 14px; border-radius: 16px; }
+  .modal-actions { gap: 8px; }
+}
+
+/* ---------- 弹窗打开 / 键盘弹出：收起浮动音乐台 ---------- */
+body.modal-open .music-dock,
+body.kb-open .music-dock { display: none; }
+
+@media (max-width: 860px) {
+  body.kb-open .log { height: 26vh; height: 26dvh; min-height: 96px; }
+}
+
+/* ---------- 触屏手感：去掉双击缩放延迟与点击高亮 ---------- */
+.btn, .chip, .pz-card, .dock-btn, .ai-link { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* ---------- 长文本断行：手机端不被长串英文 / 网址撑出横向滚动 ---------- */
+.surface-text, .say, .truth-box, .clue, .tip, .modal-sub, .pz-title, .pz-meta,
+.ai-note, .rand-pool, .rules li, .end-note, .guess-feedback, .ai-bar, .ai-k {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.surface-text, .say, .truth-box, .ai-note, .modal-sub, .guess-feedback, .ai-bar {
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 滚动区：手指滑得动（老 iOS 惯性滚动） ---------- */
+.log, .puzzle-list, .clue-list, .modal {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- 平板 / 窄桌面 861–1024px：左侧汤单收窄，线索板限高 ---------- */
+@media (max-width: 1024px) and (min-width: 861px) {
+  .layout { grid-template-columns: 232px minmax(0, 1fr); }
+  .clue-list { max-height: min(34vh, 320px); max-height: min(34dvh, 320px); }
+}
+
+/* ---------- 极窄屏 ≤360px：不让任何一行硬撑 ---------- */
+@media (max-width: 360px) {
+  .topbar { padding-left: calc(10px + var(--sal)); padding-right: calc(10px + var(--sar)); }
+  .layout { padding-left: calc(10px + var(--sal)); padding-right: calc(10px + var(--sar)); }
+  .top-actions .btn { font-size: 12px; padding: 8px 9px; }
+  .brand-txt p { font-size: 10.5px; letter-spacing: .1em; }
+  .stat { font-size: 11.5px; padding: 6px 8px; gap: 6px; }
+  .stat-k { font-size: 11px; }
+  .pz-card { padding: 10px 11px; }
+  .music-dock { padding: 6px 8px; gap: 6px; }
+  .dock-mid { min-width: 64px; }
+}
+
