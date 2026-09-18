@@ -35,7 +35,7 @@
     { id: "siliconflow", label: "硅基流动", kind: "openai", baseUrl: "https://api.siliconflow.cn/v1", model: "Qwen/Qwen2.5-7B-Instruct", note: "聚合站，模型名要写全" },
     { id: "openai", label: "OpenAI", kind: "openai", baseUrl: "https://api.openai.com/v1", model: "gpt-4o-mini", note: "官方接口对浏览器直连不友好，建议自建代理" },
     { id: "anthropic", label: "Anthropic Claude", kind: "anthropic", baseUrl: "https://api.anthropic.com/v1", model: "claude-3-5-haiku-latest", note: "已带上浏览器直连所需的请求头" },
-    { id: "tokenrhythm", label: "TokenRhythm（本地代理）", kind: "openai", baseUrl: "http://127.0.0.1:8787/v1", model: "deepseek-flash", note: "额度站不支持浏览器跨域：先双击 _proxy/start-proxy.bat 开桥，再回来保存。Key 在它官网 API 设置页创建" },
+    { id: "tokenrhythm", label: "TokenRhythm（本地代理）", kind: "openai", baseUrl: "http://127.0.0.1:8787/v1", model: "deepseek-v4-flash", note: "额度站不支持浏览器跨域：先双击 _proxy/start-proxy.bat 开桥，再回来保存。若报 401 未认证，去官网用户中心重建 Key（仅完整显示一次）" },
     { id: "custom", label: "自定义（OpenAI 兼容）", kind: "openai", baseUrl: "", model: "", note: "填自己的代理地址，注意服务端要允许 CORS" }
   ];
 
