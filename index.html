@@ -42,6 +42,7 @@
     <button type="button" class="btn ghost" id="btn-daily">今日汤</button>
     <button type="button" class="btn ghost" id="btn-random">随机一题</button>
     <button type="button" class="btn ghost" id="btn-random-mode">🎲 随机模式</button>
+    <button type="button" class="btn ghost" id="btn-ai" aria-pressed="false">🤖 AI 汤主</button>
     <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
     <button type="button" class="btn ghost" id="btn-play" aria-pressed="true">⏸ 暂停</button>
     <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
@@ -76,6 +77,7 @@
           <li><b>3.</b> 提问越少、提示用得越少，星级越高。汤底可以重熬，存档自动保存。</li>
           <li><b>4.</b> 带 <span class="orig-badge">翔太原创</span> 标记的，是汤屋自己新熬的汤，别处喝不到。</li>
           <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗，不会连着抽到同一锅。</li>
+          <li><b>6.</b> 嫌关键词太死板？点顶上的 <b>🤖 AI 汤主</b> 填上自己的模型 Key，汤主就换成大模型来听懂你的话——它读过汤面汤底，也绝不会把答案漏给你。</li>
         </ul>
         <div class="intro-actions">
           <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
@@ -98,6 +100,12 @@
         <p class="surface-text" id="p-surface"></p>
       </div>
 
+      <p class="ai-bar" id="ai-bar">
+        <span class="ai-dot" id="ai-dot" aria-hidden="true"></span>
+        <span id="ai-bar-text">关键词汤主在值班</span>
+        <button type="button" class="ai-link" id="btn-ai-bar">换成 AI 汤主</button>
+      </p>
+
       <div class="stats">
         <div class="stat"><span class="stat-k">提问</span><b id="s-q">0</b></div>
         <div class="stat"><span class="stat-k">线索</span><b id="s-clue">0/0</b></div>
@@ -115,6 +123,7 @@
         <input id="q-input" class="input" type="text" placeholder="向汤主提问，例如：他认识死者吗？" autocomplete="off" />
         <button type="button" class="btn primary" id="btn-ask">提问</button>
         <button type="button" class="btn ghost" id="btn-hint">要提示</button>
+        <button type="button" class="btn ghost" id="btn-ai-quick" title="让 AI 汤主替你补一句方向">🤖 问问 AI</button>
         <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
       </div>
     </div>
@@ -190,6 +199,49 @@
   </div>
 </div>
 
+<div class="modal-wrap hidden" id="modal-ai">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ai-title">
+    <h3 id="ai-title">AI 汤主 · 接入你自己的模型</h3>
+    <p class="modal-sub">填好以后，每一题都会把<b>汤面 + 汤底</b>交给模型，让它真的听懂你的问题，而不是死板地撞关键词。配置只存在你自己的浏览器里，不会上传到任何地方。</p>
+
+    <label class="ai-field">
+      <span class="ai-k">服务商</span>
+      <select id="ai-provider"></select>
+    </label>
+    <p class="ai-note" id="ai-provider-note"></p>
+
+    <label class="ai-field">
+      <span class="ai-k">接口地址</span>
+      <input type="text" id="ai-baseurl" class="input" placeholder="https://api.deepseek.com/v1" autocomplete="off" />
+    </label>
+
+    <label class="ai-field">
+      <span class="ai-k">模型</span>
+      <input type="text" id="ai-model" class="input" placeholder="deepseek-chat" autocomplete="off" />
+    </label>
+
+    <label class="ai-field">
+      <span class="ai-k">API Key</span>
+      <input type="password" id="ai-key" class="input" placeholder="sk-..." autocomplete="off" />
+    </label>
+
+    <div class="ai-row">
+      <button type="button" class="chip" id="ai-enabled" aria-pressed="false">启用 AI 汤主</button>
+      <button type="button" class="chip" id="ai-reveal" aria-pressed="false">显示 Key</button>
+    </div>
+
+    <p class="ai-note" id="ai-status">未启用，正在用关键词汤主。</p>
+    <p class="ai-note ai-warn" id="ai-warn"></p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-ai-test">测试连接</button>
+      <button type="button" class="btn ghost" id="btn-ai-clear">清空配置</button>
+      <button type="button" class="btn ghost" id="btn-ai-cancel">取消</button>
+      <button type="button" class="btn primary" id="btn-ai-save">保存并启用</button>
+    </div>
+  </div>
+</div>
+
 <div class="music-dock" id="music-dock" role="group" aria-label="音乐控制">
   <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
   <div class="dock-mid">
@@ -203,6 +255,7 @@
 
 <script src="js/data.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/ai.js"></script>
 <script src="js/audio.js"></script>
 <script src="js/fx.js"></script>
 <script src="js/app.js"></script>

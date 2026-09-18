@@ -35,6 +35,10 @@
     randDiff: 0,
     randUnsolved: true,
     recent: [],
+    history: [],
+    aiBusy: false,
+    history: [],
+    aiBusy: false,
     sound: true,
     music: true,
     playing: true,
@@ -353,6 +357,8 @@
       state.hintsUsed = 0;
       state.qCount = 0;
       state.done = false;
+      state.history = [];
+      state.aiBusy = false;
 
       $("#screen-intro").classList.add("hidden");
       var rs = $("#screen-random");
@@ -383,7 +389,10 @@
       renderClues();
       renderStats();
       renderList();
-      renderTip("随便问点什么吧。关键词越准，汤主掀开的那一层越厚。");
+      renderTip(aiOn()
+        ? "AI 汤主已经读过这一锅的汤面汤底，用你自己的话问就好。"
+        : "随便问点什么吧。关键词越准，汤主掀开的那一层越厚。");
+      paintAiBar();
 
       var input = $("#q-input");
       if (input) { input.value = ""; if (window.innerWidth > 860) input.focus(); }
@@ -445,8 +454,30 @@
 
     var res = E.ask(p, raw, state.revealed);
 
+    if (aiOn() && res.kind !== "meta") {
+      /* AI 模式：认领哪条线索由模型理解后决定（用自己的话也能挖到线索）；
+         它认不出来时才退回关键词的判定，保证进度不会白费 */
+      askAi(p, raw, res);
+    } else {
+      pushReveal(res);
+      renderKeywordAnswer(res);
+    }
+
+    input.value = "";
+    renderStats();
+    renderTip(aiOn()
+      ? "AI 汤主的小提醒：不用凑关键词，把「为什么」「是不是有人」「那是什么」串成一句人话问它。"
+      : "汤主的小提醒：把「为什么」「是不是有人」「那是什么」串起来问，比只问一个词有效得多。");
+  }
+
+  /* 线索板记账：AI 模式下提前记，关键词模式由 renderKeywordAnswer 顺手记 */
+  function pushReveal(res) {
+    if (res.kind === "clue" && state.revealed.indexOf(res.index) === -1) state.revealed.push(res.index);
+  }
+
+  /* 关键词汤主的原始答话：没配 AI 时走这里，AI 掉线时也回退到这里 */
+  function renderKeywordAnswer(res, alreadyBooked) {
     if (res.kind === "clue") {
-      state.revealed.push(res.index);
       var tone = res.verdict;
       var line = addLine("host", tone,
         (res.flavor ? esc(res.flavor) + "<br />" : "") +
@@ -461,8 +492,10 @@
               : ["#e8c45c", "#ffe9c4", "#e2a44f"]
         });
       }
-      renderClues();
-      toast("挖到新线索：" + (E.stripLead(res.clue.text).slice(0, 14)) + "…");
+      if (!alreadyBooked) {
+        renderClues();
+        toast("挖到新线索：" + (E.stripLead(res.clue.text).slice(0, 14)) + "…");
+      }
     } else if (res.kind === "again") {
       addLine("host", "sys", esc("这条线索你已经挖到过了：") + esc(res.reply));
     } else if (res.kind === "meta") {
@@ -475,10 +508,310 @@
       sfx("irr");
       if (FX && l2) FX.burstAt(l2, { count: 8, power: 0.5, colors: ["#8b8177", "#6f6459"] });
     }
+  }
 
-    input.value = "";
+  /* ---------------- AI 汤主 ---------------- */
+
+  var AI = window.SoupAI;
+
+  function aiOn() {
+    return !!(AI && AI.isReady());
+  }
+
+  function paintAiBar(note, tone) {
+    var bar = $("#ai-bar");
+    var txt = $("#ai-bar-text");
+    var link = $("#btn-ai-bar");
+    var btn = $("#btn-ai");
+    if (!bar || !txt) return;
+    var on = aiOn();
+    bar.classList.toggle("on", on);
+    /* 警示与「是否启用」是两件事：AI 开着但这一句掉线了，也要提醒 */
+    bar.classList.toggle("warn", !!note && /warn/.test(String(tone || "")));
+    if (note) txt.textContent = note;
+    else txt.textContent = on ? ("AI 汤主在值班 · " + AI.config().model) : "关键词汤主在值班";
+    txt.className = note && tone ? tone : "";
+    if (link) link.textContent = on ? "调整 AI 设置" : "换成 AI 汤主";
+    if (btn) {
+      btn.textContent = on ? "🤖 AI 汤主 · 开" : "🤖 AI 汤主";
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+  }
+
+  /* 把已挖到的线索原文整理给模型，避免它和线索板打架 */
+  function revealedTexts(p) {
+    return state.revealed.slice().sort(function (a, b) { return a - b; }).map(function (i) {
+      return (i + 1) + ". " + E.stripLead(p.clues[i].text);
+    });
+  }
+
+  /* AI 认领线索 → 入账（返回是否真的新增了一条） */
+  function claimClue(p, n) {
+    var idx = parseInt(n, 10);
+    if (!isFinite(idx) || idx <= 0 || idx > p.clues.length) return false;
+    idx -= 1;
+    if (state.revealed.indexOf(idx) !== -1) return false;
+    state.revealed.push(idx);
+    renderClues();
     renderStats();
-    renderTip("汤主的小提醒：把「为什么」「是不是有人」「那是什么」串起来问，比只问一个词有效得多。");
+    toast("挖到新线索：" + E.stripLead(p.clues[idx].text).slice(0, 14) + "…");
+    return true;
+  }
+
+  function askAi(p, raw, res) {
+    if (state.aiBusy) { addLine("host", "sys", esc("汤主还在想上一句，稍等一下下。")); return; }
+    state.aiBusy = true;
+
+    var line = addLine("host", "pending", '<b class="verdict irr">…</b> 汤主正在琢磨这句话', "AI");
+    var ctx = {
+      revealed: revealedTexts(p),
+      taken: state.revealed.map(function (i) { return i + 1; }),
+      history: state.history.slice(-6)
+    };
+    if (res.kind === "clue") ctx.hintClue = { n: res.index + 1, type: res.verdict, text: E.stripLead(res.clue.text) };
+    else if (res.kind === "again") ctx.hintClue = { n: res.index + 1, type: res.verdict, text: E.stripLead(res.reply) };
+
+    var asked = raw;
+    var fallback = res;
+
+    AI.ask(p, asked, ctx).then(function (out) {
+      state.aiBusy = false;
+      if (line && line.parentNode) line.parentNode.removeChild(line);
+      if (state.pid !== p.id || state.done) return;
+      state.history.push({ q: asked, a: out.reply });
+      var tone = out.verdict;
+      var got = claimClue(p, out.clue);
+      /* 模型没认领（clue=0）、且判定与关键词一致时，用关键词结果保底入账 */
+      if (!got && out.clue === 0 && res.kind === "clue" && tone === res.verdict && state.revealed.indexOf(res.index) === -1) {
+        pushReveal(res);
+        renderClues();
+        renderStats();
+        toast("挖到新线索：" + E.stripLead(res.clue.text).slice(0, 14) + "…");
+      }
+      var el = addLine("host", tone,
+        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "线索") + "</b> " + esc(E.stripLead(out.reply)),
+        "AI · " + esc(out.model || ""));
+      sfx(tone === "partial" ? "partial" : tone);
+      if (FX && el) {
+        FX.burstAt(el, {
+          count: tone === "yes" ? 26 : 14,
+          colors: tone === "yes" ? ["#68cf9a", "#a8ecc6", "#f6cf90"]
+            : tone === "no" ? ["#e0705e", "#ffb3a3", "#e2a44f"]
+              : ["#e8c45c", "#ffe9c4", "#e2a44f"]
+        });
+      }
+      /* 线索板与 AI 判定不一致时，以题库为准，并且不把新线索算给玩家 */
+      if (res.kind === "clue" && tone !== res.verdict && state.revealed.indexOf(res.index) !== -1 && out.clue === 0) {
+        state.revealed = state.revealed.filter(function (x) { return x !== res.index; });
+        renderClues();
+        renderStats();
+      }
+      paintAiBar();
+    }, function (err) {
+      state.aiBusy = false;
+      if (line && line.parentNode) line.parentNode.removeChild(line);
+      if (state.pid !== p.id) return;
+      var why = AI.describeError(err);
+      paintAiBar("AI 没接上（" + why + "），这一句由关键词汤主来答。", "ai-warn");
+      var had = res.kind === "clue" && state.revealed.indexOf(res.index) === -1;
+      pushReveal(fallback);
+      renderKeywordAnswer(fallback, true);
+      if (had) renderClues();
+      renderStats();
+      toast("AI 掉线了：" + why);
+    });
+  }
+
+  /* 「问问 AI」：让模型基于已挖线索补一句方向 */
+  function askAiHint() {
+    var p = E.getPuzzle(state.pid);
+    if (!p || state.done) return;
+    if (!aiOn()) { toast("先点上方的 🤖 AI 汤主 配好模型，才能问它"); openAiModal(); return; }
+    if (state.hintsUsed >= p.hints.length) { toast("提示已经全给你了，接下来靠自己啦"); return; }
+    var text = p.hints[state.hintsUsed];
+    state.hintsUsed++;
+    addLine("host", "hint", "<b>提示 " + state.hintsUsed + "</b> · " + esc(text), "提示 -1 星");
+    renderStats();
+    sfx("hint");
+    if (!aiOn()) return;
+    AI.ask(p, "我有点卡住了，能不能给我一点方向？只要一句，别告诉我答案。", {
+      revealed: revealedTexts(p),
+      history: state.history.slice(-6)
+    }).then(function (out) {
+      addLine("host", "hint", '<b>AI 汤主</b> · ' + esc(E.stripLead(out.reply)), "AI · 方向");
+      sfx("hint");
+    }, function () { /* 掉线就只用题库提示，不打扰玩家 */ });
+  }
+
+  /* ---------------- AI 设置面板 ---------------- */
+
+  function paintAiModal(status, tone) {
+    if (!AI) return;
+    fillProviderOptions();
+    var cfg = AI.config();
+    var sel = $("#ai-provider");
+    if (sel && !sel.options.length) {
+      sel.innerHTML = AI.PROVIDERS.map(function (p) {
+        return '<option value="' + esc(p.id) + '">' + esc(p.label) + "</option>";
+      }).join("");
+    }
+    if (sel) sel.value = cfg.provider;
+    var pre = AI.providerOf(cfg.provider);
+    var note = $("#ai-provider-note");
+    if (note) note.textContent = pre.note || "";
+    var bu = $("#ai-baseurl");
+    if (bu && document.activeElement !== bu) bu.value = cfg.baseUrl;
+    var md = $("#ai-model");
+    if (md && document.activeElement !== md) md.value = cfg.model;
+    var kk = $("#ai-key");
+    if (kk && document.activeElement !== kk) kk.value = cfg.apiKey;
+    var en = $("#ai-enabled");
+    if (en) {
+      en.classList.toggle("on", cfg.enabled);
+      en.setAttribute("aria-pressed", cfg.enabled ? "true" : "false");
+      en.textContent = cfg.enabled ? "已启用 AI 汤主" : "启用 AI 汤主";
+    }
+    var st = $("#ai-status");
+    if (st) {
+      st.className = "ai-note" + (tone ? " " + tone : "");
+      st.textContent = status || (AI.isReady(cfg)
+        ? "已就绪 · " + pre.label + " / " + cfg.model + " · Key " + AI.maskKey(cfg.apiKey)
+        : "还没填全（需要接口地址、模型和 Key 三样）。");
+    }
+  }
+
+  /* 服务商下拉：一进页面就填好，不用等打开面板 */
+  function fillProviderOptions() {
+    var sel = $("#ai-provider");
+    if (!sel || !AI || sel.options.length) return;
+    sel.innerHTML = AI.PROVIDERS.map(function (p) {
+      return '<option value="' + esc(p.id) + '">' + esc(p.label) + "</option>";
+    }).join("");
+  }
+
+  function openAiModal() {
+    paintAiModal();
+    var warn = $("#ai-warn");
+    if (warn) warn.textContent = "";
+    openModal("#modal-ai", "#ai-provider");
+    sfx("ui");
+  }
+
+  function readAiForm() {
+    var sel = $("#ai-provider");
+    var bu = $("#ai-baseurl");
+    var md = $("#ai-model");
+    var kk = $("#ai-key");
+    return {
+      provider: sel ? sel.value : "deepseek",
+      baseUrl: bu ? bu.value.trim() : "",
+      model: md ? md.value.trim() : "",
+      apiKey: kk ? kk.value.trim() : ""
+    };
+  }
+
+  function saveAiForm(forceOn) {
+    var patch = readAiForm();
+    if (typeof forceOn === "boolean") patch.enabled = forceOn;
+    var cfg = AI.setConfig(patch);
+    paintAiModal();
+    paintAiBar();
+    return cfg;
+  }
+
+  function testAi() {
+    var st = $("#ai-status");
+    var patch = readAiForm();
+    patch.enabled = true;
+    AI.setConfig(patch);
+    if (st) { st.className = "ai-note"; st.textContent = "正在连接 " + patch.model + " …"; }
+    AI.test().then(function (r) {
+      paintAiModal(r.message, r.ok ? "ai-ok" : "ai-bad");
+      paintAiBar();
+      if (r.ok) sfx("yes"); else sfx("lose");
+    });
+  }
+
+  function clearAi() {
+    AI.save(AI.defaults());
+    paintAiModal("配置已清空，回到关键词汤主。", "");
+    paintAiBar();
+    toast("AI 配置已清空");
+  }
+
+  function bindAiModal() {
+    if (!AI) return;
+
+    /* 配置一变（含外部直接 save）就刷新状态条，避免界面和实际不一致 */
+    AI.onChange(function () {
+      paintAiBar();
+    });
+    fillProviderOptions();
+
+    var sel = $("#ai-provider");
+    if (sel) sel.addEventListener("change", function () {
+      var pre = AI.providerOf(sel.value);
+      var bu = $("#ai-baseurl");
+      var md = $("#ai-model");
+      if (bu) bu.value = pre.baseUrl;
+      if (md) md.value = pre.model;
+      /* 立刻落盘，否则后面的回填会把刚切好的地址又改回旧服务商 */
+      AI.setConfig({ provider: sel.value, baseUrl: pre.baseUrl, model: pre.model });
+      paintAiModal("已切到 " + pre.label + "，地址和模型已自动填好。", "");
+      sfx("ui");
+    });
+
+    var en = $("#ai-enabled");
+    if (en) en.addEventListener("click", function () {
+      var on = en.getAttribute("aria-pressed") !== "true";
+      saveAiForm(on);
+      paintAiModal(on ? "已启用。记得填全三样再保存。" : "已关闭，回到关键词汤主。", "");
+      sfx("ui");
+    });
+
+    var rev = $("#ai-reveal");
+    if (rev) rev.addEventListener("click", function () {
+      var kk = $("#ai-key");
+      var show = rev.getAttribute("aria-pressed") !== "true";
+      if (kk) kk.type = show ? "text" : "password";
+      rev.setAttribute("aria-pressed", show ? "true" : "false");
+      rev.classList.toggle("on", show);
+      rev.textContent = show ? "隐藏 Key" : "显示 Key";
+      sfx("ui");
+    });
+
+    var testBtn = $("#btn-ai-test");
+    if (testBtn) testBtn.addEventListener("click", testAi);
+
+    var clearBtn = $("#btn-ai-clear");
+    if (clearBtn) clearBtn.addEventListener("click", clearAi);
+
+    var cancel = $("#btn-ai-cancel");
+    if (cancel) cancel.addEventListener("click", function () { closeModal("#modal-ai"); });
+
+    var saveBtn = $("#btn-ai-save");
+    if (saveBtn) saveBtn.addEventListener("click", function () {
+      var cfg = saveAiForm(true);
+      if (!AI.isReady(cfg)) {
+        paintAiModal("还差一点：接口地址、模型、Key 都要填。", "ai-bad");
+        sfx("lose");
+        return;
+      }
+      paintAiModal("已保存并启用 · " + cfg.model, "ai-ok");
+      paintAiBar();
+      sfx("yes");
+      toast("AI 汤主已上线");
+      closeModal("#modal-ai");
+    });
+
+    var entry = $("#btn-ai");
+    if (entry) entry.addEventListener("click", openAiModal);
+
+    var barLink = $("#btn-ai-bar");
+    if (barLink) barLink.addEventListener("click", openAiModal);
+
+    var quick = $("#btn-ai-quick");
+    if (quick) quick.addEventListener("click", askAiHint);
   }
 
   function useHint() {
@@ -534,6 +867,52 @@
     state.qCount++;
 
     var j = E.judgeGuess(p, text);
+
+    if (aiOn()) {
+      /* 关键词判定先给个底线，AI 回来后再用更准的结论覆盖 */
+      var pend = addLine("host", "pending", '<b class="verdict irr">…</b> 汤主正在读你的推理', "AI");
+      var first = true;
+      var book = function (lvl, note) {
+        fb.textContent = note;
+        fb.className = "guess-feedback " + (lvl === "solved" ? "ok" : (lvl === "close" || lvl === "vague") ? "close" : "no");
+      };
+      book(j.level, j.note);
+
+      AI.judgeGuess(p, text).then(function (out) {
+        if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+        if (state.pid !== p.id || state.done) return;
+        first = false;
+        book(out.level, out.note);
+        state.history.push({ q: "【推理】" + text, a: out.note });
+        if (out.level === "solved") {
+          var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(out.note), "AI 判定");
+          sfx("win");
+          if (FX) {
+            if (ln) FX.burstAt(ln, { count: 40, power: 1.3, colors: ["#e2a44f", "#f6cf90", "#68cf9a", "#ffe9c4"] });
+            FX.burst(window.innerWidth / 2, window.innerHeight * 0.34, { count: 70, power: 1.7 });
+          }
+          setTimeout(function () { finish(); }, 520);
+        } else {
+          addLine("host", out.level === "close" ? "partial" : "irr", esc(out.note), "AI 判定");
+          sfx(out.level === "close" ? "partial" : "lose");
+          renderStats();
+        }
+        paintAiBar();
+      }, function (err) {
+        if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+        if (state.pid !== p.id || state.done) return;
+        var why = AI.describeError(err);
+        paintAiBar("AI 没接上（" + why + "），这一回由关键词汤主判定。", "ai-warn");
+        toast("AI 掉线了：" + why);
+        if (first) {
+          /* 上面的底线已经写过反馈了，这里只需要补一行对话 */
+          if (j.level === "solved") { addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(j.note)); sfx("win"); setTimeout(function () { finish(); }, 520); }
+          else { addLine("host", j.level === "close" ? "partial" : "irr", esc(j.note)); sfx(j.level === "close" ? "partial" : "lose"); renderStats(); }
+        }
+      });
+      return;
+    }
+
     fb.textContent = j.note;
     fb.className = "guess-feedback " + (j.level === "solved" ? "ok" : j.level === "close" ? "close" : "no");
 
@@ -824,6 +1203,8 @@
     var hintBtn = $("#btn-hint");
     if (hintBtn) hintBtn.addEventListener("click", useHint);
 
+    bindAiModal();
+
     var guessBtn = $("#btn-guess");
     if (guessBtn) guessBtn.addEventListener("click", openGuess);
 
@@ -852,6 +1233,7 @@
         if (ev.target === wrap) {
           if (wrap.id === "modal-guess") closeModal("#modal-guess");
           else if (wrap.id === "modal-end") closeModal("#modal-end");
+          else if (wrap.id === "modal-ai") closeModal("#modal-ai");
         }
       });
     });
@@ -867,6 +1249,7 @@
         var last = open[open.length - 1];
         if (last.id === "modal-guess") closeModal("#modal-guess");
         else if (last.id === "modal-end") closeModal("#modal-end");
+        else if (last.id === "modal-ai") closeModal("#modal-ai");
       }
     });
 
@@ -935,6 +1318,7 @@
     renderCatFilters();
     renderList();
     renderRandom();
+    paintAiBar();
     bind();
     setScene("menu");
 
