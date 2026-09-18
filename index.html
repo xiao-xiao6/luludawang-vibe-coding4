@@ -9,11 +9,26 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='88'%3E%F0%9F%8D%B2%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-scene="menu">
 
+<!-- ===== 背景图堆栈（雨夜古堡） ===== -->
+<div class="bg-stack" aria-hidden="true">
+  <div class="bg-img" id="bg-a"></div>
+  <div class="bg-img" id="bg-b"></div>
+  <div class="bg-fog"></div>
+  <div class="bg-vignette"></div>
+</div>
+
+<!-- ===== 蒸汽层 ===== -->
 <div class="steam-field" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
+
+<!-- ===== 特效层 ===== -->
+<canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+<div class="fx-scan" aria-hidden="true"></div>
+<div id="fx-flash" class="fx-flash" aria-hidden="true"></div>
+<div class="scene-fade" id="scene-fade" aria-hidden="true"></div>
 
 <header class="topbar">
   <div class="brand">
@@ -26,6 +41,9 @@
   <div class="top-actions">
     <button type="button" class="btn ghost" id="btn-daily">今日汤</button>
     <button type="button" class="btn ghost" id="btn-random">随机一题</button>
+    <button type="button" class="btn ghost" id="btn-random-mode">🎲 随机模式</button>
+    <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
+    <button type="button" class="btn ghost" id="btn-play" aria-pressed="true">⏸ 暂停</button>
     <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
     <button type="button" class="btn ghost danger" id="btn-wipe">清空存档</button>
   </div>
@@ -40,6 +58,7 @@
         <span class="badge" id="count-solved">0/0</span>
       </div>
       <div class="chips" id="filters" role="group" aria-label="按标签筛选"></div>
+      <div class="chips cats" id="cat-filters" role="group" aria-label="按题材筛选"></div>
       <div class="puzzle-list" id="puzzle-list" role="list"></div>
     </div>
   </aside>
@@ -55,6 +74,8 @@
           <li><b>1.</b> 用提问一点点逼近真相，挖到的线索会留在右边的线索板。</li>
           <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
           <li><b>3.</b> 提问越少、提示用得越少，星级越高。汤底可以重熬，存档自动保存。</li>
+          <li><b>4.</b> 带 <span class="orig-badge">翔太原创</span> 标记的，是汤屋自己新熬的汤，别处喝不到。</li>
+          <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗，不会连着抽到同一锅。</li>
         </ul>
         <div class="intro-actions">
           <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
@@ -68,7 +89,9 @@
         <div class="surface-head">
           <h2 id="p-title">—</h2>
           <div class="meta">
+            <span class="orig-badge hidden" id="p-orig">翔太原创</span>
             <span class="tag" id="p-tag"></span>
+            <span class="cats-inline" id="p-cats"></span>
             <span class="diff" id="p-diff"></span>
           </div>
         </div>
@@ -93,6 +116,30 @@
         <button type="button" class="btn primary" id="btn-ask">提问</button>
         <button type="button" class="btn ghost" id="btn-hint">要提示</button>
         <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-random">
+      <div class="rand">
+        <div class="pot" aria-hidden="true">🎲</div>
+        <h2>随机抽题</h2>
+        <p class="intro-lead">挑好题材和火候，让汤主随手给你舀一碗。<br />同一道汤不会连着抽到两次。</p>
+        <div class="rand-row" role="group" aria-label="按难度抽取">
+          <span class="rand-label">火候</span>
+          <div class="chips" id="rand-diff"></div>
+        </div>
+        <div class="rand-row" role="group" aria-label="按题材抽取">
+          <span class="rand-label">题材</span>
+          <div class="chips" id="rand-cats"></div>
+        </div>
+        <div class="rand-row">
+          <button type="button" class="chip" id="rand-unsolved" aria-pressed="true">只抽还没熬过的</button>
+        </div>
+        <p class="rand-pool" id="rand-pool">0 道可选</p>
+        <div class="rand-actions">
+          <button type="button" class="btn primary" id="btn-rand-go">抽一锅</button>
+          <button type="button" class="btn ghost" id="btn-rand-back">回汤单</button>
+        </div>
       </div>
     </div>
 
@@ -143,10 +190,21 @@
   </div>
 </div>
 
+<div class="music-dock" id="music-dock" role="group" aria-label="音乐控制">
+  <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
+  <div class="dock-mid">
+    <span class="dock-label" id="dock-track">雨夜古堡</span>
+    <input type="range" class="dock-vol" id="vol" min="0" max="100" value="60" aria-label="音量" />
+  </div>
+  <button type="button" class="dock-btn" id="dock-mute" aria-pressed="true" title="音乐开 / 关">🔊</button>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/data.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/fx.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

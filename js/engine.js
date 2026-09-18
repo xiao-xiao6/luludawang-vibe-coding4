@@ -197,6 +197,69 @@
     return list[Math.floor(Math.random() * list.length)] || null;
   }
 
+  /* ---------------- 细分类：题材标签 ---------------- */
+
+  /* 题库里出现过的全部题材标签（按首次出现顺序，稳定可测） */
+  function allCats(list) {
+    var src = list || root.PUZZLES || [];
+    var out = [];
+    for (var i = 0; i < src.length; i++) {
+      var cs = src[i].cats || [];
+      for (var j = 0; j < cs.length; j++) {
+        if (cs[j] && out.indexOf(cs[j]) === -1) out.push(cs[j]);
+      }
+    }
+    return out;
+  }
+
+  function catsOf(p) {
+    return (p && p.cats) || [];
+  }
+
+  function hasCat(p, cat) {
+    if (!cat || cat === "全部") return true;
+    return catsOf(p).indexOf(cat) !== -1;
+  }
+
+  /* 按条件筛出候选池
+   * opts: { cat, difficulty(0/空=全部), unsolvedOnly, solvedMap, excludeIds } */
+  function pool(opts) {
+    var o = opts || {};
+    var ex = o.excludeIds || [];
+    return (root.PUZZLES || []).filter(function (p) {
+      if (!hasCat(p, o.cat)) return false;
+      if (o.difficulty && p.difficulty !== o.difficulty) return false;
+      if (o.unsolvedOnly && o.solvedMap && o.solvedMap[p.id] && o.solvedMap[p.id].solved) return false;
+      if (o.hardExclude && ex.indexOf(p.id) !== -1) return false;
+      return true;
+    });
+  }
+
+  /* 从池子里抽一题：优先避开 excludeIds；都抽过了就放宽，保证永远有得抽 */
+  function drawFrom(list, excludeIds) {
+    if (!list || !list.length) return null;
+    var ex = excludeIds || [];
+    var fresh = list.filter(function (p) { return ex.indexOf(p.id) === -1; });
+    var usable = fresh.length ? fresh : list;
+    return usable[Math.floor(Math.random() * usable.length)] || null;
+  }
+
+  /* 随机模式入口：按分类 / 难度 / 未解优先 抽一题 */
+  function randomFrom(opts, excludeIds) {
+    var o = opts || {};
+    var list = pool(o);
+    if (!list.length && o.unsolvedOnly) {
+      /* 该条件下已经全部熬完了：退化成同分类的无限随机 */
+      var relaxed = Object.assign({}, o, { unsolvedOnly: false });
+      list = pool(relaxed);
+    }
+    return drawFrom(list, excludeIds);
+  }
+
+  function poolSize(opts) {
+    return pool(opts).length;
+  }
+
   var api = {
     normalize: normalize,
     hit: hit,
@@ -209,6 +272,13 @@
     getPuzzle: getPuzzle,
     dailyPuzzle: dailyPuzzle,
     randomPuzzle: randomPuzzle,
+    allCats: allCats,
+    catsOf: catsOf,
+    hasCat: hasCat,
+    pool: pool,
+    drawFrom: drawFrom,
+    randomFrom: randomFrom,
+    poolSize: poolSize,
     VERDICT_LEAD: VERDICT_LEAD
   };
 

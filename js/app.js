@@ -5,10 +5,22 @@
 
 (function () {
   var E = window.SoupEngine;
+  var FX = window.SoupFx;
+  var AU = window.SoupAudio;
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
 
   var STORE_KEY = "deepsea_soup_v1";
+
+  /* 场景 → 背景图 / 特效场景 / 曲目 */
+  var BG = {
+    menu: "assets/bg-castle.jpg",
+    game: "assets/bg-hall.jpg",
+    hall: "assets/bg-hall.jpg",
+    win: "assets/bg-dawn.jpg",
+    sad: "assets/bg-gate.jpg"
+  };
+  var TRACK_OF = { menu: "menu", game: "game", hall: "game", win: "win", sad: "sad" };
 
   var state = {
     pid: null,
@@ -18,7 +30,15 @@
     qCount: 0,
     done: false,
     filter: "全部",
-    sound: true
+    cat: "全部",
+    randCat: "全部",
+    randDiff: 0,
+    randUnsolved: true,
+    recent: [],
+    sound: true,
+    music: true,
+    playing: true,
+    volume: 0.6
   };
 
   var progress = loadProgress();
@@ -31,12 +51,15 @@
       var obj = raw ? JSON.parse(raw) : {};
       if (obj && typeof obj === "object" && obj.puzzles) return obj;
     } catch (e) { /* 隐私模式等：忽略 */ }
-    return { puzzles: {}, sound: true };
+    return { puzzles: {}, sound: true, music: true, playing: true, volume: 0.6 };
   }
 
   function saveProgress() {
     try {
       progress.sound = state.sound;
+      progress.music = state.music;
+      progress.playing = state.playing;
+      progress.volume = state.volume;
       localStorage.setItem(STORE_KEY, JSON.stringify(progress));
     } catch (e) { /* 忽略 */ }
   }
@@ -61,34 +84,132 @@
 
   var VERDICT_TEXT = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
 
+  /* ---------------- 场景切换：背景 + 特效 + 音乐 ---------------- */
+
+  var bgTop = "a";
+  var bgCurrent = "";
+
+  function setBg(url) {
+    if (!url || url === bgCurrent) return;
+    bgCurrent = url;
+    var next = bgTop === "a" ? "b" : "a";
+    var show = document.getElementById("bg-" + next);
+    var hide = document.getElementById("bg-" + bgTop);
+    if (!show || !hide) return;
+    show.style.backgroundImage = 'url("' + url + '")';
+    show.classList.add("on");
+    hide.classList.remove("on");
+    bgTop = next;
+  }
+
+  function setScene(name) {
+    if (FX) FX.setScene(name);
+    setBg(BG[name] || BG.menu);
+    if (AU) AU.start(TRACK_OF[name] || "menu");
+  }
+
+  /* 转场：先瞬间盖上遮罩，立刻换内容，再淡出 —— 有转场感，但点击不延迟 */
+  function sceneWipe(cb) {
+    var f = $("#scene-fade");
+    if (!f || (FX && FX.reduced)) { cb(); return; }
+    f.style.transition = "none";
+    f.classList.add("on");
+    void f.offsetWidth;
+    cb();
+    f.style.transition = "";
+    setTimeout(function () { f.classList.remove("on"); }, 60);
+  }
+
   /* ---------------- 音效 ---------------- */
 
-  var audioCtx = null;
-  function beep(freq, dur, type) {
-    if (!state.sound) return;
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      if (!audioCtx) audioCtx = new AC();
-      var o = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      o.type = type || "sine";
-      o.frequency.value = freq;
-      g.gain.value = 0.05;
-      g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
-      o.connect(g).connect(audioCtx.destination);
-      o.start();
-      o.stop(audioCtx.currentTime + dur);
-    } catch (e) { /* 忽略 */ }
+  function sfx(name) {
+    if (!state.sound || !AU) return;
+    AU.sfx(name);
   }
-  var SFX = {
-    yes: function () { beep(660, 0.16); },
-    no: function () { beep(200, 0.2, "triangle"); },
-    partial: function () { beep(440, 0.16); },
-    irr: function () { beep(150, 0.14, "triangle"); },
-    win: function () { beep(523, 0.14); setTimeout(function () { beep(659, 0.14); }, 130); setTimeout(function () { beep(784, 0.22); }, 260); },
-    pick: function () { beep(320, 0.08); }
-  };
+
+  /* ---------------- 音乐台 ---------------- */
+
+  function paintMusic() {
+    var bm = $("#btn-music");
+    if (bm) {
+      bm.textContent = state.music ? "🎵 音乐" : "🎵 静音";
+      bm.setAttribute("aria-pressed", state.music ? "true" : "false");
+    }
+    var bp = $("#btn-play");
+    if (bp) {
+      bp.textContent = state.playing ? "⏸ 暂停" : "▶ 播放";
+      bp.setAttribute("aria-pressed", state.playing ? "true" : "false");
+    }
+    var dp = $("#dock-play");
+    if (dp) {
+      dp.textContent = state.playing ? "⏸" : "▶";
+      dp.setAttribute("aria-pressed", state.playing ? "true" : "false");
+    }
+    var dm = $("#dock-mute");
+    if (dm) {
+      dm.textContent = state.music ? "🔊" : "🔇";
+      dm.setAttribute("aria-pressed", state.music ? "true" : "false");
+    }
+    var v = $("#vol");
+    if (v && Number(v.value) !== Math.round(state.volume * 100)) v.value = String(Math.round(state.volume * 100));
+    var dock = $("#music-dock");
+    if (dock) dock.classList.toggle("dim", !state.music || !state.playing);
+  }
+
+  function applyAudioSettings() {
+    if (!AU) return;
+    AU.setVolume(state.volume);
+    AU.setMusicOn(state.music);
+    AU.setSfxOn(state.sound);
+    AU.setPlaying(state.playing);
+    paintMusic();
+  }
+
+  function toggleMusic() {
+    state.music = !state.music;
+    if (AU) { AU.setMusicOn(state.music); if (state.music) AU.setPlaying(state.playing); }
+    paintMusic();
+    saveProgress();
+    sfx("ui");
+    toast(state.music ? "音乐已打开" : "音乐已静音");
+  }
+
+  function togglePlay() {
+    state.playing = !state.playing;
+    if (AU) AU.setPlaying(state.playing);
+    paintMusic();
+    saveProgress();
+    sfx("ui");
+    toast(state.playing ? "音乐继续" : "音乐已暂停（音效照常）");
+  }
+
+  function setVolume(v) {
+    state.volume = Math.max(0, Math.min(1, v));
+    if (AU) AU.setVolume(state.volume);
+    saveProgress();
+  }
+
+  /* ---------------- 文字演出 ---------------- */
+
+  var typeTimer = null;
+  function typeSurface(text) {
+    var el = $("#p-surface");
+    if (!el) return;
+    clearInterval(typeTimer);
+    if (FX && FX.reduced) { el.classList.remove("typing"); el.textContent = text; return; }
+    el.classList.add("typing");
+    el.textContent = "";
+    var i = 0;
+    typeTimer = setInterval(function () {
+      i += 2;
+      el.textContent = text.slice(0, i);
+      if (i >= text.length) {
+        clearInterval(typeTimer);
+        el.textContent = text;
+        el.classList.remove("typing");
+      }
+    }, 22);
+  }
 
   /* ---------------- 渲染：汤单 ---------------- */
 
@@ -109,16 +230,48 @@
     $$(".chip", box).forEach(function (btn) {
       btn.addEventListener("click", function () {
         state.filter = btn.dataset.tag;
+        sfx("ui");
         renderFilters();
         renderList();
       });
     });
   }
 
+  /* 题材（细分类）筛选条 */
+  function renderCatFilters() {
+    var box = $("#cat-filters");
+    if (!box) return;
+    var cats = ["全部"].concat(E.allCats(PUZZLES));
+    box.innerHTML = cats.map(function (c) {
+      return '<button type="button" class="chip cat' + (c === state.cat ? " on" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
+    }).join("");
+    $$(".chip", box).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        state.cat = btn.dataset.cat;
+        sfx("ui");
+        renderCatFilters();
+        renderList();
+      });
+    });
+  }
+
+  /* 汤单当前的筛选结果（大类标签 + 题材标签） */
+  function listFiltered() {
+    return PUZZLES.filter(function (p) {
+      return (state.filter === "全部" || p.tag === state.filter) && E.hasCat(p, state.cat);
+    });
+  }
+
   function renderList() {
     var box = $("#puzzle-list");
     if (!box) return;
-    var list = PUZZLES.filter(function (p) { return state.filter === "全部" || p.tag === state.filter; });
+    var list = listFiltered();
+    if (!list.length) {
+      box.innerHTML = '<p class="pz-empty">这个组合下暂时没有汤。<br />换个大类或题材试试。</p>';
+      var b0 = $("#count-solved");
+      if (b0) b0.textContent = solvedCount() + "/" + PUZZLES.length;
+      return;
+    }
     box.innerHTML = list.map(function (p) {
       var rec = progress.puzzles[p.id];
       var diff = new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○");
@@ -127,14 +280,18 @@
         : "未解";
       return '<button type="button" role="listitem" class="pz-card' +
         (p.id === state.pid ? " active" : "") +
+        (p.original ? " original" : "") +
         (rec && rec.solved ? " solved" : "") +
         '" data-id="' + esc(p.id) + '" aria-label="' + esc(p.title) + '，难度' + p.difficulty + '，' + (rec && rec.solved ? "已破解" : "未破解") + '">' +
         '<div class="pz-title">' + esc(p.title) + "</div>" +
         '<div class="pz-meta"><span class="pz-diff" aria-hidden="true">' + diff + "</span>" +
         "<span>" + esc(p.tag) + "</span>" +
         "<span>" + (rec && rec.solved ? '<span class="pz-stars">' + starTxt + "</span>" : "<span>未解</span>") + "</span>" +
+        (p.original ? '<span class="pz-orig">翔太原创</span>' : "") +
         (rec && rec.solved && rec.bestQ ? '<span class="pz-best">最少 ' + rec.bestQ + " 问 / " + (rec.bestHints || 0) + " 提示</span>" : "") +
-        "</div></button>";
+        "</div>" +
+        '<div class="pz-cats">' + E.catsOf(p).map(function (c) { return '<span class="pz-cat">' + esc(c) + "</span>"; }).join("") + "</div>" +
+        "</button>";
     }).join("");
     $$(".pz-card", box).forEach(function (card) {
       card.addEventListener("click", function () { loadPuzzle(card.dataset.id); });
@@ -167,13 +324,14 @@
 
   function addLine(side, tone, html, meta) {
     var log = $("#log");
-    if (!log) return;
+    if (!log) return null;
     var wrap = document.createElement("div");
     wrap.className = "line " + side + (tone ? " " + tone : "");
     wrap.innerHTML = '<span class="say">' + html + "</span>" +
       (meta ? '<span class="tone">' + esc(meta) + "</span>" : "");
     log.appendChild(wrap);
     log.scrollTop = log.scrollHeight;
+    return wrap;
   }
 
   function clearLog() {
@@ -188,30 +346,49 @@
   function loadPuzzle(id) {
     var p = E.getPuzzle(id);
     if (!p) return;
-    state.pid = id;
-    state.revealed = [];
-    state.asked = {};
-    state.hintsUsed = 0;
-    state.qCount = 0;
-    state.done = false;
+    sceneWipe(function () {
+      state.pid = id;
+      state.revealed = [];
+      state.asked = {};
+      state.hintsUsed = 0;
+      state.qCount = 0;
+      state.done = false;
 
-    $("#screen-intro").classList.add("hidden");
-    $("#screen-game").classList.remove("hidden");
-    set("#p-title", p.title);
-    set("#p-tag", p.tag);
-    set("#p-diff", new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○") + " 难度");
-    $("#p-surface").textContent = p.surface;
+      $("#screen-intro").classList.add("hidden");
+      var rs = $("#screen-random");
+      if (rs) rs.classList.add("hidden");
+      var gs = $("#screen-game");
+      gs.classList.remove("hidden");
+      /* 重放入场动画，让切题更“有戏” */
+      gs.style.animation = "none";
+      void gs.offsetWidth;
+      gs.style.animation = "";
+      setScene("game");
 
-    clearLog();
-    sysLine("（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
-    renderClues();
-    renderStats();
-    renderList();
-    renderTip("随便问点什么吧。关键词越准，汤主掀开的那一层越厚。");
+      set("#p-title", p.title);
+      set("#p-tag", p.tag);
+      var pcats = $("#p-cats");
+      if (pcats) {
+        var cs = E.catsOf(p);
+        pcats.innerHTML = cs.map(function (c) { return '<span class="pz-cat">' + esc(c) + "</span>"; }).join("");
+        pcats.classList.toggle("hidden", !cs.length);
+      }
+      set("#p-diff", new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○") + " 难度");
+      var orig = $("#p-orig");
+      if (orig) orig.classList.toggle("hidden", !p.original);
+      typeSurface(p.surface);
 
-    var input = $("#q-input");
-    if (input) { input.value = ""; if (window.innerWidth > 860) input.focus(); }
-    SFX.pick();
+      clearLog();
+      sysLine("（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
+      renderClues();
+      renderStats();
+      renderList();
+      renderTip("随便问点什么吧。关键词越准，汤主掀开的那一层越厚。");
+
+      var input = $("#q-input");
+      if (input) { input.value = ""; if (window.innerWidth > 860) input.focus(); }
+      sfx("page");
+    });
   }
 
   function renderTip(text) {
@@ -256,6 +433,7 @@
     var key = E.normalize(raw);
 
     addLine("me", "", esc(raw), "你的提问");
+    sfx("paper");
 
     if (state.asked[key]) {
       addLine("host", "sys", esc("这个问题刚才问过了，汤主不重复回答。"));
@@ -270,22 +448,32 @@
     if (res.kind === "clue") {
       state.revealed.push(res.index);
       var tone = res.verdict;
-      addLine("host", tone,
+      var line = addLine("host", tone,
         (res.flavor ? esc(res.flavor) + "<br />" : "") +
         '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "线索") + "</b> " + esc(res.reply),
         "线索 " + (res.index + 1) + " +1");
-      SFX[tone] ? SFX[tone]() : SFX.yes();
+      sfx(tone === "partial" ? "partial" : tone);
+      if (FX && line) {
+        FX.burstAt(line, {
+          count: tone === "yes" ? 26 : 18,
+          colors: tone === "yes" ? ["#68cf9a", "#a8ecc6", "#f6cf90"]
+            : tone === "no" ? ["#e0705e", "#ffb3a3", "#e2a44f"]
+              : ["#e8c45c", "#ffe9c4", "#e2a44f"]
+        });
+      }
       renderClues();
       toast("挖到新线索：" + (E.stripLead(res.clue.text).slice(0, 14)) + "…");
     } else if (res.kind === "again") {
-      addLine("host", "sys", esc("这条线索你已经挖到过了：") + esc(res.reply));    } else if (res.kind === "meta") {
+      addLine("host", "sys", esc("这条线索你已经挖到过了：") + esc(res.reply));
+    } else if (res.kind === "meta") {
       addLine("host", "sys", esc(res.reply));
-      SFX.irr();
+      sfx("irr");
     } else {
-      addLine("host", "irr",
+      var l2 = addLine("host", "irr",
         (res.flavor ? esc(res.flavor) + "<br />" : "") +
         '<b class="verdict irr">与此无关</b> ' + esc(res.reply));
-      SFX.irr();
+      sfx("irr");
+      if (FX && l2) FX.burstAt(l2, { count: 8, power: 0.5, colors: ["#8b8177", "#6f6459"] });
     }
 
     input.value = "";
@@ -301,7 +489,7 @@
     state.hintsUsed++;
     addLine("host", "hint", "<b>提示 " + state.hintsUsed + "</b> · " + esc(text), "提示 -1 星");
     renderStats();
-    SFX.partial();
+    sfx("hint");
   }
 
   /* ---------------- 猜汤底 ---------------- */
@@ -320,7 +508,7 @@
   function closeModal(sel) {
     var m = $(sel);
     if (m) m.classList.add("hidden");
-    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) {} }
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { } }
   }
 
   function openGuess() {
@@ -330,6 +518,7 @@
     var gi = $("#guess-input");
     if (gi) gi.value = "";
     openModal("#modal-guess", "#guess-input");
+    sfx("ui");
   }
 
   function submitGuess() {
@@ -341,6 +530,7 @@
     if (!text) { fb.textContent = "先写下你的推理，再交给汤主。"; fb.className = "guess-feedback no"; return; }
 
     addLine("me", "", esc(text), "我的推理");
+    sfx("paper");
     state.qCount++;
 
     var j = E.judgeGuess(p, text);
@@ -348,12 +538,16 @@
     fb.className = "guess-feedback " + (j.level === "solved" ? "ok" : j.level === "close" ? "close" : "no");
 
     if (j.level === "solved") {
-      addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(j.note));
-      SFX.win();
-      setTimeout(finish, 380);
+      var line = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(j.note));
+      sfx("win");
+      if (FX) {
+        if (line) FX.burstAt(line, { count: 40, power: 1.3, colors: ["#e2a44f", "#f6cf90", "#68cf9a", "#ffe9c4"] });
+        FX.burst(window.innerWidth / 2, window.innerHeight * 0.34, { count: 70, power: 1.7 });
+      }
+      setTimeout(function () { finish(); }, 520);
     } else {
       addLine("host", j.level === "close" ? "partial" : "irr", esc(j.note));
-      SFX[j.level === "close" ? "partial" : "irr"]();
+      sfx(j.level === "close" ? "partial" : "lose");
       renderStats();
     }
   }
@@ -381,10 +575,18 @@
     }
     saveProgress();
 
+    setScene("win");
+    sfx("reveal");
+    if (FX) {
+      FX.surge(5);
+      FX.burst(window.innerWidth / 2, window.innerHeight * 0.3, { count: 80, power: 1.6 });
+    }
+
     set("#end-stars", new Array(st + 1).join("★") + new Array(4 - st).join("☆"));
     set("#end-note", "提问 " + state.qCount + " 次 · 提示 " + state.hintsUsed + " 次 —— " + E.starNote(st));
     $("#end-truth").innerHTML =
-      '<p style="margin:0 0 8px;color:#a97b38;font-size:12.5px;letter-spacing:.1em;">汤底（真相）</p>' +
+      '<p style="margin:0 0 8px;color:#a97b38;font-size:12.5px;letter-spacing:.1em;">汤底（真相）' +
+      (p.original ? " · 翔太原创" : "") + "</p>" +
       "<p style=\"margin:0\">" + esc(p.truth) + "</p>";
 
     openModal("#modal-end", "#btn-next");
@@ -394,19 +596,129 @@
   }
 
   function nextPuzzle() {
-    var nxt = E.randomPuzzle(state.pid);
+    var ex = state.recent ? state.recent.slice() : [];
+    if (state.pid) ex.push(state.pid);
+    var nxt = E.drawFrom(PUZZLES, ex);
     closeModal("#modal-end");
-    if (nxt) loadPuzzle(nxt.id);
+    if (nxt) { rememberRecent(nxt.id); loadPuzzle(nxt.id); }
   }
 
   function backToList() {
     closeModal("#modal-end");
+    sceneWipe(function () {
+      $("#screen-game").classList.add("hidden");
+      $("#screen-random").classList.add("hidden");
+      $("#screen-intro").classList.remove("hidden");
+      state.pid = null;
+      setScene("menu");
+      renderList();
+      var l = $("#btn-start");
+      if (l) l.focus();
+    });
+  }
+
+  /* ---------------- 随机模式 ---------------- */
+
+  var RAND_DIFFS = [
+    { v: 0, label: "不限" },
+    { v: 1, label: "● 清淡" },
+    { v: 2, label: "●● 适中" },
+    { v: 3, label: "●●● 浓郁" }
+  ];
+
+  function randOpts() {
+    return {
+      cat: state.randCat,
+      difficulty: state.randDiff,
+      unsolvedOnly: state.randUnsolved,
+      solvedMap: progress.puzzles
+    };
+  }
+
+  function rememberRecent(id) {
+    if (!state.recent) state.recent = [];
+    state.recent = state.recent.filter(function (x) { return x !== id; });
+    state.recent.push(id);
+    var cap = Math.min(10, Math.max(1, PUZZLES.length - 1));
+    while (state.recent.length > cap) state.recent.shift();
+  }
+
+  function renderRandom() {
+    var dbox = $("#rand-diff");
+    if (dbox) {
+      dbox.innerHTML = RAND_DIFFS.map(function (d) {
+        return '<button type="button" class="chip diff' + (d.v === state.randDiff ? " on" : "") +
+          '" data-diff="' + d.v + '" aria-pressed="' + (d.v === state.randDiff ? "true" : "false") + '">' + esc(d.label) + "</button>";
+      }).join("");
+      $$(".chip", dbox).forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.randDiff = Number(btn.dataset.diff) || 0;
+          sfx("ui");
+          renderRandom();
+        });
+      });
+    }
+
+    var cbox = $("#rand-cats");
+    if (cbox) {
+      var cats = ["全部"].concat(E.allCats(PUZZLES));
+      cbox.innerHTML = cats.map(function (c) {
+        return '<button type="button" class="chip cat' + (c === state.randCat ? " on" : "") +
+          '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
+      }).join("");
+      $$(".chip", cbox).forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.randCat = btn.dataset.cat;
+          sfx("ui");
+          renderRandom();
+        });
+      });
+    }
+
+    var un = $("#rand-unsolved");
+    if (un) {
+      un.classList.toggle("on", state.randUnsolved);
+      un.setAttribute("aria-pressed", state.randUnsolved ? "true" : "false");
+      un.textContent = state.randUnsolved ? "只抽还没熬过的" : "已熬过的也可以抽";
+    }
+
+    var left = E.poolSize(randOpts());
+    var total = E.poolSize({ cat: state.randCat, difficulty: state.randDiff });
+    var poolEl = $("#rand-pool");
+    if (poolEl) {
+      poolEl.textContent = total === 0
+        ? "这个条件下暂时没有汤，换个题材或火候试试"
+        : left === 0
+          ? "同条件的 " + total + " 道都熬完了，抽的时候会随机重温一道"
+          : left + " 道可选" + (left < total ? "（同条件共 " + total + " 道）" : "");
+    }
+    var go = $("#btn-rand-go");
+    if (go) go.disabled = total === 0;
+  }
+
+  function openRandom() {
+    setScene("menu");
+    $("#screen-intro").classList.add("hidden");
     $("#screen-game").classList.add("hidden");
+    $("#screen-random").classList.remove("hidden");
+    renderRandom();
+    sfx("ui");
+  }
+
+  function backFromRandom() {
+    $("#screen-random").classList.add("hidden");
     $("#screen-intro").classList.remove("hidden");
-    state.pid = null;
+    setScene("menu");
     renderList();
-    var l = $("#btn-start");
-    if (l) l.focus();
+    sfx("ui");
+  }
+
+  function drawRandom() {
+    var p = E.randomFrom(randOpts(), state.recent);
+    if (!p) { toast("这个条件下暂时没有可抽的汤，放宽一点试试"); return; }
+    rememberRecent(p.id);
+    toast("抽到：" + p.title);
+    loadPuzzle(p.id);
   }
 
   /* ---------------- 事件绑定 ---------------- */
@@ -428,26 +740,76 @@
     });
 
     var topRand = $("#btn-random");
-    if (topRand) topRand.addEventListener("click", function () { var r = E.randomPuzzle(state.pid); if (r) { loadPuzzle(r.id); toast("随机一锅：" + r.title); } });
+    if (topRand) topRand.addEventListener("click", function () {
+      var r = E.drawFrom(PUZZLES, state.recent);
+      if (r) { rememberRecent(r.id); loadPuzzle(r.id); toast("随机一锅：" + r.title); }
+    });
 
+    /* 随机模式：按题材 / 火候 / 是否熬过 抽题 */
+    var rmBtn = $("#btn-random-mode");
+    if (rmBtn) rmBtn.addEventListener("click", openRandom);
+
+    var rGo = $("#btn-rand-go");
+    if (rGo) rGo.addEventListener("click", drawRandom);
+
+    var rBack = $("#btn-rand-back");
+    if (rBack) rBack.addEventListener("click", backFromRandom);
+
+    var rUn = $("#rand-unsolved");
+    if (rUn) rUn.addEventListener("click", function () {
+      state.randUnsolved = !state.randUnsolved;
+      sfx("ui");
+      renderRandom();
+    });
+
+    /* 音效开关 */
     var snd = $("#btn-sound");
     if (snd) {
-      state.sound = progress.sound !== false;
-      var paint = function () {
+      var paintSnd = function () {
         snd.textContent = state.sound ? "🔊 音效" : "🔇 静音";
         snd.setAttribute("aria-pressed", state.sound ? "true" : "false");
       };
-      paint();
-      snd.addEventListener("click", function () { state.sound = !state.sound; paint(); saveProgress(); if (state.sound) SFX.pick(); });
+      paintSnd();
+      snd.addEventListener("click", function () {
+        state.sound = !state.sound;
+        if (AU) AU.setSfxOn(state.sound);
+        paintSnd(); saveProgress();
+        if (state.sound) sfx("pick");
+      });
     }
+
+    /* 音乐开 / 关 */
+    var bm = $("#btn-music");
+    if (bm) bm.addEventListener("click", toggleMusic);
+    var dm = $("#dock-mute");
+    if (dm) dm.addEventListener("click", toggleMusic);
+
+    /* 播放 / 暂停 */
+    var bp = $("#btn-play");
+    if (bp) bp.addEventListener("click", togglePlay);
+    var dp = $("#dock-play");
+    if (dp) dp.addEventListener("click", togglePlay);
+
+    /* 音量 */
+    var vol = $("#vol");
+    if (vol) vol.addEventListener("input", function () { setVolume(Number(vol.value) / 100); });
+
+    /* 快捷键：M 静音音乐 / 空格在非输入状态暂停音乐 */
+    document.addEventListener("keydown", function (ev) {
+      var t = ev.target;
+      var typing = t && t.closest && t.closest("input,textarea,select,[contenteditable]");
+      if (typing) return;
+      if (ev.key === "m" || ev.key === "M") { ev.preventDefault(); toggleMusic(); }
+    });
 
     var wipe = $("#btn-wipe");
     if (wipe) wipe.addEventListener("click", function () {
       if (!window.confirm("清空所有破解记录和星级？这一步不可撤销。")) return;
-      progress = { puzzles: {}, sound: state.sound };
+      progress = { puzzles: {}, sound: state.sound, music: state.music, playing: state.playing, volume: state.volume };
       saveProgress();
       renderList();
       renderStats();
+      sfx("lose");
       toast("存档已清空，重新开锅");
     });
 
@@ -523,6 +885,32 @@
       else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
     });
 
+    /* 首次交互解锁音频上下文 */
+    var unlock = function () {
+      if (AU) AU.unlock();
+      document.removeEventListener("pointerdown", unlock);
+      document.removeEventListener("keydown", unlock);
+    };
+    document.addEventListener("pointerdown", unlock);
+    document.addEventListener("keydown", unlock);
+
+    /* 打雷时轻微震动，增强临场感 */
+    window.addEventListener("soup:lightning", function () {
+      if (FX && FX.reduced) return;
+      var lay = document.querySelector(".layout");
+      if (!lay) return;
+      lay.classList.remove("thunder-shake");
+      void lay.offsetWidth;
+      lay.classList.add("thunder-shake");
+      setTimeout(function () { lay.classList.remove("thunder-shake"); }, 480);
+    });
+
+    /* 曲目名同步到音乐台 */
+    window.addEventListener("soup:track", function (ev) {
+      var el = $("#dock-track");
+      if (el && ev.detail && ev.detail.label) el.textContent = ev.detail.label;
+    });
+
     window.addEventListener("pagehide", saveProgress);
     document.addEventListener("visibilitychange", function () { if (document.hidden) saveProgress(); });
   }
@@ -534,9 +922,29 @@
       toast("题库加载失败，请刷新页面");
       return;
     }
+
+    state.sound = progress.sound !== false;
+    state.music = progress.music !== false;
+    state.playing = progress.playing !== false;
+    state.volume = typeof progress.volume === "number" ? progress.volume : 0.6;
+
+    if (FX) FX.init();
+    applyAudioSettings();
+
     renderFilters();
+    renderCatFilters();
     renderList();
+    renderRandom();
     bind();
+    setScene("menu");
+
+    /* 预热：背景图 + 曲目，切换时不卡顿 */
+    Object.keys(BG).forEach(function (k) {
+      var im = new Image();
+      im.src = BG[k];
+    });
+    if (AU) AU.preload(["menu", "game"]);
+
     var badge = $("#count-solved");
     if (badge) badge.textContent = solvedCount() + "/" + PUZZLES.length;
   }
