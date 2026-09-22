@@ -120,6 +120,19 @@ export function buildJudgeSystem(puzzle) {
 
 /* ---------------- 调用 ---------------- */
 
+/* 多人房的 AI 请求是从 Cloudflare 机房发出的，永远访问不到玩家本机的回环 /
+   内网地址。碰到这种配置要直接给出可操作的提示，而不是抛一句笼统的网络错误。 */
+export function isLocalOnlyUrl(u) {
+  var s = String(u || "").trim().toLowerCase();
+  if (!s) return false;
+  if (/^https?:\/\/(127\.|localhost\b|0\.0\.0\.0|\[::1\])/.test(s)) return true;
+  if (/^https?:\/\/(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(s)) return true;
+  return false;
+}
+
+export const LOCAL_URL_HINT =
+  "多人房的 AI 请求是从 Cloudflare 机房发出的，访问不到你电脑上的本机地址（127.0.0.1 / 192.168.x.x / 10.x）。请改填公网地址（内网穿透：cloudflared / ngrok / frp），或换成浏览器能直连的服务商（DeepSeek / Kimi 等）。";
+
 function extractText(kind, json) {
   if (!json) return "";
   if (kind === "anthropic") {
@@ -149,10 +162,13 @@ function extractText(kind, json) {
   if (typeof msg.reasoning_content === "string" && msg.reasoning_content.trim()) {
     return msg.reasoning_content;
   }
-  if (typeof ch.text === "string") return ch.text;
+  if (typeof msg.reasoning === "string" && msg.reasoning.trim()) return msg.reasoning;
+  if (typeof ch.text === "string" && ch.text.trim()) return ch.text;
   /* 有些网关把回答塞在 json.output / json.response */
-  if (typeof json.output === "string") return json.output;
-  if (typeof json.response === "string") return json.response;
+  if (typeof json.output_text === "string" && json.output_text.trim()) return json.output_text;
+  if (typeof json.output === "string" && json.output.trim()) return json.output;
+  if (typeof json.response === "string" && json.response.trim()) return json.response;
+  if (typeof json.text === "string" && json.text.trim()) return json.text;
   return "";
 }
 
@@ -189,6 +205,9 @@ export async function callModel(cfg, system, user) {
       lastErr = e;
       /* 4xx 是配置错误（key 错、模型名错），重试没意义，直接抛 */
       if (e && /^HTTP_4\d\d/.test(String(e.message))) throw e;
+      /* 本机地址对机房永远不可达，重试也没意义 */
+      if (e && String(e.message) === "LOCAL_ONLY_URL") throw e;
+      /* 空正文重试一次，多半是思考模型把正文写进了思考字段或 max_tokens 截断 */
     }
   }
   throw lastErr;
@@ -196,6 +215,7 @@ export async function callModel(cfg, system, user) {
 
 async function callModelOnce(cfg, system, user) {
   var base = String(cfg.baseUrl || "").replace(/\/+$/, "");
+  if (isLocalOnlyUrl(base)) throw new Error("LOCAL_ONLY_URL");
   var kind = cfg.kind === "anthropic" ? "anthropic" : "openai";
   var isAnthropic = kind === "anthropic";
 
@@ -203,9 +223,12 @@ async function callModelOnce(cfg, system, user) {
   var headers = isAnthropic
     ? { "content-type": "application/json", "x-api-key": cfg.apiKey, "anthropic-version": "2023-06-01" }
     : { "content-type": "application/json", "authorization": "Bearer " + cfg.apiKey };
+  /* 默认放宽到 1200：思考型模型 400 token 很容易把正文截断，导致空 content 直接判掉线 */
+  var maxTokens = Number(cfg.maxTokens) > 0 ? Number(cfg.maxTokens) : 1200;
+  var temperature = cfg.temperature == null ? 0.4 : cfg.temperature;
   var body = isAnthropic
-    ? { model: cfg.model, max_tokens: cfg.maxTokens || 400, temperature: cfg.temperature == null ? 0.4 : cfg.temperature, system: system, messages: [{ role: "user", content: user }] }
-    : { model: cfg.model, temperature: cfg.temperature == null ? 0.4 : cfg.temperature, max_tokens: cfg.maxTokens || 400, messages: [{ role: "system", content: system }, { role: "user", content: user }] };
+    ? { model: cfg.model, max_tokens: maxTokens, temperature: temperature, system: system, messages: [{ role: "user", content: user }] }
+    : { model: cfg.model, temperature: temperature, max_tokens: maxTokens, messages: [{ role: "system", content: system }, { role: "user", content: user }] };
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), cfg.timeoutMs || 40000);
@@ -217,7 +240,7 @@ async function callModelOnce(cfg, system, user) {
       signal: ctrl.signal
     });
     const text = await res.text();
-    if (!res.ok) throw new Error("HTTP_" + res.status);
+    if (!res.ok) throw new Error("HTTP_" + res.status + (text ? "_" + String(text).slice(0, 120) : ""));
     let json = null;
     try { json = JSON.parse(text); } catch (e) { json = null; }
     const out = extractText(kind, json);

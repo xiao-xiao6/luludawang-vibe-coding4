@@ -390,8 +390,18 @@
   function act(action, body) {
     if (!N || !N.act) return Promise.reject(new Error("NO_NET"));
     return N.act(action, body).then(function (r) {
-      if (r && r.error) throw new Error(r.error);
+      if (r && r.error) {
+        /* 把服务端给的 note / data 一并带上来，前端才能说清楚到底哪儿错了 */
+        var e = new Error(r.error);
+        if (r.note) e.note = r.note;
+        e.data = r;
+        throw e;
+      }
       return r;
+    }, function (e) {
+      /* net.js 把整包响应挂在 data 上，note 在那一层 */
+      if (e && e.data && e.data.note && !e.note) e.note = e.data.note;
+      throw e;
     });
   }
 
@@ -420,6 +430,24 @@
     }).catch(function (e) { R.toast("操作失败：" + e.message); });
   }
 
+  /* 前端把服务端错误码翻成人话：哪些能重试、哪些要去改配置 */
+  var AI_ERR_TEXT = {
+    AI_OFFLINE: "AI 汤主掉线了，请重新提问一次",
+    AI_EMPTY_REPLY: "汤主这次没吐出正文（多半是回复被截断），请再问一次；若反复出现，换成不带思考链的模型",
+    AI_BAD_FORMAT: "汤主这次没按格式回答，请重问一次",
+    AI_LOCAL_UNREACHABLE: "房主填的是本机地址，机房访问不到；请让房主换成公网地址（cloudflared / ngrok / frp）",
+    AI_AUTH_OR_MODEL: "上游拒绝了请求：接口地址 / 模型名 / Key 有问题，请让房主点「测试连接」核对",
+    AI_UPSTREAM_5XX: "上游服务暂时出错，等一会儿再试",
+    AI_TIMEOUT: "请求超时，稍后再试",
+    AI_NETWORK: "机房连不上这个接口地址，请让房主核对地址",
+    AI_REQUIRED_LIB: "这锅汤是汤库层，必须先配好 AI 汤主才能问"
+  };
+
+  function aiErrText(code, note) {
+    if (note) return note;
+    return AI_ERR_TEXT[code] || ("AI 汤主出错了（" + code + "）");
+  }
+
   function doAsk() {
     var qi = $("#room-q-input");
     var v = qi ? qi.value.trim() : "";
@@ -433,8 +461,8 @@
     }).catch(function (e) {
       var m = e.message;
       if (m === "NOT_YOUR_TURN") R.toast("还没轮到你哦");
-      else if (m === "AI_OFFLINE") R.toast("AI 汤主掉线了，请重新提问一次");
       else if (m === "EMPTY_QUESTION") R.toast("先写一句问题");
+      else if (AI_ERR_TEXT[m]) R.toast(aiErrText(m, e.note));
       else R.toast("提问失败：" + m);
     });
   }
@@ -483,9 +511,9 @@
       }).catch(function (e) {
         var m = e.message;
         if (m === "COOLDOWN") { close(); R.toast("还在冷却，等一下再猜"); }
-        else if (m === "AI_OFFLINE") {
+        else if (AI_ERR_TEXT[m]) {
           host.querySelector("#rguess-submit").disabled = false;
-          fb.textContent = "AI 汤主掉线了，请重新提交推理。";
+          fb.textContent = aiErrText(m, e.note);
           fb.className = "guess-feedback no";
         } else {
           host.querySelector("#rguess-submit").disabled = false;
@@ -610,6 +638,23 @@
 
   function doNext() { act("next", {}).then(function () { R.toast("准备下一锅，全员重新准备"); }).catch(function (e) { R.toast("操作失败：" + e.message); }); }
 
+  /* 房主打开 AI 配置时，把服务端已存的 baseUrl / model 回填，
+     免得“保存了但界面空着”导致重复手打。Key 永不下发，必须重填。 */
+  function prefillAiModal(host) {
+    var s = R.snap || {};
+    var ai = s.ai || null;
+    if (!ai) return;
+    var b = host.querySelector("#rai-base");
+    var m = host.querySelector("#rai-model");
+    if (b && !b.value && ai.baseUrl) b.value = ai.baseUrl;
+    if (m && !m.value && ai.model) m.value = ai.model;
+    var fb = host.querySelector("#rai-fb");
+    if (fb && ai.hasKey) {
+      fb.textContent = "已存过配置（" + (ai.model || "?") + "）。Key 不会下发，需要重填才能保存；只想直接玩可以关掉窗口。";
+      fb.className = "guess-feedback";
+    }
+  }
+
   function doAi() {
     var host = document.createElement("div");
     host.className = "modal-wrap";
@@ -631,6 +676,7 @@
     document.body.classList.add("modal-open");
     var fb = host.querySelector("#rai-fb");
     var close = function () { if (host.parentNode) host.parentNode.removeChild(host); document.body.classList.remove("modal-open"); };
+    prefillAiModal(host);
 
     function readCfg() {
       return {
