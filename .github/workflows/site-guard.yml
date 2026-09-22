@@ -1,0 +1,72 @@
+name: site-guard
+
+# 站点守卫：保证「发布目录里没有任何汤底」。
+#
+# 背景：本仓库是 public，GitHub Pages 会把整个仓库目录当静态站发布，
+# 仓库里出现的任何文件都能被匿名下载。汤底（truth）只允许存在服务端
+# Worker（用 wrangler deploy 单独部署，不在本仓库）。
+#
+# 数据管线依赖含汤底的源文件（data/library/），那些源文件已被
+# .gitignore 排除，故本工作流不重建产物，只做「零汤底」断言。
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  no-truth-in-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 汤底源码与中间产物不得被跟踪
+        run: |
+          if git ls-files --error-unmatch "data/library" > /dev/null 2>&1; then
+            echo "::error::data/library/ 下的汤底源文件被 Git 跟踪了，必须从仓库移除并加进 .gitignore"
+            git ls-files "data/library"
+            exit 1
+          fi
+          if git ls-files | grep -q "library\.data\.js$"; then
+            echo "::error::仓库里出现了 library.data.js（含全部汤底），必须移除"
+            git ls-files | grep "library\.data\.js$"
+            exit 1
+          fi
+          echo "✓ 仓库未跟踪任何汤底源文件"
+
+      - name: 站点脚本不得内嵌汤底
+        run: |
+          node -e '
+            const fs = require("fs"), path = require("path");
+            /* data.js / data-more.js 是单人模式本地谜题，设计上就带汤底，
+               属于公开玩法的一部分，不在守卫范围内。 */
+            const allow = new Set(["data.js", "data-more.js"]);
+            let bad = [];
+            (function walk(d) {
+              for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+                const p = path.join(d, e.name);
+                if (e.isDirectory()) { walk(p); continue; }
+                if (!/\.(js|json)$/.test(e.name)) continue;
+                if (allow.has(e.name)) continue;
+                const s = fs.readFileSync(p, "utf8");
+                if (/"truth"\s*:/.test(s)) bad.push(p);
+              }
+            })("js");
+            if (bad.length) {
+              console.error("::error::js/ 下出现内嵌汤底：");
+              bad.forEach((b) => console.error("  " + b));
+              process.exit(1);
+            }
+            console.log("✓ js/ 零汤底（data.js / data-more.js 为单人本地题，按设计豁免）");
+          '
+
+      - name: 前端瘦身档结构自检
+        run: |
+          node -e '
+            const fs = require("fs");
+            const s = fs.readFileSync("js/library.public.js", "utf8");
+            if (!/hasTruth/.test(s)) { console.error("::error::js/library.public.js 缺少 hasTruth 标记"); process.exit(1); }
+            const n = (s.match(/\{"id":/g) || []).length;
+            if (n < 1000) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
+            console.log("✓ js/library.public.js 结构正常（" + n + " 条，零汤底）");
+          '

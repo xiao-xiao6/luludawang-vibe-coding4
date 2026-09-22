@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>深海汤屋 · 海龟汤推理小馆</title>
+<meta name="description" content="海龟汤（汤面猜汤底）推理小游戏：向汤主提问，只能得到「是 / 不是 / 与此无关」，一步步熬出真相。" />
+<meta name="theme-color" content="#0d0a08" />
+<meta name="application-name" content="深海汤屋" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="深海汤屋" />
+<meta property="og:title" content="深海汤屋 · 海龟汤推理小馆" />
+<meta property="og:description" content="汤面已经备好，你只能向汤主提问。汤主只会回答「是 / 不是 / 与此无关」，一步步熬出真相。" />
+<meta property="og:url" content="https://xiao-xiao6.github.io/luludawang-vibe-coding4/" />
+<meta property="og:image" content="https://xiao-xiao6.github.io/luludawang-vibe-coding4/assets/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="雨夜中的古堡，深海汤屋的招牌在雨幕里亮着" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="深海汤屋 · 海龟汤推理小馆" />
+<meta name="twitter:description" content="100 道海龟汤，一问一答熬出真相。" />
+<meta name="twitter:image" content="https://xiao-xiao6.github.io/luludawang-vibe-coding4/assets/og-cover.jpg" />
+<meta name="color-scheme" content="dark" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="深海汤屋" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='88'%3E%F0%9F%8D%B2%3C/text%3E%3C/svg%3E" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/NotoSerifSC-title.woff2" crossorigin />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-scene="menu">
+
+<noscript>
+  <p class="noscript-note">深海汤屋需要开启 JavaScript 才能开锅。请在浏览器设置里允许 JavaScript，然后刷新页面。</p>
+</noscript>
+
+<!-- ===== 背景图堆栈（雨夜古堡） ===== -->
+<div class="bg-stack" aria-hidden="true">
+  <div class="bg-img" id="bg-a"></div>
+  <div class="bg-img" id="bg-b"></div>
+  <div class="bg-vignette"></div>
+</div>
+
+<!-- ===== 蒸汽层 ===== -->
+<div class="steam-field" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<!-- ===== 特效层 ===== -->
+<canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+<div class="fx-scan" aria-hidden="true"></div>
+<div id="fx-flash" class="fx-flash" aria-hidden="true"></div>
+<div class="scene-fade" id="scene-fade" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-ico" aria-hidden="true">🍲</span>
+    <div class="brand-txt">
+      <h1>深海汤屋</h1>
+      <p>海龟汤 · 一问一答熬真相</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button type="button" class="btn ghost" id="btn-random">随机一题</button>
+    <button type="button" class="btn ghost" id="btn-random-mode">🎲 随机模式</button>
+    <button type="button" class="btn ghost" id="btn-library">📚 汤库</button>
+    <button type="button" class="btn ghost" id="btn-multi">🏠 多人房间</button>
+    <button type="button" class="btn ghost" id="btn-ai" aria-pressed="false">🤖 AI 汤主</button>
+    <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
+    <button type="button" class="btn ghost" id="btn-play" aria-pressed="true">⏸ 暂停</button>
+    <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
+    <button type="button" class="btn ghost" id="btn-fx" aria-pressed="true">✨ 特效</button>
+    <button type="button" class="btn ghost danger" id="btn-wipe">清空存档</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <aside class="col-qa" aria-label="问答记录">
+    <div class="panel qa-panel">
+      <div class="panel-head">
+        <h2 class="qa-history-title">问答记录</h2>
+        <div class="qa-head-actions">
+          <span class="badge" id="qa-count">0 问</span>
+          <button type="button" class="btn ghost qa-clear" id="btn-qa-clear" title="清空本局问答记录">清空</button>
+        </div>
+      </div>
+      <div class="qa-log" id="qa-log" role="log" aria-live="polite" aria-label="本局问答记录">
+        <p class="empty">还没有提问。<br />打开一道汤，向汤主问出第一句吧。</p>
+      </div>
+    </div>
+  </aside>
+
+  <section class="col-stage" aria-label="汤桌">
+
+    <div class="panel" id="screen-intro">
+      <div class="intro">
+        <div class="pot" aria-hidden="true">🍲</div>
+        <h2>欢迎来到深海汤屋</h2>
+        <p class="intro-lead">汤面（谜面）已经备好，你只能向汤主提问。<br />汤主只会回答三种话：<b class="c-yes">是</b>、<b class="c-no">不是</b>、<b class="c-irr">与此无关</b>。</p>
+        <ul class="rules">
+          <li><b>1.</b> 用提问一点点逼近真相，挖到的线索会留在右边的线索板。</li>
+          <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
+          <li><b>3.</b> 提问越少、提示用得越少，星级越高。汤底可以重熬，存档自动保存。</li>
+          <li><b>4.</b> 带 <span class="orig-badge">AI原创汤面和汤底</span> 标记的 50 道，是汤屋自己新熬的汤，别处喝不到。</li>
+          <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗。</li>
+          <li><b>6.</b> 嫌关键词太死板？点顶上的 <b>🤖 AI 汤主</b> 填上自己的模型 Key，汤主就换成大模型来听懂你的话——它读过汤面汤底，也绝不会把答案漏给你。</li>
+        </ul>
+        <div class="intro-actions">
+          <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
+          <button type="button" class="btn ghost" id="btn-start-random">随便来一锅</button>
+          <button type="button" class="btn ghost hidden" id="btn-resume">继续上一锅</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-game">
+      <div class="surface-card">
+        <div class="surface-head">
+          <h2 id="p-title">—</h2>
+          <div class="meta">
+            <span class="orig-badge hidden" id="p-orig">AI原创汤面和汤底</span>
+            <span class="tag" id="p-tag"></span>
+            <span class="cats-inline" id="p-cats"></span>
+            <span class="diff" id="p-diff"></span>
+          </div>
+        </div>
+        <p class="surface-text" id="p-surface"></p>
+      </div>
+
+      <p class="ai-bar" id="ai-bar">
+        <span class="ai-dot" id="ai-dot" aria-hidden="true"></span>
+        <span id="ai-bar-text">关键词汤主在值班</span>
+        <button type="button" class="ai-link" id="btn-ai-bar">换成 AI 汤主</button>
+      </p>
+
+      <div class="stats">
+        <div class="stat"><span class="stat-k">提问</span><b id="s-q">0</b></div>
+        <div class="stat"><span class="stat-k">线索</span><b id="s-clue">0/0</b></div>
+        <div class="stat"><span class="stat-k">提示</span><b id="s-hint">0</b></div>
+        <div class="stat wide">
+          <span class="stat-k">探索度</span>
+          <div class="bar"><i id="s-bar"></i></div>
+          <b id="s-pct">0%</b>
+        </div>
+      </div>
+
+      <div class="log" id="log" role="log" aria-live="polite" aria-label="与汤主的对话"></div>
+
+      <div class="askbar">
+        <input id="q-input" class="input" type="text" placeholder="向汤主提问，例如：他认识死者吗？" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+        <button type="button" class="btn primary" id="btn-ask">提问</button>
+        <button type="button" class="btn ghost" id="btn-hint">要提示</button>
+        <button type="button" class="btn ghost" id="btn-ai-quick" title="让 AI 汤主替你补一句方向">🤖 问问 AI</button>
+        <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-random">
+      <div class="rand">
+        <div class="pot" aria-hidden="true">🎲</div>
+        <h2>随机抽题</h2>
+        <p class="intro-lead">挑好题材和火候，让汤主随手给你舀一碗。</p>
+        <div class="rand-row" role="group" aria-label="按难度抽取">
+          <span class="rand-label">火候</span>
+          <div class="chips" id="rand-diff"></div>
+        </div>
+        <div class="rand-row" role="group" aria-label="按题材抽取">
+          <span class="rand-label">题材</span>
+          <div class="chips" id="rand-cats"></div>
+        </div>
+        <p class="rand-pool" id="rand-pool">0 道可选</p>
+        <div class="rand-actions">
+          <button type="button" class="btn primary" id="btn-rand-go">抽一锅</button>
+          <button type="button" class="btn ghost" id="btn-rand-back">回首页</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-library">
+      <div class="panel-head">
+        <h2>汤库 · 全网汤面大全</h2>
+        <span class="badge" id="lib-count">0 / 0</span>
+      </div>
+      <input id="lib-search" class="input" type="search" placeholder="搜索标题或汤面，例如：电梯" autocomplete="off" aria-label="搜索汤库" />
+      <p class="chips-label">题材</p>
+      <div class="chips cats" id="lib-cat" role="group" aria-label="按题材筛选"></div>
+      <p class="chips-label">火候</p>
+      <div class="chips" id="lib-diff" role="group" aria-label="按难度筛选"></div>
+      <p class="chips-label">来源</p>
+      <div class="chips" id="lib-src" role="group" aria-label="按来源筛选"></div>
+      <div class="rand-row">
+        <button type="button" class="chip" id="lib-truth-only" aria-pressed="false">只看有汤底</button>
+        <button type="button" class="chip" id="lib-en" aria-pressed="false">只看英文</button>
+      </div>
+      <div class="puzzle-list lib-list" id="lib-list" role="list"></div>
+      <div class="rand-actions">
+        <button type="button" class="btn primary" id="btn-lib-more">加载更多</button>
+        <button type="button" class="btn ghost" id="btn-lib-back">回首页</button>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="screen-room">
+
+      <div id="room-entry">
+        <div class="room-head"><h2>🏠 多人汤屋</h2></div>
+        <p class="intro-lead">和好友用同一个房号进同一间汤屋：一起提问、一起挖线索、一起猜汤底。</p>
+        <div class="room-entry-grid">
+          <div class="room-card">
+            <h3>建一间新汤屋</h3>
+            <p>你是房主 <b>#1</b>，选汤、配 AI 汤主都由你来。</p>
+            <button type="button" class="btn primary" id="btn-room-create">建房</button>
+          </div>
+          <div class="room-card">
+            <h3>加入好友的汤屋</h3>
+            <p>让房主把 6 位房号发给你。</p>
+            <input id="room-join-code" class="input" type="text" maxlength="6" placeholder="输入 6 位房号" autocomplete="off" autocapitalize="characters" />
+            <button type="button" class="btn primary" id="btn-room-join">加入</button>
+          </div>
+        </div>
+        <div class="rand-actions"><button type="button" class="btn ghost" id="btn-room-entry-back">回首页</button></div>
+      </div>
+
+      <div id="room-live" class="hidden">
+        <div class="room-head">
+          <h2>🏠 多人汤屋</h2>
+          <div class="room-code-wrap">
+            <span class="room-code-label">房号</span>
+            <b class="room-code" id="room-code">------</b>
+            <button type="button" class="btn ghost" id="btn-room-copy">复制</button>
+            <button type="button" class="btn ghost" id="btn-room-leave">离开房间</button>
+          </div>
+        </div>
+
+        <p class="room-phase" id="room-phase">等待全员准备…</p>
+
+        <div class="room-body">
+          <div class="room-col">
+            <div class="panel-head"><h2>玩家</h2><span class="badge" id="room-count">0/8</span></div>
+            <div class="room-players" id="room-players"></div>
+            <div class="rand-actions">
+              <button type="button" class="btn primary" id="btn-room-ready">我准备好了</button>
+            </div>
+          </div>
+
+          <div class="room-col">
+            <div class="panel-head"><h2>本锅</h2><span class="badge" id="room-turn">—</span></div>
+            <div class="room-puzzle" id="room-puzzle">
+              <p class="empty">房主还没选汤。</p>
+            </div>
+            <div class="rand-actions">
+              <button type="button" class="btn ghost" id="btn-room-choose">选一锅（房主）</button>
+              <button type="button" class="btn ghost" id="btn-room-next">下一锅（房主）</button>
+              <button type="button" class="btn ghost" id="btn-room-ai">AI 汤主设置（房主）</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="askbar">
+          <input id="room-q-input" class="input" type="text" placeholder="轮到你时才能提问…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+          <button type="button" class="btn primary" id="btn-room-ask">提问</button>
+          <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <aside class="col-clue" aria-label="线索板">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>线索板</h2>
+        <span class="badge" id="clue-badge">0/0</span>
+      </div>
+      <div class="clue-list" id="clue-list">
+        <p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2>汤主的话</h2></div>
+      <p class="tip" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
+    </div>
+  </aside>
+
+</main>
+
+<div class="modal-wrap hidden" id="modal-guess">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="guess-title">
+    <h3 id="guess-title">说出你的推理</h3>
+    <p class="modal-sub">不用复述原文，把关键的那几层讲清楚就行。汤主会判断你有没有真的熬到汤底。</p>
+    <textarea id="guess-input" rows="5" placeholder="我认为，他之所以……是因为……" autocapitalize="off" spellcheck="false" enterkeyhint="done"></textarea>
+    <p class="guess-feedback" id="guess-feedback"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-guess-cancel">再想想</button>
+      <button type="button" class="btn primary" id="btn-guess-submit">提交推理</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap hidden" id="modal-end">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="end-title">
+    <h3 id="end-title">汤底揭晓</h3>
+    <div class="stars" id="end-stars" aria-label="评级">★★★</div>
+    <p class="end-note" id="end-note"></p>
+    <div class="truth-box" id="end-truth"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-replay">重熬这一锅</button>
+      <button type="button" class="btn ghost" id="btn-next">下一题</button>
+      <button type="button" class="btn primary" id="btn-back">回首页</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap hidden" id="modal-ai">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ai-title">
+    <h3 id="ai-title">AI 汤主 · 接入你自己的模型</h3>
+    <p class="modal-sub">填好以后，每一题都会把<b>汤面 + 汤底</b>交给模型，让它真的听懂你的问题，而不是死板地撞关键词。配置只存在你自己的浏览器里，不会上传到任何地方。</p>
+
+    <label class="ai-field">
+      <span class="ai-k">服务商</span>
+      <select id="ai-provider"></select>
+    </label>
+    <p class="ai-note" id="ai-provider-note"></p>
+
+    <label class="ai-field">
+      <span class="ai-k">接口地址</span>
+      <input type="text" id="ai-baseurl" class="input" placeholder="https://api.deepseek.com/v1" autocomplete="off" />
+    </label>
+
+    <label class="ai-field">
+      <span class="ai-k">模型</span>
+      <input type="text" id="ai-model" class="input" placeholder="deepseek-chat" autocomplete="off" />
+    </label>
+
+    <label class="ai-field">
+      <span class="ai-k">API Key</span>
+      <input type="password" id="ai-key" class="input" placeholder="sk-..." autocomplete="off" />
+    </label>
+
+    <div class="ai-row">
+      <button type="button" class="chip" id="ai-enabled" aria-pressed="false">启用 AI 汤主</button>
+      <button type="button" class="chip" id="ai-reveal" aria-pressed="false">显示 Key</button>
+    </div>
+
+    <p class="ai-note" id="ai-status">未启用，正在用关键词汤主。</p>
+    <p class="ai-note ai-warn" id="ai-warn"></p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="btn-ai-test">测试连接</button>
+      <button type="button" class="btn ghost" id="btn-ai-clear">清空配置</button>
+      <button type="button" class="btn ghost" id="btn-ai-cancel">取消</button>
+      <button type="button" class="btn primary" id="btn-ai-save">保存并启用</button>
+    </div>
+  </div>
+</div>
+
+<div class="music-dock" id="music-dock" role="group" aria-label="音乐控制">
+  <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
+  <div class="dock-mid">
+    <span class="dock-label" id="dock-track">雨夜古堡</span>
+    <input type="range" class="dock-vol" id="vol" min="0" max="100" value="60" aria-label="音量" />
+  </div>
+  <button type="button" class="dock-btn" id="dock-mute" aria-pressed="true" title="音乐开 / 关">🔊</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js" defer></script>
+<script src="js/library.public.js" defer></script>
+<script src="js/engine.js" defer></script>
+<script src="js/ai.js" defer></script>
+<script src="js/audio.js" defer></script>
+<script src="js/fx.js" defer></script>
+<script src="js/net.js" defer></script>
+<script src="js/room-ui.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>
