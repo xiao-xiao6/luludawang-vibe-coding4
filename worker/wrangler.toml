@@ -1,0 +1,29 @@
+# ============================================================
+# 深海汤屋 · 多人联机后端（Cloudflare Workers + Durable Objects）
+# ------------------------------------------------------------
+# 部署：wrangler deploy
+# 本地：wrangler dev
+# 账号：bb9c3eb95b20735060fc0002a5250bfe（wrangler login 已授权）
+# ============================================================
+
+name = "soup-room"
+main = "src/index.js"
+compatibility_date = "2026-09-21"
+
+# Durable Object：一个房间 = 一个 DO 实例
+[[durable_objects.bindings]]
+name = "ROOM"
+class_name = "Room"
+
+# DO 的 SQLite 存储后端（免费额度友好，无需额外付费）
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
+
+# 前端允许跨域来源：GitHub Pages 站点（本地开发时也放行 localhost）
+[vars]
+ALLOWED_ORIGINS = "https://xiao-xiao6.github.io,http://localhost:8080,http://127.0.0.1:8080"
+
+# 观测
+[observability]
+enabled = true

@@ -1,0 +1,40 @@
+# ============================================================
+# 深海汤屋 · 忽略规则
+# ------------------------------------------------------------
+# 关键前提：本仓库是 **public**，且 GitHub Pages 会把整个仓库
+# 目录当静态站发布 —— 仓库里的任何文件都能被匿名下载。
+# 因此：**含汤底（truth）的文件一律不进仓库**。
+#
+# 汤库源码 data/library/library.data.js 及其所有中间产物，
+# 只当本地源码使用（跑 tools/build_worker_data.js 的输入）。
+# ============================================================
+
+# ---- 汤底源码与中间产物（含明文答案，绝不提交）----
+data/library/
+js/library.data.js
+
+# ---- Worker 本地状态与生成的服务端题库 ----
+worker/.wrangler/
+worker/node_modules/
+worker/src/library.data.js
+worker/src/puzzles.data.js
+worker/.dev.vars
+.dev.vars
+*.pem
+
+# ---- 本地备份 / 导入 / 调试临时文件 ----
+*.bak-*
+*.bak
+_imp*.txt
+_import_out.txt
+
+# ---- Python / Node ----
+__pycache__/
+*.pyc
+node_modules/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
