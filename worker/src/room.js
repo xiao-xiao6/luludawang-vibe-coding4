@@ -186,7 +186,7 @@ export class Room {
       kind: c.kind === "anthropic" ? "anthropic" : "openai",
       baseUrl: String(c.baseUrl || "").trim().replace(/\/+$/, ""),
       model: String(c.model || "").trim(),
-      apiKey:[REDACTED] || "").trim(),
+      apiKey: String(c.apiKey || "").trim(),
       timeoutMs: 20000
     };
     if (!cfg.baseUrl || !cfg.model || !cfg.apiKey) return { error: "AI_CONFIG_INCOMPLETE" };
