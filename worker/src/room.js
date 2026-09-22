@@ -24,7 +24,9 @@ import {
   buildJudgeSystem,
   buildJudgeUser,
   pickJson,
-  callModel
+  callModel,
+  isLocalOnlyUrl,
+  LOCAL_URL_HINT
 } from "./ai.js";
 
 const UID_MAX = 8;              /* 单房最多 8 人 */
@@ -34,6 +36,34 @@ const COOLDOWN_IRR_MS = 180000; /* 猜底 🔴无关 180s 冷却 */
 const COOLDOWN_CLOSE_MS = 60000;/* 猜底 🟡部分正确 60s 冷却 */
 
 function now() { return Date.now(); }
+
+/* 把服务端错误翻译成前端能直接上屏的 code + 说明，
+   不再把「配置错 / 格式错 / 网络抖」全部归成 AI_OFFLINE。 */
+function aiErrorCode(e) {
+  const m = String((e && e.message) || e || "");
+  if (m === "LOCAL_ONLY_URL") return "AI_LOCAL_UNREACHABLE";
+  if (m === "EMPTY_REPLY") return "AI_EMPTY_REPLY";
+  if (/^HTTP_4\d\d/.test(m)) return "AI_AUTH_OR_MODEL";
+  if (/^HTTP_5\d\d/.test(m)) return "AI_UPSTREAM_5XX";
+  if (/abort|aborted|timeout/i.test(m)) return "AI_TIMEOUT";
+  if (/fetch failed|network|ENOTFOUND|ECONNREFUSED/i.test(m)) return "AI_NETWORK";
+  return "AI_OFFLINE";
+}
+
+function aiErrorNote(e) {
+  const code = aiErrorCode(e);
+  const m = String((e && e.message) || e || "").replace(/\s+/g, " ").trim();
+  const map = {
+    AI_LOCAL_UNREACHABLE: LOCAL_URL_HINT,
+    AI_EMPTY_REPLY: "模型返回里没有可读正文（可能是 maxTokens 太小被截断，或该模型把正文放进了思考字段）",
+    AI_AUTH_OR_MODEL: "上游报了 4xx：检查接口地址、模型名、Key 是否对得上（" + m.slice(0, 100) + "）",
+    AI_UPSTREAM_5XX: "上游服务暂时出错，等一会儿再问一次（" + m.slice(0, 100) + "）",
+    AI_TIMEOUT: "请求超时，上游太慢或网络不稳",
+    AI_NETWORK: "机房那边连不上这个地址，检查接口地址是否写错",
+    AI_OFFLINE: m.slice(0, 120)
+  };
+  return map[code] || m.slice(0, 120);
+}
 
 function json(data, status, cors) {
   return new Response(JSON.stringify(data), {
@@ -190,6 +220,8 @@ export class Room {
       timeoutMs: 20000
     };
     if (!cfg.baseUrl || !cfg.model || !cfg.apiKey) return { error: "AI_CONFIG_INCOMPLETE" };
+    /* 本机地址对 Cloudflare 机房永远不可达：不如提前拦住，把可操作的提示直接给房主 */
+    if (isLocalOnlyUrl(cfg.baseUrl)) return { error: "AI_LOCAL_UNREACHABLE", note: LOCAL_URL_HINT };
     try {
       const text = await callModel(cfg,
         "你是海龟汤游戏的汤主。只输出一个 JSON 对象。",
@@ -197,13 +229,16 @@ export class Room {
       if (!text) return { error: "AI_TEST_EMPTY", note: "模型回了空内容" };
       return { ok: true, sample: String(text).slice(0, 80) };
     } catch (e) {
-      return { error: "AI_TEST_FAIL", note: String((e && e.message) || e).slice(0, 120) };
+      const msg = String((e && e.message) || e);
+      if (msg === "LOCAL_ONLY_URL") return { error: "AI_LOCAL_UNREACHABLE", note: LOCAL_URL_HINT };
+      if (msg === "EMPTY_REPLY") return { error: "AI_TEST_EMPTY", note: "模型返回里没有可读正文（可能是 maxTokens 太小被截断，或该模型把正文放进了思考字段）" };
+      return { error: "AI_TEST_FAIL", note: msg.slice(0, 160) };
     }
   }
 
-  /* 问 AI：失败返回 null（=掉线），调用方负责「不记账、不消耗回合」 */
+  /* 问 AI：失败返回 { error, note }（上层不再一律报掉线） */
   async aiAsk(puzzle, question, history) {
-    if (!this.aiReady()) return null;
+    if (!this.aiReady()) return { error: "AI_OFFLINE", note: "房间还没有配置 AI 汤主" };
     const cfg = this.state.ai;
     const taken = this.state.revealed.map((i) => i + 1);
     const ctx = {
@@ -219,7 +254,7 @@ export class Room {
     try {
       const text = await callModel(cfg, buildSystemPrompt(puzzle), buildAskUser(puzzle, question, ctx));
       const j = pickJson(text);
-      if (!j) return null;
+      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主这一句没按格式回（模型没给出 JSON），请重问一次" };
       /* verdict 宽松归一：模型可能回英文、中文、甚至带句号 */
       var rawV = String(j.verdict || j.result || j.answer || "").trim().toLowerCase();
       var verdict = "irr";
@@ -235,18 +270,18 @@ export class Room {
       if (clueNo < 0 || clueNo > (puzzle.clues || []).length) clueNo = 0;
       return { verdict, reply, clue: clueNo };
     } catch (e) {
-      return null;
+      return { error: aiErrorCode(e), note: aiErrorNote(e) };
     }
   }
 
-  /* 判推理：失败返回 null */
+  /* 判推理：失败返回 { error, note } */
   async aiJudge(puzzle, guess) {
-    if (!this.aiReady()) return null;
+    if (!this.aiReady()) return { error: "AI_OFFLINE", note: "房间还没有配置 AI 汤主" };
     const cfg = this.state.ai;
     try {
       const text = await callModel(cfg, buildJudgeSystem(puzzle), buildJudgeUser(puzzle, guess));
       const j = pickJson(text);
-      if (!j) return null;
+      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主没给出可读的判定，请重新提交一次" };
       /* level 宽松归一 */
       var rawL = String(j.level || j.result || "").trim().toLowerCase();
       var level = "no";
@@ -258,7 +293,7 @@ export class Room {
       if (!note) note = { solved: "说破了。", close: "已经很近了。", vague: "再讲清楚一点。", no: "方向还不对。" }[level];
       return { level, note };
     } catch (e) {
-      return null;
+      return { error: aiErrorCode(e), note: aiErrorNote(e) };
     }
   }
 
@@ -361,7 +396,7 @@ export class Room {
       /* 规格 #11/#12：只走 AI；AI 没配或掉线 → 提示重问，不记账、不消耗回合 */
       if (this.aiReady()) {
         const ai = await this.aiAsk(puzzle, raw, s.qaLog.filter((x) => x.kind === "ask").map((x) => ({ q: x.question, a: x.reply })));
-        if (!ai) return { error: "AI_OFFLINE" };
+        if (!ai || ai.error) return { error: (ai && ai.error) || "AI_OFFLINE", note: (ai && ai.note) || "" };
         verdict = ai.verdict;
         reply = ai.reply;
         clueNo = ai.clue;
@@ -444,7 +479,7 @@ export class Room {
     if (puzzle) {
       if (this.aiReady()) {
         const ai = await this.aiJudge(puzzle, raw);
-        if (!ai) return { error: "AI_OFFLINE" };
+        if (!ai || ai.error) return { error: (ai && ai.error) || "AI_OFFLINE", note: (ai && ai.note) || "" };
         level = ai.level;
         note = ai.note;
         viaAi = true;
@@ -542,7 +577,12 @@ export class Room {
       clueTotal: s.puzzleId && getPuzzle(s.puzzleId) ? getPuzzle(s.puzzleId).clues.length : 0,
       guessCooldownUntil: s.guessCooldownUntil,
       lastGuess: s.lastGuess,
-      ai: s.ai ? { provider: s.ai.provider, model: s.ai.model } : null,
+      ai: s.ai
+        ? (you && you.isHost
+            ? { provider: s.ai.provider, model: s.ai.model, baseUrl: s.ai.baseUrl, hasKey: !!s.ai.apiKey }
+            /* 非房主只看到模型名；baseUrl 和 key 一样只留服务端（规格 #11/#12） */
+            : { provider: s.ai.provider, model: s.ai.model })
+        : null,
       winnerUid: s.winnerUid || 0,
       winnerNick: s.winnerNick || "",
       stars: s.stars || 0,

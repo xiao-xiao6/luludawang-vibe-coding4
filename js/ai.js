@@ -47,7 +47,7 @@
     model: "deepseek-chat",
     apiKey: "",
     timeoutMs: 20000,
-    maxTokens: 400,
+    maxTokens: 1200,
     temperature: 0.4
   };
 
@@ -263,6 +263,8 @@
 
   function sanitize(text) {
     var s = String(text == null ? "" : text);
+    /* 推理模型常把思考块一起吐出来：不剥掉会导致「判定词不在开头」判不过关，整句直接判掉线 */
+    s = s.replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>/gi, " ");
     s = s.replace(/```[a-zA-Z]*/g, "").replace(/```/g, "");
     s = s.replace(/\*\*/g, "").replace(/^[#>\s]+/, "");
     s = s.replace(/[\r\n]+/g, " ");
@@ -272,8 +274,9 @@
   }
 
   function leadKey(text) {
-    /* 标点必须存在：「是不是有人进过房间」这种反问不能被当成肯定 */
-    var m = String(text || "").match(/^(与此无关|部分正确|不是|是)[。.，,、]/);
+    /* 判定词后允许句号 / 逗号 / 顿号 / 冒号 / 破折号 / 分号，也允许「是！/ 不是！」这类语气收尾；
+       但「是不是有人进过房间」这种反问仍然判不过关。 */
+    var m = String(text || "").match(/^(与此无关|部分正确|不是|是)[。.，,、！!？?：:；;—－~～\s]/);
     if (!m) return "";
     for (var i = 0; i < VERDICTS.length; i++) {
       if (LEAD_OF[VERDICTS[i]] === m[1]) return VERDICTS[i];
@@ -317,7 +320,8 @@
       if (VERDICTS.indexOf(ct) === -1) return { ok: false, reason: "clue-type" };
       if (ct !== v) {
         v = ct;
-        reply = sanitize((LEAD_OF[ct] || "是") + "。" + reply.replace(/^(与此无关|部分正确|不是|是)[。.，,、]?\s*/, ""));
+        var rest = sanitize(String(reply).replace(/^(与此无关|部分正确|不是|是)[。.，,、！!？?：:；;—－~～\s]*/, ""));
+        reply = rest ? (LEAD_OF[ct] || "是") + "。" + rest : (LEAD_OF[ct] || "是") + "。";
       }
     }
 
@@ -345,17 +349,62 @@
     irr: "irr", irrelevant: "irr", unrelated: "irr", "与此无关": "irr", "无关": "irr"
   };
 
+  /* 宽松解析：尾逗号 / 单引号都能救回来（有些中转会把 JSON 序列化坏） */
+  function tryParseLoose(seg) {
+    var t = String(seg || "");
+    try { return JSON.parse(t); } catch (e) { /* 继续 */ }
+    try { return JSON.parse(t.replace(/,\s*([}\]])/g, "$1")); } catch (e2) { /* 继续 */ }
+    try { return JSON.parse(t.replace(/,\s*([}\]])/g, "$1").replace(/'/g, '"')); } catch (e3) { return null; }
+  }
+
+  /* 从「混着思考的整段回复」里挑出最像答案的那个顶层 JSON 对象。
+     推理模型的正文可能全在 reasoning_content 里，前面还夹着一堆举例，
+     所以按「像不像答案」打分，同分取最后一个。 */
+  function pickAnswerObject(text) {
+    var s = String(text || "");
+    var stack = [];
+    var segs = [];
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charAt(i);
+      if (c === "{") { stack.push(i); }
+      else if (c === "}") {
+        if (stack.length) {
+          var start = stack.pop();
+          if (!stack.length) segs.push(s.slice(start, i + 1));
+        }
+      }
+    }
+    function score(o) {
+      if (!o || typeof o !== "object") return 0;
+      var n = 0;
+      if (o.reply != null || o.note != null) n += 3;
+      if (o.verdict != null || o.level != null) n += 2;
+      if (o.clue != null) n += 1;
+      return n;
+    }
+    var best = null, bestScore = 0;
+    for (var j = 0; j < segs.length; j++) {
+      var o = tryParseLoose(segs[j]);
+      var sc = score(o);
+      if (o && sc > 0 && sc >= bestScore) { best = o; bestScore = sc; }
+    }
+    return best;
+  }
+
   function parseAnswer(raw) {
     if (raw == null) return null;
     var text = String(raw).trim();
     if (!text) return null;
+    /* 先剥思考块，再去围栏；有些中转还会把 ``` 夹在句子中间 */
+    text = text.replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>/gi, " ").trim();
     text = text.replace(/^```[a-zA-Z]*\s*/, "").replace(/```\s*$/, "").trim();
+    text = text.replace(/```[a-zA-Z]*/g, "").trim();
 
-    var obj = null;
-    var s = text.indexOf("{");
-    var e = text.lastIndexOf("}");
-    if (s !== -1 && e > s) {
-      try { obj = JSON.parse(text.slice(s, e + 1)); } catch (err) { obj = null; }
+    var obj = pickAnswerObject(text);
+    if (!obj) {
+      var s = text.indexOf("{");
+      var e = text.lastIndexOf("}");
+      if (s !== -1 && e > s) obj = tryParseLoose(text.slice(s, e + 1));
     }
     if (obj && typeof obj === "object") {
       var reply = sanitize(obj.reply != null ? obj.reply : (obj.text != null ? obj.text : ""));
@@ -379,12 +428,14 @@
     if (raw == null) return null;
     var text = String(raw).trim();
     if (!text) return null;
+    text = text.replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>/gi, " ").trim();
     text = text.replace(/^```[a-zA-Z]*\s*/, "").replace(/```\s*$/, "").trim();
-    var obj = null;
-    var s = text.indexOf("{");
-    var e = text.lastIndexOf("}");
-    if (s !== -1 && e > s) {
-      try { obj = JSON.parse(text.slice(s, e + 1)); } catch (err) { obj = null; }
+    text = text.replace(/```[a-zA-Z]*/g, "").trim();
+    var obj = pickAnswerObject(text);
+    if (!obj) {
+      var s = text.indexOf("{");
+      var e = text.lastIndexOf("}");
+      if (s !== -1 && e > s) obj = tryParseLoose(text.slice(s, e + 1));
     }
     if (obj && typeof obj === "object") {
       var level = String(obj.level == null ? "" : obj.level).trim().toLowerCase();
@@ -407,7 +458,8 @@
   function describeError(err) {
     if (!err) return "未知错误";
     if (err.code === "not-configured") return "还没填好服务商或 Key";
-    if (err.code === "unparsable") return "模型没按格式回答";
+    if (err.code === "unparsable") return "模型没按格式回答（要的是 JSON，模型回的不是；可在设置里换更听话的模型，如 deepseek-chat）";
+    if (err.code === "empty-reply") return "模型回了空内容（多半是 maxTokens 太小被截断，或该模型把正文放在思考字段里）";
     if (err.code === "timeout") return "请求超时";
     if (err.code === "http") return err.message || "接口报错";
     if (err.code === "network") {
@@ -417,7 +469,20 @@
       }
       return err.message || "网络请求失败";
     }
-    if (err.code && String(err.code).indexOf("guarded:") === 0) return "回答没通过把关（" + String(err.code).slice(8) + "）";
+    if (err.code && String(err.code).indexOf("guarded:") === 0) {
+      var why = String(err.code).slice(8);
+      var map = {
+        empty: "模型没给出回答",
+        verdict: "判定词不合法",
+        "too-long": "回答太长",
+        "lead-missing": "判定词没放在开头",
+        "lead-mismatch": "判定词和前三字对不上",
+        "clue-range": "认领了不存在的线索",
+        "clue-type": "线索判定非法",
+        "spoiler-truth": "回答里带了汤底原文"
+      };
+      return "回答没通过把关（" + (map[why] || why) + "）";
+    }
     return err.message || String(err);
   }
 
@@ -508,15 +573,26 @@
     }
     var ch = (json.choices || [])[0] || {};
     var msg = ch.message || {};
-    if (typeof msg.content === "string") return msg.content;
+    if (typeof msg.content === "string" && msg.content.trim()) return msg.content;
     if (Array.isArray(msg.content)) {
       var s = "";
       for (var j = 0; j < msg.content.length; j++) {
-        if (msg.content[j] && typeof msg.content[j].text === "string") s += msg.content[j].text;
+        var seg = msg.content[j];
+        if (seg && typeof seg.text === "string") s += seg.text;
+        else if (typeof seg === "string") s += seg;
       }
-      return s;
+      if (s.trim()) return s;
     }
-    if (typeof ch.text === "string") return ch.text;
+    /* 推理模型（DeepSeek-R1 / Qwen 思考版等）：正文可能落在这些字段里，
+       空 content 时宁可拿它们兜底，也比直接判「掉线」强 */
+    if (typeof msg.reasoning_content === "string" && msg.reasoning_content.trim()) return msg.reasoning_content;
+    if (typeof msg.reasoning === "string" && msg.reasoning.trim()) return msg.reasoning;
+    if (typeof ch.text === "string" && ch.text.trim()) return ch.text;
+    if (typeof json.output_text === "string" && json.output_text.trim()) return json.output_text;
+    if (typeof json.output === "string" && json.output.trim()) return json.output;
+    if (typeof json.response === "string" && json.response.trim()) return json.response;
+    /* 有些中转把文字塞进 choices[].message.content 之外的自定义字段 */
+    if (typeof json.text === "string" && json.text.trim()) return json.text;
     return "";
   }
 
@@ -532,7 +608,8 @@
         throw aiError("http", "接口返回 " + ((res && res.status) || "?") + (res && res.text ? "：" + shortBody(res.text) : ""));
       }
       var text = extractText(cfg, res);
-      if (!text) throw aiError("unparsable", "模型返回里没有可读内容");
+      /* 把「结构里压根没有正文」和「有正文但内容为空」分开报，方便定位 */
+      if (!text) throw aiError("empty-reply", "模型返回里没有可读正文（content 为空）");
       return text;
     });
   }
@@ -545,7 +622,9 @@
   function tryTwice(run) {
     return run(false).catch(function (err) {
       var c = String((err && err.code) || "");
-      var retryable = c === "unparsable" || c.indexOf("guarded:") === 0;
+      /* 空正文、格式不对、没过把关、一把超时，都值得再要一次；
+         只有配置类错误（没填、HTTP 4xx）不重试 */
+      var retryable = c === "unparsable" || c === "empty-reply" || c === "timeout" || c.indexOf("guarded:") === 0;
       if (!retryable) throw err;
       return run(true);
     });
