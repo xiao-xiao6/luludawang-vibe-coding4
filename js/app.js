@@ -506,11 +506,10 @@
     var p = E.getPuzzle(id);
     if (!p) return;
     var lib = isLib(p);
-    /* 进汤不走黑幕转场。scene-fade 是整屏近黑遮罩，
-       盖在半透明面板上时，部分浏览器会把它留在最上层，看起来就是黑屏。 */
-    (function () {
-      var fade = $("#scene-fade");
-      if (fade) fade.classList.remove("on");
+    /* 进汤保留黑幕转场：sceneWipe 先盖黑 → 换内容 → 淡出。
+       之前「一直黑」的根因是面板入场动画从透明起步，与黑幕叠加；
+       面板动画已移除，这里可以安全恢复氛围转场。 */
+    sceneWipe(function () {
       leaveRoomScreen();
       /* 两层各自持有「进行中的对局」：库题只认 LIB_KEY，绝不串档 */
       var snap = restore ? (lib ? libProgress().session : progress.session) : null;
@@ -602,7 +601,7 @@
       saveSession();
       paintResume();
       sfx("page");
-    })();  /* 立即执行：进汤不再走 sceneWipe，此段必须自己跑起来 */
+    });
   }
 
   function renderTip(text) {
@@ -1367,8 +1366,8 @@
     if (go) go.disabled = total === 0;
   }
 
-  /* 从「多人汤屋」切走时：收起房间面板 + 停掉房间轮询，
-     免得房间界面和汤库 / 随机模式叠在一起 */
+  /* 从「多人汤屋」切走时：收起房间面板 + 停掉房间轮询 + 藏右下角聊天，
+     免得房间界面 / 聊天框和汤库、随机模式、单人对局叠在一起 */
   function leaveRoomScreen() {
     var sr = $("#screen-room");
     if (sr && !sr.classList.contains("hidden")) {
@@ -1376,6 +1375,7 @@
       else sr.classList.add("hidden");
     }
     document.body.classList.remove("room-mode");
+    if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
   }
 
   function openRandom() {

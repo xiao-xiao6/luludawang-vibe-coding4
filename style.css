@@ -127,7 +127,7 @@ body {
   color: var(--dim-2);
 }
 
-.top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+.top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 /* ---------- 按钮 ---------- */
 .btn {
@@ -487,8 +487,7 @@ body.room-mode .qa-clear { display: none; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: min(60vh, 640px);
-  max-height: min(60dvh, 640px);
+  height: 252px;
   overflow-y: auto;
   padding-right: 3px;
 }
@@ -739,18 +738,19 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.75) contrast(1.04) brightnes
   font-weight: 700;
 }
 
-/* ---------- 音乐台：并进顶栏「音乐」按钮 ---------- */
+/* ---------- 音乐台：并进顶栏「音乐」按钮，按钮拉长，音量滑杆嵌在同一条胶囊里 ---------- */
 .music-dock {
   position: relative;
   z-index: 2;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 8px 4px 4px;
+  gap: 7px;
+  padding: 0 10px 0 0;
   border: 1px solid var(--line-2);
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(38,28,20,.94), rgba(22,16,12,.94));
+  background: linear-gradient(180deg, #2a1f16, #201710);
   box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  min-height: var(--tap, 44px);
 }
 @keyframes dockIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .music-dock.dim { opacity: .55; }
@@ -769,17 +769,29 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.75) contrast(1.04) brightnes
 }
 .dock-btn:hover { transform: scale(1.1); border-color: var(--broth); box-shadow: 0 0 14px rgba(226,164,79,.4); }
 .dock-btn:focus-visible { outline: 2px solid var(--broth); outline-offset: 2px; }
-.dock-mid { display: flex; flex-direction: column; gap: 2px; min-width: 108px; }
+/* 音乐胶囊内：「音乐」开关就是胶囊的左半段，视觉上和旁边的 ghost 按钮同一族 */
+.music-dock #btn-music {
+  border: 0;
+  border-right: 1px solid var(--line-2);
+  border-radius: 999px 0 0 999px;
+  background: transparent;
+  box-shadow: none;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+}
 .dock-label {
   font-size: 11px;
   letter-spacing: .12em;
   color: var(--broth);
   white-space: nowrap;
 }
+.dock-mid { display: inline-flex; flex-direction: row; align-items: center; gap: 8px; min-width: 96px; }
+.dock-label { display: none; }
 .dock-vol {
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
+  width: 84px;
   height: 4px;
   border-radius: 4px;
   background: linear-gradient(90deg, var(--broth-dim), rgba(76,54,37,.6));
@@ -1132,9 +1144,9 @@ body.fx-off .steam-field { display: none !important; }
   .pot { font-size: 50px; }
   .intro h2 { font-size: 21px; }
 
-  .music-dock { padding: 5px 7px; gap: 6px; }
-  .dock-label { font-size: 10px; letter-spacing: .06em; }
+  .music-dock { padding: 0 8px 0 0; gap: 6px; }
   .dock-mid { min-width: 72px; }
+  .dock-vol { width: 60px; }
   .dock-btn { width: 28px; height: 28px; }
 
   /* 窄屏：聊天框仍钉在右下，收成一条，避开刘海、手势条和提问栏 */
@@ -1185,8 +1197,8 @@ body.modal-open .room-chat { display: none; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .stat { padding: 7px 9px; font-size: 12px; }
 
-  .music-dock { padding: 6px 8px; gap: 6px; }
-  .dock-mid { min-width: 88px; }
+  .music-dock { padding: 0 8px 0 0; gap: 6px; }
+  .dock-mid { min-width: 76px; }
   .bg-img { background-position: center 38%; }
 
   .btn { min-height: var(--tap); }
@@ -1235,8 +1247,9 @@ body.modal-open .room-chat { display: none; }
   .stat { font-size: 11.5px; padding: 6px 8px; gap: 6px; }
   .stat-k { font-size: 11px; }
   .pz-card { padding: 10px 11px; }
-  .music-dock { padding: 4px 6px; gap: 4px; }
-  .dock-mid { min-width: 56px; }
+  .music-dock { padding: 0 6px 0 0; gap: 4px; }
+  .dock-mid { min-width: 52px; }
+  .dock-vol { width: 44px; }
 }
 
 /* ---------- 未开启 JS 时的兜底提示 ---------- */
@@ -1621,7 +1634,7 @@ body.room-mode .qa-log {
 .room-pz-title { font-family: var(--serif); font-size: 15px; color: var(--broth-2); margin-bottom: 6px; }.room-pz-surface { margin: 0 0 8px; font-size: 13px; line-height: 1.9; color: var(--ink); }
 .room-pz-meta { margin: 0; font-size: 11.5px; color: var(--dim-2); letter-spacing: .06em; }
 
-.room-mode .col-clue .clue-list { max-height: min(52vh, 520px); }
+.room-mode .col-clue .clue-list { height: auto; max-height: min(52vh, 520px); }
 .room-clue-item {
   border: 1px solid var(--line);
   border-radius: 9px;
