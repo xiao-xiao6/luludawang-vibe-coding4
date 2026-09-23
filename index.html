@@ -371,6 +371,9 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="js/data.js" defer></script>
+<!-- 【2026-09-23 策略变更】单人模式改走「本地真汤底」：前端直接加载含 truth 的汤库档，
+     让 AI 汤主吃真底判定（旧版是瘦身档，单人玩必然空底瞎编）。
+     汤底明文公开、可随意下载——防作弊交给玩家自觉；多人房判定仍在服务端 Worker。 -->
 <script src="js/library.public.js" defer></script>
 <script src="js/engine.js" defer></script>
 <script src="js/ai.js" defer></script>

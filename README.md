@@ -220,7 +220,7 @@
 
 ```html
 <script src="js/data.js"         defer></script>  <!-- 精品题库（前 20 题核心分片） -->
-<script src="js/library.public.js" defer></script>  <!-- 汤库 1361 条（瘦身档，不含汤底） -->
+<script src="js/library.public.js" defer></script>  <!-- 汤库 1361 条（含汤底，明文公开） -->
 <script src="js/engine.js"       defer></script>  <!-- 判定引擎 -->
 <script src="js/ai.js"           defer></script>  <!-- AI 汤主 -->
 <script src="js/audio.js"        defer></script>  <!-- 程序化音乐 -->
@@ -246,7 +246,7 @@
 ├── js/
 │   ├── data.js                 # 精品题库 · 核心分片（前 20 题）
 │   ├── data-more.js            # 精品题库 · 异步分片（后 80 题）
-│   ├── library.public.js       # 汤库汤面元数据（自动生成，勿手改；不含汤底）
+│   ├── library.public.js       # 汤库数据（自动生成，勿手改；含汤底，明文公开）
 │   ├── engine.js               # 判定引擎：提问判定 / 猜底判定 / 星级 / 抽题
 │   ├── ai.js                   # AI 汤主：9 家服务商适配 + Prompt 构造 + 防剧透
 │   ├── audio.js                # 程序化音乐合成 + 13 种音效
@@ -337,7 +337,7 @@ cd 海龟汤小游戏
 python tools/import_soup_library.py           # 生成 data/Library/soups.json 与 data/Library/library.data.js
 python tools/import_soup_library.py --check   # 校验幂等，期望无 diff、exit 0
 
-# 重建三份产物：服务端题库（含汤底）+ 前端瘦身档（不含汤底）
+# 重建三份产物：服务端题库（含汤底）+ 前端公开档（含汤底，明文发布）
 node tools/build_worker_data.js               # worker/src/*.data.js + js/library.public.js
 node tools/build_worker_data.js --check       # 幂等自检
 ```
@@ -449,7 +449,7 @@ data/Library/library.data.js     ← var SOUP_LIBRARY = [...]（源码，含汤�
    ├───────────────────────────────┐
    ▼                               ▼
 worker/src/library.data.js     js/library.public.js
-（服务端 936 题，含汤底）        （前端 1361 题，零汤底，运行时 <script src>）
+（服务端 936 题，含汤底）        （前端 1361 题，含汤底，明文公开）
    │                               │
    │  GET /api/truth/:room/:puzzle │  汤底只能揭晓后凭房号取
    └───────────────────────────────┘

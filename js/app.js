@@ -639,6 +639,14 @@
       return;
     }
 
+    /* 防呆：单人玩库题时，前端必须真的拿到汤底，否则绝不让 AI 空底瞎编。
+       现在 index.html 加载的是含 truth 的完整档，正常不会触发；
+       一旦触发（换了瘦身档 / 数据没加载上），宁可明说也不放幻觉。 */
+    if (isLib(p) && p.mode !== "surface" && !String(p.truth || "").trim()) {
+      toast("这锅的汤底还没加载上，先别问——刷新一下页面试试");
+      return;
+    }
+
     var key = E.normalize(raw);
 
     addLine("me", "", esc(raw), "你的提问");
