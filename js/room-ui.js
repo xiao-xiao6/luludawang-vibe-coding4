@@ -61,7 +61,8 @@
     syncChatVisibility();
   }
 
-  /* 聊天框只在「已经进房」时出现，钉在屏幕右下角；建房页和单人界面都藏起来 */
+  /* 聊天框只在「正在房间内」时出现，钉在屏幕右下角；
+     建房页、单人界面、汤库、随机模式一律藏起来 */
   function syncChatVisibility() {
     var wrap = $("#room-chat");
     if (!wrap) return;
@@ -1287,11 +1288,13 @@
         return;
       }
       if (solo) {
+        /* 单人：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB，两边都找。
+           之前只在 PUZZLES 里找，汤库题点「确认」会误报「没有汤底」。 */
         var pid = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
-        var list = root.PUZZLES || [];
+        var list = (root.PUZZLES || []).concat(root.SOUP_LIBRARY || []);
         var p = null;
         for (var i = 0; i < list.length; i++) {
-          if (list[i].id === pid) { p = list[i]; break; }
+          if (list[i] && list[i].id === pid) { p = list[i]; break; }
         }
         reveal(p && p.truth ? p.truth : "这一锅没有汤底。");
         return;
@@ -1488,14 +1491,19 @@
       if (box) blockManualScroll(box);
     },
     doUnlock: doUnlock,
-    /* 从房间界面切走（去汤库 / 随机）：停轮询、收起房间屏、摘掉 room-mode */
+    /* 从房间界面切走（去汤库 / 随机 / 单人对局）：停轮询、收起房间屏、摘掉 room-mode，
+       并把右下角聊天框藏起来 —— 它只属于「正在多人房间内」的状态 */
     leaveScreen: function () {
       stopWatch();
       stopQaScroll();
+      R.inRoom = false;
       var sr = document.getElementById("screen-room");
       if (sr) sr.classList.add("hidden");
       document.body.classList.remove("room-mode");
+      syncChatVisibility();
     },
+    /* 让单人侧（app.js）在切屏 / 进汤时也能同步聊天框显隐 */
+    syncChat: syncChatVisibility,
     /* 刷新页面后：本地还留着房号，且服务端房间还在 → 直接回到房内 */
     resume: function () {
       if (!N || !N.available()) return false;
