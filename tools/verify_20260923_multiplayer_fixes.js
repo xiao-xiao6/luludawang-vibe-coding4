@@ -29,7 +29,7 @@ ok("AI 推理后调用 renderQaLog", /state\.history\.push\(\{ q: "【推理】"
 console.log("\n[新①] 右下角常驻聊天框");
 ok("HTML 有 #room-chat 容器", /id="room-chat"/.test(html));
 ok("HTML 有 #room-chat-log / #room-chat-input / #btn-room-chat-send", /id="room-chat-log"/.test(html) && /id="room-chat-input"/.test(html) && /id="btn-room-chat-send"/.test(html));
-ok("CSS 有 .room-chat 固定右下角", /\.room-chat\s*\{[\s\S]*position:\s*fixed;[\s\S]*right:\s*16px;[\s\S]*bottom:\s*16px;/.test(css));
+ok("CSS 有 .room-chat 固定右下角", /\.room-chat\s*\{[\s\S]*position:\s*fixed;[\s\S]*right:\s*calc\(18px \+ var\(--sar\)\);[\s\S]*bottom:\s*calc\(18px \+ var\(--sab\)\);/.test(css));
 ok("CSS 有折叠态 .room-chat.collapsed", /\.room-chat\.collapsed/.test(css));
 ok("UI 有 renderChat 渲染", /function renderChat\(s\)/.test(ui));
 ok("UI 有 doChat 发送", /function doChat\(\)/.test(ui));
@@ -63,7 +63,7 @@ console.log("\n[多②] 死座位与请离");
 ok("服务端有 DEAD_SEAT_MS", /DEAD_SEAT_MS/.test(wroom));
 ok("快照下发 seatRemovable", /seatRemovable:\s*!p\.isHost/.test(wroom));
 ok("kick 拒绝房主", /CANNOT_KICK_HOST/.test(wroom));
-ok("kick 拒绝未超时玩家", /PLAYER_NOT_IDLE/.test(wroom));
+ok("kick 区分死座位与普通请离", /DEAD_SEAT_MS/.test(wroom) && /被房主请离了房间/.test(wroom));
 ok("UI 渲染请离按钮", /data-kick/.test(ui));
 ok("UI 有 doKick", /function doKick\(uid\)/.test(ui));
 
@@ -86,7 +86,7 @@ ok("UI 禁止手动滚动", /blockManualScroll/.test(ui));
 ok("CSS 有 room-mode 下禁止选择/触摸", /body\.room-mode \.qa-log/.test(css) && /user-select:\s*none/.test(css));
 
 console.log("\n[收尾] Service Worker 缓存版本升级");
-ok("sw.js 版本号为 v5", /deepsea-soup-v5/.test(sw));
+ok("sw.js 版本号为 v6", /deepsea-soup-v6/.test(sw));
 
 console.log("\n" + (fail === 0 ? "✅ 全部通过" : "❌ 有失败") + "  " + pass + " passed / " + fail + " failed\n");
 process.exit(fail === 0 ? 0 : 1);

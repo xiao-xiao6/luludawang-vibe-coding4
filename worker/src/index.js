@@ -62,26 +62,33 @@ function makeRoomCode() {
   return out;
 }
 
-/* 白名单命中就回显该来源；未命中回显首个白名单来源（浏览器据此放行）。
- * 之前写死 [0]，从 localhost / 预览域名访问会被 CORS 拦掉。 */
+/* 白名单命中就回显该来源。
+ * 必须把请求里的 Origin 传进来：写死白名单第一项时，
+ * localhost / 127.0.0.1 / 预览域名的预检和正式响应都会对不上，浏览器直接拦掉。
+ * 未配置白名单时放行任意来源（仅开发兜底）。 */
 function corsHeaders(env, origin) {
   const list = (env.ALLOWED_ORIGINS || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
-  const allow = (origin && list.indexOf(origin) !== -1) ? origin : (list[0] || "*");
-  return {
-    "access-control-allow-origin": allow,
+  let allow = "";
+  if (!list.length) allow = origin || "*";
+  else if (origin && list.indexOf(origin) !== -1) allow = origin;
+  else if (!origin) allow = list[0];
+  const headers = {
     "access-control-allow-methods": "GET,POST,OPTIONS",
     "access-control-allow-headers": "content-type",
+    "access-control-max-age": "86400",
     "vary": "Origin"
   };
+  if (allow) headers["access-control-allow-origin"] = allow;
+  return headers;
 }
 
-function json(data, env, status) {
+function json(data, env, status, origin) {
   return new Response(JSON.stringify(data), {
     status: status || 200,
     headers: Object.assign({
       "content-type": "application/json; charset=utf-8",
       "cache-control": "no-store"
-    }, corsHeaders(env))
+    }, corsHeaders(env, origin))
   });
 }
 
@@ -95,13 +102,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const origin = request.headers.get("origin") || "";
+    const reply = function (data, status) { return json(data, env, status, origin); };
 
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: corsHeaders(env) });
+      return new Response(null, { status: 204, headers: corsHeaders(env, origin) });
     }
 
     if (path === "/api/health") {
-      return json({ ok: true, service: "soup-room", at: Date.now() }, env);
+      return reply({ ok: true, service: "soup-room", at: Date.now() });
     }
 
     /* 题面清单：只给汤面，**绝不含汤底**（房主选汤用）
@@ -121,21 +130,21 @@ export default {
         );
       }
       const total = list.length;
-      return json({
+      return reply({
         ok: true,
         layer,
         total,
         offset,
         puzzles: list.slice(offset, offset + limit)
-      }, env);
+      });
     }
 
     /* 单个题面 */
     const pm = path.match(/^\/api\/puzzle\/([\w-]+)$/);
     if (pm) {
       const p = publicPuzzle(pm[1]);
-      if (!p) return json({ error: "NO_SUCH_PUZZLE" }, env, 404);
-      return json({ ok: true, puzzle: p }, env);
+      if (!p) return reply({ error: "NO_SUCH_PUZZLE" }, 404);
+      return reply({ ok: true, puzzle: p });
     }
 
     /* 汤底揭晓：**只能凭房号取，且只有揭晓后（phase=revealed）才给**。
@@ -149,13 +158,13 @@ export default {
         .fetch(new Request("https://do/?action=state", { method: "GET" }))
         .then((r) => r.json())
         .catch(() => null);
-      if (!snap || !snap.exists) return json({ error: "NO_SUCH_ROOM" }, env, 404);
+      if (!snap || !snap.exists) return reply({ error: "NO_SUCH_ROOM" }, 404);
       if (snap.phase !== "revealed" || snap.puzzleId !== pid) {
-        return json({ error: "NOT_REVEALED" }, env, 403);
+        return reply({ error: "NOT_REVEALED" }, 403);
       }
       const full = getPuzzle(pid);
-      if (!full) return json({ error: "NO_SUCH_PUZZLE" }, env, 404);
-      return json({ ok: true, truth: full.truth || "" }, env);
+      if (!full) return reply({ error: "NO_SUCH_PUZZLE" }, 404);
+      return reply({ ok: true, truth: full.truth || "" });
     }
 
     /* 题库概览：两层各多少题（前端显示「共 N 道」用，不含任何汤底） */
@@ -163,14 +172,14 @@ export default {
       const all = allPuzzleIds();
       let core = 0, lib = 0;
       for (const id of all) (puzzleLayer(id) === "lib" ? lib++ : core++);
-      return json({ ok: true, total: all.length, core, lib }, env);
+      return reply({ ok: true, total: all.length, core, lib });
     }
 
     /* 建房 */
     if (path === "/api/room/new" && request.method === "POST") {
       const ip = request.headers.get("cf-connecting-ip") || "unknown";
       if (rateLimited(ip)) {
-        return json({ error: "RATE_LIMITED", note: "今天开的房间有点多，明天再来。" }, env, 429);
+        return reply({ error: "RATE_LIMITED", note: "今天开的房间有点多，明天再来。" }, 429);
       }
       let body = {};
       try { body = await request.json(); } catch (e) { body = {}; }
@@ -195,7 +204,7 @@ export default {
         })
       );
       const data = await res.json();
-      return json(Object.assign({ roomCode: code }, data), env, res.status);
+      return reply(Object.assign({ roomCode: code }, data), res.status);
     }
 
     /* ---------- 单人模式（规格 #12 A1：判定 / 汤底都只在服务端） ----------
@@ -204,7 +213,7 @@ export default {
     if (path === "/api/solo/new" && request.method === "POST") {
       const ip = request.headers.get("cf-connecting-ip") || "unknown";
       if (rateLimited(ip)) {
-        return json({ error: "RATE_LIMITED", note: "今天的调用有点多，明天再来。" }, env, 429);
+        return reply({ error: "RATE_LIMITED", note: "今天的调用有点多，明天再来。" }, 429);
       }
       let body = {};
       try { body = await request.json(); } catch (e) { body = {}; }
@@ -227,7 +236,7 @@ export default {
           body: JSON.stringify({ internalId: body.internalId || "solo", puzzleId: body.puzzleId })
         }));
       }
-      return json({ ok: true, roomCode: code }, env);
+      return reply({ ok: true, roomCode: code });
     }
 
     /* 单人会话内的动作：/api/solo/:code/:action */
@@ -257,7 +266,7 @@ export default {
         headers: Object.assign({
           "content-type": "application/json; charset=utf-8",
           "cache-control": "no-store"
-        }, corsHeaders(env))
+        }, corsHeaders(env, origin))
       });
     }
 
@@ -287,11 +296,11 @@ export default {
         headers: {
           "content-type": "application/json; charset=utf-8",
           "cache-control": "no-store",
-          ...corsHeaders(env)
+          ...corsHeaders(env, origin)
         }
       });
     }
 
-    return json({ error: "NOT_FOUND", path }, env, 404);
+    return reply({ error: "NOT_FOUND", path }, 404);
   }
 };

@@ -526,10 +526,10 @@
       if (sl) sl.classList.add("hidden");
       var gs = $("#screen-game");
       gs.classList.remove("hidden");
-      /* 重放入场动画，让切题更“有戏” */
+      /* 进汤不再重播入场动画：重播会从 opacity:0 起步，
+         部分浏览器会把面板卡在透明，看起来像整页黑屏 */
       gs.style.animation = "none";
-      void gs.offsetWidth;
-      gs.style.animation = "";
+      gs.style.opacity = "1";
       setScene("game");
 
       if (lib) {

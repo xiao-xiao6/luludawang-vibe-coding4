@@ -82,7 +82,6 @@
     <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
     <button type="button" class="btn ghost" id="btn-fx" aria-pressed="true">✨ 特效</button>
   </div>
-  <div class="top-chat-slot" id="top-chat-slot"></div>
 </header>
 
 <main class="layout">
@@ -382,7 +381,7 @@
   </div>
 </div>
 
-<!-- 多人房聊天：进房后才显示，固定在屏幕右下角，不挡中栏和顶栏 -->
+<!-- 多人房聊天：进房后才显示。位置由 CSS 钉在屏幕右下角，不进顶栏 -->
 <div class="room-chat collapsed hidden" id="room-chat">
   <div class="rc-head">
     <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="false">
