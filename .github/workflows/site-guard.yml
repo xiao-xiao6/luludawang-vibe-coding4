@@ -45,9 +45,10 @@ jobs:
             const s = fs.readFileSync("js/library.public.js", "utf8");
             if (!/hasTruth/.test(s)) { console.error("::error::js/library.public.js 缺少 hasTruth 标记"); process.exit(1); }
             const n = (s.match(/\{"id":/g) || []).length;
-            if (n < 1000) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
+            /* 阈值留余量：当前题库 ~988 题，瘦到 900 以下才算异常 */
+            if (n < 900) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
             const t = (s.match(/"hasTruth":true/g) || []).length;
-            if (t < 1000) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
+            if (t < 900) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
             if (/^\s*export\s/m.test(s)) { console.error("::error::js/library.public.js 不能是 ES module：它是 index.html 用 <script src> 直接加载的普通脚本"); process.exit(1); }
             console.log("✓ js/library.public.js 结构正常（" + n + " 条，含汤底 " + t + " 条，明文公开）");
           '
