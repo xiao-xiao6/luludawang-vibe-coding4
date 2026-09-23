@@ -34,13 +34,13 @@ import {
 
 const UID_MAX = 8;              /* 单房最多 8 人 */
 const NICK_MAX = 12;            /* 昵称 ≤12 字 */
-const TURN_TIMEOUT_MS = 60000;  /* 顺序提问 60s 超时跳过 */
-const COOLDOWN_IRR_MS = 180000; /* 猜底 🔴无关 180s 冷却 */
-const COOLDOWN_CLOSE_MS = 60000;/* 猜底 🟡部分正确 60s 冷却 */
+const TURN_TIMEOUT_MS = 90000;  /* 顺序提问 90s 超时跳过 */
+const COOLDOWN_IRR_MS = 180000; /* 猜底 🔴无关 180s 冷却（只算在猜的人身上） */
+const COOLDOWN_CLOSE_MS = 60000;/* 猜底 🟡部分正确 60s 冷却（只算在猜的人身上） */
 
 /* ---- 联机手感参数 ---- */
 const ONLINE_MS = 35000;         /* 在线窗口：原 15s 太紧，手机切一下消息就被判离线 */
-const DEAD_SEAT_MS = 600000;     /* 死座位：离线超 10 分钟，房主可请离释放座位 */
+const DEAD_SEAT_MS = 60000;      /* 死座位：离线超 1 分钟，房主可请离释放座位 */
 const NICK_TAKEOVER_MS = 60000;  /* 同名接管：同名成员离线超 60s，同昵称重进即接管原座 */
 const ASK_LOCK_MS = 90000;       /* AI 飞行锁：一次提问最长锁 90s，期间连点只算一次 */
 const QA_MAX = 200;              /* 问答日志上限 */
@@ -143,7 +143,7 @@ export class Room {
       puzzleId: null,
       revealed: [],                /* 全员共享的已挖线索编号（规格 #2） */
       qaLog: [],
-      guessCooldownUntil: 0,
+      guessCooldowns: {},          /* uid → 冷却到期时间戳：每人独立，互不影响 */
       lastGuess: null,
       ai: null,                    /* 房主配置的 AI（key 只在服务端，规格 #11） */
       pendingAI: null,             /* 汤主正在熬的那一句（全桌可见的「思考中」） */
@@ -208,7 +208,29 @@ export class Room {
     return { player: p };
   }
 
-  /* 房主请离死座位（多②）：只允许动「离线超时」的人，房主自己不能被请离 */
+  /* 把一个人从房间里拿掉，并修正轮次。返回被请离的人。 */
+  removePlayer(s, uid) {
+    const target = s.players.filter((x) => x.uid === Number(uid))[0];
+    if (!target) return null;
+    const wasTurn = s.order.length && s.order[s.turnIdx] === target.uid;
+    s.players = s.players.filter((x) => x.uid !== target.uid);
+    s.order = s.order.filter((u) => u !== target.uid);
+    if (s.guessCooldowns) delete s.guessCooldowns[target.uid];
+    if (!s.order.length) {
+      s.turnIdx = 0;
+      s.turnDeadline = 0;
+    } else {
+      if (s.turnIdx >= s.order.length) s.turnIdx = 0;
+      /* 被请离的人正好轮到自己：把倒计时交给下一位 */
+      if (wasTurn && s.phase === "playing") {
+        s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
+      }
+    }
+    return target;
+  }
+
+  /* 房主请人：任意在座玩家都能请离（房主自己除外）。
+     离线超过 1 分钟的人走「死座位」通道，其余走普通请离。 */
   async kick({ internalId, uid }) {
     const s = this.state;
     const me = s.players.filter((x) => x.internalId === internalId)[0];
@@ -216,11 +238,15 @@ export class Room {
     const target = s.players.filter((x) => x.uid === Number(uid))[0];
     if (!target) return { error: "NO_SUCH_PLAYER" };
     if (target.isHost) return { error: "CANNOT_KICK_HOST" };
-    if (now() - (target.lastSeen || 0) < DEAD_SEAT_MS) return { error: "PLAYER_NOT_IDLE" };
-    s.players = s.players.filter((x) => x.uid !== target.uid);
-    s.order = s.order.filter((u) => u !== target.uid);
-    if (s.turnIdx >= s.order.length) s.turnIdx = 0;
-    s.qaLog.push({ kind: "sys", text: target.nickname + " 的座位被房主收回了（离线太久）。", at: now() });
+    const idle = now() - (target.lastSeen || 0) >= DEAD_SEAT_MS;
+    this.removePlayer(s, target.uid);
+    s.qaLog.push({
+      kind: "sys",
+      text: idle
+        ? target.nickname + " 的座位被房主收回了（离线太久）。"
+        : target.nickname + " 被房主请离了房间。",
+      at: now()
+    });
     this.bump();
     return { ok: true, uid: target.uid };
   }
@@ -240,6 +266,27 @@ export class Room {
   async heartbeat({ internalId }) {
     const p = this.state.players.filter((x) => x.internalId === internalId)[0];
     if (p) { p.online = true; p.lastSeen = now(); }
+    return { ok: true };
+  }
+
+  /* 点「离开房间」就立刻从全桌名单里消失，不再留下占座位的幽灵。
+     房主离开时，把房主交给还在的最小号，房间不用重开。 */
+  async leave({ internalId }) {
+    const s = this.state;
+    if (!s) return { ok: true };
+    const p = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!p) return { ok: true };
+    const wasHost = !!p.isHost;
+    this.removePlayer(s, p.uid);
+    if (wasHost && s.players.length) {
+      const next = s.players.slice().sort((a, b) => a.uid - b.uid)[0];
+      s.players.forEach((x) => { x.isHost = x.uid === next.uid; });
+      s.hostUid = next.uid;
+      s.qaLog.push({ kind: "sys", text: "房主离开了，#" + next.uid + " " + next.nickname + " 接过房主。", at: now() });
+    } else {
+      s.qaLog.push({ kind: "sys", text: p.nickname + " 离开了房间。", at: now() });
+    }
+    this.bump();
     return { ok: true };
   }
 
@@ -430,7 +477,14 @@ export class Room {
       return { ok: true, phase: s.phase };
     }
 
-    if (s.phase !== "lobby") return { error: "NOT_IN_LOBBY" };
+    /* 一锅打到一半、或已经揭底时进来的人：不能插进正在进行的这锅，
+       但可以先准备，等这锅结束（或房主开下一锅）时直接算进下一锅。 */
+    if (s.phase !== "lobby") {
+      if (!ready) { p.ready = false; this.bump(); return { ok: true, phase: s.phase, queued: false }; }
+      p.ready = true;
+      this.bump();
+      return { ok: true, phase: s.phase, queued: true };
+    }
     p.ready = !!ready;
 
     /* 全员准备 + 已选好汤 才开局；没选汤时不许开局，否则 60s 超时轰炸 */
@@ -604,11 +658,14 @@ export class Room {
   async guess({ internalId, text }) {
     const s = this.state;
     if (s.phase !== "playing") return { error: "NOT_PLAYING" };
-    if (now() < s.guessCooldownUntil) {
-      return { error: "COOLDOWN", until: s.guessCooldownUntil };
-    }
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
+    /* 冷却只算在猜的人身上，别人不受影响 */
+    if (!s.guessCooldowns) s.guessCooldowns = {};
+    const until = s.guessCooldowns[p.uid] || 0;
+    if (now() < until) {
+      return { error: "COOLDOWN", until };
+    }
 
     const puzzle = getPuzzle(s.puzzleId);
     const raw = String(text || "").slice(0, 500);
@@ -652,15 +709,16 @@ export class Room {
     return { ok: true, item, level, note };
   }
 
-  /* 结算：🔴/🟡 设冷却，🟢 揭汤底结束本锅 */
+  /* 结算：🔴/🟡 只给猜的人设冷却，🟢 揭汤底结束本锅 */
   settleGuess(level, s, puzzle, player) {
+    if (!s.guessCooldowns) s.guessCooldowns = {};
     if (level === "no" || level === "vague") {
-      s.guessCooldownUntil = now() + (level === "no" ? COOLDOWN_IRR_MS : COOLDOWN_CLOSE_MS);
+      s.guessCooldowns[player.uid] = now() + (level === "no" ? COOLDOWN_IRR_MS : COOLDOWN_CLOSE_MS);
     } else if (level === "close") {
-      s.guessCooldownUntil = now() + COOLDOWN_CLOSE_MS;
+      s.guessCooldowns[player.uid] = now() + COOLDOWN_CLOSE_MS;
     } else if (level === "solved") {
       s.phase = "revealed";
-      s.guessCooldownUntil = 0;
+      s.guessCooldowns = {};
       s.winnerUid = player.uid;
       s.winnerNick = player.nickname;
       s.stars = puzzle ? stars(puzzle, s.qaLog.filter((x) => x.kind === "ask").length, 0) : 1;
@@ -679,14 +737,22 @@ export class Room {
     s.order = [];
     s.turnIdx = 0;
     s.turnDeadline = 0;
-    s.guessCooldownUntil = 0;
+    s.guessCooldowns = {};
     s.lastGuess = null;
     s.winnerUid = 0;
     s.winnerNick = "";
     s.stars = 0;
     s.pendingAI = null;
     s.askInFlightUntil = 0;
-    s.players.forEach((x) => { x.ready = false; });
+    /* 这锅还在打时已经点过准备的人，下一锅直接算准备好；其余人重新准备。
+       全员都准备好了就直接开下一锅，不用再干等。 */
+    const queued = s.players.filter((x) => x.ready).map((x) => x.uid);
+    if (queued.length && queued.length === s.players.length && s.puzzleId) {
+      s.order = shuffle(queued.slice());
+      s.turnIdx = 0;
+      s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
+      s.phase = "playing";
+    }
     this.bump();
     return { ok: true, phase: s.phase };
   }
@@ -726,7 +792,8 @@ export class Room {
         return { n: i + 1, type: c ? c.type : "irr", text: c ? String(c.text || "") : "" };
       }),
       clueTotal: s.puzzleId && getPuzzle(s.puzzleId) ? getPuzzle(s.puzzleId).clues.length : 0,
-      guessCooldownUntil: s.guessCooldownUntil,
+      /* 只下发「我自己」的冷却，别人的冷却不共享、也不泄露 */
+      myGuessCooldownUntil: you && s.guessCooldowns ? (s.guessCooldowns[you.uid] || 0) : 0,
       lastGuess: s.lastGuess,
       /* 「汤主正在思考」：全桌可见，谁问的都一样，不在场的人也知道进度 */
       pendingAI: s.pendingAI ? {
@@ -829,6 +896,9 @@ export class Room {
       case "kick":
         out = await this.kick(body);
         if (!out.error) out = this.snapshot(meId);
+        break;
+      case "leave":
+        out = await this.leave(body);
         break;
       case "set-ai":
         out = await this.setAi(body);

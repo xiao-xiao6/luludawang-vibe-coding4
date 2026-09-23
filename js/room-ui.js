@@ -64,6 +64,8 @@
   function syncChatVisibility() {
     var wrap = $("#room-chat");
     if (!wrap) return;
+    var slot = $("#top-chat-slot");
+    if (slot && wrap.parentNode !== slot) slot.appendChild(wrap);
     var live = $("#room-live");
     var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
     wrap.classList.toggle("hidden", !inLive);
@@ -141,10 +143,18 @@
   function leaveRoom() {
     stopWatch();
     stopQaScroll();
-    /* 清掉本地房号，刷新后不再自动回房 */
-    if (N && N.clearRoom) N.clearRoom();
-    showEntry();
-    R.toast("已离开房间");
+    /* 先通知服务器把座位真的清掉，别人视角立刻看不到这个人；
+       网络失败也继续清本地，避免自己被卡在旧房号里。 */
+    var done = (N && N.leaveRoom) ? N.leaveRoom() : Promise.resolve();
+    if (!(N && N.leaveRoom) && N && N.clearRoom) N.clearRoom();
+    done.then(function () {
+      showEntry();
+      R.toast("已离开房间");
+    }, function () {
+      if (N && N.clearRoom) N.clearRoom();
+      showEntry();
+      R.toast("已离开房间");
+    });
   }
 
   /* ---------------- 轮询 ---------------- */
@@ -207,9 +217,10 @@
         if (p.isHost) tags.push('<span class="room-tag host">房主 #1</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
         if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">该他问</span>');
-        /* 死座位（多②）：离线超时的人，房主可一键请离释放座位 */
-        if (isHostMe && p.seatRemovable) {
-          tags.push('<button type="button" class="btn ghost rp-kick" data-kick="' + p.uid + '">请离死座位</button>');
+        /* 房主可请离任意在座玩家；离线超过 1 分钟的单独标成死座位 */
+        if (isHostMe && !p.isHost) {
+          tags.push('<button type="button" class="btn ghost rp-kick" data-kick="' + p.uid + '">' +
+            (p.seatRemovable ? "请离死座位" : "请离") + "</button>");
         }
         return '<div class="room-player' + (p.online ? "" : " off") + (mine && p.uid === mine.uid ? " self" : "") + '">' +
           '<span class="rp-uid">#' + p.uid + "</span>" +
@@ -333,17 +344,23 @@
       }
     }
 
-    /* 准备按钮：lobby 阶段自由切；playing 阶段点了 = 撤回准备回大堂（服务端掀桌） */
+    /* 准备按钮：
+       lobby 自由切；playing 且自己在本锅顺序里 = 撤回准备回大堂；
+       中途进来、不在本锅顺序里的人，可以先为下一锅准备，不会掀掉正在打的这锅。 */
     var rb = $("#btn-room-ready");
     if (rb) {
       var mineReady = mine && mine.ready;
+      var inThisPot = !!(mine && (s.order || []).indexOf(mine.uid) !== -1);
       rb.classList.toggle("on", !!mineReady);
-      if (s.phase === "playing") {
+      if (s.phase === "playing" && inThisPot) {
         rb.textContent = "撤回准备（回大堂）";
+        rb.disabled = false;
+      } else if (s.phase === "playing" || s.phase === "revealed") {
+        rb.textContent = mineReady ? "已为下一锅准备" : "为下一锅准备";
         rb.disabled = false;
       } else {
         rb.textContent = mineReady ? "已准备（点一下取消）" : "我准备好了";
-        rb.disabled = s.phase !== "lobby";
+        rb.disabled = false;
       }
     }
 
@@ -452,13 +469,21 @@
   var qaRaf = 0;
   var qaPaused = 0;         /* 到底后停顿的截止时间戳 */
 
+  function qaScrollWanted() {
+    /* 单人开锅、多人进房都要自动慢滚；菜单页内容不够长时 step 自己停 */
+    if (R.inRoom) return true;
+    var game = document.getElementById("screen-game");
+    return !!(game && !game.classList.contains("hidden"));
+  }
+
   function ensureQaScroll() {
     var box = $("#qa-log");
     if (!box) return;
+    blockManualScroll(box);
     if (qaRaf) return;      /* 已经在跑 */
     var step = function () {
       var el = $("#qa-log");
-      if (!el || !R.inRoom) { qaRaf = 0; return; }
+      if (!el || !qaScrollWanted()) { qaRaf = 0; return; }
       var over = el.scrollHeight - el.clientHeight;
       if (over <= 4) {
         /* 内容不够长：不动，也不花帧 */
@@ -476,7 +501,7 @@
         qaPaused = t + 1600;
         setTimeout(function () {
           var e2 = $("#qa-log");
-          if (e2 && R.inRoom) e2.scrollTop = 0;
+          if (e2 && qaScrollWanted()) e2.scrollTop = 0;
         }, 1600);
       }
       qaRaf = requestAnimationFrame(step);
@@ -489,24 +514,20 @@
     qaPaused = 0;
   }
 
-  /* 禁止手动滚动：只在「多人房模式」下拦（左栏在单人局仍要能自由滚）。
-     被动监听 + 能 preventDefault 的就拦（wheel/touch 需非 passive）。 */
+  /* 禁止手动滚动：单人和多人房都一样，左栏只自动慢滚。 */
   function blockManualScroll(el) {
-    if (!el) return;
-    var inRoomMode = function () { return document.body.classList.contains("room-mode"); };
+    if (!el || el.__block) return;
+    el.__block = true;
     ["wheel", "touchmove", "mousedown", "pointerdown"].forEach(function (t) {
       el.addEventListener(t, function (ev) {
-        if (!inRoomMode()) return;
         if (ev.target && ev.target.closest && ev.target.closest("input,textarea,select,button,a")) return;
         ev.preventDefault();
       }, { passive: false });
     });
     el.addEventListener("keydown", function (ev) {
-      if (!inRoomMode()) return;
       if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].indexOf(ev.key) !== -1) ev.preventDefault();
     });
-    /* 选中的文字一并清掉，避免拖拽选区 */
-    el.addEventListener("selectstart", function (ev) { if (inRoomMode()) ev.preventDefault(); });
+    el.addEventListener("selectstart", function (ev) { ev.preventDefault(); });
   }
 
   /* ---------------- 实时对话流（多⑤）：中区看当下 ----------------
@@ -629,7 +650,7 @@
     if (!btn) return;
     if (R.cooldownTimer) { clearInterval(R.cooldownTimer); R.cooldownTimer = 0; }
     var tick = function () {
-      var left = Math.ceil(((s.guessCooldownUntil || 0) - Date.now()) / 1000);
+      var left = Math.ceil(((s.myGuessCooldownUntil || 0) - Date.now()) / 1000);
       if (left > 0) {
         btn.disabled = true;
         btn.textContent = "冷却中 " + left + "s";
@@ -920,7 +941,7 @@
         startWatch();
       }).catch(function (e) {
         var m = e.message;
-        if (m === "COOLDOWN") { close(); R.toast("还在冷却，等一下再猜"); }
+        if (m === "COOLDOWN") { close(); R.toast("你还在冷却，等一下再猜（别人不受影响）"); }
         else if (AI_ERR_TEXT[m]) {
           host.querySelector("#rguess-submit").disabled = false;
           fb.textContent = aiErrText(m, e.note);
@@ -1187,6 +1208,76 @@
     });
   }
 
+  /* 密码看汤底：正确密码 081208。只在本机弹出汤底，不改房间阶段。 */
+  var TRUTH_CODE = "081208";
+  function doUnlock(solo) {
+    var host = document.createElement("div");
+    host.className = "modal-wrap";
+    host.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="unlock-title">' +
+      '<h3 id="unlock-title">密码看汤底</h3>' +
+      '<p class="modal-sub">输入正确密码才会揭晓这一锅的汤底。密码只有汤主知道。</p>' +
+      '<input id="unlock-code" class="input" type="password" inputmode="numeric" maxlength="12" placeholder="输入密码" autocomplete="off" />' +
+      '<p class="guess-feedback" id="unlock-fb"></p>' +
+      '<div class="truth-box hidden" id="unlock-truth"></div>' +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="unlock-cancel">取消</button>' +
+      '<button type="button" class="btn primary" id="unlock-ok">确认</button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    var input = host.querySelector("#unlock-code");
+    var fb = host.querySelector("#unlock-fb");
+    var box = host.querySelector("#unlock-truth");
+    var close = function () {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    };
+    function reveal(text) {
+      box.classList.remove("hidden");
+      box.innerHTML = "<p style=\"margin:0\">" + esc(text || "这一锅没有汤底。") + "</p>";
+      fb.textContent = "密码正确，汤底在下面。";
+      fb.className = "guess-feedback ok";
+    }
+    function submit() {
+      var v = String(input.value || "").trim();
+      if (v !== TRUTH_CODE) {
+        fb.textContent = "密码不对。";
+        fb.className = "guess-feedback no";
+        box.classList.add("hidden");
+        return;
+      }
+      if (solo) {
+        var pid = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
+        var list = root.PUZZLES || [];
+        var p = null;
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].id === pid) { p = list[i]; break; }
+        }
+        reveal(p && p.truth ? p.truth : "这一锅没有汤底。");
+        return;
+      }
+      var s = R.snap || {};
+      if (s.truth) { reveal(s.truth); return; }
+      var code = s.roomCode || (me().roomCode || "");
+      var puzzleId = s.puzzleId || "";
+      if (!code || !puzzleId || !N || !N.libTruth) {
+        fb.textContent = "还没有开锅，暂时没有汤底可看。";
+        fb.className = "guess-feedback no";
+        return;
+      }
+      fb.textContent = "密码正确，正在取汤底…";
+      fb.className = "guess-feedback";
+      N.libTruth(code, puzzleId).then(function (t) {
+        reveal(t || "这一锅没有汤底。");
+      });
+    }
+    host.querySelector("#unlock-ok").addEventListener("click", submit);
+    host.querySelector("#unlock-cancel").addEventListener("click", close);
+    input.addEventListener("keydown", function (ev) { if (ev.key === "Enter") submit(); });
+    setTimeout(function () { input.focus(); }, 30);
+  }
+
   /* 房主请离死座位（多②） */
   function doKick(uid) {
     act("kick", { uid: uid }).then(function () {
@@ -1319,6 +1410,8 @@
     var bc = $("#btn-room-choose"); if (bc) bc.addEventListener("click", doChoose);
     var br = $("#btn-room-rand"); if (br) br.addEventListener("click", doRoomRandom);
     var bn = $("#btn-room-next"); if (bn) bn.addEventListener("click", doNext);
+    var bk = $("#btn-room-kick"); if (bk) bk.addEventListener("click", doKick);
+    var bu = $("#btn-room-unlock"); if (bu) bu.addEventListener("click", function () { doUnlock(false); });
     var bai = $("#btn-room-ai"); if (bai) bai.addEventListener("click", doAi);
 
     /* 玩家列表里的「请离死座位」是动态生成的，用事件委托接 */
@@ -1350,6 +1443,12 @@
     showLive: showLive,
     startWatch: startWatch,
     inRoom: function () { return R.inRoom; },
+    ensureQaScroll: ensureQaScroll,
+    blockQaScroll: function () {
+      var box = $("#qa-log");
+      if (box) blockManualScroll(box);
+    },
+    doUnlock: doUnlock,
     /* 从房间界面切走（去汤库 / 随机）：停轮询、收起房间屏、摘掉 room-mode */
     leaveScreen: function () {
       stopWatch();
