@@ -137,7 +137,7 @@
 | 图形 | Canvas 2D 雨幕 / 闪电 / 粒子 |
 | 音频 | Web Audio API 实时合成，无音频文件 |
 | 存储 | `localStorage` |
-| 离线 | Service Worker（缓存名 `deepsea-soup-v7`）+ Web App Manifest |
+| 离线 | Service Worker（缓存名 `deepsea-soup-v8`）+ Web App Manifest |
 | 联机 | Cloudflare Workers + Durable Objects + SQLite |
 
 脚本顺序：`data.js` → `library.public.js` → `engine.js` → `ai.js` → `audio.js` → `fx.js` → `net.js` → `room-ui.js` → `app.js`。精品题后 80 道在 `data-more.js`，首屏后再并入。

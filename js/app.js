@@ -602,7 +602,7 @@
       saveSession();
       paintResume();
       sfx("page");
-    });
+    })();  /* 立即执行：进汤不再走 sceneWipe，此段必须自己跑起来 */
   }
 
   function renderTip(text) {
