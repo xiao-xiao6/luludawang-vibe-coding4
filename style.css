@@ -170,7 +170,7 @@ body {
 }
 
 .panel {
-  background: linear-gradient(180deg, rgba(34, 25, 18, .92), rgba(24, 18, 13, .92));
+  background: linear-gradient(180deg, #2a1f16, #1b140f);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -240,7 +240,6 @@ body.room-mode .qa-clear { display: none; }
   gap: 10px;
   overflow-y: auto;
   overscroll-behavior: contain;
-  touch-action: none;
   padding-right: 3px;
   margin-top: 10px;
   min-height: 0;
@@ -372,8 +371,7 @@ body.room-mode .qa-clear { display: none; }
 .surface-card {
   border: 1px solid var(--line-2);
   border-radius: 14px;
-  background:
-    linear-gradient(180deg, rgba(58, 40, 25, .5), rgba(26, 19, 13, .5));
+  background: linear-gradient(180deg, #3a2a1d, #241910);
   padding: 15px 17px 17px;
   position: relative;
   overflow: hidden;
@@ -431,7 +429,7 @@ body.room-mode .qa-clear { display: none; }
 .log {
   border: 1px solid var(--line);
   border-radius: 13px;
-  background: rgba(12, 9, 7, .62);
+  background: #140f0c;
   padding: 12px;
   height: min(44vh, 400px);
   height: min(44dvh, 400px);
@@ -646,20 +644,20 @@ body.room-mode .qa-clear { display: none; }
   opacity: 0;
   transform: translate3d(0, 0, 0) scale(1.08);
   transition: opacity 1.4s ease, filter 1.4s ease;
-  filter: saturate(.8) contrast(1.06) brightness(.66);
+  filter: saturate(.9) contrast(1.02) brightness(.86);
   will-change: opacity, transform;
 }
 .bg-img.on { opacity: 1; }
-body[data-scene="game"] .bg-img { filter: saturate(.78) contrast(1.06) brightness(.72); }
-body[data-scene="win"] .bg-img  { filter: saturate(.95) contrast(1.02) brightness(.82); }
-body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness(.5); }
+body[data-scene="game"] .bg-img { filter: saturate(.92) contrast(1.02) brightness(.9); }
+body[data-scene="win"] .bg-img  { filter: saturate(1) contrast(1) brightness(.96); }
+body[data-scene="sad"] .bg-img  { filter: saturate(.75) contrast(1.04) brightness(.72); }
 
 .bg-vignette {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(126% 96% at 50% 16%, rgba(8,6,5,0) 0%, rgba(8,6,5,.42) 52%, rgba(5,4,3,.9) 100%),
-    linear-gradient(180deg, rgba(11,9,6,.52) 0%, rgba(10,8,6,.7) 58%, rgba(6,4,3,.86) 100%);
+    radial-gradient(126% 96% at 50% 16%, rgba(8,6,5,0) 0%, rgba(8,6,5,.18) 58%, rgba(5,4,3,.55) 100%),
+    linear-gradient(180deg, rgba(11,9,6,.18) 0%, rgba(10,8,6,.28) 58%, rgba(6,4,3,.5) 100%);
 }
 
 /* ---------- 特效层 ---------- */
@@ -802,14 +800,14 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
   background: #e2a44f; box-shadow: 0 0 10px rgba(226,164,79,.55);
 }
 
-/* ---------- 面板 / 卡片：持续活着的动效 ---------- */
+/* ---------- 面板 / 卡片 ----------
+ * 不再给 .panel 播入场动画：它从 opacity:0 起步，
+ * 进汤时和黑幕叠在一起，部分浏览器会把面板停在透明。 */
 .panel {
-  animation: panelIn .5s cubic-bezier(.2,.9,.3,1.05) both;
-  animation-fill-mode: forwards;
   position: relative;
   overflow: hidden;
+  opacity: 1;
 }
-@keyframes panelIn { from { opacity: 0; transform: translateY(14px) scale(.99); } to { opacity: 1; transform: none; } }
 
 .pz-card { position: relative; animation: cardIn .38s ease both; }
 @keyframes cardIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
