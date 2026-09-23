@@ -55,6 +55,26 @@ var puz = { truth: "他跳了", truthKeywords: [], clues: [{ type: "no", text: "
 var g = SoupAI.guardAnswer(puz, { verdict: "yes", reply: "是。", clue: 1 });
 ok("clue 判定覆盖 verdict 且 reply 非空", g.ok && g.verdict === "no" && g.reply === "不是。", JSON.stringify(g));
 
+console.log("\n[4b] js/ai.js · 明文判定兜底（模型不吐 JSON 时）");
+var plain1 = SoupAI.parseAnswer("是的，他确实去过海边。");
+ok("明文「是的，…」认出 yes 且补标准开头", plain1 && plain1.verdict === "yes" && plain1.reply.indexOf("是。") === 0, JSON.stringify(plain1));
+var plain2 = SoupAI.parseAnswer("这个问题和案件无关。");
+ok("明文「无关」认出 irr", plain2 && plain2.verdict === "irr", JSON.stringify(plain2));
+var plain3 = SoupAI.parseAnswer("他是不是去过海边？我不能说。");
+ok("反问句不误判成 no", !plain3 || plain3.verdict !== "no", JSON.stringify(plain3));
+var plain4 = SoupAI.parseAnswer("嗯，不是的，他没有去过。");
+ok("判定词在句中也认得出 no", plain4 && plain4.verdict === "no", JSON.stringify(plain4));
+
+console.log("\n[4c] js/ai.js · guardAnswer 不再因开头缺判定词整句丢弃");
+var g2 = SoupAI.guardAnswer(puz, { verdict: "yes", reply: "他确实去过海边。", clue: 0 });
+ok("没放开头自动补「是。」", g2.ok && g2.reply.indexOf("是。") === 0, JSON.stringify(g2));
+var g3 = SoupAI.guardAnswer(puz, { verdict: "yes", reply: "不是。他没去过。", clue: 0 });
+ok("开头判定词与 verdict 冲突时以开头为准", g3.ok && g3.verdict === "no", JSON.stringify(g3));
+
+console.log("\n[4d] js/ai.js · 猜底明文兜底");
+var gj = SoupAI.parseGuess("你猜得很接近了，就差一层。");
+ok("明文认出 close", gj && gj.level === "close", JSON.stringify(gj));
+
 console.log("\n[5] js/ai.js · callModel 空正文报 empty-reply（且会重试一次）");
 /* ask() 会先查 isReady，所以先把一份完整配置写进假的 localStorage */
 var fakeStore = {};

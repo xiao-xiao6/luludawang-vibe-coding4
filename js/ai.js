@@ -307,8 +307,13 @@
     if (VERDICTS.indexOf(v) === -1) return { ok: false, reason: "verdict" };
     if (reply.length > 160) return { ok: false, reason: "too-long" };
     var lk = leadKey(reply);
-    if (!lk) return { ok: false, reason: "lead-missing" };
-    if (lk !== v) return { ok: false, reason: "lead-mismatch" };
+    if (!lk) {
+      /* 判定词没放开头：自动补一个标准开头，而不是整句丢弃 */
+      reply = ((LEAD_OF[v] || "与此无关") + "。" + reply).slice(0, 158);
+    } else if (lk !== v) {
+      /* 开头的判定词是模型的明确表态，以它为准 */
+      v = lk;
+    }
 
     /* 线索认领：越界直接拒；判定不一致时以题库记录为准重写开头 */
     var clues = (puzzle && puzzle.clues) || [];
@@ -348,6 +353,20 @@
     partial: "partial", part: "partial", "部分正确": "partial", "部分": "partial",
     irr: "irr", irrelevant: "irr", unrelated: "irr", "与此无关": "irr", "无关": "irr"
   };
+
+  /* 模糊判定：很多模型不吐 JSON，直接回中文明文，且判定词不一定在开头。
+     只认低风险的强信号词，宁可认不出交给重试，也不冒险误判。 */
+  function fuzzyVerdict(text) {
+    var s = String(text || "");
+    if (!s) return "";
+    if (s.indexOf("与此无关") !== -1 || s.indexOf("无关") !== -1) return "irr";
+    if (s.indexOf("部分正确") !== -1 || s.indexOf("部分对") !== -1 || s.indexOf("接近") !== -1 || s.indexOf("很近") !== -1) return "partial";
+    var idx = s.indexOf("不是");
+    while (idx !== -1 && s.charAt(idx - 1) === "是") idx = s.indexOf("不是", idx + 1);
+    if (idx !== -1 || s.indexOf("不对") !== -1) return "no";
+    if (s.indexOf("是的") !== -1) return "yes";
+    return "";
+  }
 
   /* 宽松解析：尾逗号 / 单引号都能救回来（有些中转会把 JSON 序列化坏） */
   function tryParseLoose(seg) {
@@ -409,7 +428,7 @@
     if (obj && typeof obj === "object") {
       var reply = sanitize(obj.reply != null ? obj.reply : (obj.text != null ? obj.text : ""));
       var vRaw = String(obj.verdict == null ? "" : obj.verdict).trim().toLowerCase();
-      var v = VERDICT_ALIAS[vRaw] || leadKey(reply);
+      var v = VERDICT_ALIAS[vRaw] || leadKey(reply) || fuzzyVerdict(reply);
       var ci = parseInt(obj.clue != null ? obj.clue : 0, 10);
       if (!isFinite(ci) || ci < 0) ci = 0;
       if (!reply) return null;
@@ -419,9 +438,13 @@
     var plain = sanitize(text);
     if (!plain) return null;
     var lk = leadKey(plain);
-    /* 纯文本模式下没有判定词，就等于没说清楚，交给上层当格式错误处理 */
-    if (!lk) return null;
-    return { verdict: lk, reply: plain, clue: 0 };
+    if (lk) return { verdict: lk, reply: plain, clue: 0 };
+    /* 明文兜底：判定词藏在句子里也认出来，并补一个标准开头，
+       不再因为「没把判定词放句首」就把整句判死 */
+    var fv = fuzzyVerdict(plain);
+    if (!fv) return null;
+    var rest = plain.replace(/^(是的?|不是|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "");
+    return { verdict: fv, reply: ((LEAD_OF[fv] || "") + "。" + rest).slice(0, 158), clue: 0 };
   }
 
   function parseGuess(raw) {
@@ -444,7 +467,13 @@
       return { level: level, note: note };
     }
     var plain = sanitize(text);
-    return plain ? { level: "", note: plain } : null;
+    if (!plain) return null;
+    /* 明文兜底：从整句里认等级，认不出按 no 处理（note 本身就是给玩家的反馈） */
+    var lv = "";
+    if (/说破|完全正确|就是他|就是这些|猜对/.test(plain)) lv = "solved";
+    else if (/接近|很近|部分|方向对|就差/.test(plain)) lv = "close";
+    else if (/模糊|太短|讲清楚|说清楚|再具体/.test(plain)) lv = "vague";
+    return { level: lv || "no", note: plain };
   }
 
   /* ---------------- 网络层 ---------------- */
@@ -458,7 +487,7 @@
   function describeError(err) {
     if (!err) return "未知错误";
     if (err.code === "not-configured") return "还没填好服务商或 Key";
-    if (err.code === "unparsable") return "模型没按格式回答（要的是 JSON，模型回的不是；可在设置里换更听话的模型，如 deepseek-chat）";
+    if (err.code === "unparsable") return "模型两次都没给出可认的判定（已自动带修复指令重试过）。这个模型输出太自由，建议在设置里换成更守格式的模型，如 deepseek-chat";
     if (err.code === "empty-reply") return "模型回了空内容（多半是 maxTokens 太小被截断，或该模型把正文放在思考字段里）";
     if (err.code === "timeout") return "请求超时";
     if (err.code === "http") return err.message || "接口报错";
@@ -617,7 +646,7 @@
   /* ---------------- 对外接口 ---------------- */
 
   /* 模型偶尔不守规矩：格式错或没过把关时，带上更硬的提醒再要一次 */
-  var RETRY_HINT = "\n\n【上次的回答不合规，请重新回答】必须严格只输出一个 JSON 对象，verdict 只能用 yes / no / partial / irr，reply 必须以对应的判定词开头（是。/ 不是。/ 部分正确。/ 与此无关。）。";
+  var RETRY_HINT = "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头，后面最多补一句不超过 28 字的提示。";
 
   function tryTwice(run) {
     return run(false).catch(function (err) {

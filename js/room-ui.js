@@ -436,7 +436,7 @@
     AI_EMPTY_REPLY: "汤主这次没吐出正文（多半是回复被截断），请再问一次；若反复出现，换成不带思考链的模型",
     AI_BAD_FORMAT: "汤主这次没按格式回答，请重问一次",
     AI_LOCAL_UNREACHABLE: "房主填的是本机地址，机房访问不到；请让房主换成公网地址（cloudflared / ngrok / frp）",
-    AI_AUTH_OR_MODEL: "上游拒绝了请求：接口地址 / 模型名 / Key 有问题，请让房主点「测试连接」核对",
+    AI_AUTH_OR_MODEL: "上游拒绝了请求（若提示「来源被拦截」，是该中转站封了机房 IP，需内网穿透或换直连服务商）；请让房主点「测试连接」核对",
     AI_UPSTREAM_5XX: "上游服务暂时出错，等一会儿再试",
     AI_TIMEOUT: "请求超时，稍后再试",
     AI_NETWORK: "机房连不上这个接口地址，请让房主核对地址",
@@ -708,7 +708,8 @@
         }
       }).catch(function (e) {
         host.querySelector("#rai-test").disabled = false;
-        fb.textContent = "✗ 测试失败：" + e.message;
+        /* 服务端给的 note 是真正的原因，别只把错误码甩在用户脸上 */
+        fb.textContent = "✗ 测试失败：" + ((e && e.note) ? e.note : (e && e.message) || "未知错误");
         fb.className = "guess-feedback no";
       });
     });

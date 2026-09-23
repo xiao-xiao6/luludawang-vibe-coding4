@@ -131,7 +131,7 @@ export function isLocalOnlyUrl(u) {
 }
 
 export const LOCAL_URL_HINT =
-  "多人房的 AI 请求是从 Cloudflare 机房发出的，访问不到你电脑上的本机地址（127.0.0.1 / 192.168.x.x / 10.x）。请改填公网地址（内网穿透：cloudflared / ngrok / frp），或换成浏览器能直连的服务商（DeepSeek / Kimi 等）。";
+  "多人房的 AI 请求从 Cloudflare 机房发出：本机地址（127.0.0.1 / 192.168.x.x / 10.x）永远访问不到；而且很多中转站（如 cofi）还会按来源 IP 拦截机房请求（报「当前请求来源已被系统策略拦截」就是这种）。可行做法：① 用 cloudflared / ngrok / frp 把你本地的净化中转（如 8123）穿透成公网地址再填进来，请求从你家宽带发出就不会被拦；② 或换机房能直连的服务商（DeepSeek / Kimi 官方等）。";
 
 function extractText(kind, json) {
   if (!json) return "";
@@ -193,6 +193,46 @@ export function pickJson(text) {
     var dq = cand.replace(/,\s*([}\]])/g, "$1").replace(/'/g, '"');
     return JSON.parse(dq);
   } catch (e) { return null; }
+}
+
+/* 明文兜底：很多模型不守 JSON 格式，直接回「是的，……」这类中文整句。
+   pickJson 认不出时用它尽力捞一把，认不出判定就返回 null 交给上层重试。 */
+export function looseAnswer(text) {
+  var t = String(text || "")
+    .replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>/gi, " ")
+    .replace(/```[a-zA-Z]*/g, " ")
+    .trim();
+  if (!t) return null;
+  var j = pickJson(t);
+  if (j && (j.verdict != null || j.reply != null || j.result != null)) return j;
+  var verdict = "";
+  if (t.indexOf("与此无关") !== -1 || t.indexOf("无关") !== -1) verdict = "irr";
+  else if (t.indexOf("部分正确") !== -1 || t.indexOf("部分对") !== -1 || t.indexOf("接近") !== -1 || t.indexOf("很近") !== -1) verdict = "partial";
+  else {
+    var idx = t.indexOf("不是");
+    while (idx !== -1 && t.charAt(idx - 1) === "是") idx = t.indexOf("不是", idx + 1);
+    if (idx !== -1 || t.indexOf("不对") !== -1) verdict = "no";
+    else if (t.indexOf("是的") !== -1) verdict = "yes";
+  }
+  if (!verdict) return null;
+  var rest = t.replace(/^(是的?|不是|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "").replace(/\s+/g, " ").trim();
+  return { verdict: verdict, reply: rest.slice(0, 110), clue: 0 };
+}
+
+/* 猜底判定的明文兜底：从整句里认 solved / close / vague，认不出就按 no 处理。 */
+export function looseJudge(text) {
+  var t = String(text || "")
+    .replace(/<think(?:ing)?>[\s\S]*?<\/think(?:ing)?>/gi, " ")
+    .replace(/```[a-zA-Z]*/g, " ")
+    .trim();
+  if (!t) return null;
+  var j = pickJson(t);
+  if (j && (j.level != null || j.note != null)) return j;
+  var level = "no";
+  if (/说破|完全正确|就是他|就是这些|猜对/.test(t)) level = "solved";
+  else if (/接近|很近|部分|方向对|就差/.test(t)) level = "close";
+  else if (/模糊|太短|讲清楚|说清楚|再具体/.test(t)) level = "vague";
+  return { level: level, note: t.replace(/\s+/g, " ").slice(0, 110) };
 }
 
 export async function callModel(cfg, system, user) {
