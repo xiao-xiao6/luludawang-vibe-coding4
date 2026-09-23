@@ -400,6 +400,11 @@
         case "page":
           hiss(ctx, out, t, 0.5, 0.12, 400, 3600, 43);
           break;
+        case "turn":
+          /* 轮到提问：两声轻铃，短促、音量压低，不抢汤主回答的音效 */
+          bell(ctx, out, t, 784, 0.42, 0.055, 4800);
+          bell(ctx, out, t + 0.09, 1174.66, 0.32, 0.04, 5400);
+          break;
         default:
           bell(ctx, out, t, 440, 0.5, 0.1, 3000);
       }

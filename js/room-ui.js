@@ -37,6 +37,7 @@
     chatSeen: 0,
     chatOpen: false,   /* 与 HTML 的 collapsed / aria-expanded="false" 对齐：默认收起，不挡面板 */
     timerTimer: 0,      /* 顺序提问 60s 倒计时的 setInterval 句柄 */
+    seenTurn: "",       /* 已经提醒过的轮次，避免每次轮询都再响一次 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
 
@@ -74,6 +75,8 @@
 
   function showEntry() {
     R.inRoom = false;
+    R.seenTurn = "";
+    document.body.classList.remove("my-turn");
     /* 回到建房/进房页：停掉房间专属的左栏自动滚动 */
     stopQaScroll();
     resetRoomSigs();
@@ -216,7 +219,7 @@
         var tags = [];
         if (p.isHost) tags.push('<span class="room-tag host">房主 #1</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
-        if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">该他问</span>');
+        if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">' + (mine && p.uid === mine.uid ? "该你问" : "该他问") + "</span>");
         /* 房主可请离任意在座玩家；离线超过 1 分钟的单独标成死座位 */
         if (isHostMe && !p.isHost) {
           tags.push('<button type="button" class="btn ghost rp-kick" data-kick="' + p.uid + '">' +
@@ -225,7 +228,7 @@
         return '<div class="room-player' + (p.online ? "" : " off") + (mine && p.uid === mine.uid ? " self" : "") + '">' +
           '<span class="rp-uid">#' + p.uid + "</span>" +
           '<span class="rp-name">' + esc(p.nickname) + "</span>" +
-          '<span class="rp-state">' + (p.ready ? "已准备" : "未准备") + "</span>" +
+          '<span class="rp-state ' + (p.ready ? "ready" : "wait") + '">' + (p.ready ? "已准备" : "未准备") + "</span>" +
           (p.online ? "" : '<span class="rp-off">离线</span>') +
           tags.join("") +
           "</div>";
@@ -310,18 +313,21 @@
     renderChat(s);
 
     /* 输入区状态：把「轮次」与「汤主正在想」两件事分开表达
-       —— 多①的根源就是两者没区分：没轮到自己 / 汤主在忙，反馈完全不一样。 */
+       —— 多①的根源就是两者没区分：没轮到自己 / 汤主在忙，反馈完全不一样。
+       没轮到自己时输入框仍然能打字（提前写好下一句），只锁「提问」按钮。 */
     var myTurn = s.phase === "playing" && s.turnUid === myUid(s);
     var pending = s.pendingAI || null;
-    /* 上一句还没回来（服务端飞行锁 + 本地 askBusy），就锁住输入框 */
+    /* 上一句还没回来（服务端飞行锁 + 本地 askBusy），才锁住发送 */
     var canAsk = myTurn && !pending && !R.askBusy;
     var qi = $("#room-q-input");
     if (qi) {
-      qi.disabled = !canAsk;
+      qi.disabled = false;
+      qi.readOnly = false;
       qi.placeholder = pending
-        ? "汤主正在回「" + pending.nickname + "」的上一句…"
-        : (myTurn ? "轮到你了，向汤主提问…" : "轮到你时才能提问…");
+        ? "可以先写下轮到你时要问的话…"
+        : (myTurn ? "轮到你了，向汤主提问…" : "没轮到你也可以先写好问题，轮到再发送");
     }
+    noteTurn(s, myTurn);
     var ba = $("#btn-room-ask");
     if (ba) {
       ba.disabled = !canAsk;
@@ -380,6 +386,31 @@
     paintCooldown(s);
   }
 
+  /* 轮到自己：整屏轻闪 + 短促轻铃，只在轮次真正换到自己时响一次 */
+  function noteTurn(s, myTurn) {
+    var key = (s && s.phase === "playing" && s.turnUid) ? (String(s.puzzleId || "") + ":" + s.turnUid + ":" + (s.turnDeadline || 0)) : "";
+    if (key === R.seenTurn) return;
+    var prev = R.seenTurn;
+    R.seenTurn = key;
+    document.body.classList.toggle("my-turn", !!myTurn);
+    /* 第一次进房就已经轮到自己时也要响；之后只有轮次真的换到自己才再响 */
+    if (!myTurn || (!prev && !R.inRoom)) return;
+    var banner = $("#turn-call");
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.id = "turn-call";
+      banner.className = "turn-call";
+      banner.setAttribute("role", "status");
+      banner.setAttribute("aria-live", "assertive");
+      document.body.appendChild(banner);
+    }
+    banner.textContent = "轮到你提问了";
+    banner.classList.remove("on");
+    void banner.offsetWidth;
+    banner.classList.add("on");
+    if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("turn");
+  }
+
   function myUid(s) {
     if (typeof s.youUid === "number" && s.youUid) return s.youUid;
     var id = me().internalId;
@@ -430,9 +461,9 @@
     }
     box.innerHTML = log.map(function (x) {
       if (x.kind === "ask") {
-        return '<div class="qa-item">' +
+        return '<div class="qa-item ' + esc(x.verdict || "") + '">' +
           '<div class="qa-q"><span class="qa-k">' + esc(x.nickname || ("#" + x.uid)) + "</span>" + esc(x.question) + "</div>" +
-          '<div class="qa-a"><span class="qa-k">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
+          '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
           "</div>";
       }
       if (x.kind === "guess") {
@@ -789,6 +820,13 @@
   function doAsk() {
     var qi = $("#room-q-input");
     var v = qi ? qi.value.trim() : "";
+    var ba = $("#btn-room-ask");
+    /* 没轮到自己 / 汤主还在想：草稿留着，回车也不发出去 */
+    if (!ba || ba.disabled) {
+      if (!v) R.toast("可以先把问题写在框里，轮到你再发送");
+      else R.toast("还没轮到你，问题已留在框里");
+      return;
+    }
     if (!v) { R.toast("先写一句问题"); return; }
     if (R.askBusy) { R.toast("汤主还在熬上一句，稍等一下下。"); return; }
 
@@ -836,8 +874,7 @@
       ba.classList.toggle("busy", !!busy);
       ba.disabled = !!busy;
     }
-    var qi = $("#room-q-input");
-    if (qi && busy) qi.disabled = true;
+    /* 思考中只锁发送，输入框留给下一句草稿 */
     if (!busy && R.snap) render(R.snap);
   }
 
@@ -875,9 +912,9 @@
     } else {
       body.innerHTML = log.map(function (x) {
         if (x.kind === "ask") {
-          return '<div class="qa-item">' +
+          return '<div class="qa-item ' + esc(x.verdict || "") + '">' +
             '<div class="qa-q"><span class="qa-k">' + esc(x.nickname || ("#" + x.uid)) + "</span>" + esc(x.question) + "</div>" +
-            '<div class="qa-a"><span class="qa-k">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
+            '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
             "</div>";
         }
         if (x.kind === "guess") {

@@ -399,6 +399,16 @@
    * 数据源就是 state.history（{q, a} 数组），与 #log 同源同序。
    * ============================================================ */
 
+  /* 从回答开头认出四种判定，好让左栏和实时记录用同一套颜色 */
+  function qaTone(text) {
+    var s = String(text || "").replace(/^\s+/, "");
+    if (s.indexOf("与此无关") === 0) return "irr";
+    if (s.indexOf("部分正确") === 0) return "partial";
+    if (s.indexOf("不是") === 0) return "no";
+    if (s.indexOf("是") === 0) return "yes";
+    return "";
+  }
+
   /* 本局问答记录：state.history 里每一条 {q, a} 渲染成一组 Q/A */
   function renderQaLog() {
     var box = $("#qa-log");
@@ -412,9 +422,14 @@
       return;
     }
     box.innerHTML = hist.map(function (item, idx) {
-      return '<div class="qa-item">' +
+      var tone = qaTone(item.a);
+      return '<div class="qa-item' + (tone ? " " + tone : "") + '">' +
         '<div class="qa-q"><span class="qa-k">Q' + (idx + 1) + "</span>" + esc(item.q) + "</div>" +
-        '<div class="qa-a"><span class="qa-k">A</span>' + esc(item.a) + "</div>" +
+        '<div class="qa-a">' +
+          (tone
+            ? '<span class="qa-k verdict ' + tone + '">' + esc(VERDICT_TEXT[tone]) + "</span>"
+            : '<span class="qa-k">A</span>') +
+          esc(item.a) + "</div>" +
         "</div>";
     }).join("");
     /* 单人局和多人房一样：禁止手动滑，内容超出后自己慢慢滚 */
