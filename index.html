@@ -239,6 +239,9 @@
 
         <p class="room-phase" id="room-phase">等待全员准备…</p>
 
+        <!-- 全桌可见的「汤主正在思考」横幅（多①）：谁问的都能看到，杜绝无反馈 -->
+        <div class="room-pending hidden" id="room-pending" role="status" aria-live="polite"></div>
+
         <div class="room-body">
           <div class="room-col">
             <div class="panel-head"><h2>玩家</h2><span class="badge" id="room-count">0/8</span></div>
@@ -258,6 +261,14 @@
               <button type="button" class="btn ghost" id="btn-room-next">下一锅（房主）</button>
               <button type="button" class="btn ghost" id="btn-room-ai">AI 汤主设置（房主）</button>
             </div>
+            <!-- 实时对话流（多⑤）：中区看当下。与左栏回顾、二级面板查全部同源。 -->
+            <div class="panel-head" style="margin-top:12px">
+              <h2>实时对话</h2>
+              <span class="badge" id="room-feed-count">0 问</span>
+            </div>
+            <div class="room-feed" id="room-feed" role="log" aria-live="polite" aria-label="实时对话">
+              <p class="empty">开局后，每个人的提问都会实时出现在这里。</p>
+            </div>
           </div>
         </div>
 
@@ -265,6 +276,24 @@
           <input id="room-q-input" class="input" type="text" placeholder="轮到你时才能提问…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
           <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
+          <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
+        </div>
+      </div>
+
+      <!-- 右下角常驻小聊天框（新①）：与「问答记录」分工不同，只聊闲话 -->
+      <div class="room-chat" id="room-chat">
+        <div class="rc-head">
+          <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="true">
+            💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
+          </button>
+          <span class="rc-hint">汤主不看这里</span>
+        </div>
+        <div class="rc-log" id="room-chat-log" role="log" aria-live="polite" aria-label="房间聊天">
+          <p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>
+        </div>
+        <div class="rc-send">
+          <input id="room-chat-input" class="input" type="text" maxlength="120" placeholder="说点什么…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+          <button type="button" class="btn primary" id="btn-room-chat-send">发送</button>
         </div>
       </div>
     </div>
