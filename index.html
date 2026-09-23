@@ -76,6 +76,22 @@
     <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
     <button type="button" class="btn ghost" id="btn-fx" aria-pressed="true">✨ 特效</button>
     <button type="button" class="btn ghost danger" id="btn-wipe">清空存档</button>
+    <!-- 多人房聊天：进房后才显示，嵌在顶栏最右侧（红框位置），不挡中栏面板 -->
+    <div class="room-chat collapsed hidden" id="room-chat">
+      <div class="rc-head">
+        <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="false">
+          💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
+        </button>
+        <span class="rc-hint">汤主不看这里</span>
+      </div>
+      <div class="rc-log" id="room-chat-log" role="log" aria-live="polite" aria-label="房间聊天">
+        <p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>
+      </div>
+      <div class="rc-send">
+        <input id="room-chat-input" class="input" type="text" maxlength="120" placeholder="说点什么…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+        <button type="button" class="btn primary" id="btn-room-chat-send">发送</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -252,12 +268,18 @@
           </div>
 
           <div class="room-col">
-            <div class="panel-head"><h2>本锅</h2><span class="badge" id="room-turn">—</span></div>
+            <div class="panel-head">
+              <h2>本锅</h2>
+              <!-- 顺序提问 60s 倒计时（playing 且轮到人时才显示）：挂在「本锅」头部，全桌随时可见 -->
+              <span class="badge room-timer hidden" id="room-turn-timer" role="timer" aria-live="off">⏳ 60s</span>
+              <span class="badge" id="room-turn">—</span>
+            </div>
             <div class="room-puzzle" id="room-puzzle">
               <p class="empty">房主还没选汤。</p>
             </div>
             <div class="rand-actions">
               <button type="button" class="btn ghost" id="btn-room-choose">选一锅（房主）</button>
+              <button type="button" class="btn ghost" id="btn-room-rand">随机一题（房主）</button>
               <button type="button" class="btn ghost" id="btn-room-next">下一锅（房主）</button>
               <button type="button" class="btn ghost" id="btn-room-ai">AI 汤主设置（房主）</button>
             </div>
@@ -279,24 +301,6 @@
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
         </div>
       </div>
-
-      <!-- 右下角常驻小聊天框（新①）：与「问答记录」分工不同，只聊闲话 -->
-      <div class="room-chat" id="room-chat">
-        <div class="rc-head">
-          <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="true">
-            💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
-          </button>
-          <span class="rc-hint">汤主不看这里</span>
-        </div>
-        <div class="rc-log" id="room-chat-log" role="log" aria-live="polite" aria-label="房间聊天">
-          <p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>
-        </div>
-        <div class="rc-send">
-          <input id="room-chat-input" class="input" type="text" maxlength="120" placeholder="说点什么…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
-          <button type="button" class="btn primary" id="btn-room-chat-send">发送</button>
-        </div>
-      </div>
-    </div>
 
   </section>
 
