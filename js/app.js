@@ -813,6 +813,9 @@
       if (line && line.parentNode) line.parentNode.removeChild(line);
       if (state.pid !== p.id || state.done) return;
       state.history.push({ q: asked, a: out.reply });
+      /* 单①：这里必须马上刷新左栏。原来只 push 不 render，
+         导致左栏一直不动，直到猜底/换汤等别的动作才把攒下的问答一股脑吐出来。 */
+      renderQaLog();
       var tone = out.verdict;
       var got = claimClue(p, out.clue);
       /* 模型没认领（clue=0）、且判定与关键词一致时，用关键词结果保底入账 */
@@ -1138,6 +1141,7 @@
         if (state.pid !== p.id || state.done) return;
         book(out.level, out.note);
         state.history.push({ q: "【推理】" + text, a: out.note });
+        renderQaLog();   /* 单①：推理入账后同样立刻刷新左栏 */
         if (out.level === "solved") {
           var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(out.note), "AI 判定");
           sfx("win");

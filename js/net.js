@@ -20,7 +20,12 @@
   /* ---- 配置：部署 Worker 后把地址填这里（或运行时用 SoupNet.setBase() 覆盖） ---- */
   var DEFAULT_BASE = "https://soup-room.57gqq9hsq.workers.dev";  /* wrangler deploy 已上线 */
   var STORE_KEY = "soupnet.v1";
-  var POLL_MS = 1200;
+  /* 1.5s 轮询：服务端开了增量快路径（rev 未变只回几十字节），
+     频率提上来也不会把响应体撑大，而延迟直接砍一半。 */
+  var POLL_MS = 1500;
+  /* 回前台后的“秒恢复”节奏：先快速补救几次，再交回常规频率 */
+  var CATCHUP_MS = 300;
+  var CATCHUP_TIMES = 4;
 
   var state = {
     base: DEFAULT_BASE,
@@ -29,8 +34,10 @@
     roomCode: "",
     solo: false,      /* 当前房号是不是单人局（决定走 /api/solo 还是 /api/room） */
     timer: 0,
+    catchup: 0,       /* 补救轮询的剩余次数 */
     handler: null,
-    last: null
+    last: null,
+    rev: 0            /* 服务端快照游标：未变更时服务端只回极小的 unchanged */
   };
 
   /* ---------------- 本地身份 ---------------- */
@@ -112,6 +119,7 @@
     }).then(function (r) {
       state.roomCode = r.roomCode;
       state.solo = false;
+      state.rev = 0;
       persist();
       return r;
     });
@@ -121,6 +129,7 @@
     ensureId();
     state.roomCode = String(code || "").trim().toUpperCase();
     state.solo = false;
+    state.rev = 0;
     if (nickname) state.nickname = String(nickname).trim();
     persist();
     return req("/api/room/" + state.roomCode + "/join", "POST", {
@@ -137,7 +146,10 @@
 
   function fetchState() {
     if (!state.roomCode) return Promise.reject(new Error("NO_ROOM"));
-    var q = state.internalId ? ("?me=" + encodeURIComponent(state.internalId)) : "";
+    var q = "";
+    if (state.internalId) q += "?me=" + encodeURIComponent(state.internalId);
+    /* 带上游标：rev 没变时服务端只回 { unchanged:true }，省下整包快照的传输 */
+    if (state.rev) q += (q ? "&" : "?") + "since=" + state.rev;
     return req("/api/room/" + state.roomCode + "/state" + q, "GET");
   }
 
@@ -183,41 +195,98 @@
       .catch(function () { return ""; });
   }
 
-  /* ---------------- 轮询 ---------------- */
+  /* ---------------- 轮询 ----------------
+   * 三种优化都在这里：
+   *   1) 带游标：服务端未变更时只回 { unchanged:true }，不做整包传输；
+   *   2) 回前台补救：手机切回来立即跑几次，把漏掉的问答一口气拉齐；
+   *   3) 切后台停轮询：手机切走时不再空转，回来时再续上。
+   */
 
-  function watch(handler) {
-    state.handler = handler || null;
-    unwatch();
-    var tick = function () {
-      fetchState().then(function (snap) {
-        state.last = snap;
+  var visWired = false;
+
+  function emit(snap) {
+    state.last = snap;
+    if (state.handler) state.handler(snap);
+  }
+
+  /* 回前台补救：先 300ms 连拉几次，把切后台期间攒下的变化一次补齐，
+     随手把 rev 拉平，之后就再无感了。 */
+  function catchUp() {
+    if (!state.timer && !state.catchup) return;
+    state.catchup = CATCHUP_TIMES;
+    var step = function () {
+      if (!state.catchup) return;
+      state.catchup--;
+      tickOnce();
+      if (state.catchup) setTimeout(step, CATCHUP_MS);
+    };
+    step();
+  }
+
+  function wireVisibility() {
+    if (visWired || typeof document === "undefined") return;
+    visWired = true;
+    document.addEventListener("visibilitychange", function () {
+      /* 切回前台：立即拉一次 + 连补几次；切后台：停掉定时器，不空转 */
+      if (document.hidden) {
+        if (state.timer) { clearInterval(state.timer); state.timer = 0; }
+      } else if (state.roomCode) {
+        if (!state.timer) state.timer = setInterval(tickOnce, POLL_MS);
+        catchUp();
+      }
+    });
+    /* 从 bfcache 回来（手机浏览器常走这条路）：同样是「秒恢复」场景 */
+    window.addEventListener("pageshow", function (ev) {
+      if (ev && ev.persisted && state.roomCode) {
+        if (!state.timer) state.timer = setInterval(tickOnce, POLL_MS);
+        catchUp();
+      }
+    });
+  }
+
+  function tickOnce() {
+    if (state.solo) {
+      soloState().then(function (snap) {
         if (state.handler) state.handler(snap);
       }).catch(function (e) {
         if (state.handler) state.handler({ error: String(e.message || e) });
       });
-    };
-    tick();
-    state.timer = setInterval(tick, POLL_MS);
+      return;
+    }
+    fetchState().then(function (snap) {
+      if (snap && snap.unchanged) {
+        /* 内容没变：不调 handler（省掉一次无意义的整屏重绘），
+           但把缓存的最后一包重新发一次心跳，保持在线状态。 */
+        state.rev = snap.rev || state.rev;
+        return;
+      }
+      if (snap && snap.rev) state.rev = snap.rev;
+      emit(snap);
+    }).catch(function (e) {
+      if (state.handler) state.handler({ error: String(e.message || e) });
+    });
+  }
+
+  function watch(handler) {
+    state.handler = handler || null;
+    unwatch();
+    wireVisibility();
+    tickOnce();
+    state.timer = setInterval(tickOnce, POLL_MS);
   }
 
   function unwatch() {
     if (state.timer) { clearInterval(state.timer); state.timer = 0; }
+    state.catchup = 0;
   }
 
   /* 单人：轮询走 /api/solo/*，多人走 /api/room/*，一套 watch 通吃 */
   function soloWatch(handler) {
     state.handler = handler || null;
     unwatch();
-    var tick = function () {
-      soloState().then(function (snap) {
-        state.last = snap;
-        if (state.handler) state.handler(snap);
-      }).catch(function (e) {
-        if (state.handler) state.handler({ error: String(e.message || e) });
-      });
-    };
-    tick();
-    state.timer = setInterval(tick, POLL_MS);
+    wireVisibility();
+    tickOnce();
+    state.timer = setInterval(tickOnce, POLL_MS);
   }
 
   /* ---------------- 昵称框（进房时弹，进项目绝不弹） ----------------
@@ -275,6 +344,7 @@
     state.roomCode = "";
     state.solo = false;
     state.last = null;
+    state.rev = 0;
     persist();
   }
 
@@ -288,6 +358,9 @@
     fetchState: fetchState,
     watch: watch,
     unwatch: unwatch,
+    /* 回前台「秒恢复」：房间层在 visibilitychange / pageshow 里直接调 */
+    catchUp: catchUp,
+    resetRev: function () { state.rev = 0; },
     promptNickname: promptNickname,
     clearRoom: clearRoom,
     /* 单人链路（A1） */

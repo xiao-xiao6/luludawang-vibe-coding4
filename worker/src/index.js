@@ -242,8 +242,10 @@ export default {
       const meRaw = (request.method === "GET")
         ? (url.searchParams.get("me") || "")
         : (body.internalId || "");
+      const sinceRaw = url.searchParams.get("since") || "";
       const meQ = meRaw ? "&me=" + encodeURIComponent(meRaw) : "";
-      const target = new Request("https://do/?action=" + encodeURIComponent(action) + meQ, {
+      const sinceQ = sinceRaw ? "&since=" + encodeURIComponent(sinceRaw) : "";
+      const target = new Request("https://do/?action=" + encodeURIComponent(action) + meQ + sinceQ, {
         method: request.method === "GET" ? "GET" : "POST",
         headers: { "content-type": "application/json" },
         body: request.method === "GET" ? undefined : JSON.stringify(body)
@@ -259,7 +261,8 @@ export default {
       });
     }
 
-    /* 房间内动作：/api/room/:code/:action */
+    /* 房间内动作：/api/room/:code/:action
+       增量轮询靠 ?since=<rev> 透传给 DO，未变更时只回极小响应（新②。 */
     const m = path.match(/^\/api\/room\/([A-Za-z0-9]{4,10})(?:\/([a-z-]+))?$/);
     if (m) {
       const code = m[1].toUpperCase();
@@ -268,7 +271,11 @@ export default {
       if (request.method === "POST") {
         try { body = await request.json(); } catch (e) { body = {}; }
       }
-      const target = new Request("https://do/?action=" + encodeURIComponent(action) + (url.searchParams.get("me") ? "&me=" + encodeURIComponent(url.searchParams.get("me")) : ""), {
+      const meRaw = url.searchParams.get("me") || "";
+      const sinceRaw = url.searchParams.get("since") || "";
+      const target = new Request("https://do/?action=" + encodeURIComponent(action) +
+        (meRaw ? "&me=" + encodeURIComponent(meRaw) : "") +
+        (sinceRaw ? "&since=" + encodeURIComponent(sinceRaw) : ""), {
         method: request.method === "GET" ? "GET" : "POST",
         headers: { "content-type": "application/json" },
         body: request.method === "GET" ? undefined : JSON.stringify(body)

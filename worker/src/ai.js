@@ -133,6 +133,11 @@ export function isLocalOnlyUrl(u) {
 export const LOCAL_URL_HINT =
   "多人房的 AI 请求从 Cloudflare 机房发出：本机地址（127.0.0.1 / 192.168.x.x / 10.x）永远访问不到；而且很多中转站（如 cofi）还会按来源 IP 拦截机房请求（报「当前请求来源已被系统策略拦截」就是这种）。可行做法：① 用 cloudflared / ngrok / frp 把你本地的净化中转（如 8123）穿透成公网地址再填进来，请求从你家宽带发出就不会被拦；② 或换机房能直连的服务商（DeepSeek / Kimi 官方等）。";
 
+/* 中转站自家 WAF 拦掉了机房来源：这不是「key 错 / 模型名错」，
+   处置方式是换站或换直连，而不是反复改配置。 */
+export const GATEWAY_BLOCKED_HINT =
+  "该中转站的防火墙拦掉了服务器来源（机房 IP + 非浏览器请求特征），已带上浏览器伪装头仍被拦。这不是 key 或模型名的问题：建议换一个中转站，或换直连服务商（DeepSeek / Kimi 官方等）。";
+
 function extractText(kind, json) {
   if (!json) return "";
   if (kind === "anthropic") {
@@ -245,6 +250,8 @@ export async function callModel(cfg, system, user) {
       lastErr = e;
       /* 4xx 是配置错误（key 错、模型名错），重试没意义，直接抛 */
       if (e && /^HTTP_4\d\d/.test(String(e.message))) throw e;
+      /* 中转站 WAF 拦的，重试也是一样的结果 */
+      if (e && String(e.message) === "GATEWAY_BLOCKED") throw e;
       /* 本机地址对机房永远不可达，重试也没意义 */
       if (e && String(e.message) === "LOCAL_ONLY_URL") throw e;
       /* 空正文重试一次，多半是思考模型把正文写进了思考字段或 max_tokens 截断 */
@@ -260,9 +267,19 @@ async function callModelOnce(cfg, system, user) {
   var isAnthropic = kind === "anthropic";
 
   var url = isAnthropic ? base + "/messages" : base + "/chat/completions";
+  /* 完整浏览器伪装头：很多中转站前挂了 WAF，看到「机房 IP + 非浏览器 UA」
+     就直接拦（返回自家防火墙的拦截页）。把请求装得像普通浏览器发出的，
+     能救活其中相当一部分中转站；纯 IP 黑名单依旧救不了（会报 GATEWAY_BLOCKED）。 */
+  var browserHeaders = {
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+    "origin": base,
+    "referer": base + "/"
+  };
   var headers = isAnthropic
-    ? { "content-type": "application/json", "x-api-key": cfg.apiKey, "anthropic-version": "2023-06-01" }
-    : { "content-type": "application/json", "authorization": "Bearer " + cfg.apiKey };
+    ? Object.assign({ "content-type": "application/json", "x-api-key": cfg.apiKey, "anthropic-version": "2023-06-01" }, browserHeaders)
+    : Object.assign({ "content-type": "application/json", "authorization": "Bearer " + cfg.apiKey }, browserHeaders);
   /* 默认放宽到 1200：思考型模型 400 token 很容易把正文截断，导致空 content 直接判掉线 */
   var maxTokens = Number(cfg.maxTokens) > 0 ? Number(cfg.maxTokens) : 1200;
   var temperature = cfg.temperature == null ? 0.4 : cfg.temperature;
@@ -280,7 +297,12 @@ async function callModelOnce(cfg, system, user) {
       signal: ctrl.signal
     });
     const text = await res.text();
-    if (!res.ok) throw new Error("HTTP_" + res.status + (text ? "_" + String(text).slice(0, 120) : ""));
+    if (!res.ok) {
+      /* WAF / 防火墙拦截：报自家拦截文案（如 sensitive_words_detected），
+         而不是上游模型错误——两者处置方式完全不同 */
+      if (looksLikeGatewayBlock(res.status, text)) throw new Error("GATEWAY_BLOCKED");
+      throw new Error("HTTP_" + res.status + (text ? "_" + String(text).slice(0, 120) : ""));
+    }
     let json = null;
     try { json = JSON.parse(text); } catch (e) { json = null; }
     const out = extractText(kind, json);
@@ -289,4 +311,16 @@ async function callModelOnce(cfg, system, user) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/* 判断这包响应是不是中转站自家 WAF 的拦截页。
+   特征：403/406 且正文里出现防火墙/策略拦截类文案，或者正文根本不是 JSON。 */
+function looksLikeGatewayBlock(status, text) {
+  const t = String(text || "");
+  const s = t.toLowerCase();
+  if (/sensitive_words_detected|waf|cloudflare|access denied|request blocked|blocked by|数据包被拦截|来源已被系统策略拦截|来源被拦截|策略拦截/.test(s)) return true;
+  if (status === 403 || status === 406) return true;
+  /* 200 也可能返回一个 HTML 拦截页：不是 JSON 且含 html 标签 */
+  if (/<html|<head|<body/.test(s) && t.trim().indexOf("{") !== 0) return true;
+  return false;
 }

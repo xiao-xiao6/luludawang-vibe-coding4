@@ -38,8 +38,8 @@ ok("setReady 开局要求 puzzleId", /if \(allReady && s\.puzzleId\)/.test(room)
 
 console.log("\n[P1] Bug 2 · 在线离线");
 ok("snapshot 有心跳参数", /async snapshot\(.*meId/.test(room) || /snapshot\(meId\)/.test(room));
-ok("轮询即心跳刷 lastSeen", /you\.online = true; you\.lastSeen = now\(\)/.test(room));
-ok("online 有 15s 阈值", /now\(\) - p\.lastSeen < 15000/.test(room));
+ok("轮询即心跳刷 lastSeen（带 5s 节流）", /you\.lastSeen = now\(\)/.test(room) && /now\(\) - \(you\.lastSeen \|\| 0\) > 5000/.test(room));
+ok("online 阈值已放宽", /ONLINE_MS\s*=\s*35000/.test(room) && /now\(\) - \(p\.lastSeen \|\| 0\) < ONLINE_MS/.test(room));
 
 console.log("\n[P1] Bug 3 · 取消准备");
 ok("playing 阶段撤回回大堂", /s\.phase === "playing" && !ready/.test(room));

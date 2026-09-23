@@ -33,6 +33,9 @@
     snap: null,
     lastQa: 0,
     cooldownTimer: 0,
+    askBusy: false,
+    chatSeen: 0,
+    chatOpen: true,   /* 与 HTML 的 aria-expanded="true" 保持一致：默认展开 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
 
@@ -57,6 +60,9 @@
 
   function showEntry() {
     R.inRoom = false;
+    /* 回到建房/进房页：停掉房间专属的左栏自动滚动 */
+    stopQaScroll();
+    resetRoomSigs();
     var e = $("#room-entry"), l = $("#room-live");
     if (e) e.classList.remove("hidden");
     if (l) l.classList.add("hidden");
@@ -69,7 +75,11 @@
     if (e) e.classList.add("hidden");
     if (l) l.classList.remove("hidden");
     showScreen("screen-room");
+    resetRoomSigs();
+    onRoomSideEffects();
   }
+
+  /* app.js 把 toast 挂进来，房间层不重复造轮子 */
 
   /* ---------------- 昵称框：只在进房那一刻弹 ---------------- */
 
@@ -118,6 +128,7 @@
 
   function leaveRoom() {
     stopWatch();
+    stopQaScroll();
     /* 清掉本地房号，刷新后不再自动回房 */
     if (N && N.clearRoom) N.clearRoom();
     showEntry();
@@ -141,10 +152,32 @@
     if (R.cooldownTimer) { clearInterval(R.cooldownTimer); R.cooldownTimer = 0; }
   }
 
+  /* 切回前台 / 从 bfcache 回来：不等下一轮定时器，立刻把漏掉的问答拉齐。
+     只挂一次（会被 render 反复调到，重复挂会堆出一堆监听器）。
+     注：visibilitychange / pageshow 在 net.js 里已经处理，这里只补两个它没管的：
+     网络恢复、以及房间层自己的“刚回到房间”场景。 */
+  var resumeWired = false;
+  function wireResume() {
+    if (resumeWired) return;
+    resumeWired = true;
+    var kick = function () {
+      if (!R.inRoom) return;
+      if (N && N.fetchState) {
+        N.fetchState().then(function (snap) {
+          if (snap && snap.exists) { R.snap = snap; render(snap); }
+        }).catch(function () { /* 拉不到就交给常规轮询 */ });
+      }
+      if (N && N.catchUp) N.catchUp();
+    };
+    window.addEventListener("online", kick);
+  }
+
   /* ---------------- 渲染 ---------------- */
 
   function render(s) {
     if (!s || !s.exists) return;
+    /* 进房后的副作用（电影片尾滚动 / 秒恢复监听）惰性挂一次 */
+    if (R.inRoom) onRoomSideEffects();
     var codeEl = $("#room-code");
     if (codeEl) codeEl.textContent = s.roomCode || "------";
 
@@ -154,6 +187,7 @@
     });
 
     /* 玩家列表 */
+    var isHostMe = !!(mine && mine.isHost);
     var box = $("#room-players");
     if (box) {
       box.innerHTML = (s.players || []).map(function (p) {
@@ -161,6 +195,10 @@
         if (p.isHost) tags.push('<span class="room-tag host">房主 #1</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
         if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">该他问</span>');
+        /* 死座位（多②）：离线超时的人，房主可一键请离释放座位 */
+        if (isHostMe && p.seatRemovable) {
+          tags.push('<button type="button" class="btn ghost rp-kick" data-kick="' + p.uid + '">请离死座位</button>');
+        }
         return '<div class="room-player' + (p.online ? "" : " off") + (mine && p.uid === mine.uid ? " self" : "") + '">' +
           '<span class="rp-uid">#' + p.uid + "</span>" +
           '<span class="rp-name">' + esc(p.nickname) + "</span>" +
@@ -239,15 +277,46 @@
     /* 问答记录（共享）：渲染到全局左栏 #qa-log / #qa-count */
     renderQa(s);
 
-    /* 输入区状态 */
-    var canAsk = s.phase === "playing" && s.turnUid === myUid(s);
+    /* 实时对话流（多⑤）：中区看当下，与左栏回顾、二级面板同源 */
+    renderFeed(s);
+
+    /* 房间聊天（新①）：右下角常驻小聊天框，与问答记录互不干扰 */
+    renderChat(s);
+
+    /* 输入区状态：把「轮次」与「汤主正在想」两件事分开表达
+       —— 多①的根源就是两者没区分：没轮到自己 / 汤主在忙，反馈完全不一样。 */
+    var myTurn = s.phase === "playing" && s.turnUid === myUid(s);
+    var pending = s.pendingAI || null;
+    /* 上一句还没回来（服务端飞行锁 + 本地 askBusy），就锁住输入框 */
+    var canAsk = myTurn && !pending && !R.askBusy;
     var qi = $("#room-q-input");
     if (qi) {
       qi.disabled = !canAsk;
-      qi.placeholder = canAsk ? "轮到你了，向汤主提问…" : "轮到你时才能提问…";
+      qi.placeholder = pending
+        ? "汤主正在回「" + pending.nickname + "」的上一句…"
+        : (myTurn ? "轮到你了，向汤主提问…" : "轮到你时才能提问…");
     }
     var ba = $("#btn-room-ask");
-    if (ba) ba.disabled = !canAsk;
+    if (ba) {
+      ba.disabled = !canAsk;
+      /* 按钮就地变文案 + 带省略号动效，点完立刻有反馈（多①） */
+      ba.textContent = R.askBusy ? "汤主思考中…" : "提问";
+      ba.classList.toggle("busy", !!R.askBusy);
+    }
+
+    /* 全桌可见的「思考中」横幅：不管是谁问的，所有人都能看到进度 */
+    var pb = $("#room-pending");
+    if (pb) {
+      if (pending) {
+        pb.classList.remove("hidden");
+        pb.innerHTML = '<span class="pd-dot" aria-hidden="true"></span>' +
+          '<b>' + esc(pending.nickname) + '</b> 问：' + esc(pending.question) +
+          '<span class="pd-tip">汤主正在熬这锅…</span>';
+      } else {
+        pb.classList.add("hidden");
+        pb.innerHTML = "";
+      }
+    }
 
     /* 准备按钮：lobby 阶段自由切；playing 阶段点了 = 撤回准备回大堂（服务端掀桌） */
     var rb = $("#btn-room-ready");
@@ -269,7 +338,6 @@
       var b = document.getElementById(id);
       if (b) b.disabled = !isHost;
     });
-
     /* 揭底 */
     if (s.phase === "revealed" && s.truth && !R.revealedShown) {
       R.revealedShown = true;
@@ -312,13 +380,18 @@
   }
 
   function renderQa(s) {
-    /* 问答记录：渲染到全局左栏 #qa-log / #qa-count（多人房与单人共用同一块竖版栏） */
+    /* 问答记录：渲染到全局左栏 #qa-log / #qa-count（多人房与单人共用同一块竖版栏）
+       左栏常驻不折叠 + 自动慢速滚动：这是「电影片尾」式的回顾展示。 */
     var box = $("#qa-log");
     var badge = $("#qa-count");
     var log = s.qaLog || [];
     var asks = log.filter(function (x) { return x.kind === "ask"; });
     if (badge) badge.textContent = asks.length + " 问";
     if (!box) return;
+    /* 只在新内容真的到了才重建 DOM，避免每 1.5s 无意义重排 */
+    var sig = log.length + "|" + (log.length ? log[log.length - 1].at : 0) + "|" + (s.chatSeq || 0);
+    if (box.__sig === sig) { ensureQaScroll(); return; }
+    box.__sig = sig;
     if (!log.length) {
       box.innerHTML = '<p class="empty">还没有人提问。</p>';
       return;
@@ -344,7 +417,196 @@
       }
       return "";
     }).join("");
+    /* 有新内容：清掉「已经滚到底」的记号，让慢速滚动重新接管 */
+    box.__atBottom = false;
+    ensureQaScroll();
+  }
+
+  /* ------------------------------------------------------------
+   * 左栏「电影片尾」式自动慢速滚动
+   * ------------------------------------------------------------
+   * 规则（主人指定）：
+   *   - 恒定慢速向下滚，到底后回顶部继续，无限循环；
+   *   - 禁止任何人手动拖动（触摸 / 滚轮 / 中键全部拦掉），房主服主也一样；
+   *   - 内容比容器短时不滚，静止显示。
+   * 用 requestAnimationFrame 做恒定像素速度：60fps 下约 0.35px/帧 ≈ 21px/s，
+   * 比浏览器原生 smooth 慢很多，看着像片尾字幕。
+   */
+
+  var QA_SPEED = 0.35;      /* px / 帧 */
+  var qaRaf = 0;
+  var qaPaused = 0;         /* 到底后停顿的截止时间戳 */
+
+  function ensureQaScroll() {
+    var box = $("#qa-log");
+    if (!box) return;
+    if (qaRaf) return;      /* 已经在跑 */
+    var step = function () {
+      var el = $("#qa-log");
+      if (!el || !R.inRoom) { qaRaf = 0; return; }
+      var over = el.scrollHeight - el.clientHeight;
+      if (over <= 4) {
+        /* 内容不够长：不动，也不花帧 */
+        el.scrollTop = 0;
+        qaRaf = 0;
+        return;
+      }
+      var t = Date.now();
+      if (qaPaused && t < qaPaused) { qaRaf = requestAnimationFrame(step); return; }
+      qaPaused = 0;
+      el.scrollTop = el.scrollTop + QA_SPEED;
+      /* 到底了：停 1.6s，再回顶部继续 —— 给玩家时间看完最后一条 */
+      if (el.scrollTop >= over - 1) {
+        el.scrollTop = over;
+        qaPaused = t + 1600;
+        setTimeout(function () {
+          var e2 = $("#qa-log");
+          if (e2 && R.inRoom) e2.scrollTop = 0;
+        }, 1600);
+      }
+      qaRaf = requestAnimationFrame(step);
+    };
+    qaRaf = requestAnimationFrame(step);
+  }
+
+  function stopQaScroll() {
+    if (qaRaf) { cancelAnimationFrame(qaRaf); qaRaf = 0; }
+    qaPaused = 0;
+  }
+
+  /* 禁止手动滚动：只在「多人房模式」下拦（左栏在单人局仍要能自由滚）。
+     被动监听 + 能 preventDefault 的就拦（wheel/touch 需非 passive）。 */
+  function blockManualScroll(el) {
+    if (!el) return;
+    var inRoomMode = function () { return document.body.classList.contains("room-mode"); };
+    ["wheel", "touchmove", "mousedown", "pointerdown"].forEach(function (t) {
+      el.addEventListener(t, function (ev) {
+        if (!inRoomMode()) return;
+        if (ev.target && ev.target.closest && ev.target.closest("input,textarea,select,button,a")) return;
+        ev.preventDefault();
+      }, { passive: false });
+    });
+    el.addEventListener("keydown", function (ev) {
+      if (!inRoomMode()) return;
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].indexOf(ev.key) !== -1) ev.preventDefault();
+    });
+    /* 选中的文字一并清掉，避免拖拽选区 */
+    el.addEventListener("selectstart", function (ev) { if (inRoomMode()) ev.preventDefault(); });
+  }
+
+  /* ---------------- 实时对话流（多⑤）：中区看当下 ----------------
+   * 每个人的提问 + 汤主回答按时间顺序往下叠，最新的自动滚到底。
+   * 与左栏（回顾跑马灯）、二级面板（查全部）同源同序，分工不同。
+   */
+  function renderFeed(s) {
+    var box = $("#room-feed");
+    if (!box) return;
+    var log = (s.qaLog || []).filter(function (x) {
+      return x.kind === "ask" || x.kind === "guess" || x.kind === "sys";
+    });
+    var cnt = $("#room-feed-count");
+    if (cnt) cnt.textContent = (s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length + " 问";
+
+    var last = log.length ? log[log.length - 1].at : 0;
+    var pending = s.pendingAI;
+    var sig = log.length + "|" + last + "|" + (pending ? pending.at : 0);
+    if (box.__sig === sig) return;
+    box.__sig = sig;
+
+    if (!log.length && !pending) {
+      box.innerHTML = '<p class="empty">开局后，每个人的提问都会实时出现在这里。</p>';
+      return;
+    }
+    box.innerHTML = log.map(function (x) {
+      if (x.kind === "ask") {
+        return '<div class="feed-row">' +
+          '<span class="fb-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
+          '<span class="fb-q">' + esc(x.question) + "</span>" +
+          '<span class="fb-stamp ' + esc(x.verdict) + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" +
+          '<span class="fb-a">' + esc(x.reply || "") + "</span></div>";
+      }
+      if (x.kind === "guess") {
+        return '<div class="feed-row guess">' +
+          '<span class="fb-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
+          '<span class="fb-q">推理：' + esc(x.text) + "</span>" +
+          '<span class="fb-stamp ' + esc(x.level) + '">' + esc(x.level === "solved" ? "说破" : "判") + "</span>" +
+          '<span class="fb-a">' + esc(x.reply || "") + "</span></div>";
+      }
+      return '<div class="feed-row sys"><span class="fb-a">' + esc(x.text) + "</span></div>";
+    }).join("") +
+      (pending ? '<div class="feed-row pending">' +
+        '<span class="fb-name">' + esc(pending.nickname) + '</span>' +
+        '<span class="fb-q">' + esc(pending.question) + '</span>' +
+        '<span class="fb-a">汤主正在想…</span></div>' : "");
     box.scrollTop = box.scrollHeight;
+  }
+
+  /* ---------------- 房间聊天（新①：右下角常驻小聊天框） ----------------
+   * 与「问答记录」分工不同：问答是游戏的正式推进，聊天只是玩家闲聊。
+   * 面板常驻、可折叠（默认展开），空闲时也只占右下角一小块。
+   */
+
+  function renderChat(s) {
+    var box = $("#room-chat-log");
+    if (!box) return;
+    var log = s.chatLog || [];
+    var last = log.length ? log[log.length - 1].seq || 0 : 0;
+    var badge = $("#room-chat-badge");
+    /* 未读：面板收起时，把新消息数打在标题上 */
+    if (badge) {
+      var unread = 0;
+      if (!R.chatOpen) {
+        unread = log.filter(function (x) { return (x.seq || 0) > (R.chatSeen || 0); }).length;
+      }
+      badge.textContent = unread ? String(unread) : "";
+      badge.classList.toggle("hidden", !unread);
+    }
+    if (box.__sig === log.length + "|" + last) { box.scrollTop = box.scrollHeight; return; }
+    box.__sig = log.length + "|" + last;
+    if (!log.length) {
+      box.innerHTML = '<p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>';
+    } else {
+      box.innerHTML = log.map(function (x) {
+        var mineCls = (x.uid === myUid(R.snap || {})) ? " me" : "";
+        return '<div class="chat-item' + mineCls + '">' +
+          '<span class="ci-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
+          '<span class="ci-text">' + esc(x.text) + "</span></div>";
+      }).join("");
+    }
+    if (R.chatOpen) box.scrollTop = box.scrollHeight;
+  }
+
+  function markChatRead(s) {
+    var log = (s && s.chatLog) || (R.snap && R.snap.chatLog) || [];
+    var last = log.length ? (log[log.length - 1].seq || 0) : 0;
+    if (last > (R.chatSeen || 0)) R.chatSeen = last;
+  }
+
+  function toggleChat(force) {
+    var wrap = $("#room-chat");
+    if (!wrap) return;
+    var open = typeof force === "boolean" ? force : !R.chatOpen;
+    R.chatOpen = open;
+    wrap.classList.toggle("collapsed", !open);
+    var btn = $("#btn-room-chat-toggle");
+    if (btn) btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      markChatRead(R.snap);
+      var ib = $("#room-chat-input");
+      /* 移动端不自动弹键盘：只在非触屏设备上聚焦 */
+      if (ib && !isTouch()) setTimeout(function () { ib.focus(); }, 40);
+      var box = $("#room-chat-log");
+      if (box) box.scrollTop = box.scrollHeight;
+      renderChat(R.snap || {});
+    }
+  }
+
+  function isTouch() {
+    try {
+      if (window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches) return true;
+      if ("ontouchstart" in window && (navigator.maxTouchPoints || 0) > 0) return true;
+    } catch (e) { /* 忽略 */ }
+    return false;
   }
 
   function paintCooldown(s) {
@@ -405,7 +667,25 @@
     });
   }
 
-  /* app.js 把 toast 挂进来，房间层不重复造轮子 */
+  /* 左栏「电影片尾」滚动在房间模式下才跑，离开房间要停。
+     注意：这个函数被 render 每次快照调到，所以只能做幂等的事
+     （重复挂监听 / 重复重置指纹都会把去重优化废掉）。 */
+  function onRoomSideEffects() {
+    var qaBox = $("#qa-log");
+    if (qaBox && !qaBox.__noManual) {
+      qaBox.__noManual = true;
+      blockManualScroll(qaBox);
+    }
+    wireResume();
+  }
+
+  /* 刚进房 / 换房：丢掉上一次房间留下的渲染指纹，强制重绘一次 */
+  function resetRoomSigs() {
+    ["#qa-log", "#room-feed", "#room-chat-log"].forEach(function (sel) {
+      var el = $(sel);
+      if (el) el.__sig = "";
+    });
+  }
   root.SoupAppToast = function (m) {
     var el = document.getElementById("toast");
     if (!el) return;
@@ -438,6 +718,7 @@
     AI_LOCAL_UNREACHABLE: "房主填的是本机地址，机房访问不到；请让房主换成公网地址（cloudflared / ngrok / frp）",
     AI_AUTH_OR_MODEL: "上游拒绝了请求（若提示「来源被拦截」，是该中转站封了机房 IP，需内网穿透或换直连服务商）；请让房主点「测试连接」核对",
     AI_UPSTREAM_5XX: "上游服务暂时出错，等一会儿再试",
+    AI_GATEWAY_BLOCKED: "这个中转站的防火墙拦掉了服务器来源（已带浏览器伪装头仍被拦）。不是 key 或模型名的问题，建议换中转站或换直连服务商（DeepSeek / Kimi 官方等）",
     AI_TIMEOUT: "请求超时，稍后再试",
     AI_NETWORK: "机房连不上这个接口地址，请让房主核对地址",
     AI_REQUIRED_LIB: "这锅汤是汤库层，必须先配好 AI 汤主才能问"
@@ -448,27 +729,122 @@
     return AI_ERR_TEXT[code] || ("AI 汤主出错了（" + code + "）");
   }
 
+  /* 提问（多①）：点下去立刻锁按钮 + 变文案，不让玩家以为没反应而狂点。
+     真正的防重复烧额度在服务端飞行锁，这里只管手感。 */
   function doAsk() {
     var qi = $("#room-q-input");
     var v = qi ? qi.value.trim() : "";
     if (!v) { R.toast("先写一句问题"); return; }
+    if (R.askBusy) { R.toast("汤主还在熬上一句，稍等一下下。"); return; }
+
+    /* 立即反馈：按钮变「汤主思考中…」+ 输入框锁定 */
+    R.askBusy = true;
+    paintAskBusy(true);
+    /* 本地立刻把「谁在问」显出来，不等下一轮轮询（尤其是提问者自己的视角） */
+    var pendEl = $("#room-pending");
+    if (pendEl) {
+      pendEl.classList.remove("hidden");
+      pendEl.innerHTML = '<span class="pd-dot" aria-hidden="true"></span>' +
+        '<b>' + esc(me().nickname || "你") + '</b> 问：' + esc(v) +
+        '<span class="pd-tip">汤主正在熬这锅…</span>';
+    }
+
     act("ask", { question: v }).then(function (r) {
+      R.askBusy = false;
+      paintAskBusy(false);
       if (qi) qi.value = "";
       if (r && r.item && r.item.verdict) {
         R.toast("汤主：" + (LEAD_TEXT[r.item.verdict] || "") + " " + (r.item.reply || ""));
       }
       startWatch();
     }).catch(function (e) {
+      R.askBusy = false;
+      paintAskBusy(false);
       var m = e.message;
-      if (m === "NOT_YOUR_TURN") R.toast("还没轮到你哦");
+      if (m === "AI_BUSY") R.toast("上一句汤主还在熬，等它答完再问。");
+      else if (m === "NOT_YOUR_TURN") R.toast("还没轮到你哦");
       else if (m === "EMPTY_QUESTION") R.toast("先写一句问题");
       else if (AI_ERR_TEXT[m]) R.toast(aiErrText(m, e.note));
       else R.toast("提问失败：" + m);
+      /* 失败后立刻拉一次，把服务端真状态拉回来 */
+      startWatch();
     });
+  }
+
+  /* 提问按钮的忙碌/空闲两态。
+     空闲时不能只把 disabled 置 false（可能因此漏过「没轮到你」的情况），
+     所以立刻用当前快照重算一次，把控制权交回 render。 */
+  function paintAskBusy(busy) {
+    var ba = $("#btn-room-ask");
+    if (ba) {
+      ba.textContent = busy ? "汤主思考中…" : "提问";
+      ba.classList.toggle("busy", !!busy);
+      ba.disabled = !!busy;
+    }
+    var qi = $("#room-q-input");
+    if (qi && busy) qi.disabled = true;
+    if (!busy && R.snap) render(R.snap);
   }
 
   function doGuess() {
     openGuessModal();
+  }
+
+  /* ------------------------------------------------------------
+   * 「问答记录」二级面板（多③）：随时点开、自由翻阅
+   * ------------------------------------------------------------
+   * 与左栏分工：左栏是「电影片尾」自动慢滚（回顾氛围），
+   * 这里是可以自由拖动、随时翻的完整清单，也方便手机上读长问答。
+   */
+  function openQaPanel() {
+    var s = R.snap || {};
+    var log = s.qaLog || [];
+    var asks = log.filter(function (x) { return x.kind === "ask"; });
+    var host = document.createElement("div");
+    host.className = "modal-wrap";
+    host.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="rqa-title">' +
+      '<h3 id="rqa-title">本锅问答记录</h3>' +
+      '<p class="modal-sub">共 ' + asks.length + ' 问。可以随意上下翻看，这里不自动滚动。</p>' +
+      '<div class="room-qa-sheet" id="rqa-body"></div>' +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="rqa-bottom">跳到最新</button>' +
+      '<button type="button" class="btn primary" id="rqa-close">关闭</button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+
+    var body = host.querySelector("#rqa-body");
+    if (!log.length) {
+      body.innerHTML = '<p class="empty">还没有人提问。</p>';
+    } else {
+      body.innerHTML = log.map(function (x) {
+        if (x.kind === "ask") {
+          return '<div class="qa-item">' +
+            '<div class="qa-q"><span class="qa-k">' + esc(x.nickname || ("#" + x.uid)) + "</span>" + esc(x.question) + "</div>" +
+            '<div class="qa-a"><span class="qa-k">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
+            "</div>";
+        }
+        if (x.kind === "guess") {
+          return '<div class="qa-item guess ' + esc(x.level) + '">' +
+            '<div class="qa-q"><span class="qa-k">推理</span>' + esc(x.nickname || ("#" + x.uid)) + "：" + esc(x.text) + "</div>" +
+            '<div class="qa-a"><span class="qa-k">汤主</span>' + esc(x.reply || "") + "</div></div>";
+        }
+        if (x.kind === "timeout") return '<div class="qa-item timeout"><div class="qa-a">#' + x.uid + " 超时，已跳过</div></div>";
+        if (x.kind === "sys") return '<div class="qa-item sys"><div class="qa-a">' + esc(x.text) + "</div></div>";
+        return "";
+      }).join("");
+    }
+    var close = function () {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    };
+    body.scrollTop = body.scrollHeight;
+    host.querySelector("#rqa-close").addEventListener("click", close);
+    host.querySelector("#rqa-bottom").addEventListener("click", function () {
+      body.scrollTop = body.scrollHeight;
+    });
+    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
   }
 
   function openGuessModal() {
@@ -638,6 +1014,37 @@
 
   function doNext() { act("next", {}).then(function () { R.toast("准备下一锅，全员重新准备"); }).catch(function (e) { R.toast("操作失败：" + e.message); }); }
 
+  /* 聊天发送（新①）：带 clientId 做幂等，网络重试不会重复上屏 */
+  function doChat() {
+    var ib = $("#room-chat-input");
+    var v = ib ? ib.value.trim() : "";
+    if (!v) return;
+    var cid = me().internalId + ":" + Date.now() + ":" + Math.floor(Math.random() * 1e6);
+    if (ib) ib.value = "";
+    act("say", { text: v, clientId: cid }).then(function () {
+      startWatch();
+    }).catch(function (e) {
+      var m = e.message;
+      if (m === "TOO_FAST") R.toast("说得太快了，喘口气再说。");
+      else if (m === "EMPTY_TEXT") { /* 空内容：忽略 */ }
+      else { R.toast("发送失败：" + m); if (ib) ib.value = v; }
+    });
+  }
+
+  /* 房主请离死座位（多②） */
+  function doKick(uid) {
+    act("kick", { uid: uid }).then(function () {
+      R.toast("已请离，座位空出来了");
+      startWatch();
+    }).catch(function (e) {
+      var m = e.message;
+      if (m === "PLAYER_NOT_IDLE") R.toast("他还没离线够久，再等等");
+      else if (m === "CANNOT_KICK_HOST") R.toast("房主不能被请离");
+      else R.toast("操作失败：" + m);
+      startWatch();
+    });
+  }
+
   /* 房主打开 AI 配置时，把服务端已存的 baseUrl / model 回填，
      免得“保存了但界面空着”导致重复手打。Key 永不下发，必须重填。 */
   function prefillAiModal(host) {
@@ -752,9 +1159,25 @@
     var qi = $("#room-q-input");
     if (qi) qi.addEventListener("keydown", function (ev) { if (ev.key === "Enter") doAsk(); });
     var bg = $("#btn-room-guess"); if (bg) bg.addEventListener("click", doGuess);
+    var bq = $("#btn-room-qa"); if (bq) bq.addEventListener("click", openQaPanel);
     var bc = $("#btn-room-choose"); if (bc) bc.addEventListener("click", doChoose);
     var bn = $("#btn-room-next"); if (bn) bn.addEventListener("click", doNext);
     var bai = $("#btn-room-ai"); if (bai) bai.addEventListener("click", doAi);
+
+    /* 玩家列表里的「请离死座位」是动态生成的，用事件委托接 */
+    var pb = $("#room-players");
+    if (pb) pb.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest("[data-kick]") : null;
+      if (!b) return;
+      ev.preventDefault();
+      doKick(Number(b.getAttribute("data-kick")));
+    });
+
+    /* 聊天（新①） */
+    var ct = $("#btn-room-chat-toggle"); if (ct) ct.addEventListener("click", function () { toggleChat(); });
+    var cs = $("#btn-room-chat-send"); if (cs) cs.addEventListener("click", doChat);
+    var ci = $("#room-chat-input");
+    if (ci) ci.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); doChat(); } });
 
     var jc = $("#room-join-code");
     if (jc) jc.addEventListener("keydown", function (ev) { if (ev.key === "Enter") joinRoom(); });
@@ -773,6 +1196,7 @@
     /* 从房间界面切走（去汤库 / 随机）：停轮询、收起房间屏、摘掉 room-mode */
     leaveScreen: function () {
       stopWatch();
+      stopQaScroll();
       var sr = document.getElementById("screen-room");
       if (sr) sr.classList.add("hidden");
       document.body.classList.remove("room-mode");
