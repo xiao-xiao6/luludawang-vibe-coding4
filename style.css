@@ -647,16 +647,16 @@ body.room-mode .qa-clear { display: none; }
   will-change: opacity, transform;
 }
 .bg-img.on { opacity: 1; }
-body[data-scene="game"] .bg-img { filter: saturate(.92) contrast(1.02) brightness(.9); }
-body[data-scene="win"] .bg-img  { filter: saturate(1) contrast(1) brightness(.96); }
-body[data-scene="sad"] .bg-img  { filter: saturate(.75) contrast(1.04) brightness(.72); }
+body[data-scene="game"] .bg-img { filter: saturate(.55) contrast(1.1) brightness(.38); }
+body[data-scene="win"] .bg-img  { filter: saturate(.8) contrast(1.02) brightness(.6); }
+body[data-scene="sad"] .bg-img  { filter: saturate(.5) contrast(1.1) brightness(.3); }
 
 .bg-vignette {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(126% 96% at 50% 16%, rgba(8,6,5,0) 0%, rgba(8,6,5,.18) 58%, rgba(5,4,3,.55) 100%),
-    linear-gradient(180deg, rgba(11,9,6,.18) 0%, rgba(10,8,6,.28) 58%, rgba(6,4,3,.5) 100%);
+    radial-gradient(126% 96% at 50% 16%, rgba(8,6,5,.1) 0%, rgba(8,6,5,.45) 58%, rgba(5,4,3,.85) 100%),
+    linear-gradient(180deg, rgba(11,9,6,.35) 0%, rgba(10,8,6,.55) 58%, rgba(6,4,3,.8) 100%);
 }
 
 /* ---------- 特效层 ---------- */
@@ -695,10 +695,21 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.75) contrast(1.04) brightnes
   z-index: 50;
   pointer-events: none;
   opacity: 0;
-  transition: opacity .34s ease;
+  visibility: hidden;
   background: radial-gradient(120% 90% at 50% 50%, rgba(6,4,3,.86), rgba(3,2,2,.98));
 }
-.scene-fade.on { opacity: 1; }
+/* 黑幕转场：淡入盖住 → 换景 → 自动淡出。
+   forwards 保证播完停在 opacity:0 / visibility:hidden，绝不残留黑层。
+   配合 JS 的 class 重置，每次进汤都会完整重放。 */
+.scene-fade.on {
+  visibility: visible;
+  animation: sceneFade .62s ease forwards;
+}
+@keyframes sceneFade {
+  0%   { opacity: 0; }
+  22%  { opacity: 1; }
+  100% { opacity: 0; }
+}
 
 /* ---------- 原创标记 ---------- */
 .orig-badge {

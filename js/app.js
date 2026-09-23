@@ -239,17 +239,16 @@
     if (AU) AU.start(TRACK_OF[name] || "menu");
   }
 
-  /* 转场遮罩只给「回菜单」这种换景用。
-     进汤时不能盖：遮罩是近乎纯黑的整屏，和半透明面板叠在一起就会整页发黑。 */
+  /* 转场：黑幕盖上一瞬、换内容、再自动淡出。
+     不再依赖 setTimeout 摘幕（后台标签页会冻结定时器，黑幕就永远蒙着）：
+     改用 CSS 动画「淡入→自动淡出」，动画播完必然回到透明，物理上不可能卡住。 */
   function sceneWipe(cb) {
     var f = $("#scene-fade");
     if (!f || (FX && FX.reduced)) { cb(); return; }
-    f.style.transition = "none";
-    f.classList.add("on");
-    void f.offsetWidth;
+    f.classList.remove("on");
+    void f.offsetWidth;          /* 重置动画 */
     cb();
-    f.style.transition = "";
-    setTimeout(function () { f.classList.remove("on"); }, 60);
+    f.classList.add("on");       /* 播放 淡入→淡出 动画，结束自动回到 opacity:0 */
   }
 
   /* ---------------- 音效 ---------------- */
