@@ -417,7 +417,9 @@
         '<div class="qa-a"><span class="qa-k">A</span>' + esc(item.a) + "</div>" +
         "</div>";
     }).join("");
-    box.scrollTop = box.scrollHeight;
+    /* 单人局和多人房一样：禁止手动滑，内容超出后自己慢慢滚 */
+    if (root.SoupRoom && root.SoupRoom.blockQaScroll) root.SoupRoom.blockQaScroll();
+    if (root.SoupRoom && root.SoupRoom.ensureQaScroll) root.SoupRoom.ensureQaScroll();
   }
 
   function clearQaLog() {
@@ -432,6 +434,8 @@
   function renderStats() {
     var p = E.getPuzzle(state.pid);
     if (!p) return;
+    /* 单人局也挂上自动慢滚，和多人房同一套：不能手动滑，滚到底自己回顶 */
+    if (root.SoupRoom && root.SoupRoom.ensureQaScroll) root.SoupRoom.ensureQaScroll();
     var s = state;
     if (isLib(p)) {
       /* 库层没有预设线索板：只统计提问数与提示数 */
@@ -516,25 +520,21 @@
       if (lib) {
         /* 库层：标题用 dispTitle（永远非空），来源代替大类标签 */
         set("#p-title", p.dispTitle || p.title || "无题");
-        set("#p-tag", p.src);
+        /* 汤面只留题目和火候，题材 / 来源标签不上汤面 */
+        var ltag = $("#p-tag");
+        if (ltag) { ltag.textContent = ""; ltag.classList.add("hidden"); }
         var lcats = $("#p-cats");
-        if (lcats) {
-          var lcs = p.cats || [];
-          lcats.innerHTML = lcs.map(function (c) { return '<span class="pz-cat">' + esc(c) + "</span>"; }).join("");
-          lcats.classList.toggle("hidden", !lcs.length);
-        }
+        if (lcats) { lcats.innerHTML = ""; lcats.classList.add("hidden"); }
         set("#p-diff", libDiffDots(p.difficulty) + " 难度");
         var lorig = $("#p-orig");
         if (lorig) lorig.classList.add("hidden");
       } else {
         set("#p-title", p.title);
-        set("#p-tag", p.tag);
+        /* 汤面只留题目和火候，题材标签不上汤面 */
+        var ptag = $("#p-tag");
+        if (ptag) { ptag.textContent = ""; ptag.classList.add("hidden"); }
         var pcats = $("#p-cats");
-        if (pcats) {
-          var cs = E.catsOf(p);
-          pcats.innerHTML = cs.map(function (c) { return '<span class="pz-cat">' + esc(c) + "</span>"; }).join("");
-          pcats.classList.toggle("hidden", !cs.length);
-        }
+        if (pcats) { pcats.innerHTML = ""; pcats.classList.add("hidden"); }
         set("#p-diff", new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○") + " 难度");
       }
       typeSurface(p.surface);
@@ -1271,6 +1271,7 @@
 
   function backToList() {
     closeModal("#modal-end");
+    if (root.SoupRoom && root.SoupRoom.stopQaScroll) root.SoupRoom.stopQaScroll();
     sceneWipe(function () {
       $("#screen-game").classList.add("hidden");
       $("#screen-random").classList.add("hidden");
@@ -1714,6 +1715,11 @@
     var guessBtn = $("#btn-guess");
     if (guessBtn) guessBtn.addEventListener("click", openGuess);
 
+    var unlockBtn = $("#btn-unlock");
+    if (unlockBtn) unlockBtn.addEventListener("click", function () {
+      if (root.SoupRoom && root.SoupRoom.doUnlock) root.SoupRoom.doUnlock(true);
+    });
+
     var gCancel = $("#btn-guess-cancel");
     if (gCancel) gCancel.addEventListener("click", function () { closeModal("#modal-guess"); });
 
@@ -1890,4 +1896,8 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
+
+  root.SoupApp = {
+    pid: function () { return state.pid; }
+  };
 })();

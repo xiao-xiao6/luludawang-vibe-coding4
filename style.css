@@ -128,6 +128,12 @@ body {
 }
 
 .top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+.top-chat-slot {
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
+  min-width: 0;
+}
 
 /* ---------- 按钮 ---------- */
 .btn {
@@ -239,6 +245,8 @@ body.room-mode .qa-clear { display: none; }
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: none;
   padding-right: 3px;
   margin-top: 10px;
   min-height: 0;
@@ -730,22 +738,18 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
   font-weight: 700;
 }
 
-/* ---------- 音乐台 ---------- */
+/* ---------- 音乐台：并进顶栏「音乐」按钮 ---------- */
 .music-dock {
-  position: fixed;
-  left: calc(18px + var(--sal));
-  bottom: calc(18px + var(--sab));
-  z-index: 70;
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 8px;
+  padding: 4px 8px 4px 4px;
   border: 1px solid var(--line-2);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(38,28,20,.94), rgba(22,16,12,.94));
-  box-shadow: 0 14px 34px rgba(0,0,0,.6);
-  backdrop-filter: blur(6px);
-  animation: dockIn .5s cubic-bezier(.2,.9,.3,1.1) both .3s;
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
 }
 @keyframes dockIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .music-dock.dim { opacity: .55; }
@@ -764,7 +768,7 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
 }
 .dock-btn:hover { transform: scale(1.1); border-color: var(--broth); box-shadow: 0 0 14px rgba(226,164,79,.4); }
 .dock-btn:focus-visible { outline: 2px solid var(--broth); outline-offset: 2px; }
-.dock-mid { display: flex; flex-direction: column; gap: 3px; min-width: 128px; }
+.dock-mid { display: flex; flex-direction: column; gap: 2px; min-width: 108px; }
 .dock-label {
   font-size: 11px;
   letter-spacing: .12em;
@@ -1126,17 +1130,18 @@ body.fx-off .steam-field { display: none !important; }
   .pot { font-size: 50px; }
   .intro h2 { font-size: 21px; }
 
-  .music-dock { left: 8px; bottom: 8px; }
+  .music-dock { padding: 5px 7px; gap: 6px; }
   .dock-label { font-size: 10px; letter-spacing: .06em; }
-  .dock-mid { min-width: 76px; }
+  .dock-mid { min-width: 72px; }
+  .dock-btn { width: 28px; height: 28px; }
 
-  /* 窄屏：聊天框跟顶栏一起换行，宽度跟按钮行对齐，日志区压矮一点 */
-  .room-chat { width: min(280px, 100%); }
+  /* 窄屏：聊天框留在顶栏右侧，宽度收一收，不盖住整屏 */
+  .top-chat-slot { width: 100%; justify-content: flex-end; }
+  .room-chat { width: 240px; }
   .rc-log { height: 132px; }
   .rc-send .input { font-size: 16px; }   /* 防 iOS 聚焦时自动放大页面 */
 
-  /* 窄屏 toast 抬到音乐台上方，两者不再挤在一起 */
-  .toast { bottom: calc(76px + var(--sab)); }
+  .toast { bottom: calc(24px + var(--sab)); }
 
   .modal-wrap { padding: calc(10px + var(--sat)) calc(10px + var(--sar)) calc(10px + var(--sab)) calc(10px + var(--sal)); }
   .modal { padding: 16px 15px 14px; border-radius: 16px; }
@@ -1173,8 +1178,8 @@ body.modal-open .room-chat { display: none; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .stat { padding: 7px 9px; font-size: 12px; }
 
-  .music-dock { left: 12px; bottom: 12px; padding: 7px 10px; gap: 8px; }
-  .dock-mid { min-width: 96px; }
+  .music-dock { padding: 6px 8px; gap: 6px; }
+  .dock-mid { min-width: 88px; }
   .bg-img { background-position: center 38%; }
 
   .btn { min-height: var(--tap); }
@@ -1223,8 +1228,8 @@ body.modal-open .room-chat { display: none; }
   .stat { font-size: 11.5px; padding: 6px 8px; gap: 6px; }
   .stat-k { font-size: 11px; }
   .pz-card { padding: 10px 11px; }
-  .music-dock { padding: 6px 8px; gap: 6px; }
-  .dock-mid { min-width: 64px; }
+  .music-dock { padding: 4px 6px; gap: 4px; }
+  .dock-mid { min-width: 56px; }
 }
 
 /* ---------- 未开启 JS 时的兜底提示 ---------- */
@@ -1426,15 +1431,16 @@ body.modal-open .room-chat { display: none; }
   75%, 100% { content: "..."; }
 }
 
-/* ---------- 顶栏右侧房间聊天（进房才出现） ----------
- * 默认 collapsed（只留一条头胶囊），点标题向下展开；
- * 嵌在顶栏最右侧，不挡中栏面板，也不挡左下角音乐台。 */
+/* ---------- 右下角房间聊天（进房才出现） ----------
+ * 默认 collapsed（只留一条头胶囊），点标题向上展开；
+ * 固定在屏幕右下角，不挡中栏面板。 */
 .room-chat {
   position: relative;
-  flex: 0 0 auto;
-  width: 248px;
-  max-width: calc(100vw - 32px);
-  z-index: 30;
+  right: auto;
+  bottom: auto;
+  width: 280px;
+  max-width: min(320px, calc(100vw - 32px));
+  z-index: 6;
   border: 1px solid var(--line-2);
   border-radius: 13px;
   background: rgba(14, 10, 8, .94);
@@ -1442,26 +1448,9 @@ body.modal-open .room-chat { display: none; }
   backdrop-filter: blur(7px);
   display: flex;
   flex-direction: column;
-  overflow: visible;
+  overflow: hidden;
 }
 .room-chat.hidden { display: none; }
-.room-chat:not(.collapsed) .rc-log,
-.room-chat:not(.collapsed) .rc-send {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 40;
-  background: rgba(14, 10, 8, .98);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, .45);
-}
-.room-chat:not(.collapsed) .rc-log {
-  top: 100%;
-  border-radius: 0;
-}
-.room-chat:not(.collapsed) .rc-send {
-  top: calc(100% + 172px);
-  border-radius: 0 0 13px 13px;
-}
 .room-chat.collapsed .rc-log,
 .room-chat.collapsed .rc-send { display: none; }
 .rc-head {
@@ -1606,6 +1595,10 @@ body.modal-open .room-chat { display: none; }
 .room-qa-sheet .empty { font-size: 12.5px; color: var(--dim-2); }
 
 /* 多人房模式下，左栏是「电影片尾」自动滚动：禁止手动选/拖 */
+.qa-log {
+  user-select: none;
+  -webkit-user-select: none;
+}
 body.room-mode .qa-log {
   user-select: none;
   -webkit-user-select: none;

@@ -339,7 +339,20 @@
   load();
   ensureId();
 
-  /* 离开房间：只清房号，不清身份（internalId 还要留着，下次进房还是同一个人） */
+  /* 离开房间：先通知服务器把座位真的清掉（全桌立刻看不到这个人），
+     再清本地房号。internalId 留着，下次进房还是同一个人。 */
+  function leaveRoom() {
+    var code = state.roomCode;
+    var id = state.internalId;
+    var done = Promise.resolve();
+    if (code && id && state.base) {
+      done = req("/api/room/" + code + "/leave", "POST", { internalId: id }).catch(function () {});
+    }
+    clearRoom();
+    return done;
+  }
+
+  /* 只清房号，不清身份 */
   function clearRoom() {
     state.roomCode = "";
     state.solo = false;
@@ -363,6 +376,7 @@
     resetRev: function () { state.rev = 0; },
     promptNickname: promptNickname,
     clearRoom: clearRoom,
+    leaveRoom: leaveRoom,
     /* 单人链路（A1） */
     soloNew: soloNew,
     soloAct: soloAct,

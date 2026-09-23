@@ -71,28 +71,18 @@
     <button type="button" class="btn ghost" id="btn-library">📚 汤库</button>
     <button type="button" class="btn ghost" id="btn-multi">🏠 多人房间</button>
     <button type="button" class="btn ghost" id="btn-ai" aria-pressed="false">🤖 AI 汤主</button>
-    <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
-    <button type="button" class="btn ghost" id="btn-play" aria-pressed="true">⏸ 暂停</button>
-    <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
-    <button type="button" class="btn ghost" id="btn-fx" aria-pressed="true">✨ 特效</button>
-    <button type="button" class="btn ghost danger" id="btn-wipe">清空存档</button>
-    <!-- 多人房聊天：进房后才显示，嵌在顶栏最右侧（红框位置），不挡中栏面板 -->
-    <div class="room-chat collapsed hidden" id="room-chat">
-      <div class="rc-head">
-        <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="false">
-          💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
-        </button>
-        <span class="rc-hint">汤主不看这里</span>
-      </div>
-      <div class="rc-log" id="room-chat-log" role="log" aria-live="polite" aria-label="房间聊天">
-        <p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>
-      </div>
-      <div class="rc-send">
-        <input id="room-chat-input" class="input" type="text" maxlength="120" placeholder="说点什么…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
-        <button type="button" class="btn primary" id="btn-room-chat-send">发送</button>
+    <div class="top-music" id="music-dock" role="group" aria-label="音乐控制">
+      <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
+      <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
+      <div class="dock-mid">
+        <span class="dock-label" id="dock-track">雨夜古堡</span>
+        <input type="range" class="dock-vol" id="vol" min="0" max="100" value="60" aria-label="音量" />
       </div>
     </div>
+    <button type="button" class="btn ghost" id="btn-sound" aria-pressed="true">🔊 音效</button>
+    <button type="button" class="btn ghost" id="btn-fx" aria-pressed="true">✨ 特效</button>
   </div>
+  <div class="top-chat-slot" id="top-chat-slot"></div>
 </header>
 
 <main class="layout">
@@ -174,6 +164,7 @@
         <button type="button" class="btn ghost" id="btn-hint">要提示</button>
         <button type="button" class="btn ghost" id="btn-ai-quick" title="让 AI 汤主替你补一句方向">🤖 问问 AI</button>
         <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
+        <button type="button" class="btn ghost" id="btn-unlock">密码看汤底</button>
       </div>
     </div>
 
@@ -298,6 +289,7 @@
           <input id="room-q-input" class="input" type="text" placeholder="轮到你时才能提问…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
           <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
+          <button type="button" class="btn ghost" id="btn-room-unlock">密码看汤底</button>
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
         </div>
       </div>
@@ -314,10 +306,8 @@
         <p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>
       </div>
     </div>
-    <div class="panel">
-      <div class="panel-head"><h2>汤主的话</h2></div>
-      <p class="tip" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
-    </div>
+    <!-- 汤主的话不再单独占一块：单人局并进汤面下的状态行，多人局并进房间状态行 -->
+    <p class="tip hidden" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
   </aside>
 
 </main>
@@ -392,13 +382,21 @@
   </div>
 </div>
 
-<div class="music-dock" id="music-dock" role="group" aria-label="音乐控制">
-  <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
-  <div class="dock-mid">
-    <span class="dock-label" id="dock-track">雨夜古堡</span>
-    <input type="range" class="dock-vol" id="vol" min="0" max="100" value="60" aria-label="音量" />
+<!-- 多人房聊天：进房后才显示，固定在屏幕右下角，不挡中栏和顶栏 -->
+<div class="room-chat collapsed hidden" id="room-chat">
+  <div class="rc-head">
+    <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="false">
+      💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
+    </button>
+    <span class="rc-hint">汤主不看这里</span>
   </div>
-  <button type="button" class="dock-btn" id="dock-mute" aria-pressed="true" title="音乐开 / 关">🔊</button>
+  <div class="rc-log" id="room-chat-log" role="log" aria-live="polite" aria-label="房间聊天">
+    <p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>
+  </div>
+  <div class="rc-send">
+    <input id="room-chat-input" class="input" type="text" maxlength="120" placeholder="说点什么…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+    <button type="button" class="btn primary" id="btn-room-chat-send">发送</button>
+  </div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
