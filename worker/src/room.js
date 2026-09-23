@@ -24,6 +24,8 @@ import {
   buildJudgeSystem,
   buildJudgeUser,
   pickJson,
+  looseAnswer,
+  looseJudge,
   callModel,
   isLocalOnlyUrl,
   LOCAL_URL_HINT
@@ -56,7 +58,7 @@ function aiErrorNote(e) {
   const map = {
     AI_LOCAL_UNREACHABLE: LOCAL_URL_HINT,
     AI_EMPTY_REPLY: "模型返回里没有可读正文（可能是 maxTokens 太小被截断，或该模型把正文放进了思考字段）",
-    AI_AUTH_OR_MODEL: "上游报了 4xx：检查接口地址、模型名、Key 是否对得上（" + m.slice(0, 100) + "）",
+    AI_AUTH_OR_MODEL: "上游报 4xx（" + m.slice(0, 100) + "）。检查地址/模型名/Key；若提示「来源被拦截/策略拦截」，是该中转站封了 Cloudflare 机房 IP：请用内网穿透（cloudflared / ngrok / frp）把本地净化中转发成公网地址，或换直连服务商",
     AI_UPSTREAM_5XX: "上游服务暂时出错，等一会儿再问一次（" + m.slice(0, 100) + "）",
     AI_TIMEOUT: "请求超时，上游太慢或网络不稳",
     AI_NETWORK: "机房那边连不上这个地址，检查接口地址是否写错",
@@ -64,6 +66,10 @@ function aiErrorNote(e) {
   };
   return map[code] || m.slice(0, 120);
 }
+
+/* 模型不守格式时带上一句更强的重申再要一次；也接受明文判定 */
+const RETRY_HINT =
+  "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头。";
 
 function json(data, status, cors) {
   return new Response(JSON.stringify(data), {
@@ -252,9 +258,16 @@ export class Room {
       ctx.hintClue = { n: hint.index + 1, type: hint.verdict, text: hint.reply };
     }
     try {
-      const text = await callModel(cfg, buildSystemPrompt(puzzle), buildAskUser(puzzle, question, ctx));
-      const j = pickJson(text);
-      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主这一句没按格式回（模型没给出 JSON），请重问一次" };
+      const sys = buildSystemPrompt(puzzle);
+      const usr = buildAskUser(puzzle, question, ctx);
+      let text = await callModel(cfg, sys, usr);
+      let j = pickJson(text) || looseAnswer(text);
+      if (!j) {
+        /* 带上更强的格式重申再要一次，别一枪就判死 */
+        text = await callModel(cfg, sys, usr + RETRY_HINT);
+        j = pickJson(text) || looseAnswer(text);
+      }
+      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主两次都没给出可认的判定（已自动重试过）；这个模型输出太自由，建议房主换 deepseek-chat 等更守格式的模型" };
       /* verdict 宽松归一：模型可能回英文、中文、甚至带句号 */
       var rawV = String(j.verdict || j.result || j.answer || "").trim().toLowerCase();
       var verdict = "irr";
@@ -279,9 +292,15 @@ export class Room {
     if (!this.aiReady()) return { error: "AI_OFFLINE", note: "房间还没有配置 AI 汤主" };
     const cfg = this.state.ai;
     try {
-      const text = await callModel(cfg, buildJudgeSystem(puzzle), buildJudgeUser(puzzle, guess));
-      const j = pickJson(text);
-      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主没给出可读的判定，请重新提交一次" };
+      const sys = buildJudgeSystem(puzzle);
+      const usr = buildJudgeUser(puzzle, guess);
+      let text = await callModel(cfg, sys, usr);
+      let j = pickJson(text) || looseJudge(text);
+      if (!j) {
+        text = await callModel(cfg, sys, usr + "\n\n【上次的回答没被读懂，请重新回答】只输出一个 JSON 对象：{\"level\":\"solved|close|vague|no\",\"note\":\"…\"}。");
+        j = pickJson(text) || looseJudge(text);
+      }
+      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主两次都没给出可读的判定（已自动重试过）；建议房主换更守格式的模型" };
       /* level 宽松归一 */
       var rawL = String(j.level || j.result || "").trim().toLowerCase();
       var level = "no";
