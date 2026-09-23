@@ -536,8 +536,6 @@
           pcats.classList.toggle("hidden", !cs.length);
         }
         set("#p-diff", new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○") + " 难度");
-        var orig = $("#p-orig");
-        if (orig) orig.classList.toggle("hidden", !p.original);
       }
       typeSurface(p.surface);
 
@@ -1206,12 +1204,10 @@
     set("#end-note", "提问 " + state.qCount + " 次 · 提示 " + state.hintsUsed + " 次 —— " + E.starNote(st));
 
     /* 汤底：库层的汤底只在服务端，凭「已揭晓的房号」取；精品层仍走本地。
-       取不到（掉线 / 未揭晓 / 这一锅本来就无底）就老实说不显示，绝不瞎编。 */
+       取不到（掉线 / 未揭晓）就老实说不显示，绝不瞎编。 */
     var meta =
       '<p style="margin:0;color:#a97b38;font-size:12.5px;letter-spacing:.1em;">汤底（真相）' +
-      (p.original ? " · AI原创汤面和汤底" : "") +
-      (p.truthSource === "ai" ? " · AI根据汤面编汤底" : "") +
-      (p.truthSource === "recovered" ? " · 已补底" : "") +
+      (p.truth && p.truthSource === "recovered" ? " · 已补底" : "") +
       "</p>";
     var body = p.truth
       ? meta + '<p style="margin:0">' + esc(p.truth) + "</p>"
@@ -1499,8 +1495,6 @@
           '<div class="pz-title">' + esc(p.dispTitle) + "</div>" +
           '<div class="pz-meta"><span class="pz-diff" aria-hidden="true">' + libDiffDots(p.difficulty) + "</span>" +
           "<span>" + esc(libShortSrc(p.src)) + "</span>" +
-          (p.mode === "surface" ? '<span class="lib-notruth">无汤底</span>' : "") +
-          (p.truthSource === "ai" ? '<span class="lib-notruth">AI编底</span>' : "") +
           (p.truthSource === "recovered" ? '<span class="lib-notruth">已补底</span>' : "") +
           "</div>" +
           '<div class="pz-cats">' + (p.cats || []).map(function (c) {

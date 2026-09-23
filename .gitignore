@@ -14,7 +14,6 @@
 # ---- 内部数据管线与部署产物（仍不进仓库）----
 # data/library/ 与 js/library.data.js 是「源/中间产物」；对外公开的汤底
 # 由构建产物 js/library.public.js 承载（含 truth，正常提交）。
-data/library/
 js/library.data.js
 
 # ---- 本地探针 / 临时验证脚本 ----
@@ -29,11 +28,18 @@ worker/.dev.vars
 .dev.vars
 *.pem
 
-# ---- 本地备份 / 导入 / 调试临时文件 ----
+# ---- 本地留档 / 备份 / 调试临时文件（不进仓库）----
+# data/Library/ ：本地构建源（已过滤版），构建产物 js/library.public.js 才对
+# _local_backup/ ：临时移出的 .bak-solotruth 旧版备份
+# data/library/ ：原始全量源档与「被过滤题目留档」
+data/Library/
+data/library/
+_local_backup/
 *.bak-*
 *.bak
 _imp*.txt
 _import_out.txt
+_verify_filter.*
 
 # ---- Python / Node ----
 __pycache__/
@@ -43,5 +49,6 @@ node_modules/
 # ---- 编辑器 / 系统 ----
 .vscode/
 .idea/
+.opensquilla/
 Thumbs.db
 Desktop.ini
