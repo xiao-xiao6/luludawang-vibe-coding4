@@ -127,7 +127,7 @@ body {
   color: var(--dim-2);
 }
 
-.top-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
 
 /* ---------- 按钮 ---------- */
 .btn {
@@ -1130,9 +1130,8 @@ body.fx-off .steam-field { display: none !important; }
   .dock-label { font-size: 10px; letter-spacing: .06em; }
   .dock-mid { min-width: 76px; }
 
-  /* 窄屏：音乐台在左下，聊天框抬到它上方，两者不打架；
-     日志区也压矮一些，免得盖住整个屏幕 */
-  .room-chat { right: 8px; bottom: calc(58px + var(--sab)); width: 260px; }
+  /* 窄屏：聊天框跟顶栏一起换行，宽度跟按钮行对齐，日志区压矮一点 */
+  .room-chat { width: min(280px, 100%); }
   .rc-log { height: 132px; }
   .rc-send .input { font-size: 16px; }   /* 防 iOS 聚焦时自动放大页面 */
 
@@ -1142,8 +1141,9 @@ body.fx-off .steam-field { display: none !important; }
   .modal-wrap { padding: calc(10px + var(--sat)) calc(10px + var(--sar)) calc(10px + var(--sab)) calc(10px + var(--sal)); }
   .modal { padding: 16px 15px 14px; border-radius: 16px; }
   .modal-actions { gap: 8px; }
-  /* 键盘弹起时也把聊天框让位（手机上会挡住输入区） */
-  body.kb-open .room-chat { display: none; }
+  /* 键盘弹起时收起聊天展开层，免得挡住正在打的字 */
+  body.kb-open .room-chat:not(.collapsed) .rc-log,
+  body.kb-open .room-chat:not(.collapsed) .rc-send { display: none; }
 
   /* 汤库：窄屏给列表更多纵向空间，来源筛选条别把行撑爆 */
   .lib-list { max-height: min(50vh, 460px); max-height: min(50dvh, 460px); }
@@ -1154,7 +1154,7 @@ body.fx-off .steam-field { display: none !important; }
 body.modal-open .music-dock,
 body.kb-open .music-dock { display: none; }
 
-/* 弹窗打开时，右下角聊天框也收起来，避免压在弹窗下 */
+/* 弹窗打开时，顶栏聊天框让位，避免压在弹窗下 */
 body.modal-open .room-chat { display: none; }
 
 @media (max-width: 860px) {
@@ -1426,14 +1426,15 @@ body.modal-open .room-chat { display: none; }
   75%, 100% { content: "..."; }
 }
 
-/* ---------- 右下角常驻小聊天框（新①） ---------- */
+/* ---------- 顶栏右侧房间聊天（进房才出现） ----------
+ * 默认 collapsed（只留一条头胶囊），点标题向下展开；
+ * 嵌在顶栏最右侧，不挡中栏面板，也不挡左下角音乐台。 */
 .room-chat {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  width: 296px;
+  position: relative;
+  flex: 0 0 auto;
+  width: 248px;
   max-width: calc(100vw - 32px);
-  z-index: 60;
+  z-index: 30;
   border: 1px solid var(--line-2);
   border-radius: 13px;
   background: rgba(14, 10, 8, .94);
@@ -1441,7 +1442,25 @@ body.modal-open .room-chat { display: none; }
   backdrop-filter: blur(7px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
+}
+.room-chat.hidden { display: none; }
+.room-chat:not(.collapsed) .rc-log,
+.room-chat:not(.collapsed) .rc-send {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: rgba(14, 10, 8, .98);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .45);
+}
+.room-chat:not(.collapsed) .rc-log {
+  top: 100%;
+  border-radius: 0;
+}
+.room-chat:not(.collapsed) .rc-send {
+  top: calc(100% + 172px);
+  border-radius: 0 0 13px 13px;
 }
 .room-chat.collapsed .rc-log,
 .room-chat.collapsed .rc-send { display: none; }
@@ -1505,6 +1524,31 @@ body.modal-open .room-chat { display: none; }
 }
 .rc-send .input { flex: 1; min-width: 0; font-size: 12.5px; padding: 7px 10px; }
 .rc-send .btn { padding: 7px 12px; font-size: 12.5px; }
+
+/* 多人房「本锅」头部：顺序提问 60s 倒计时（全桌随时可见） */
+.room-timer {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .04em;
+  color: var(--yes);
+  border-color: rgba(104, 207, 154, .4);
+  background: rgba(104, 207, 154, .08);
+}
+.room-timer.warn {
+  color: var(--part);
+  border-color: rgba(232, 196, 92, .5);
+  background: rgba(232, 196, 92, .1);
+  animation: timerPulse 1s ease-in-out infinite;
+}
+.room-timer.urgent {
+  color: #ffb3a8;
+  border-color: rgba(224, 112, 94, .6);
+  background: rgba(224, 112, 94, .12);
+  animation: timerPulse .6s ease-in-out infinite;
+}
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
 
 /* ---------- 实时对话流（多⑤）：中区看当下 ---------- */
 .room-feed {
@@ -1600,6 +1644,31 @@ body.room-mode .qa-log {
 #qa-log .qa-item.timeout { opacity: .6; font-size: 12px; }
 #qa-log .qa-item.sys { opacity: .7; font-size: 12px; text-align: center; border-style: dashed; }
 
+/* 房主选汤 = 直接弹汤库大 UI（复用汤库的卡片口味） */
+.room-library {
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0 4px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(12, 9, 7, .5);
+}
+.room-library .pz-card {
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+.room-library .lib-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
 .room-picker {
   max-height: min(46vh, 420px);
   overflow-y: auto;

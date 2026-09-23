@@ -1383,6 +1383,22 @@
     loadPuzzle(p.id);
   }
 
+  /* 首页/顶栏「随机一题」：精品 + 汤库全部可抽，不再只在精品 100 里转。
+     库题走本地真汤底。按体量加权：库大就更容易抽到库题，但精品至少占 1/6。 */
+  function randomAnywhere() {
+    var libList = (typeof LIB !== "undefined" && LIB && LIB.length) ? LIB : [];
+    var coreList = (typeof PUZZLES !== "undefined" && PUZZLES && PUZZLES.length) ? PUZZLES : [];
+    var libAvail = libList.length ? E.drawFromLibrary(libList, { hasTruth: true }) : null;
+    var coreAvail = coreList.length ? E.drawFrom(coreList) : null;
+    var libWeight = libList.length;
+    var coreWeight = coreList.length ? Math.max(coreList.length, Math.ceil(libWeight / 5)) : 0;
+    var total = libWeight + coreWeight;
+    if (total <= 0) return coreAvail || libAvail;
+    var roll = Math.random() * total;
+    if (roll < libWeight) return libAvail || coreAvail;
+    return coreAvail || libAvail;
+  }
+
   /* ---------------- 汤库模式 ---------------- */
 
   var LIB_DIFFS = [
@@ -1550,12 +1566,12 @@
     if (resumeBtn) resumeBtn.addEventListener("click", resumeSession);
 
     var randBtn = $("#btn-start-random");
-    if (randBtn) randBtn.addEventListener("click", function () { var r = E.randomPuzzle(null); if (r) loadPuzzle(r.id); });
+    if (randBtn) randBtn.addEventListener("click", function () { var r = randomAnywhere(); if (r) loadPuzzle(r.id); });
 
     var topRand = $("#btn-random");
     if (topRand) topRand.addEventListener("click", function () {
-      var r = E.drawFrom(PUZZLES);
-      if (r) { loadPuzzle(r.id); toast("随机一锅：" + r.title); }
+      var r = randomAnywhere();
+      if (r) { loadPuzzle(r.id); toast("随机一锅：" + (r.dispTitle || r.title)); }
     });
 
     /* 随机模式：按题材 / 火候 / 是否熬过 抽题 */

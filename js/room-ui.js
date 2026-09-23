@@ -35,7 +35,8 @@
     cooldownTimer: 0,
     askBusy: false,
     chatSeen: 0,
-    chatOpen: true,   /* 与 HTML 的 aria-expanded="true" 保持一致：默认展开 */
+    chatOpen: false,   /* 与 HTML 的 collapsed / aria-expanded="false" 对齐：默认收起，不挡面板 */
+    timerTimer: 0,      /* 顺序提问 60s 倒计时的 setInterval 句柄 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
 
@@ -56,6 +57,17 @@
     });
     if (id === "screen-room") document.body.setAttribute("data-scene", "hall");
     document.body.classList.toggle("room-mode", id === "screen-room");
+    syncChatVisibility();
+  }
+
+  /* 聊天框只在「已经进房」时出现在顶栏最右侧；建房页和单人界面都藏起来 */
+  function syncChatVisibility() {
+    var wrap = $("#room-chat");
+    if (!wrap) return;
+    var live = $("#room-live");
+    var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
+    wrap.classList.toggle("hidden", !inLive);
+    if (!inLive && R.chatOpen) toggleChat(false);
   }
 
   function showEntry() {
@@ -241,6 +253,9 @@
       }
     }
 
+    /* 本锅头部 60s 倒计时：playing 才显示，全桌可见，只展示不改时长 */
+    paintTurnTimer(s);
+
     /* 线索板（共享）：渲染到全局右栏 #clue-list / #clue-badge */
     var cl = $("#clue-list");
     var revealed = s.revealed || [];
@@ -332,9 +347,9 @@
       }
     }
 
-    /* 房主按钮 */
+    /* 房主按钮（选汤 / 随机一题 / 下一锅 / AI 设置） */
     var isHost = !!(mine && mine.isHost);
-    ["btn-room-choose", "btn-room-next", "btn-room-ai"].forEach(function (id) {
+    ["btn-room-choose", "btn-room-rand", "btn-room-next", "btn-room-ai"].forEach(function (id) {
       var b = document.getElementById(id);
       if (b) b.disabled = !isHost;
     });
@@ -628,6 +643,25 @@
     R.cooldownTimer = setInterval(tick, 1000);
   }
 
+  function paintTurnTimer(s) {
+    var el = $("#room-turn-timer");
+    if (!el) return;
+    if (R.timerTimer) { clearInterval(R.timerTimer); R.timerTimer = 0; }
+    var show = !!(s && s.phase === "playing" && s.turnDeadline);
+    if (!show) { el.classList.add("hidden"); el.textContent = "⏳ 60s"; return; }
+    el.classList.remove("hidden");
+    var tick = function () {
+      var left = Math.ceil(((s.turnDeadline || 0) - Date.now()) / 1000);
+      if (left < 0) left = 0;
+      el.textContent = "⏳ " + left + "s";
+      el.classList.toggle("warn", left <= 10);
+      el.classList.toggle("urgent", left <= 5);
+      if (left <= 0 && R.timerTimer) { clearInterval(R.timerTimer); R.timerTimer = 0; }
+    };
+    tick();
+    R.timerTimer = setInterval(tick, 1000);
+  }
+
   function showReveal(s) {
     var host = document.createElement("div");
     host.className = "modal-wrap";
@@ -907,21 +941,30 @@
     });
   }
 
-  /* 选汤：镜像「汤库」—— 精品 100 + 汤库 900+ 都能选，支持搜索和分页 */
+  /* 选汤：直接弹超大汤库 UI——与单人汤库同款（筛选+搜索+分页+卡片），不再是单独二级选汤界面。
+     题目走本地精品层 + 汤库（和单人汤库同一份），不另做选汤页。 */
   function doChoose() {
+    var E2 = window.SoupEngine;
+    var LIB2 = window.SOUP_LIBRARY || [];
+    var PUZ2 = window.PUZZLES || [];
+    var st = { page: 1, kw: "", cat: "全部", difficulty: 0, layer: "all" };
+    var PAGE = 60;
     var host = document.createElement("div");
     host.className = "modal-wrap";
     host.innerHTML =
-      '<div class="modal" role="dialog" aria-modal="true">' +
-      "<h3>选一锅汤</h3>" +
+      '<div class="modal modal-library" role="dialog" aria-modal="true">' +
+      "<h3>选一锅汤 · 汤库</h3>" +
       '<p class="modal-sub">你选的这锅，全房一起喝。精品层支持关键词汤主；汤库层需要配好 AI 汤主才能问。</p>' +
-      '<div class="chips" style="margin-bottom:10px">' +
-      '<button type="button" class="chip on" data-layer="core">精品 100</button>' +
+      '<div class="chips" id="room-lib-layers" style="margin-bottom:10px">' +
+      '<button type="button" class="chip on" data-layer="all">全部题</button>' +
+      '<button type="button" class="chip" data-layer="core">精品 100</button>' +
       '<button type="button" class="chip" data-layer="lib">汤库全部</button>' +
       "</div>" +
+      '<div class="chips cats" id="room-lib-cats" style="margin-bottom:8px"></div>' +
+      '<div class="chips" id="room-lib-diffs" style="margin-bottom:10px"></div>' +
       '<input id="pick-kw" class="input" type="search" placeholder="搜索汤名或汤面，例如：电梯" autocomplete="off" />' +
       '<p class="ai-note" id="pick-meta">加载中…</p>' +
-      '<div class="room-picker" id="pick-list"></div>' +
+      '<div class="room-library" id="pick-list"></div>' +
       '<div class="modal-actions">' +
       '<button type="button" class="btn ghost" id="pick-more">加载更多</button>' +
       '<button type="button" class="btn ghost" id="pick-cancel">取消</button>' +
@@ -933,54 +976,132 @@
     var kwEl = host.querySelector("#pick-kw");
     var metaEl = host.querySelector("#pick-meta");
     var moreBtn = host.querySelector("#pick-more");
-    var layer = "core";
-    var offset = 0;
-    var total = 0;
-    var loading = false;
-    var LIMIT = 60;
+    var catEl = host.querySelector("#room-lib-cats");
+    var diffEl = host.querySelector("#room-lib-diffs");
+    var pool = [];
+
+    function libDiffDots2(d) {
+      var n = Number(d);
+      if (!isFinite(n) || n < 1 || n > 3) n = 2;
+      return new Array(n + 1).join("●") + new Array(4 - n).join("○");
+    }
+    function libShortSrc2(s) {
+      var v = String(s || "");
+      if (!v) return "";
+      if (v.indexOf("github:") === 0) return v.slice(7).split("/")[0] || v;
+      return v;
+    }
+    var DIFFS2 = [
+      { v: 0, label: "不限" },
+      { v: 1, label: "● 清淡" },
+      { v: 2, label: "●● 适中" },
+      { v: 3, label: "●●● 浓郁" }
+    ];
+
+    function matchCore(p) {
+      if (st.kw) {
+        var k = String(st.kw).toLowerCase();
+        var hay = String((p.dispTitle || p.title || "") + "\n" + (p.surface || "")).toLowerCase();
+        if (hay.indexOf(k) === -1) return false;
+      }
+      if (st.cat && st.cat !== "全部") {
+        var cs = p.cats || [];
+        if (cs.indexOf(st.cat) === -1) return false;
+      }
+      if (st.difficulty && p.difficulty !== st.difficulty) return false;
+      return true;
+    }
+
+    /* 本地候选：core 用 PUZZLES，lib 用 SOUP_LIBRARY（与单人汤库同一份）。
+       layer=all 时两层都合进来，随机一题才能抽到精品以外的题。 */
+    function localPool() {
+      var out = [];
+      if (st.layer !== "lib") {
+        (PUZ2 || []).forEach(function (p) { if (matchCore(p)) out.push(p); });
+      }
+      if (st.layer !== "core") {
+        var list = E2 ? E2.searchLibrary(LIB2, st.kw) : LIB2;
+        var lib = E2 ? E2.libraryPool(list, { cat: st.cat, difficulty: st.difficulty, hasTruth: false }) : (list || []);
+        out = out.concat(lib || []);
+      }
+      return out;
+    }
+
+    function renderCats() {
+      var cats = ["全部"];
+      if (st.layer === "core") {
+        if (E2) cats = ["全部"].concat(E2.allCats(PUZ2));
+      } else if (E2) {
+        cats = ["全部"].concat(E2.libraryCats(st.layer === "lib" ? LIB2 : LIB2.concat(PUZ2)));
+      }
+      if (cats.indexOf(st.cat) === -1) st.cat = "全部";
+      catEl.innerHTML = cats.map(function (c) {
+        return '<button type="button" class="chip cat' + (c === st.cat ? " on" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
+      }).join("");
+      Array.prototype.forEach.call(catEl.querySelectorAll("[data-cat]"), function (btn) {
+        btn.addEventListener("click", function () {
+          st.cat = btn.getAttribute("data-cat");
+          st.page = 1;
+          renderCats();
+          load(true);
+        });
+      });
+    }
+
+    function renderDiffs() {
+      diffEl.innerHTML = DIFFS2.map(function (d) {
+        return '<button type="button" class="chip diff' + (d.v === st.difficulty ? " on" : "") + '" data-diff="' + d.v + '">' + esc(d.label) + "</button>";
+      }).join("");
+      Array.prototype.forEach.call(diffEl.querySelectorAll("[data-diff]"), function (btn) {
+        btn.addEventListener("click", function () {
+          st.difficulty = Number(btn.getAttribute("data-diff")) || 0;
+          st.page = 1;
+          renderDiffs();
+          load(true);
+        });
+      });
+    }
+
     var searchTimer = 0;
 
     function paint(arr, append) {
       if (!append) listEl.innerHTML = "";
-      if (!arr.length && !offset) {
+      if (!arr.length && !(st.page > 1)) {
         listEl.innerHTML = '<p class="empty">没找到，换个关键词试试。</p>';
         return;
       }
       listEl.insertAdjacentHTML("beforeend", arr.map(function (p) {
-        return '<button type="button" class="room-pick" data-id="' + esc(p.id) + '">' +
-          "<b>" + esc(p.dispTitle || p.title) + "</b>" +
-          "<span>" + esc(String(p.surface || "").slice(0, 46)) + "…</span></button>";
+        var name = esc(p.dispTitle || p.title || "无题");
+        var surf = esc(String(p.surface || "").slice(0, 60)) + (p.surface && p.surface.length > 60 ? "…" : "");
+        var diff = esc(libDiffDots2(p.difficulty));
+        var src = esc(p.src ? libShortSrc2(p.src) : "精品");
+        return '<button type="button" class="pz-card" data-id="' + esc(p.id) + '">' +
+          '<div class="pz-title">' + name + "</div>" +
+          '<div class="pz-surface">' + surf + "</div>" +
+          '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div></button>";
       }).join(""));
     }
 
     function load(reset) {
-      if (loading) return;
-      loading = true;
-      if (reset) { offset = 0; listEl.innerHTML = ""; }
-      var q = (kwEl.value || "").trim();
-      var u = baseUrl() + "/api/puzzles?layer=" + layer +
-        "&offset=" + offset + "&limit=" + LIMIT +
-        (q ? "&q=" + encodeURIComponent(q) : "");
-      fetch(u).then(function (r) { return r.json(); }).then(function (j) {
-        loading = false;
-        var arr = (j && j.puzzles) || [];
-        total = (j && j.total) || 0;
-        paint(arr, offset > 0);
-        offset += arr.length;
-        metaEl.textContent = "已加载 " + offset + " / " + total + " 道" + (layer === "lib" ? "（汤库层需 AI 汤主）" : "");
-        moreBtn.style.display = offset < total ? "" : "none";
-      }).catch(function () {
-        loading = false;
-        metaEl.textContent = "题库拉取失败，检查网络再试";
-      });
+      if (reset) st.page = 1;
+      st.kw = (kwEl.value || "").trim();
+      pool = localPool();
+      var shown = pool.slice(0, st.page * PAGE);
+      paint(shown, false);
+      var layerNote = st.layer === "lib" ? "（汤库层需 AI 汤主）" : (st.layer === "core" ? "（精品层）" : "（精品 + 汤库）");
+      metaEl.textContent = "已显示 " + shown.length + " / " + pool.length + " 道" + layerNote;
+      moreBtn.style.display = shown.length < pool.length ? "" : "none";
     }
 
-    /* 切换层 */
+    /* 切换层：全部 / 精品 / 汤库，筛选条跟着重画 */
     host.querySelectorAll(".chip[data-layer]").forEach(function (chip) {
       chip.addEventListener("click", function () {
         host.querySelectorAll(".chip[data-layer]").forEach(function (c) { c.classList.remove("on"); });
         chip.classList.add("on");
-        layer = chip.getAttribute("data-layer");
+        st.layer = chip.getAttribute("data-layer") || "all";
+        st.cat = "全部";
+        st.page = 1;
+        renderCats();
         load(true);
       });
     });
@@ -988,13 +1109,16 @@
     /* 搜索防抖 */
     kwEl.addEventListener("input", function () {
       clearTimeout(searchTimer);
-      searchTimer = setTimeout(function () { load(true); }, 300);
+      searchTimer = setTimeout(function () { load(true); }, 200);
     });
 
-    moreBtn.addEventListener("click", function () { load(false); });
+    moreBtn.addEventListener("click", function () {
+      st.page += 1;
+      load(false);
+    });
 
     listEl.addEventListener("click", function (ev) {
-      var b = ev.target.closest ? ev.target.closest(".room-pick") : null;
+      var b = ev.target.closest ? ev.target.closest(".pz-card") : null;
       if (!b) return;
       var id = b.getAttribute("data-id");
       act("choose", { puzzleId: id }).then(function () {
@@ -1008,8 +1132,40 @@
       document.body.classList.remove("modal-open");
     });
 
+    renderCats();
+    renderDiffs();
     load(true);
     setTimeout(function () { kwEl.focus(); }, 40);
+  }
+
+  /* 房主「随机一题」：精品 + 汤库全部可抽，抽到就直接选上，不再只在精品 100 里转 */
+  function doRoomRandom() {
+    var E2 = window.SoupEngine;
+    var LIB2 = window.SOUP_LIBRARY || [];
+    var PUZ2 = window.PUZZLES || [];
+    var libAvail = (LIB2.length && E2 && E2.drawFromLibrary) ? E2.drawFromLibrary(LIB2, { hasTruth: false }) : null;
+    var coreAvail = (PUZ2.length && E2 && E2.drawFrom) ? E2.drawFrom(PUZ2) : (PUZ2.length ? PUZ2[Math.floor(Math.random() * PUZ2.length)] : null);
+    var libWeight = LIB2.length;
+    var coreWeight = PUZ2.length ? Math.max(PUZ2.length, Math.ceil(libWeight / 5)) : 0;
+    var total = libWeight + coreWeight;
+    var pick = null;
+    if (total <= 0) pick = coreAvail || libAvail;
+    else if (Math.random() * total < libWeight) pick = libAvail || coreAvail;
+    else pick = coreAvail || libAvail;
+    if (!pick || !pick.id) { R.toast("题库还没加载好，稍后再试"); return; }
+    var btn = $("#btn-room-rand");
+    if (btn) btn.disabled = true;
+    act("choose", { puzzleId: pick.id }).then(function () {
+      R.toast("随机一题：" + (pick.dispTitle || pick.title || "无题"));
+    }).catch(function (e) {
+      R.toast("随机选汤失败：" + e.message);
+    }).then(function () {
+      if (btn && R.snap) {
+        var mine = null;
+        (R.snap.players || []).forEach(function (p) { if (p.uid === myUid(R.snap)) mine = p; });
+        btn.disabled = !(mine && mine.isHost);
+      } else if (btn) btn.disabled = false;
+    });
   }
 
   function doNext() { act("next", {}).then(function () { R.toast("准备下一锅，全员重新准备"); }).catch(function (e) { R.toast("操作失败：" + e.message); }); }
@@ -1161,6 +1317,7 @@
     var bg = $("#btn-room-guess"); if (bg) bg.addEventListener("click", doGuess);
     var bq = $("#btn-room-qa"); if (bq) bq.addEventListener("click", openQaPanel);
     var bc = $("#btn-room-choose"); if (bc) bc.addEventListener("click", doChoose);
+    var br = $("#btn-room-rand"); if (br) br.addEventListener("click", doRoomRandom);
     var bn = $("#btn-room-next"); if (bn) bn.addEventListener("click", doNext);
     var bai = $("#btn-room-ai"); if (bai) bai.addEventListener("click", doAi);
 
