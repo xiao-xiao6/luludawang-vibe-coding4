@@ -54,8 +54,8 @@ ok("单人房号不触发多人 resume", /if \(m\.solo\) return false;/.test(ui)
 
 console.log("\n[P2] Bug 4 · 选汤数据源");
 ok("选汤面板有分层 tab", /data-layer="core"/.test(ui) && /data-layer="lib"/.test(ui));
-ok("走服务端 layer + 分页", /\/api\/puzzles\?layer=/.test(ui) && /offset=/.test(ui));
-ok("服务端支持 layer", /layer === "lib" \? allPuzzleIds\(\) : corePuzzleIds\(\)/.test(idx));
+ok("选汤走本地汤库并分页", /function localPool\(\)/.test(ui) && /st\.page \* PAGE/.test(ui));
+ok("服务端仍支持 layer", /layer === "lib" \? allPuzzleIds\(\) : corePuzzleIds\(\)/.test(idx));
 ok("服务端支持 q 模糊搜", /url\.searchParams\.get\("q"\)/.test(idx));
 
 console.log("\n[P3] Bug 7+8 · 布局重构");

@@ -128,12 +128,6 @@ body {
 }
 
 .top-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
-.top-chat-slot {
-  margin-left: auto;
-  display: flex;
-  align-items: flex-start;
-  min-width: 0;
-}
 
 /* ---------- 按钮 ---------- */
 .btn {
@@ -656,7 +650,7 @@ body.room-mode .qa-clear { display: none; }
   will-change: opacity, transform;
 }
 .bg-img.on { opacity: 1; }
-body[data-scene="game"] .bg-img { filter: saturate(.72) contrast(1.1) brightness(.56); }
+body[data-scene="game"] .bg-img { filter: saturate(.78) contrast(1.06) brightness(.72); }
 body[data-scene="win"] .bg-img  { filter: saturate(.95) contrast(1.02) brightness(.82); }
 body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness(.5); }
 
@@ -811,6 +805,7 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.6) contrast(1.08) brightness
 /* ---------- 面板 / 卡片：持续活着的动效 ---------- */
 .panel {
   animation: panelIn .5s cubic-bezier(.2,.9,.3,1.05) both;
+  animation-fill-mode: forwards;
   position: relative;
   overflow: hidden;
 }
@@ -1144,13 +1139,18 @@ body.fx-off .steam-field { display: none !important; }
   .dock-mid { min-width: 72px; }
   .dock-btn { width: 28px; height: 28px; }
 
-  /* 窄屏：聊天框留在顶栏右侧，宽度收一收，不盖住整屏 */
-  .top-chat-slot { width: 100%; justify-content: flex-end; }
-  .room-chat { width: 240px; }
-  .rc-log { height: 132px; }
+  /* 窄屏：聊天框仍钉在右下，收成一条，避开刘海、手势条和提问栏 */
+  .room-chat {
+    right: calc(8px + var(--sar));
+    bottom: calc(8px + var(--sab));
+    width: min(220px, calc(100vw - 16px - var(--sal) - var(--sar)));
+    max-height: min(46dvh, 320px);
+  }
+  .rc-log { height: 112px; }
   .rc-send .input { font-size: 16px; }   /* 防 iOS 聚焦时自动放大页面 */
 
-  .toast { bottom: calc(24px + var(--sab)); }
+  .toast { bottom: calc(24px + var(--sab)); left: max(16px, calc(16px + var(--sal))); transform: translate(0, 26px); }
+  .toast.show { transform: translate(0, 0); }
 
   .modal-wrap { padding: calc(10px + var(--sat)) calc(10px + var(--sar)) calc(10px + var(--sab)) calc(10px + var(--sal)); }
   .modal { padding: 16px 15px 14px; border-radius: 16px; }
@@ -1444,14 +1444,14 @@ body.modal-open .room-chat { display: none; }
 
 /* ---------- 右下角房间聊天（进房才出现） ----------
  * 默认 collapsed（只留一条头胶囊），点标题向上展开；
- * 固定在屏幕右下角，不挡中栏面板。 */
+ * 固定在屏幕右下角，原「汤主的话」那一块已经腾给它。 */
 .room-chat {
-  position: relative;
-  right: auto;
-  bottom: auto;
-  width: 280px;
+  position: fixed;
+  right: calc(18px + var(--sar));
+  bottom: calc(18px + var(--sab));
+  width: 300px;
   max-width: min(320px, calc(100vw - 32px));
-  z-index: 6;
+  z-index: 30;
   border: 1px solid var(--line-2);
   border-radius: 13px;
   background: rgba(14, 10, 8, .94);
@@ -1614,8 +1614,10 @@ body.modal-open .room-chat { display: none; }
 body.room-mode .qa-log {
   user-select: none;
   -webkit-user-select: none;
-  touch-action: none;
   overscroll-behavior: contain;
+}
+@media (pointer: fine) and (min-width: 861px) {
+  body.room-mode .qa-log { touch-action: none; }
 }
 
 .room-pz-title { font-family: var(--serif); font-size: 15px; color: var(--broth-2); margin-bottom: 6px; }.room-pz-surface { margin: 0 0 8px; font-size: 13px; line-height: 1.9; color: var(--ink); }
@@ -1743,6 +1745,24 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 @media (max-width: 860px) {
   .room-entry-grid { grid-template-columns: 1fr; }
   .room-body { grid-template-columns: 1fr; }
+  /* 聊天默认只是右下一条胶囊。展开时抬到提问栏上方，避免盖住「提问 / 猜汤底」。 */
+  .room-chat {
+    bottom: calc(8px + var(--sab));
+    max-height: min(42dvh, 280px);
+  }
+  .room-chat:not(.collapsed) {
+    bottom: calc(92px + var(--sab));
+    max-height: min(36dvh, 240px);
+  }
+  body.kb-open .room-chat { display: none; }
+  .askbar { padding-right: 0; }
+  .askbar .btn { min-height: var(--tap); }
+  #room-q-input, #q-input, #guess-input, #rguess-input { font-size: 16px; }
+  .room-player { flex-wrap: wrap; }
+  .rp-kick { min-height: 36px; }
+  .room-code-wrap { flex-wrap: wrap; }
+  .room-library { max-height: min(46dvh, 420px); }
+  .room-qa-sheet { max-height: min(50dvh, 420px); }
 }
 
 /* 房间模式：单人线索板让位给房间内的共享线索板 */

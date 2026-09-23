@@ -61,12 +61,11 @@
     syncChatVisibility();
   }
 
-  /* 聊天框只在「已经进房」时出现在顶栏最右侧；建房页和单人界面都藏起来 */
+  /* 聊天框只在「已经进房」时出现，钉在屏幕右下角；建房页和单人界面都藏起来 */
   function syncChatVisibility() {
     var wrap = $("#room-chat");
     if (!wrap) return;
-    var slot = $("#top-chat-slot");
-    if (slot && wrap.parentNode !== slot) slot.appendChild(wrap);
+    if (wrap.parentNode !== document.body) document.body.appendChild(wrap);
     var live = $("#room-live");
     var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
     wrap.classList.toggle("hidden", !inLive);
@@ -501,7 +500,9 @@
   var qaPaused = 0;         /* 到底后停顿的截止时间戳 */
 
   function qaScrollWanted() {
-    /* 单人开锅、多人进房都要自动慢滚；菜单页内容不够长时 step 自己停 */
+    /* 桌面才自动慢滚。触屏上禁止手动滚动会把整页手势锁死，
+       窄屏左栏又在页面最上面，玩家会滑不动。 */
+    if (window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches) return false;
     if (R.inRoom) return true;
     var game = document.getElementById("screen-game");
     return !!(game && !game.classList.contains("hidden"));
@@ -545,9 +546,10 @@
     qaPaused = 0;
   }
 
-  /* 禁止手动滚动：单人和多人房都一样，左栏只自动慢滚。 */
+  /* 禁止手动滚动：只锁桌面。触屏 / 窄屏必须能用手指翻问答记录。 */
   function blockManualScroll(el) {
     if (!el || el.__block) return;
+    if (window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches) return;
     el.__block = true;
     ["wheel", "touchmove", "mousedown", "pointerdown"].forEach(function (t) {
       el.addEventListener(t, function (ev) {
