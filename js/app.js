@@ -239,7 +239,8 @@
     if (AU) AU.start(TRACK_OF[name] || "menu");
   }
 
-  /* 转场：先瞬间盖上遮罩，立刻换内容，再淡出 —— 有转场感，但点击不延迟 */
+  /* 转场遮罩只给「回菜单」这种换景用。
+     进汤时不能盖：遮罩是近乎纯黑的整屏，和半透明面板叠在一起就会整页发黑。 */
   function sceneWipe(cb) {
     var f = $("#scene-fade");
     if (!f || (FX && FX.reduced)) { cb(); return; }
@@ -505,7 +506,11 @@
     var p = E.getPuzzle(id);
     if (!p) return;
     var lib = isLib(p);
-    sceneWipe(function () {
+    /* 进汤不走黑幕转场。scene-fade 是整屏近黑遮罩，
+       盖在半透明面板上时，部分浏览器会把它留在最上层，看起来就是黑屏。 */
+    (function () {
+      var fade = $("#scene-fade");
+      if (fade) fade.classList.remove("on");
       leaveRoomScreen();
       /* 两层各自持有「进行中的对局」：库题只认 LIB_KEY，绝不串档 */
       var snap = restore ? (lib ? libProgress().session : progress.session) : null;
@@ -526,10 +531,9 @@
       if (sl) sl.classList.add("hidden");
       var gs = $("#screen-game");
       gs.classList.remove("hidden");
-      /* 进汤不再重播入场动画：重播会从 opacity:0 起步，
-         部分浏览器会把面板卡在透明，看起来像整页黑屏 */
       gs.style.animation = "none";
       gs.style.opacity = "1";
+      gs.style.visibility = "visible";
       setScene("game");
 
       if (lib) {
