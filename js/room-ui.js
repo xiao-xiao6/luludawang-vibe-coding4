@@ -61,6 +61,23 @@
     syncChatVisibility();
   }
 
+  /* 汤主的话（#tip-card）默认留在右栏线索板下面（单人 / 汤库 / 随机模式）；
+     只有真正进多人房（room-live 可见）时，才把整张卡片挪进房间状态行
+     #room-tip-slot —— 腾出右下角给房间聊天框。 */
+  function syncTipPlacement() {
+    var card = document.getElementById("tip-card");
+    if (!card) return;
+    var col = document.getElementById("col-clue");
+    var slot = document.getElementById("room-tip-slot");
+    var live = document.getElementById("room-live");
+    var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
+    if (inLive && slot) {
+      if (card.parentNode !== slot) slot.appendChild(card);
+    } else if (col && card.parentNode !== col) {
+      col.appendChild(card);
+    }
+  }
+
   /* 聊天框只在「正在房间内」时出现，钉在屏幕右下角；
      建房页、单人界面、汤库、随机模式一律藏起来 */
   function syncChatVisibility() {
@@ -71,6 +88,7 @@
     var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
     wrap.classList.toggle("hidden", !inLive);
     if (!inLive && R.chatOpen) toggleChat(false);
+    syncTipPlacement();
   }
 
   function showEntry() {
@@ -1279,6 +1297,29 @@
       fb.textContent = "密码正确，汤底在下面。";
       fb.className = "guess-feedback ok";
     }
+
+    /* 本地找汤底：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB。
+       【策略】汤底明文公开（js/library.public.js 含 truth），所以单人 / 多人
+       都能直接查，不必等房号进 revealed 阶段 —— 这正是「密码看汤底」的意义。 */
+    function localTruth(pid) {
+      if (!pid) return "";
+      var pools = [root.PUZZLES, root.SOUP_LIBRARY, root.LIB];
+      for (var k = 0; k < pools.length; k++) {
+        var list = pools[k];
+        if (!list || !list.length) continue;
+        for (var i = 0; i < list.length; i++) {
+          if (list[i] && list[i].id === pid) {
+            if (list[i].truth) return String(list[i].truth);
+            break;   /* 同一 id 只在一层，找到就够 */
+          }
+        }
+      }
+      /* 引擎索引也会命中核心层：再退一步问它 */
+      var E2 = root.SoupEngine;
+      var p = E2 && E2.getPuzzle ? E2.getPuzzle(pid) : null;
+      return (p && p.truth) ? String(p.truth) : "";
+    }
+
     function submit() {
       var v = String(input.value || "").trim();
       if (v !== TRUTH_CODE) {
@@ -1288,21 +1329,19 @@
         return;
       }
       if (solo) {
-        /* 单人：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB，两边都找。
-           之前只在 PUZZLES 里找，汤库题点「确认」会误报「没有汤底」。 */
-        var pid = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
-        var list = (root.PUZZLES || []).concat(root.SOUP_LIBRARY || []);
-        var p = null;
-        for (var i = 0; i < list.length; i++) {
-          if (list[i] && list[i].id === pid) { p = list[i]; break; }
-        }
-        reveal(p && p.truth ? p.truth : "这一锅没有汤底。");
+        var pid0 = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
+        reveal(localTruth(pid0) || "这一锅没有汤底。");
         return;
       }
+      /* 多人房：先看本地汤库（含真底），拿不到再向服务端要。
+         服务端只在 phase=revealed 才给底，所以以前没开锅时
+         密码输了也会回一句「这一锅没有汤底」—— 现在本地兜住。 */
       var s = R.snap || {};
+      var puzzleId = s.puzzleId || "";
+      var mine = localTruth(puzzleId);
+      if (mine) { reveal(mine); return; }
       if (s.truth) { reveal(s.truth); return; }
       var code = s.roomCode || (me().roomCode || "");
-      var puzzleId = s.puzzleId || "";
       if (!code || !puzzleId || !N || !N.libTruth) {
         fb.textContent = "还没有开锅，暂时没有汤底可看。";
         fb.className = "guess-feedback no";
@@ -1311,7 +1350,7 @@
       fb.textContent = "密码正确，正在取汤底…";
       fb.className = "guess-feedback";
       N.libTruth(code, puzzleId).then(function (t) {
-        reveal(t || "这一锅没有汤底。");
+        reveal(t || localTruth(puzzleId) || "这一锅没有汤底。");
       });
     }
     host.querySelector("#unlock-ok").addEventListener("click", submit);
@@ -1502,8 +1541,9 @@
       document.body.classList.remove("room-mode");
       syncChatVisibility();
     },
-    /* 让单人侧（app.js）在切屏 / 进汤时也能同步聊天框显隐 */
+    /* 让单人侧（app.js）在切屏 / 进汤时也能同步聊天框显隐与「汤主的话」归位 */
     syncChat: syncChatVisibility,
+    syncTip: syncTipPlacement,
     /* 刷新页面后：本地还留着房号，且服务端房间还在 → 直接回到房内 */
     resume: function () {
       if (!N || !N.available()) return false;

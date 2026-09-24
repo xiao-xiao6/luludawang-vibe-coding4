@@ -508,6 +508,14 @@ body.room-mode .qa-clear { display: none; }
 .clue-k { color: var(--dim-2); font-size: 11px; letter-spacing: .06em; display: block; margin-bottom: 3px; }
 .clue.empty-card { border-left-color: var(--line); color: var(--dim-2); font-size: 12.5px; }
 .tip { margin: 0; font-size: 13px; color: var(--dim); }
+/* 「汤主的话」卡片：单人局固定在右栏线索板下面；进多人房时由 JS 把
+   #tip-card 整个挪进 #room-tip-slot，样式保持一致 */
+.tip-card { padding: 13px 15px 15px; }
+.tip-card .panel-head { margin-bottom: 8px; }
+.tip-card .tip { line-height: 1.8; }
+.room-tip-slot:empty { display: none; }
+.room-tip-slot { margin-top: 12px; }
+.room-tip-slot .tip-card { margin-top: 0; }
 .empty { margin: 4px 0; font-size: 12.5px; color: var(--dim-2); text-align: center; line-height: 1.9; }
 
 /* ---------- 弹窗 ---------- */
@@ -697,18 +705,14 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.5) contrast(1.1) brightness(
   opacity: 0;
   visibility: hidden;
   background: radial-gradient(120% 90% at 50% 50%, rgba(6,4,3,.86), rgba(3,2,2,.98));
+  will-change: opacity;
 }
-/* 黑幕转场：淡入盖住 → 换景 → 自动淡出。
-   forwards 保证播完停在 opacity:0 / visibility:hidden，绝不残留黑层。
-   配合 JS 的 class 重置，每次进汤都会完整重放。 */
+/* 黑幕转场：位置 / 层级 / 底色在这里定，动画交给 js/transition.js（GSAP 时间线）。
+   以前这里挂了 CSS keyframes（淡入→自动淡出），会和 GSAP 写的内联 opacity
+   互相覆盖；现在只留静态样式，动效全部由转场模块接管。
+   .on 只负责把黑幕设为可见，具体的 opacity 由 JS 推。 */
 .scene-fade.on {
   visibility: visible;
-  animation: sceneFade .62s ease forwards;
-}
-@keyframes sceneFade {
-  0%   { opacity: 0; }
-  22%  { opacity: 1; }
-  100% { opacity: 0; }
 }
 
 /* ---------- 原创标记 ---------- */
@@ -750,11 +754,16 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.5) contrast(1.1) brightness(
 }
 
 /* ---------- 音乐台：并进顶栏「音乐」按钮，按钮拉长，音量滑杆嵌在同一条胶囊里 ---------- */
+/* 胶囊本体就是 .music-dock（index.html 上同时挂着 .top-music 作定位钩子）。
+   「🎵 音乐」开关、暂停键、音量条三者都在这个 div 里，
+   所以外框只要把 border / border-radius / 背景设在自己身上，
+   就一定能同时包住音量条和开关按钮。 */
 .music-dock {
   position: relative;
   z-index: 2;
   display: inline-flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 7px;
   padding: 0 10px 0 0;
   border: 1px solid var(--line-2);
@@ -799,6 +808,9 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.5) contrast(1.1) brightness(
 }
 .dock-mid { display: inline-flex; flex-direction: row; align-items: center; gap: 8px; min-width: 96px; }
 .dock-label { display: none; }
+/* 胶囊里的音量条：铺满胶囊剩余宽度，不再被 flex 压成一个小点 */
+.music-dock .dock-mid { flex: 1 1 auto; min-width: 82px; }
+.music-dock .dock-vol { width: 100%; min-width: 68px; }
 .dock-vol {
   -webkit-appearance: none;
   appearance: none;
