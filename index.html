@@ -71,7 +71,9 @@
     <button type="button" class="btn ghost" id="btn-library">📚 汤库</button>
     <button type="button" class="btn ghost" id="btn-multi">🏠 多人房间</button>
     <button type="button" class="btn ghost" id="btn-ai" aria-pressed="false">🤖 AI 汤主</button>
-    <div class="top-music" id="music-dock" role="group" aria-label="音乐控制">
+    <!-- 音乐胶囊：music-dock 是胶囊本体的类名（边框 / 背景 / 圆角都挂在它身上），
+         top-music 只是历史遗留的定位钩子。两个都要留着，否则胶囊边框不会出现。 -->
+    <div class="top-music music-dock" id="music-dock" role="group" aria-label="音乐控制">
       <button type="button" class="btn ghost" id="btn-music" aria-pressed="true">🎵 音乐</button>
       <button type="button" class="dock-btn" id="dock-play" aria-pressed="true" title="播放 / 暂停音乐">⏸</button>
       <div class="dock-mid">
@@ -248,6 +250,10 @@
         <!-- 全桌可见的「汤主正在思考」横幅（多①）：谁问的都能看到，杜绝无反馈 -->
         <div class="room-pending hidden" id="room-pending" role="status" aria-live="polite"></div>
 
+        <!-- 汤主的话：只在多人房时挪到这里（单人局留在右栏线索板下面），
+             腾出右下角给房间聊天框 -->
+        <div class="room-tip-slot" id="room-tip-slot"></div>
+
         <div class="room-body">
           <div class="room-col">
             <div class="panel-head"><h2>玩家</h2><span class="badge" id="room-count">0/8</span></div>
@@ -295,7 +301,7 @@
 
   </section>
 
-  <aside class="col-clue" aria-label="线索板">
+  <aside class="col-clue" id="col-clue" aria-label="线索板">
     <div class="panel">
       <div class="panel-head">
         <h2>线索板</h2>
@@ -305,8 +311,13 @@
         <p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>
       </div>
     </div>
-    <!-- 汤主的话不再单独占一块：单人局并进汤面下的状态行，多人局并进房间状态行 -->
-    <p class="tip hidden" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
+    <!-- 汤主的话：单人局 / 汤库 / 随机模式都固定留在右栏「线索板」下面；
+         只有进多人房时才由 JS 挪进房间状态行（#room-tip-slot），
+         给右下角的房间聊天框腾位置。 -->
+    <div class="panel tip-card" id="tip-card">
+      <div class="panel-head"><h2>汤主的话</h2></div>
+      <p class="tip" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
+    </div>
   </aside>
 
 </main>
@@ -400,6 +411,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="assets/vendor/gsap.min.js" defer></script>
 <script src="js/data.js" defer></script>
 <!-- 【2026-09-23 策略变更】单人模式改走「本地真汤底」：前端直接加载含 truth 的汤库档，
      让 AI 汤主吃真底判定（旧版是瘦身档，单人玩必然空底瞎编）。
@@ -409,6 +421,7 @@
 <script src="js/ai.js" defer></script>
 <script src="js/audio.js" defer></script>
 <script src="js/fx.js" defer></script>
+<script src="js/transition.js" defer></script>
 <script src="js/net.js" defer></script>
 <script src="js/room-ui.js" defer></script>
 <script src="js/app.js" defer></script>

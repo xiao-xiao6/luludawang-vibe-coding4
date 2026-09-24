@@ -3,7 +3,11 @@
  * ============================================================ */
 "use strict";
 
-(function () {
+/* 必须接收 root（= window）：文件里 root.SoupRoom / root.SoupApp 都靠它。
+   之前签名漏了参数、正文却照用 root，导致 IIFE 尾部直接抛
+   ReferenceError: root is not defined —— window.SoupApp 从未挂上窗口，
+   点「密码看汤底」拿不到题目而无声失败，单人对局后半段渲染也整段中断。 */
+(function (root) {
   var E = window.SoupEngine;
   var FX = window.SoupFx;
   var AU = window.SoupAudio;
@@ -61,7 +65,46 @@
 
   var progress = loadProgress();
 
-  /* ---------------- 汤库（与精品层完全隔离） ---------------- */
+  /* ---------------- 汤库（汤库层 + 精品层合并） ----------------
+   * 汤库里现在同时包含两层：
+   *   · 汤库层（lib_*，来自 js/library.public.js）
+   *   · 精品层（项目最初那 100 道，来自 js/data.js + data-more.js）
+   * 精品题不在 LIB 里，所以每次渲染时按需合并；
+   * 用两层长度当签名做缓存，data-more.js 异步拉回来后会自然重建。 */
+  var CORE_SRC = "精品汤";
+  var mergedCache = null;
+  var mergedSig = "";
+
+  function coreAsLib(p) {
+    return {
+      id: p.id,
+      dispTitle: p.title || p.id,
+      surface: p.surface || "",
+      cats: p.cats || [],
+      difficulty: p.difficulty,
+      src: CORE_SRC,
+      lang: "zh",
+      mode: "truth",
+      hasTruth: !!p.truth,
+      truthSource: p.truthSource || "original",
+      truth: p.truth || "",
+      layer: "core"
+    };
+  }
+
+  /* 汤库列表的数据源：汤库层 + 精品层 */
+  function mergedLib() {
+    var core = (typeof PUZZLES !== "undefined" && PUZZLES && PUZZLES.length) ? PUZZLES : [];
+    var sig = LIB.length + "|" + core.length;
+    if (mergedCache && mergedSig === sig) return mergedCache;
+    var out = LIB.slice();
+    for (var i = 0; i < core.length; i++) {
+      if (core[i] && core[i].id) out.push(coreAsLib(core[i]));
+    }
+    mergedCache = out;
+    mergedSig = sig;
+    return out;
+  }
 
   var LIB = window.SOUP_LIBRARY || [];
 
@@ -239,16 +282,18 @@
     if (AU) AU.start(TRACK_OF[name] || "menu");
   }
 
-  /* 转场：黑幕盖上一瞬、换内容、再自动淡出。
-     不再依赖 setTimeout 摘幕（后台标签页会冻结定时器，黑幕就永远蒙着）：
-     改用 CSS 动画「淡入→自动淡出」，动画播完必然回到透明，物理上不可能卡住。 */
+  /* 转场：黑幕盖屏 → 在全黑那一瞬换内容 → 黑幕拉开。
+     按「exit / swap / enter」三段严格分开，不再一边盖黑一边换景。
+     没装 GSAP 时自动退回 Web Animations；后台标签页冻结 ticker 也有兜底收幕。 */
   function sceneWipe(cb) {
-    var f = $("#scene-fade");
-    if (!f || (FX && FX.reduced)) { cb(); return; }
-    f.classList.remove("on");
-    void f.offsetWidth;          /* 重置动画 */
-    cb();
-    f.classList.add("on");       /* 播放 淡入→淡出 动画，结束自动回到 opacity:0 */
+    var T = root.SoupTransition;
+    if (!T || (FX && FX.reduced)) {
+      var f0 = $("#scene-fade");
+      if (f0) { f0.classList.remove("on"); f0.style.opacity = "0"; f0.style.visibility = "hidden"; }
+      cb();
+      return;
+    }
+    T.play({ onSwap: cb });
   }
 
   /* ---------------- 音效 ---------------- */
@@ -380,6 +425,10 @@
       renderQaLog();
       renderRandom();
       paintResume();
+      /* data-more.js 拉回来后，精品层从 20 → 100 道；
+         得把汤库筛选器 + 汤库列表也重画一遍，不然在汤库里搜不到后面这 80 道 */
+      renderLibraryFilters();
+      renderLibrary();
       toast("汤架已备齐：共 " + PUZZLES.length + " 道汤");
     };
     s.onerror = function () {
@@ -606,6 +655,8 @@
   function renderTip(text) {
     var el = $("#tip-text");
     if (el) el.textContent = text;
+    var card = $("#tip-card");
+    if (card) card.classList.remove("hidden");
   }
 
   function renderClues() {
@@ -1375,6 +1426,8 @@
     }
     document.body.classList.remove("room-mode");
     if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
+    /* 汤主的话跟看回来：回到右栏线索板下面 */
+    if (window.SoupRoom && window.SoupRoom.syncTip) window.SoupRoom.syncTip();
   }
 
   function openRandom() {
@@ -1443,7 +1496,7 @@
   }
 
   function libraryFiltered() {
-    var list = E.searchLibrary(LIB, libState.kw);
+    var list = E.searchLibrary(mergedLib(), libState.kw);
     return E.libraryPool(list, {
       cat: libState.cat,
       difficulty: libState.difficulty,
@@ -1455,7 +1508,7 @@
 
   function libSrcList() {
     var seen = {}, out = [];
-    LIB.forEach(function (p) {
+    mergedLib().forEach(function (p) {
       if (p && p.src && !seen[p.src]) { seen[p.src] = 1; out.push(p.src); }
     });
     out.sort();
@@ -1465,7 +1518,7 @@
   function renderLibraryFilters() {
     var cbox = $("#lib-cat");
     if (cbox) {
-      var cats = ["全部"].concat(E.libraryCats(LIB));
+      var cats = ["全部"].concat(E.libraryCats(mergedLib()));
       cbox.innerHTML = cats.map(function (c) {
         return '<button type="button" class="chip cat' + (c === libState.cat ? " on" : "") +
           '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
@@ -1918,4 +1971,4 @@
   root.SoupApp = {
     pid: function () { return state.pid; }
   };
-})();
+})(window);
