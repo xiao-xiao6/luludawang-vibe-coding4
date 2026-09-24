@@ -28,6 +28,10 @@
   --no: #e0705e;
   --part: #e8c45c;
   --irr: #8b8177;
+  /* 「权区」专属色：紫气东来，跟普通按钮一眼分开 */
+  --auth: #b98ae0;
+  --auth-2: #d9b6f5;
+  --auth-dim: #7a5a9c;
   --radius: 16px;
   --shadow: 0 18px 44px rgba(0, 0, 0, .55);
   --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", STSong, "SimSun", serif;
@@ -40,6 +44,11 @@
   --sal: env(safe-area-inset-left, 0px);
   --tap: 44px;
   --vvh: 100vh;
+
+  /* 多人房右栏（宽屏三列）：上「线索板」、下「房间聊天」，各自固定高度。
+     高度只跟视口有关，不随房间人数 / 线索条数 / 聊天条数变化。 */
+  --room-clue-h: clamp(220px, 43vh, 420px);
+  --room-chat-h: clamp(210px, 34vh, 340px);
 }
 
 * { box-sizing: border-box; }
@@ -332,9 +341,41 @@ body.room-mode .qa-clear { display: none; }
 .pz-card.active { border-color: var(--broth); box-shadow: inset 0 0 0 1px rgba(226, 164, 79, .35), 0 0 18px rgba(226, 164, 79, .14); }
 .pz-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
 .pz-meta { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11.5px; color: var(--dim-2); }
-.pz-card.solved .pz-title::after {
-  content: " ✓";
+
+/* ---------- 「已熬出汤底」小绿勾 ----------
+ * 钉在汤卡右上角，点一下标记 / 取消。marked 的卡片同时套上绿框。 */
+.pz-card.solved {
+  border-color: rgba(104, 207, 154, .55);
+  box-shadow: inset 0 0 0 1px rgba(104, 207, 154, .22);
+}
+.pz-card.solved .pz-title { color: #a8e8c6; }
+/* 标题给右上角绿勾留位，不撞字 */
+.pz-card .pz-title { padding-right: 24px; }
+.pz-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 21px;
+  height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  border: 1.5px solid var(--line-2);
+  border-radius: 50%;
+  background: rgba(12, 9, 7, .7);
+  color: transparent;
+  cursor: pointer;
+  transition: all .16s ease;
+  z-index: 2;
+}
+.pz-check:hover { border-color: var(--yes); color: rgba(104, 207, 154, .5); }
+.pz-check.on {
+  border-color: var(--yes);
+  background: rgba(104, 207, 154, .18);
   color: var(--yes);
+  box-shadow: 0 0 10px rgba(104, 207, 154, .3);
 }
 .pz-diff { color: var(--broth-dim); letter-spacing: .1em; }
 .pz-stars { color: var(--part); letter-spacing: .06em; }
@@ -468,6 +509,36 @@ body.room-mode .qa-clear { display: none; }
 
 /* ---------- 提问栏 ---------- */
 .askbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 13px; }
+
+/* ---------- 密码看汤底（权区）：独立一条，紫色 + 等宽字体 ----------
+ * 不跟提问 / 猜汤底挤同一行；单独占一条，靠左对齐。 */
+.unlock-bar {
+  display: flex;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px dashed rgba(122, 90, 156, .38);
+}
+.unlock-btn {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Courier New", monospace;
+  font-size: 12.5px;
+  letter-spacing: .08em;
+  color: var(--auth-2);
+  border-color: rgba(185, 138, 224, .5);
+  background: linear-gradient(180deg, rgba(72, 46, 105, .5), rgba(48, 30, 72, .55));
+  box-shadow: 0 0 0 1px rgba(185, 138, 224, .12) inset, 0 0 16px rgba(140, 90, 200, .12);
+}
+.unlock-btn:hover {
+  border-color: var(--auth);
+  color: #f0e2ff;
+  background: linear-gradient(180deg, rgba(92, 60, 132, .62), rgba(60, 38, 90, .68));
+  box-shadow: 0 0 0 1px rgba(185, 138, 224, .22) inset, 0 0 22px rgba(150, 100, 210, .22);
+}
+.unlock-btn:focus-visible { outline: 2px solid var(--auth); outline-offset: 2px; }
+/* 弹窗标题同步紫气 */
+.unlock-head { color: var(--auth-2); letter-spacing: .06em; }
+.unlock-sub { color: #d8c4ee; font-style: italic; line-height: 1.85; }
+.modal-unlock { border-color: rgba(185, 138, 224, .45); }
+.modal-unlock #unlock-truth { border-color: rgba(185, 138, 224, .35); }
 .input {
   flex: 1 1 240px;
   min-width: 0;
@@ -1172,14 +1243,14 @@ body.fx-off .steam-field { display: none !important; }
   .dock-vol { width: 60px; }
   .dock-btn { width: 28px; height: 28px; }
 
-  /* 窄屏：聊天框仍钉在右下，收成一条，避开刘海、手势条和提问栏 */
+  /* 窄屏：聊天框仍钉在右下，默认展开；固定尺寸靠上拉长，避开刘海与提问栏 */
   .room-chat {
     right: calc(8px + var(--sar));
     bottom: calc(8px + var(--sab));
-    width: min(220px, calc(100vw - 16px - var(--sal) - var(--sar)));
-    max-height: min(46dvh, 320px);
+    width: min(260px, calc(100vw - 16px - var(--sal) - var(--sar)));
+    max-height: min(52dvh, 380px);
   }
-  .rc-log { height: 112px; }
+  .rc-log { height: min(30dvh, 210px); }
   .rc-send .input { font-size: 16px; }   /* 防 iOS 聚焦时自动放大页面 */
 
   .toast { bottom: calc(24px + var(--sab)); left: max(16px, calc(16px + var(--sal))); transform: translate(0, 26px); }
@@ -1384,7 +1455,17 @@ body.modal-open .room-chat { display: none; }
 }
 .room-col .panel-head { margin-bottom: 9px; }
 
-.room-players { display: flex; flex-direction: column; gap: 7px; }
+/* 人数上限提到 15 后，玩家列表限高滚动，
+   免得长名单把「我准备好了」顶到屏外 */
+.room-players {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: min(46vh, 470px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 2px;
+}
 .room-player {
   display: flex;
   align-items: center;
@@ -1483,8 +1564,8 @@ body.modal-open .room-chat { display: none; }
   position: fixed;
   right: calc(18px + var(--sar));
   bottom: calc(18px + var(--sab));
-  width: 300px;
-  max-width: min(320px, calc(100vw - 32px));
+  width: 320px;
+  max-width: min(340px, calc(100vw - 32px));
   z-index: 30;
   border: 1px solid var(--line-2);
   border-radius: 13px;
@@ -1495,6 +1576,8 @@ body.modal-open .room-chat { display: none; }
   flex-direction: column;
   overflow: hidden;
 }
+/* 展开时整体固定高度：头部 + 日志区 + 输入区，尺寸稳定不抽动 */
+.room-chat:not(.collapsed) { height: 400px; }
 .room-chat.hidden { display: none; }
 .room-chat.collapsed .rc-log,
 .room-chat.collapsed .rc-send { display: none; }
@@ -1534,7 +1617,9 @@ body.modal-open .room-chat { display: none; }
 }
 .rc-badge.hidden { display: none; }
 .rc-log {
-  height: 172px;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 300px;            /* 固定高度下的占位；父容器限高时会被压缩并滚动 */
   overflow-y: auto;
   padding: 9px 11px;
   display: flex;
@@ -1657,7 +1742,8 @@ body.room-mode .qa-log {
 .room-pz-title { font-family: var(--serif); font-size: 15px; color: var(--broth-2); margin-bottom: 6px; }.room-pz-surface { margin: 0 0 8px; font-size: 13px; line-height: 1.9; color: var(--ink); }
 .room-pz-meta { margin: 0; font-size: 11.5px; color: var(--dim-2); letter-spacing: .06em; }
 
-.room-mode .col-clue .clue-list { height: auto; max-height: min(52vh, 520px); }
+/* 多人房：线索板固定加高（往下拉长），装不下就让玩家自己划拉 */
+.room-mode .col-clue .clue-list { height: min(62vh, 620px); max-height: none; }
 .room-clue-item {
   border: 1px solid var(--line);
   border-radius: 9px;
@@ -1779,14 +1865,14 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 @media (max-width: 860px) {
   .room-entry-grid { grid-template-columns: 1fr; }
   .room-body { grid-template-columns: 1fr; }
-  /* 聊天默认只是右下一条胶囊。展开时抬到提问栏上方，避免盖住「提问 / 猜汤底」。 */
+  /* 聊天默认展开在右下，固定尺寸；展开时抬到提问栏上方，避免盖住「提问 / 猜汤底」。 */
   .room-chat {
     bottom: calc(8px + var(--sab));
-    max-height: min(42dvh, 280px);
+    max-height: min(48dvh, 340px);
   }
   .room-chat:not(.collapsed) {
-    bottom: calc(92px + var(--sab));
-    max-height: min(36dvh, 240px);
+    bottom: calc(96px + var(--sab));
+    max-height: min(42dvh, 300px);
   }
   body.kb-open .room-chat { display: none; }
   .askbar { padding-right: 0; }
@@ -1800,5 +1886,58 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 }
 
 /* 房间模式：单人线索板让位给房间内的共享线索板 */
-/* 多人房间同样保留三列布局：左问答记录 / 中房间区 / 右线索板+汤主的话，
+/* 多人房间同样保留三列布局：左问答记录 / 中房间区 / 右线索板+房间聊天，
    不再因为 room-mode 藏右侧栏（Bug：线索板失踪的根因） */
+
+/* ---------- 宽屏右栏：上「线索板」+ 下「房间聊天」的固定高度竖排栈 ----------
+ * 需求：右侧这两块都固定在右栏里，各自一个固定大小；
+ *       房间人数、线索条数、聊天条数怎么变，两块的高度都不许动。
+ * 做法：≥1181px 时右栏变成 flex 竖列（sticky 跟屏），
+ *       线索板吃 --room-clue-h、聊天框吃 --room-chat-h，
+ *       内容超出各自内部滚动 —— 于是谁都不会把对方挤走。
+ *       故意不给右栏设 max-height：两块加起来本来就比屏幕矮，
+ *       加上限高反而会在矮窗口里把下颏的聊天输入框裁掉。
+ * 窄屏（≤1180px）不适用：那里右栏是整行横排，聊天框继续钉在右下角。 */
+@media (min-width: 1181px) {
+  body.room-mode .col-clue {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 14px;
+  }
+  body.room-mode .col-clue > .panel + .panel { margin-top: 0; }
+
+  /* 上：线索板 —— 固定高度，列表在卡片内部滚动 */
+  body.room-mode .col-clue #clue-panel {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: var(--room-clue-h);
+    overflow: hidden;
+  }
+  body.room-mode .col-clue #clue-panel .clue-list {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  /* 下：房间聊天 —— 固定高度，日志区内部滚动 */
+  body.room-mode .col-clue .room-chat {
+    position: static;
+    right: auto;
+    bottom: auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+    height: auto;
+    max-height: none;
+  }
+  body.room-mode .col-clue .room-chat:not(.collapsed) { height: var(--room-chat-h); }
+  body.room-mode .col-clue .room-chat .rc-log {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+  }
+}

@@ -165,7 +165,11 @@
         <button type="button" class="btn ghost" id="btn-hint">要提示</button>
         <button type="button" class="btn ghost" id="btn-ai-quick" title="让 AI 汤主替你补一句方向">🤖 问问 AI</button>
         <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
-        <button type="button" class="btn ghost" id="btn-unlock">密码看汤底</button>
+      </div>
+
+      <!-- 密码看汤底（权区）：独立一条，不跟提问 / 猜底挤在同一行 -->
+      <div class="unlock-bar">
+        <button type="button" class="btn unlock-btn" id="btn-unlock">🔑 密码看汤底（权区）</button>
       </div>
     </div>
 
@@ -256,7 +260,7 @@
 
         <div class="room-body">
           <div class="room-col">
-            <div class="panel-head"><h2>玩家</h2><span class="badge" id="room-count">0/8</span></div>
+            <div class="panel-head"><h2>玩家</h2><span class="badge" id="room-count">0/15</span></div>
             <div class="room-players" id="room-players"></div>
             <div class="rand-actions">
               <button type="button" class="btn primary" id="btn-room-ready">我准备好了</button>
@@ -294,15 +298,19 @@
           <input id="room-q-input" class="input" type="text" placeholder="没轮到你也可以先写好问题，轮到再发送" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
           <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
-          <button type="button" class="btn ghost" id="btn-room-unlock">密码看汤底</button>
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
+        </div>
+
+        <!-- 密码看汤底（权区）：多人房里也独立一条，不跟提问 / 猜底并肩 -->
+        <div class="unlock-bar">
+          <button type="button" class="btn unlock-btn" id="btn-room-unlock">🔑 密码看汤底（权区）</button>
         </div>
       </div>
 
   </section>
 
   <aside class="col-clue" id="col-clue" aria-label="线索板">
-    <div class="panel">
+    <div class="panel" id="clue-panel">
       <div class="panel-head">
         <h2>线索板</h2>
         <span class="badge" id="clue-badge">0/0</span>
@@ -392,10 +400,10 @@
   </div>
 </div>
 
-<!-- 多人房聊天：进房后才显示。位置由 CSS 钉在屏幕右下角，不进顶栏 -->
-<div class="room-chat collapsed hidden" id="room-chat">
+<!-- 多人房聊天：进房后才显示。默认展开，位置由 CSS 钉在屏幕右下角，不进顶栏 -->
+<div class="room-chat hidden" id="room-chat">
   <div class="rc-head">
-    <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="false">
+    <button type="button" class="rc-title" id="btn-room-chat-toggle" aria-expanded="true">
       💬 房间聊天<span class="rc-badge hidden" id="room-chat-badge"></span>
     </button>
     <span class="rc-hint">汤主不看这里</span>
