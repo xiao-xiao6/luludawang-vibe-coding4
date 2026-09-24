@@ -1,0 +1,21 @@
+=== 第四轮：15 人满房 + 布局压力 ===
+
+== 服务端容量：15 人满、第 16 人被拒 ==
+  [PASS] 建房成功   [9ZWKFC]
+   实际入座：15 人，首个错误：ROOM_FULL
+  [PASS] 服务端允许坐满 15 人   [joined=15]
+  [PASS] 第 16 人被拒且报 ROOM_FULL   [ROOM_FULL]
+   快照玩家数：15
+  [PASS] 快照确实装下 15 人   [15]
+
+== 前端 15 人布局压力 ==
+   页面状态：{"live":true,"screenRoom":true,"badge":"15/15","players":15}
+  [PASS] 刷新后自动接回满房   [{'live': True, 'screenRoom': True, 'badge': '15/15', 'players': 15}]
+  [PASS] 页面确实渲染 15 人   [{'live': True, 'screenRoom': True, 'badge': '15/15', 'players': 15}]
+   布局实测：{"found":true,"listH":370,"scrollable":true,"overflowY":"auto","maxH":"370.3px","readyTop":733,"readyVisible":true,"chatCollapsed":false,"vh":805}
+  [PASS] 玩家列表限高已生效   [{'found': True, 'listH': 370, 'scrollable': True, 'overflowY': 'auto', 'maxH': '370.3px', 'readyTop': 733, 'readyVisible': True, 'chatCollapsed': False, 'vh': 805}]
+  [PASS] 列表超出时可滚动   [{'found': True, 'listH': 370, 'scrollable': True, 'overflowY': 'auto', 'maxH': '370.3px', 'readyTop': 733, 'readyVisible': True, 'chatCollapsed': False, 'vh': 805}]
+  [PASS] 「我准备好了」仍在视口内   [{'found': True, 'listH': 370, 'scrollable': True, 'overflowY': 'auto', 'maxH': '370.3px', 'readyTop': 733, 'readyVisible': True, 'chatCollapsed': False, 'vh': 805}]
+
+== 汇总 ==
+失败项：0

@@ -1,0 +1,40 @@
+=== 第三轮行为级验证 ===
+
+== 绿勾不误触进汤 ==
+   点绿勾后：{"gameHidden":true,"libHidden":false,"title":"—"}
+  [PASS] 点绿勾没有打开题目   [{"gameHidden":true,"libHidden":false,"title":"—"}]
+  [PASS] 仍停在汤库页   [{"gameHidden":true,"libHidden":false,"title":"—"}]
+
+== 点卡片本体仍然能正常进汤 ==
+   点卡片：{"open":true,"pid":"lib_00132cc37be4","title":"无题 · KONpiGG #133"}
+  [PASS] 卡片本体仍可进汤   [{"open":true,"pid":"lib_00132cc37be4","title":"无题 · KONpiGG #133"}]
+
+== 熬出汤底自动打勾 ==
+   打开精品汤：{"open":true,"pid":"turtle","title":"最后一碗汤"}
+  [PASS] 精品汤已打开   [{"open":true,"pid":"turtle","title":"最后一碗汤"}]
+   猜汤底结果：{"pid":"turtle","before":false,"after":true,"aiReady":true,"stub":true,"store":"{\"turtle\":1}","endOpen":true,"endStars":"★★★"}
+  [PASS] AI 判定走通并结算（汤底已揭晓）   [{"pid":"turtle","before":false,"after":true,"aiReady":true,"stub":true,"store":"{\"turtle\":1}","endOpen":true,"endStars":"★★★"}]
+  [PASS] 熬出汤底后自动打勾（本地记录已写入）   [{"pid":"turtle","before":false,"after":true,"aiReady":true,"stub":true,"store":"{\"turtle\":1}","endOpen":true,"endStars":"★★★"}]
+
+== 汤库卡片读得到自动打的勾 ==
+   汤库卡片：{"notOnPage":true,"store":"{\"turtle\":1}"}
+  [PASS] 汤库卡片反映自动打的勾   [{"notOnPage":true,"store":"{\"turtle\":1}"}]
+
+== 绿勾跨面板共享（选汤面板读到同一份记录） ==
+  [PASS] 预置记录已写入   [{"turtle":1}]
+   徽章：{"badge":"1/15","players":1}
+  [PASS] 房间徽章 1/15   [{"badge":"1/15","players":1}]
+  [PASS] 玩家列表已渲染   [{"badge":"1/15","players":1}]
+   选汤面板共享实测：{"found":true,"turtleSolved":true,"turtleCheck":true,"solvedCount":1}
+  [PASS] 选汤面板读得到单人那边打的勾   [{"found":true,"turtleSolved":true,"turtleCheck":true,"solvedCount":1}]
+
+== 多人端也有密码看汤底入口 ==
+   多人端按钮：{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, "}
+  [PASS] 多人端有密码看汤底按钮   [{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, "}]
+  [PASS] 多人端按钮独立成条   [{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, "}]
+  [PASS] 多人端按钮同样是等宽紫字   [ui-monospace, SFMono-Regular, ]
+   多人端弹窗：{"open":true,"head":"🔑 密码看汤底（权区）"}
+  [PASS] 多人端弹窗也能打开且标题一致   [{"open":true,"head":"🔑 密码看汤底（权区）"}]
+
+== 汇总 ==
+失败项：0
