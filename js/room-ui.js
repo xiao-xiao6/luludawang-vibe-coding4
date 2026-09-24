@@ -35,7 +35,7 @@
     cooldownTimer: 0,
     askBusy: false,
     chatSeen: 0,
-    chatOpen: false,   /* 与 HTML 的 collapsed / aria-expanded="false" 对齐：默认收起，不挡面板 */
+    chatOpen: true,    /* 默认展开在右下角；点标题才收起 */
     timerTimer: 0,      /* 顺序提问 60s 倒计时的 setInterval 句柄 */
     seenTurn: "",       /* 已经提醒过的轮次，避免每次轮询都再响一次 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
@@ -78,17 +78,40 @@
     }
   }
 
-  /* 聊天框只在「正在房间内」时出现，钉在屏幕右下角；
-     建房页、单人界面、汤库、随机模式一律藏起来 */
+  /* 宽屏（≥1181px）时，房间聊天框不再悬浮在屏幕右下角，而是搬进右栏，
+     排在线索板下面 —— 两块各自固定高度，谁也不挤谁。 */
+  function wantDockInClue() {
+    try {
+      return !!(window.matchMedia && window.matchMedia("(min-width: 1181px)").matches);
+    } catch (e) { return false; }
+  }
+
+  /* 聊天框只在「正在房间内」时出现；建房页、单人界面、汤库、随机模式一律藏起来。
+     宽屏进房 → 归位到右栏线索板下面（固定尺寸竖排栈）；
+     其余情况 → 回到 body，由 CSS 钉在屏幕右下角。 */
   function syncChatVisibility() {
     var wrap = $("#room-chat");
     if (!wrap) return;
-    if (wrap.parentNode !== document.body) document.body.appendChild(wrap);
     var live = $("#room-live");
     var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
+    var col = document.getElementById("col-clue");
+    var host = (inLive && col && wantDockInClue()) ? col : document.body;
+    if (wrap.parentNode !== host) host.appendChild(wrap);
     wrap.classList.toggle("hidden", !inLive);
     if (!inLive && R.chatOpen) toggleChat(false);
     syncTipPlacement();
+  }
+
+  /* 窗口跨越断点时，聊天框在「右栏内」与「右下角悬浮」之间换位 */
+  var mqWide = null;
+  function watchBreakpoint() {
+    try {
+      if (!window.matchMedia) return;
+      mqWide = window.matchMedia("(min-width: 1181px)");
+      var on = function () { syncChatVisibility(); };
+      if (mqWide.addEventListener) mqWide.addEventListener("change", on);
+      else if (mqWide.addListener) mqWide.addListener(on);
+    } catch (e) { /* 忽略 */ }
   }
 
   function showEntry() {
@@ -111,6 +134,8 @@
     if (l) l.classList.remove("hidden");
     showScreen("screen-room");
     resetRoomSigs();
+    /* 房间聊天默认展开在右下（主人手动收起后本次会话保持收起） */
+    toggleChat(true);
     onRoomSideEffects();
   }
 
@@ -155,7 +180,7 @@
     }).catch(function (e) {
       var m = String((e && e.message) || e);
       if (m === "CANCELLED") return;
-      if (m === "ROOM_FULL") R.toast("这间汤屋坐满了（最多 8 人）");
+      if (m === "ROOM_FULL") R.toast("这间汤屋坐满了（最多 15 人）");
       else if (m === "NICKNAME_REQUIRED") R.toast("昵称不能为空");
       else R.toast("进房失败：" + m);
     });
@@ -253,7 +278,7 @@
       }).join("");
     }
     var cnt = $("#room-count");
-    if (cnt) cnt.textContent = (s.players || []).length + "/8";
+    if (cnt) cnt.textContent = (s.players || []).length + "/15";
 
     /* 阶段提示 */
     var ph = $("#room-phase");
@@ -263,9 +288,13 @@
     var pz = $("#room-puzzle");
     if (pz) {
       if (s.puzzle) {
+        var pzCats = (s.puzzle.cats || []).map(function (c) {
+          return '<span class="pz-cat">' + esc(c) + "</span>";
+        }).join("");
         pz.innerHTML =
           '<div class="room-pz-title">' + esc(s.puzzle.dispTitle || s.puzzle.title) + "</div>" +
           '<p class="room-pz-surface">' + esc(s.puzzle.surface || "") + "</p>" +
+          (pzCats ? '<div class="pz-cats">' + pzCats + "</div>" : "") +
           '<p class="room-pz-meta">线索 ' + (s.clueTotal || 0) + " 条 · 火候 " + (s.puzzle.difficulty || "-") + "</p>";
       } else {
         pz.innerHTML = '<p class="empty">房主还没选汤。</p>';
@@ -1149,16 +1178,44 @@
         listEl.innerHTML = '<p class="empty">没找到，换个关键词试试。</p>';
         return;
       }
+      var SA = window.SoupApp;
       listEl.insertAdjacentHTML("beforeend", arr.map(function (p) {
         var name = esc(p.dispTitle || p.title || "无题");
         var surf = esc(String(p.surface || "").slice(0, 60)) + (p.surface && p.surface.length > 60 ? "…" : "");
         var diff = esc(libDiffDots2(p.difficulty));
         var src = esc(p.src ? libShortSrc2(p.src) : "精品");
-        return '<button type="button" class="pz-card" data-id="' + esc(p.id) + '">' +
+        /* tag 标签：和单人汤库同款胶囊，选汤时就能看到脑洞 / 悬疑 / 都市 等题材 */
+        var cats = (p.cats || []).map(function (c) {
+          return '<span class="pz-cat">' + esc(c) + "</span>";
+        }).join("");
+        /* 绿勾：与单人汤库共享同一份本地记录，谁玩过哪个汤都不一样 */
+        var solv = !!(SA && SA.isSolved && SA.isSolved(p.id));
+        return '<button type="button" class="pz-card' + (solv ? " solved" : "") + '" data-id="' + esc(p.id) + '">' +
+          '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
+          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? "✓" : "") + "</span>" +
           '<div class="pz-title">' + name + "</div>" +
           '<div class="pz-surface">' + surf + "</div>" +
-          '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div></button>";
+          '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div>" +
+          (cats ? '<div class="pz-cats">' + cats + "</div>" : "") +
+          "</button>";
       }).join(""));
+      /* 绿勾拦截：只标记，不进房选汤 */
+      Array.prototype.forEach.call(listEl.querySelectorAll(".pz-check"), function (ck) {
+        ck.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          var SA2 = window.SoupApp;
+          if (!SA2 || !SA2.toggleSolved) return;
+          var id = ck.getAttribute("data-check");
+          var on = SA2.toggleSolved(id);
+          ck.classList.toggle("on", on);
+          ck.textContent = on ? "✓" : "";
+          ck.setAttribute("aria-checked", on ? "true" : "false");
+          var card = ck.closest ? ck.closest(".pz-card") : null;
+          if (card) card.classList.toggle("solved", on);
+          R.toast(on ? "已标记：这道汤你熬出过汤底" : "已取消标记");
+        });
+      });
     }
 
     function load(reset) {
@@ -1266,15 +1323,16 @@
     });
   }
 
-  /* 密码看汤底：正确密码 081208。只在本机弹出汤底，不改房间阶段。 */
-  var TRUTH_CODE = "081208";
+  /* 密码看汤底（权区）：正确密码 608521。只在本机弹出汤底，不改房间阶段。
+     这是「噜噜大王」的专属后门，文案走搞怪风；按钮独立放在别的区域，不跟提问 / 猜底挤一起。 */
+  var TRUTH_CODE = "608521";
   function doUnlock(solo) {
     var host = document.createElement("div");
     host.className = "modal-wrap";
     host.innerHTML =
-      '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="unlock-title">' +
-      '<h3 id="unlock-title">密码看汤底</h3>' +
-      '<p class="modal-sub">输入正确密码才会揭晓这一锅的汤底。密码只有汤主知道。</p>' +
+      '<div class="modal modal-unlock" role="dialog" aria-modal="true" aria-labelledby="unlock-title">' +
+      '<h3 id="unlock-title" class="unlock-head">🔑 密码看汤底（权区）</h3>' +
+      '<p class="modal-sub unlock-sub">此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！</p>' +
       '<input id="unlock-code" class="input" type="password" inputmode="numeric" maxlength="12" placeholder="输入密码" autocomplete="off" />' +
       '<p class="guess-feedback" id="unlock-fb"></p>' +
       '<div class="truth-box hidden" id="unlock-truth"></div>' +
@@ -1512,6 +1570,9 @@
 
     var jc = $("#room-join-code");
     if (jc) jc.addEventListener("keydown", function (ev) { if (ev.key === "Enter") joinRoom(); });
+
+    /* 断点监听：窗口从宽屏变窄（或反过来）时，让聊天框在右栏与右下角之间正确归位 */
+    watchBreakpoint();
   }
 
   /* ---------------- 导出（给 app.js 用） ---------------- */

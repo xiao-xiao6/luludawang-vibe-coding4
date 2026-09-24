@@ -32,7 +32,7 @@ import {
   GATEWAY_BLOCKED_HINT
 } from "./ai.js";
 
-const UID_MAX = 8;              /* 单房最多 8 人 */
+const UID_MAX = 15;             /* 单房最多 15 人 */
 const NICK_MAX = 12;            /* 昵称 ≤12 字 */
 const TURN_TIMEOUT_MS = 90000;  /* 顺序提问 90s 超时跳过 */
 const COOLDOWN_IRR_MS = 180000; /* 猜底 🔴无关 180s 冷却（只算在猜的人身上） */

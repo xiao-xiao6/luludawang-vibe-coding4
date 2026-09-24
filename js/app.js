@@ -35,6 +35,37 @@
   var LIB_KEY = "deepsea_soup_library_v1";
   var LIB_PAGE_SIZE = 30;
 
+  /* 已熬出汤底：本机记录，不同步任何人。
+     主人点汤卡上的小绿勾手动标记 / 取消；熬出汤底时也会自动打勾。 */
+  var SOLVED_KEY = "deepsea_soup_solved_v1";
+
+  function solvedSet() {
+    try {
+      var raw = localStorage.getItem(SOLVED_KEY);
+      var obj = raw ? JSON.parse(raw) : null;
+      if (obj && typeof obj === "object") return obj;
+    } catch (e) { /* 隐私模式：忽略 */ }
+    return {};
+  }
+
+  function isSolved(id) {
+    return !!(id && solvedSet()[id]);
+  }
+
+  function markSolved(id, on) {
+    if (!id) return;
+    var obj = solvedSet();
+    if (on) obj[id] = 1;
+    else delete obj[id];
+    try { localStorage.setItem(SOLVED_KEY, JSON.stringify(obj)); } catch (e) { /* 忽略 */ }
+  }
+
+  function toggleSolved(id) {
+    var next = !isSolved(id);
+    markSolved(id, next);
+    return next;
+  }
+
   /* 场景 → 背景图 / 特效场景 / 曲目 */
   var BG = {
     menu: "assets/bg-castle.webp",
@@ -1251,6 +1282,8 @@
     if (!p) return;
     var lib = isLib(p);
     state.done = true;
+    /* 熬出汤底（不管星级）：本地打上「已熬出汤底」绿勾 */
+    markSolved(p.id, true);
     /* 两层快照各清各的，绝不互删 */
     if (lib) {
       var lp = libProgress();
@@ -1582,8 +1615,13 @@
       box.innerHTML = '<p class="pz-empty">这个组合下暂时没有汤。<br />换个题材或来源试试。</p>';
     } else {
       box.innerHTML = show.map(function (p) {
-        return '<button type="button" role="listitem" class="pz-card lib-card" data-lib-id="' + esc(p.id) +
+        var solv = isSolved(p.id);
+        return '<button type="button" role="listitem" class="pz-card lib-card' + (solv ? " solved" : "") +
+          '" data-lib-id="' + esc(p.id) +
           '" aria-label="' + esc(p.dispTitle) + '，难度' + p.difficulty + '">' +
+          /* 绿勾：点一下把这个汤标成「已熬出汤底」/ 再点取消；不影响进汤 */
+          '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
+          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? "✓" : "") + "</span>" +
           '<div class="pz-title">' + esc(p.dispTitle) + "</div>" +
           '<div class="pz-meta"><span class="pz-diff" aria-hidden="true">' + libDiffDots(p.difficulty) + "</span>" +
           "<span>" + esc(libShortSrc(p.src)) + "</span>" +
@@ -1594,6 +1632,22 @@
           }).join("") + "</div>" +
           "</button>";
       }).join("");
+      /* 小绿勾：拦截冒泡，只做标记，不进汤 */
+      $$(".pz-check", box).forEach(function (ck) {
+        ck.addEventListener("click", function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          var id = ck.getAttribute("data-check");
+          var on = toggleSolved(id);
+          ck.classList.toggle("on", on);
+          ck.textContent = on ? "✓" : "";
+          ck.setAttribute("aria-checked", on ? "true" : "false");
+          var card = ck.closest ? ck.closest(".pz-card") : null;
+          if (card) card.classList.toggle("solved", on);
+          sfx(on ? "ui" : "ui");
+          toast(on ? "已标记：这道汤你熬出过汤底" : "已取消标记");
+        });
+      });
       $$(".pz-card", box).forEach(function (card) {
         card.addEventListener("click", function () { loadPuzzle(card.dataset.libId); });
       });
@@ -1969,6 +2023,9 @@
   else boot();
 
   root.SoupApp = {
-    pid: function () { return state.pid; }
+    pid: function () { return state.pid; },
+    /* 「已熬出汤底」标记：供多人选汤面板复用同一份本地记录 */
+    isSolved: isSolved,
+    toggleSolved: toggleSolved
   };
 })(window);

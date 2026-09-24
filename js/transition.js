@@ -92,24 +92,24 @@
       });
       tl.to(el, {
         opacity: 1,
-        duration: 0.34,
+        duration: 0.22,
         ease: "power2.in",
         onComplete: function () {
           /* 黑幕已经满屏：这一帧才换内容，换完的内容被黑幕完整遮住 */
           if (opt.onSwap) opt.onSwap();
         }
       })
-        .to(el, { opacity: 1, duration: 0.12 })          /* 全黑定格，给换景留一帧 */
-        .to(el, { opacity: 0, duration: 0.42, ease: "power2.out" });
+        .to(el, { opacity: 1, duration: 0.07 })          /* 全黑定格，给换景留一瞬 */
+        .to(el, { opacity: 0, duration: 0.28, ease: "power2.out" });
 
-      /* 后台标签页会冻结 GSAP ticker：兜底 1.6s 后强制收幕 + resolve */
-      armGuard(el, 1600);
+      /* 后台标签页会冻结 GSAP ticker：兜底定时器保证一定收幕 + resolve */
+      armGuard(el, 1100);
       setTimeout(function () {
         if (done) return;
         disarmGuard();
         resetVeil(el);
         finish();
-      }, 1400);
+      }, 950);
     });
   }
 
@@ -127,12 +127,12 @@
         resolve();
       };
       var anim = el.animate(
-        [{ opacity: 0 }, { opacity: 1, offset: 0.42 }, { opacity: 1, offset: 0.56 }, { opacity: 0 }],
-        { duration: 880, easing: "ease-in-out" }
+        [{ opacity: 0 }, { opacity: 1, offset: 0.40 }, { opacity: 1, offset: 0.52 }, { opacity: 0 }],
+        { duration: 600, easing: "ease-in-out" }
       );
-      /* 黑幕满屏的那一瞬换内容：offset 0.42 → 42% × 880ms ≈ 370ms */
-      setTimeout(function () { if (opt.onSwap) opt.onSwap(); }, 370);
-      armGuard(el, 1500);
+      /* 黑幕满屏的那一瞬换内容：offset 0.40 → 40% × 600ms ≈ 240ms */
+      setTimeout(function () { if (opt.onSwap) opt.onSwap(); }, 240);
+      armGuard(el, 1000);
       anim.onfinish = finish;
       anim.oncancel = finish;
     });
