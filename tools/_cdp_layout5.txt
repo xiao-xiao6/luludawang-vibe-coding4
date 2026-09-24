@@ -1,0 +1,106 @@
+=== 第五轮：右栏「上线索板 + 下房间聊天」固定尺寸 ===
+真浏览器 headless Chrome + CDP；后端 = http://127.0.0.1:8791
+
+== 建房 ==
+  [PASS] 真 Worker 建房成功   [B6TRH9]
+  [PASS] 房主选到精品层「最后一碗汤」   [turtle]
+   刷新后进房状态：live=true  me={"internalId":"layout-host-0001","nickname":"房主","roomCode":"B6TRH9","solo":false}
+  [PASS] 刷新后自动接回房内（resume 生效）   [true]
+  [PASS] 准备指令被接受   [playing]
+   开局后阶段：playing
+  [PASS] 房间已进入 playing   [playing]
+
+== 状态 A：无线索、无聊天（1366x900） ==
+   {"vw": 1366, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 315, "chatLogH": 214, "chatLogOverflow": 214, "clueCount": 0, "chatCount": 0, "chatParent": "col-clue", "chatPos": "static", "players": 1, "playerBadge": "1/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 聊天框已搬进右栏（不再是屏幕右下角悬浮）   [parent=col-clue]
+  [PASS] 聊天框在右栏内是常驻布局（position≠fixed）   [position=static]
+  [PASS] 线索板在上、聊天框在下   [clueB=479 chatY=489]
+  [PASS] 两块互不重叠
+  [PASS] 线索板有固定高度   [387]
+  [PASS] 聊天框有固定高度   [306]
+
+== 状态 B：灌入真聊天 + 人数拉到 15 人后复量 ==
+   成功灌入聊天：12 条；当前在座：15 人
+  [PASS] 真聊天已入账（服务端）   [12]
+  [PASS] 房间已拉到 15 人满房   [15]
+   {"vw": 1366, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 315, "chatLogH": 214, "chatLogOverflow": 564, "clueCount": 0, "chatCount": 12, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 页面确实渲染 15 人   [15]
+  [PASS] 聊天条数确实变多了   [0 → 12]
+  [PASS] 线索板高度不随人数 / 聊天条数变化   [387 → 387]
+  [PASS] 聊天框高度不随人数 / 聊天条数变化   [306 → 306]
+  [PASS] 15 人时两块仍不重叠
+
+== 状态 C：刷满真线索后复量 ==
+   成功提问：11 次
+   线索进度：11/11
+  [PASS] 真线索已挖出   [11/11]
+   {"vw": 1366, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 796, "chatLogH": 214, "chatLogOverflow": 564, "clueCount": 11, "chatCount": 12, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 线索条目确实渲染出来   [11]
+  [PASS] 线索板高度不随线索条数变化   [387 → 387]
+  [PASS] 聊天框高度不随线索条数变化   [306 → 306]
+  [PASS] 线索在卡片内滚动（不把卡片撑高）   [scrollH=796 boxH=315]
+  [PASS] 满线索时两块仍不重叠
+  [PASS] 聊天框没压住「问答记录」按钮
+  [PASS] 线索板没压住「问答记录」按钮
+
+== 状态 C2：聊天堆到 30 条后复量（聊天日志区应内部滚动） ==
+   又灌入 18 条，服务端聊天总数：30
+  [PASS] 聊天总数已超过一屏   [30]
+   {"vw": 1366, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 796, "chatLogH": 214, "chatLogOverflow": 1392, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 线索板高度不随聊天条数变化   [387 → 387]
+  [PASS] 聊天框高度不随聊天条数变化   [306 → 306]
+  [PASS] 聊天框没被聊天条数撑高（与初始同高）   [306]
+  [PASS] 聊天日志区内部滚动（不把聊天框撑高）   [scrollH=1392 boxH=214]
+
+== 状态 C3：截图存证（1500x900，满线索 + 30 条聊天 + 15 人） ==
+   已存截图：tools/shots/layout5_room_1500x900.png
+  [PASS] 截图已落盘   [694876]
+
+== 状态 D：换窗口尺寸后复量 ==
+   1600x1000：{"vw": 1600, "vh": 1000, "colH": 770, "clueH": 420, "chatH": 340, "clueY": 92, "clueB": 512, "chatY": 522, "chatB": 862, "listH": 348, "listOverflow": 736, "chatLogH": 248, "chatLogOverflow": 1152, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "420px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 138}
+  [PASS] 1600x1000 聊天框仍在右栏   [col-clue]
+  [PASS] 1600x1000 两块不重叠
+  [PASS] 1600x1000 聊天框没压住「问答记录」
+  [PASS] 1600x1000 聊天框在视口内（没被顶出屏幕）   [138]
+   1440x800：{"vw": 1440, "vh": 800, "colH": 626, "clueH": 344, "chatH": 272, "clueY": 92, "clueB": 436, "chatY": 446, "chatB": 718, "listH": 272, "listOverflow": 736, "chatLogH": 180, "chatLogOverflow": 1152, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "344px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 82}
+  [PASS] 1440x800 聊天框仍在右栏   [col-clue]
+  [PASS] 1440x800 两块不重叠
+  [PASS] 1440x800 聊天框没压住「问答记录」
+  [PASS] 1440x800 聊天框在视口内（没被顶出屏幕）   [82]
+   1200x760：{"vw": 1200, "vh": 760, "colH": 595, "clueH": 327, "chatH": 258, "clueY": 148, "clueB": 474, "chatY": 484, "chatB": 743, "listH": 255, "listOverflow": 796, "chatLogH": 166, "chatLogOverflow": 1392, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "326.797px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 17}
+  [PASS] 1200x760 聊天框仍在右栏   [col-clue]
+  [PASS] 1200x760 两块不重叠
+  [PASS] 1200x760 聊天框没压住「问答记录」
+  [PASS] 1200x760 聊天框在视口内（没被顶出屏幕）   [17]
+
+== 状态 E：窄桌面 1100x800（右栏折叠为整行，聊天框应回右下角） ==
+   {"vw": 1100, "vh": 800, "colH": 568, "clueH": 568, "chatH": 400, "clueY": 1416, "clueB": 1984, "chatY": 382, "chatB": 782, "listH": 496, "listOverflow": 536, "chatLogH": 308, "chatLogOverflow": 792, "clueCount": 11, "chatCount": 30, "chatParent": "body", "chatPos": "fixed", "players": 15, "playerBadge": "15/15", "cluePanelPos": "567.594px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": -1602, "chatBottomGap": 18}
+  [PASS] 窄屏聊天框回到 body（右下角悬浮）   [parent=body]
+  [PASS] 窄屏聊天框恢复 fixed 定位   [fixed]
+  [PASS] 窄屏聊天框没压住「问答记录」
+
+== 状态 G：极矮窗口 1300x640（两块累积高度不能把输入框顶出屏幕） ==
+   {"vw": 1300, "vh": 640, "colH": 503, "clueH": 275, "chatH": 218, "clueY": 92, "clueB": 367, "chatY": 377, "chatB": 594, "listH": 204, "listOverflow": 796, "chatLogH": 126, "chatLogOverflow": 1392, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "275.188px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 46}
+  [PASS] 极矮窗口聊天框仍在右栏   [col-clue]
+  [PASS] 极矮窗口两块不重叠
+  [PASS] 极矮窗口聊天框没压住「问答记录」
+   发送按钮：{"y":549,"b":585,"h":36,"vh":640}
+  [PASS] 极矮窗口下「发送」按钮完整留在视口内   [{"y":549,"b":585,"h":36,"vh":640}]
+
+== 状态 F：宽窄来回切一次，聊天框应自动归位 ==
+   {"vw": 1500, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 736, "chatLogH": 214, "chatLogOverflow": 1152, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 切回宽屏后聊天框自动回到右栏   [col-clue]
+  [PASS] 切回宽屏后高度仍是固定值   [306 vs 306]
+
+== 状态 H：收起房间聊天后复量（线索板高度不应变化） ==
+   {"vw": 1500, "vh": 900, "colH": 435, "clueH": 387, "chatH": 38, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 527, "listH": 315, "listOverflow": 736, "chatLogH": 0, "chatLogOverflow": 0, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 373}
+  [PASS] 收起后聊天框仍在右栏   [col-clue]
+  [PASS] 收起后线索板高度不变   [387 vs 387]
+  [PASS] 收起后线索板在上、聊天头在下   [clueB=479 chatY=489]
+   重新展开：{"vw": 1500, "vh": 900, "colH": 703, "clueH": 387, "chatH": 306, "clueY": 92, "clueB": 479, "chatY": 489, "chatB": 795, "listH": 315, "listOverflow": 736, "chatLogH": 214, "chatLogOverflow": 1152, "clueCount": 11, "chatCount": 30, "chatParent": "col-clue", "chatPos": "static", "players": 15, "playerBadge": "15/15", "cluePanelPos": "387px", "overlap_clue_chat": 0, "overlap_chat_qa": 0, "overlap_clue_qa": 0, "clueChatGap": 10, "chatBottomGap": 105}
+  [PASS] 重新展开后聊天框高度回到固定值   [306 vs 306]
+  [PASS] 重新展开后线索板高度不变   [387 vs 387]
+  [PASS] 重新展开后两块不重叠
+
+== 汇总 ==
+失败项：0

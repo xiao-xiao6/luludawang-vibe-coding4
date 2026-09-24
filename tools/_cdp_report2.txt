@@ -1,0 +1,50 @@
+=== 第二轮细节复核（headless Chrome + CDP）===
+
+== 十二楼的按钮 tag ==
+   实测：{"n":3,"names":["脑洞","悬疑","都市"],"title":"十二楼的按钮"}
+  [PASS] 十二楼卡片有 tag   [{"n":3,"names":["脑洞","悬疑","都市"],"title":"十二楼的按钮"}]
+  [PASS] tag = 脑洞/悬疑/都市   [['脑洞', '悬疑', '都市']]
+
+== 密码看汤底（权区）弹窗实测 ==
+  [PASS] 已进汤（单人）   [True]
+   按钮实测：{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"barTop":816,"btnTop":826,"barH":50,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, Menlo, Con","color":"rgb(217, 182, 245)"}
+  [PASS] 单人端有密码看汤底按钮   [{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"barTop":816,"btnTop":826,"barH":50,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, Menlo, Con","color":"rgb(217, 182, 245)"}]
+  [PASS] 按钮文案带钥匙+权区   [🔑 密码看汤底（权区）]
+  [PASS] 按钮独立成条、不在提问行里   [{"found":true,"text":"🔑 密码看汤底（权区）","visible":true,"barTop":816,"btnTop":826,"barH":50,"inAskbar":false,"font":"ui-monospace, SFMono-Regular, Menlo, Con","color":"rgb(217, 182, 245)"}]
+  [PASS] 按钮用等宽紫字   [ui-monospace, SFMono-Regular, Menlo, Con]
+   弹窗：{"open":true,"head":"🔑 密码看汤底（权区）","sub":"此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！","inputType":"password"}
+  [PASS] 紫色权区弹窗已弹出   [{"open":true,"head":"🔑 密码看汤底（权区）","sub":"此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！","inputType":"password"}]
+  [PASS] 弹窗标题含钥匙与权区   [🔑 密码看汤底（权区）]
+  [PASS] 搞怪文案完整   [此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！]
+  [PASS] 密码框仍是密码类型   [password]
+   错密码：{"fb":"密码不对。","hidden":true}
+  [PASS] 旧密码 081208 被拒绝   [{"fb":"密码不对。","hidden":true}]
+  [PASS] 拒绝时不泄露汤底   [{"fb":"密码不对。","hidden":true}]
+   正确密码：{"fb":"密码正确，汤底在下面。","hidden":false,"truth":"男人是侏儒，身高只够按到电梯按钮面板上的“十二楼”。有别人在场时，他可以请人帮忙按十七楼；下雨天他带着伞，能用伞尖捅到最上面的十七楼按钮。平","color":"rgba(185, 138, 224, 0.35)"}
+  [PASS] 新密码 608521 通过   [{"fb":"密码正确，汤底在下面。","hidden":false,"truth":"男人是侏儒，身高只够按到电梯按钮面板上的“十二楼”。有别人在场时，他可以请人帮忙按十七楼；下雨天他带着伞，能用伞尖捅到最上面的十七楼按钮。平","color":"rgba(185, 138, 224, 0.35)"}]
+  [PASS] 汤底已显示   [{"fb":"密码正确，汤底在下面。","hidden":false,"truth":"男人是侏儒，身高只够按到电梯按钮面板上的“十二楼”。有别人在场时，他可以请人帮忙按十七楼；下雨天他带着伞，能用伞尖捅到最上面的十七楼按钮。平","color":"rgba(185, 138, 224, 0.35)"}]
+  [PASS] 汤底框也套紫边   [rgba(185, 138, 224, 0.35)]
+
+== 房间聊天默认展开 + 尺寸固定（真实进房） ==
+   聊天框实测：{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}
+  [PASS] 进房后聊天框显示   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+  [PASS] 默认是展开态（无 collapsed）   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+  [PASS] aria-expanded = true   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+  [PASS] 展开高度固定 400px   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+  [PASS] 宽度固定 320px   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+  [PASS] 日志区被拉长（>200px）   [{"found":true,"hidden":false,"collapsed":false,"aria":"true","h":400,"w":320,"logH":308,"logScroll":false}]
+   线索板实测：{"found":true,"h":499}
+  [PASS] 多人房线索板已加高（>=400px）   [{"found":true,"h":499}]
+
+== 多人「本锅」tag + 绿勾跨面板共享 ==
+   选汤面板打勾：{"id":"turtle","on":true,"store":"{\"turtle\":1}"}
+  [PASS] 选汤面板绿勾可写本地记录   [{"id":"turtle","on":true,"store":"{\"turtle\":1}"}]
+   本锅面板：{"cats":4,"names":["恐怖","惊悚","旅途","反转"],"hasSolved":false}
+  [PASS] 多人本锅面板显示 tag   [{"cats":4,"names":["恐怖","惊悚","旅途","反转"],"hasSolved":false}]
+
+== 黑幕转场实测时长 ==
+   转场实测耗时（ms）：584
+  [PASS] 转场实测在 1.2s 内收幕   [584]
+
+== 汇总 ==
+失败项：0

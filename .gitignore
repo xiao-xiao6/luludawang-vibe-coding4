@@ -18,6 +18,12 @@ js/library.data.js
 
 # ---- 本地探针 / 临时验证脚本 ----
 _probe/
+# 根目录下的临时探针页：只为本地量尺寸，一旦推上去会被 GitHub Pages 当页面发布
+_probe_*.html
+
+# ---- 本地临时日志 / 中间输出（不进仓库）----
+tools/_wrangler_dev.log
+tools/_wrangler*.log
 
 # ---- Worker 本地状态与生成的服务端题库 ----
 worker/.wrangler/
