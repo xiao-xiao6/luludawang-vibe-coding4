@@ -61,3 +61,6 @@ jobs:
             if (t < 900) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
             console.log("✓ js/library.public.js 结构正常（" + n + " 条，含汤底 " + t + " 条，明文公开）");
           '
+
+      - name: 汤底污染防回归
+        run: node tools/check_truth_pollution.js
