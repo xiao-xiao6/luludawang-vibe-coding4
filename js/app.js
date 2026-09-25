@@ -1942,6 +1942,11 @@
         else if (h > baseH) { baseH = h; }
         var open = editable() && (baseH - h) > 140;
         document.body.classList.toggle("kb-open", open);
+        /* 第①条：把软键盘高度写进 --kbh，聊天框打字时整体抬到键盘上方，
+           而不是被 .kb-open 规则连输入框一起藏掉（旧版失焦死循环的根源） */
+        try {
+          document.documentElement.style.setProperty("--kbh", (open ? Math.max(0, Math.round(baseH - h)) : 0) + "px");
+        } catch (e) { /* 忽略 */ }
         if (open) {
           var log = $("#log");
           if (log) log.scrollTop = log.scrollHeight;

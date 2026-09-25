@@ -44,6 +44,7 @@ const ONLINE_MS = 35000;         /* 在线窗口：原 15s 太紧，手机切一
 const DEAD_SEAT_MS = 60000;      /* 死座位：离线超 1 分钟，房主可请离释放座位 */
 const NICK_TAKEOVER_MS = 60000;  /* 同名接管：同名成员离线超 60s，同昵称重进即接管原座 */
 const ASK_LOCK_MS = 90000;       /* AI 飞行锁：一次提问最长锁 90s，期间连点只算一次 */
+const GIVEUP_VOTE_MS = 60000;    /* 放弃投票窗口：60s 内不达标即流产 */
 const QA_MAX = 200;              /* 问答日志上限 */
 const CHAT_MAX = 200;            /* 聊天日志上限 */
 const CHAT_LEN = 120;            /* 单条聊天字数上限 */
@@ -153,6 +154,8 @@ export class Room {
       pendingAI: null,             /* 汤主正在熬的那一句（全桌可见的「思考中」） */
       chatLog: [],                 /* 房间聊天 */
       chatSeq: 0,
+      vote: null,                  /* 放弃投票（第⑥条重做：替代旧「权」按钮） */
+      giveUp: false,               /* 本锅是否由投票放弃而揭底 */
       rev: 1,                      /* 增量轮询游标：变了才推全量快照 */
       players: [],
       createdAt: now(),
@@ -231,6 +234,12 @@ export class Room {
     s.players = s.players.filter((x) => x.uid !== target.uid);
     s.order = s.order.filter((u) => u !== target.uid);
     s.potUids = (s.potUids || []).filter((u) => u !== target.uid);
+    if (s.vote) {
+      /* 投票中途有人退房：把 TA 的票摘掉，门槛按现有人数重算 */
+      s.vote.agree = s.vote.agree.filter((u) => u !== target.uid);
+      s.vote.reject = s.vote.reject.filter((u) => u !== target.uid);
+      s.vote.need = Math.max(1, s.players.length - 1);
+    }
     if (s.guessCooldowns) delete s.guessCooldowns[target.uid];
     if (!s.order.length) {
       s.turnIdx = 0;
@@ -511,6 +520,7 @@ export class Room {
         s.order = [];
         s.turnIdx = 0;
         s.turnDeadline = 0;
+        s.vote = null;
         s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 撤回了准备，本锅回到大堂。", at: now() });
         s.players.forEach((x) => { x.ready = false; });
         this.bump();
@@ -558,6 +568,105 @@ export class Room {
     }
     this.bump();
     return { ok: true, phase: s.phase };
+  }
+
+  /* ---------------- 放弃投票（第⑥条：替代旧「权」按钮） ----------------
+   * 任何人都能在游戏进行中点「放弃」发起投票；全房（除发起者外也算一票）投票，
+   * 同意人数 ≥ 房间人数 - 1 时直接揭本锅汤底；拒绝人数一旦让达标变成数学上
+   * 不可能，立刻流产；60s 不达标也流产。揭底走与猜对完全相同的 revealed 通道。 */
+
+  voteNeed(s) {
+    return Math.max(1, s.players.length - 1);
+  }
+
+  /* 每次快照前清扫：过期的投票自动作废 */
+  sweepVote() {
+    const s = this.state;
+    if (!s || !s.vote) return;
+    if (s.vote.until > now()) return;
+    s.vote = null;
+    this.sysEvent("放弃投票超时未达标，本锅继续。");
+  }
+
+  async startGiveup({ internalId }) {
+    const s = this.state;
+    if (s.phase !== "playing") return { error: "NOT_PLAYING" };
+    const p = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!p) return { error: "NOT_IN_ROOM" };
+    this.sweepVote();
+    if (s.vote) {
+      /* 已有投票在跑：发起者没变就当续票入口，别人点则提示先投票 */
+      if (s.vote.byUid === p.uid) return { ok: true, vote: s.vote };
+      return { error: "VOTE_RUNNING", note: "已有放弃投票进行中，先投完这一轮" };
+    }
+    s.vote = {
+      byUid: p.uid,
+      byNick: p.nickname,
+      yes: [p.uid],
+      no: [],
+      need: this.voteNeed(s),
+      total: s.players.length,
+      until: now() + GIVEUP_VOTE_MS
+    };
+    this.sysEvent(p.nickname + " 发起了「放弃本锅看汤底」投票：同意满 " + s.vote.need + "/" + s.vote.total + " 人即揭底，60 秒内有效。");
+    this.bump();
+    return { ok: true, vote: s.vote };
+  }
+
+  async castVote({ internalId, yes }) {
+    const s = this.state;
+    this.sweepVote();
+    if (s.phase !== "playing" || !s.vote) return { error: "NO_VOTE" };
+    const p = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!p) return { error: "NOT_IN_ROOM" };
+    const v = s.vote;
+    /* 票型跟身份走：换票 / 反悔都只改自己那一票 */
+    v.yes = v.yes.filter((u) => u !== p.uid);
+    v.no = v.no.filter((u) => u !== p.uid);
+    if (yes) v.yes.push(p.uid); else v.no.push(p.uid);
+    /* 中途进房的人也算在门槛里：按当前人数重算 */
+    v.need = this.voteNeed(s);
+    v.total = s.players.length;
+    const outcome = this.settleVote(s);
+    this.bump();
+    return outcome || { ok: true, vote: v };
+  }
+
+  /* 结算：达标→揭底；数学不可能达标→立刻流产；否则返回 null 等下一票 */
+  settleVote(s) {
+    const v = s.vote;
+    if (!v) return null;
+    if (v.yes.length >= v.need) {
+      s.vote = null;
+      s.giveUp = true;
+      this.reveal(s, null, "投票放弃");
+      return { ok: true, passed: true, revealed: true };
+    }
+    /* 剩下没投票的人全投同意也凑不满 → 立刻流产，不用干等 60s */
+    if (v.total - v.no.length < v.need) {
+      s.vote = null;
+      this.sysEvent("放弃投票未通过（" + v.yes.length + " 同意 / " + v.no.length + " 拒绝），本锅继续。");
+      return { ok: true, passed: false };
+    }
+    return null;
+  }
+
+  /* 揭底统一入口：猜对与投票放弃共用同一条 revealed 通道 */
+  reveal(s, player, how) {
+    const puzzle = getPuzzle(s.puzzleId);
+    s.phase = "revealed";
+    s.guessCooldowns = {};
+    s.vote = null;
+    if (player) s.giveUp = false;
+    if (player) {
+      s.winnerUid = player.uid;
+      s.winnerNick = player.nickname;
+    } else {
+      s.winnerUid = 0;
+      s.winnerNick = "";
+    }
+    s.revealHow = how || "说破";
+    s.stars = puzzle ? stars(puzzle, s.qaLog.filter((x) => x.kind === "ask").length, 0) : 1;
   }
 
   /* 房主选汤（规格 #5：只有 #1 能选） */
@@ -792,11 +901,8 @@ export class Room {
     } else if (level === "close") {
       s.guessCooldowns[player.uid] = now() + COOLDOWN_CLOSE_MS;
     } else if (level === "solved") {
-      s.phase = "revealed";
-      s.guessCooldowns = {};
-      s.winnerUid = player.uid;
-      s.winnerNick = player.nickname;
-      s.stars = puzzle ? stars(puzzle, s.qaLog.filter((x) => x.kind === "ask").length, 0) : 1;
+      /* 第⑦条：猜对走统一揭底入口（与投票放弃同一条通道） */
+      this.reveal(s, player, "说破");
     }
   }
 
@@ -819,6 +925,9 @@ export class Room {
     s.stars = 0;
     s.pendingAI = null;
     s.askInFlightUntil = 0;
+    s.vote = null;
+    s.giveUp = false;
+    s.revealHow = "";
     /* 这锅还在打时已经点过准备的人，下一锅直接算准备好；其余人重新准备。
        全员都准备好了就直接开下一锅，不用再干等。 */
     const queued = s.players.filter((x) => x.ready).map((x) => x.uid);
@@ -863,6 +972,7 @@ export class Room {
     const s = this.state;
     if (!s) return { exists: false };
     this.sweepTurn();
+    this.sweepVote();
     /* 轮询即心跳：谁在拉快照，就把谁标回在线（前端 1.5s 一次 << 在线窗口） */
     const you = meId ? s.players.filter((p) => p.internalId === meId)[0] : null;
     if (you && (!you.online || now() - (you.lastSeen || 0) > 5000)) {
@@ -915,6 +1025,24 @@ export class Room {
         : null,
       winnerUid: s.winnerUid || 0,
       winnerNick: s.winnerNick || "",
+      /* 第⑥条：放弃投票状态（含「我投过什么」，前端投票卡据此回显） */
+      giveUp: !!s.giveUp,
+      revealHow: s.revealHow || "",
+      vote: (function () {
+        if (!s.vote || s.phase !== "playing") return null;
+        const myU = you ? you.uid : 0;
+        return {
+          byUid: s.vote.byUid,
+          byNick: s.vote.byNick,
+          yes: s.vote.yes.length,
+          no: s.vote.no.length,
+          need: s.vote.need,
+          total: s.players.length,
+          until: s.vote.until,
+          youYes: s.vote.yes.indexOf(myU) !== -1,
+          youNo: s.vote.no.indexOf(myU) !== -1
+        };
+      })(),
       stars: s.stars || 0,
       qaLog: s.qaLog.slice(-QA_MAX),
       chatLog: (s.chatLog || []).slice(-CHAT_MAX),
@@ -972,6 +1100,7 @@ export class Room {
          于是前端倒计时归零却永远等不到跳过。清扫真推进了轮次就会 bump，
          下面的 since 比对自然失败，本次自动回全量快照。 */
       this.sweepTurn();
+      this.sweepVote();
       const since = Number(url.searchParams.get("since"));
       if (isFinite(since) && since > 0 && since === (this.state.rev || 0)) {
         /* 快路径也必须刷心跳：否则「一直没动作」的玩家会被误判离线。
@@ -1047,6 +1176,14 @@ export class Room {
         break;
       case "next":
         out = await this.nextPuzzle(body);
+        break;
+      case "giveup":
+        out = await this.startGiveup(body);
+        if (!out.error) out = Object.assign({}, out, { snapshot: this.snapshot(meId) });
+        break;
+      case "vote":
+        out = await this.castVote(body);
+        if (!out.error) out = Object.assign({}, out, { snapshot: this.snapshot(meId) });
         break;
       case "state":
         out = this.snapshot(meId);

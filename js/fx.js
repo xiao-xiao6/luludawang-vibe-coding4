@@ -486,6 +486,49 @@
       setTimeout(function () { STATE.sceneCfg = old; seedDrops(); }, (sec || 4) * 1000);
     },
 
+    /* 第⑦条：说破汤底的庆祝 —— 左下 / 右下礼炮朝中间喷，
+     * 屏幕上方连放几发烟花，配套爆响与号角音效。 */
+    celebrate: function () {
+      if (REDUCE || !STATE.enabled) return;
+      var w = STATE.w, h = STATE.h;
+      var COLORS = ["#e2a44f", "#f6cf90", "#ffe9c4", "#68cf9a", "#ff8f6e", "#8fd3ff", "#ff6e9e"];
+      function salvo(x, y, ang, spread, n, power, lifeLo, lifeHi) {
+        if (!STATE.enabled) return;
+        for (var i = 0; i < n; i++) {
+          var a = ang + rand(-spread, spread);
+          var sp = rand(0.5, 1.3) * power;
+          STATE.sparks.push({
+            x: x + rand(-10, 10), y: y + rand(-8, 8),
+            vx: Math.cos(a) * sp,
+            vy: Math.sin(a) * sp,
+            r: rand(1.4, 3.6),
+            life: rand(lifeLo, lifeHi), max: lifeHi,
+            color: COLORS[Math.floor(Math.random() * COLORS.length)]
+          });
+        }
+        if (STATE.sparks.length > 900) STATE.sparks.splice(0, STATE.sparks.length - 900);
+      }
+      /* 礼炮：左下角朝右上、右下角朝左上，各三轮齐射 */
+      var cannons = [[w * 0.05, h - 8, -1.05], [w * 0.95, h - 8, -2.09]];
+      cannons.forEach(function (c) {
+        for (var k = 0; k < 3; k++) {
+          (function (x, y, ang, delay) {
+            setTimeout(function () { salvo(x, y, ang, 0.26, 26, rand(640, 900), 0.9, 1.7); }, delay);
+          })(c[0], c[1], c[2], k * 280);
+        }
+      });
+      /* 烟花：上半屏随机位置炸 5 发 */
+      for (var f = 0; f < 5; f++) {
+        (function (delay) {
+          setTimeout(function () {
+            salvo(rand(w * 0.14, w * 0.86), rand(h * 0.1, h * 0.4), 0, Math.PI, 36, rand(190, 320), 0.7, 1.4);
+            if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("pop");
+          }, delay);
+        })(420 + f * 360);
+      }
+      if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("fanfare");
+    },
+
     stats: function () {
       return {
         running: STATE.running,
