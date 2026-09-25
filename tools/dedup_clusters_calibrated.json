@@ -1,0 +1,2353 @@
+{
+ "N": 872,
+ "clusters": [
+  {
+   "keep": "lib_73c238975974",
+   "keep_title": "半根火柴",
+   "size": 6,
+   "drop": [
+    {
+     "id": "lib_ddcab18ee8e4",
+     "title": "半根火柴",
+     "surface": "沙漠里躺着他、一些行李、一盒火柴和半根火柴。"
+    },
+    {
+     "id": "lib_5cbad410d621",
+     "title": "半根火柴",
+     "surface": "一名男子死在沙漠中，全身赤裸，手里攥着半根火柴。周围没有任何足迹。"
+    },
+    {
+     "id": "lib_8b54c0200adb",
+     "title": "半根火柴",
+     "surface": "一个人在沙漠中死了，手里握着半根火柴。"
+    },
+    {
+     "id": "lib_92b60ab9e186",
+     "title": "半根火柴",
+     "surface": "在沙漠里躺着他和一些行李还有一盒火柴跟一根半根的火柴。"
+    },
+    {
+     "id": "lib_12cbead30014",
+     "title": "019 · 半根火柴",
+     "surface": "有一个人在沙漠中头朝下死去，不远处散落着几个行李箱，这个人手里紧紧抓着半根火柴。"
+    }
+   ],
+   "edges": [
+    [
+     "E5@0.16/8"
+    ],
+    [
+     "E5@0.14/5"
+    ],
+    [
+     "E5@0.20/6"
+    ],
+    [
+     "E5@0.12/6"
+    ],
+    [
+     "E5@0.12/6"
+    ],
+    [
+     "E5@0.17/6"
+    ],
+    [
+     "E5@0.19/7"
+    ],
+    [
+     "E5@0.13/6"
+    ],
+    [
+     "E5@0.12/6"
+    ],
+    [
+     "E4@0.36/10"
+    ],
+    [
+     "E5@0.22/7"
+    ],
+    [
+     "E5@0.21/7"
+    ],
+    [
+     "E5@0.20/5"
+    ],
+    [
+     "E5@0.17/5"
+    ],
+    [
+     "E3@0.92/50"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_59bdeb4b044e",
+   "keep_title": "火车",
+   "size": 6,
+   "drop": [
+    {
+     "id": "lib_ace8a94e1617",
+     "title": "隧道里的瞎子",
+     "surface": "男人坐火车去邻镇看病，治好回程过隧道跳车自杀。为什么？"
+    },
+    {
+     "id": "lib_f3a67510b7c7",
+     "title": "重见光明",
+     "surface": "一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳"
+    },
+    {
+     "id": "lib_ee3cd8f8fce0",
+     "title": "看病",
+     "surface": "一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳"
+    },
+    {
+     "id": "lib_206b9185868d",
+     "title": "098 · 跳火车（经典版）",
+     "surface": "男子坐火车去邻镇治眼病，治好了回程时经过隧道，跳车自杀。"
+    },
+    {
+     "id": "lib_87ceda50072d",
+     "title": "016 · 跳火车",
+     "surface": "一个人坐火车去邻镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳"
+    }
+   ],
+   "edges": [
+    [],
+    [],
+    [
+     "E3@0.85/35"
+    ],
+    [],
+    [],
+    [
+     "E4@0.34/19"
+    ],
+    [],
+    [],
+    [],
+    [
+     "E4@0.32/14"
+    ],
+    [
+     "E4@0.48/18"
+    ],
+    [
+     "E4@0.49/18"
+    ],
+    [],
+    [],
+    [
+     "E3@0.99/32"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_056db100d29a",
+   "keep_title": "看不见的生日",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_95b9b1c7a99e",
+     "title": "生日",
+     "surface": "我生日时邀请朋友们到家里聚会，吹完蜡烛后，我把他们都杀了。"
+    },
+    {
+     "id": "lib_00132cc37be4",
+     "title": "无题 · KONpiGG #133",
+     "surface": "一个人过生日，邀请他所有的好朋友来参加。吹完蜡烛的时候，这个人把他所有的好朋友都"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.86/60"
+    ],
+    [
+     "E3@0.89/58"
+    ],
+    [
+     "E3@0.87/58"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_458903b2c4d5",
+   "keep_title": "水草",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_0224e82c7650",
+     "title": "017 · 水草",
+     "surface": "有个男子跟女友去河边散步，女友突然掉进河里，男子跳入水中去找，但没有找到，伤心离"
+    },
+    {
+     "id": "lib_b5e2220c95d0",
+     "title": "097 · 水草（经典版）",
+     "surface": "男子和女友河边散步，女友落水，男子下水寻找未果，伤心离去。多年后故地重游，得知此"
+    }
+   ],
+   "edges": [
+    [
+     "E5@0.11/8"
+    ],
+    [
+     "E4@0.35/25"
+    ],
+    []
+   ]
+  },
+  {
+   "keep": "lib_ae470c4660ec",
+   "keep_title": "出租房",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_fb5f4e257b17",
+     "title": "出租房",
+     "surface": "我搬进了一个新房子，房间里经常有老鼠爬的声音，但毕竟便宜，我也睡得很香。后来房东"
+    },
+    {
+     "id": "lib_090fb2fb97fe",
+     "title": "出租房",
+     "surface": "我搬进了一个新房子，房间里经常有类似于老鼠爬的声音，但毕竟便宜，我也睡的很香，没"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.70/69"
+    ],
+    [
+     "E3@0.84/84"
+    ],
+    [
+     "E3@0.79/78"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_09c0825b5def",
+   "keep_title": "无题 · boop-yyt #1324",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_5502c4432dd3",
+     "title": "无题 · boop-yyt #1383",
+     "surface": "A woman opens an envelope and dyes. How "
+    },
+    {
+     "id": "lib_d6c8501d6b79",
+     "title": "Jed 2.13",
+     "surface": "A woman opens an envelope and dyes."
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.91/0"
+    ],
+    [
+     "E3en@0.95/0"
+    ],
+    [
+     "E3en@0.94/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0a6d1163d6f9",
+   "keep_title": "无题 · boop-yyt #1290",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_4ec8b318f78c",
+     "title": "无题 · boop-yyt #1353",
+     "surface": "A man lies dead next to a feather. How c"
+    },
+    {
+     "id": "lib_af198d3a47b7",
+     "title": "Jed 1.33",
+     "surface": "A man lies dead next to a feather."
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.91/0"
+    ],
+    [
+     "E3en@0.94/0"
+    ],
+    [
+     "E3en@0.93/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0c44293fd6f1",
+   "keep_title": "Jed 1.51",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_2ccbebdb0625",
+     "title": "无题 · boop-yyt #1360",
+     "surface": "If he'd turned on the light, he'd have l"
+    },
+    {
+     "id": "lib_8231a4379212",
+     "title": "无题 · boop-yyt #1298",
+     "surface": "If he'd turned on the light, he'd have l"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.98/0"
+    ],
+    [
+     "E3en@0.99/0"
+    ],
+    [
+     "E3en@0.97/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0e134ac04a78",
+   "keep_title": "无题 · boop-yyt #1322",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_c83298d35144",
+     "title": "无题 · boop-yyt #1381",
+     "surface": "Two people are playing cards. One looks "
+    },
+    {
+     "id": "lib_f21afd2070b6",
+     "title": "Jed 2.9",
+     "surface": "Two people are playing cards. One looks "
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.94/0"
+    ],
+    [
+     "E3en@0.97/0"
+    ],
+    [
+     "E3en@0.97/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0f05c1b4b831",
+   "keep_title": "无题 · boop-yyt #1295",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_15b05aa5803f",
+     "title": "无题 · boop-yyt #1296",
+     "surface": "A man dies of thirst in his own home. Wh"
+    },
+    {
+     "id": "lib_894cfdd71455",
+     "title": "无题 · boop-yyt #1358",
+     "surface": "A man dies in his own home. How could th"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.97/0"
+    ],
+    [
+     "E3en@0.87/0"
+    ],
+    []
+   ]
+  },
+  {
+   "keep": "lib_aac5e74f3bff",
+   "keep_title": "午夜的敲门声",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_1aa2e7bacd58",
+     "title": "山顶小屋",
+     "surface": "一个人住在山顶的小屋里，半夜听见有敲门的，他打开门却没有人，于是去睡了。等了一会"
+    },
+    {
+     "id": "lib_35815405359b",
+     "title": "无题 · KONpiGG #85",
+     "surface": "一个人住在山顶的小屋里，半夜听见有敲门声音，但是他打开门却没有人，于是去睡了。第"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.58/31"
+    ],
+    [],
+    [
+     "E4@0.45/28"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_1f572e970b04",
+   "keep_title": "姐姐在跳舞",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_b7f11aa92da7",
+     "title": "舞",
+     "surface": "六岁时爷爷去世，我去祭奠并和姐姐玩捉迷藏。我对妈妈说了一句话把她吓晕。我说了什么"
+    },
+    {
+     "id": "lib_6447eb8a4b30",
+     "title": "我六岁那年，外公去世",
+     "surface": "我六岁那年，外公去世，我和亲人一起去祭奠，和姐姐玩捉迷藏，然后我对母亲说了句话把"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.74/48"
+    ],
+    [
+     "E4@0.53/30"
+    ],
+    [
+     "E4@0.56/39"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_3fad9c3ff17b",
+   "keep_title": "小说主角",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_453bf5f75173",
+     "title": "催眠",
+     "surface": "我是一名技术高超的催眠师，能让被催眠者分不清梦境与现实。周一，我在跟小珊玩笔仙游"
+    },
+    {
+     "id": "lib_27629b68d5cf",
+     "title": "织梦者》《新世界",
+     "surface": "我是一名催眠师，一旦被催眠，你将分不清梦与现实，这也让我在行业内声名大噪。星期一"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.59/172"
+    ],
+    [
+     "E3@0.87/358"
+    ],
+    [
+     "E4@0.61/172"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ca43702db709",
+   "keep_title": "镜中时间",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_357826866b59",
+     "title": "100 · 镜中时钟（经典版）",
+     "surface": "一名男子从梦中醒来，通过镜子看了眼时钟，然后又躺下继续睡，再也没有醒来。"
+    },
+    {
+     "id": "lib_550f93375ad7",
+     "title": "025 · 宇航员的镜子",
+     "surface": "我从梦中醒来，看了一眼镜子中的时钟，继续躺下，但是却永远地睡了过去。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.36/21"
+    ],
+    [
+     "E4@0.35/19"
+    ],
+    [
+     "E3@0.79/42"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_5a05b2e5001a",
+   "keep_title": "网友",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_9fb3c2d101fd",
+     "title": "网友见面",
+     "surface": "小美和网友小明约好见面，过了三分钟后小美却大声惊叫起来!"
+    },
+    {
+     "id": "lib_35aafab18f4c",
+     "title": "无题 · KONpiGG #110",
+     "surface": "小美和网友小明约好见面，几分钟后小美却大声惊叫起来！"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.91/59"
+    ],
+    [
+     "E3@0.94/62"
+    ],
+    [
+     "E3@0.94/62"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_3f1125b7c0cd",
+   "keep_title": "黑猫叼着老鼠",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_f8946799c97f",
+     "title": "黑猫的凝视",
+     "surface": "我杀了人，警察带我走时看到门口那只黑猫一直盯着我，我知道自己错了。"
+    },
+    {
+     "id": "lib_683130196767",
+     "title": "035 · 黑猫",
+     "surface": "我杀了人，当警察带走我的时候，我看到了门口的黑猫，它一直在盯着我，这一刻我知道我"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.88/49"
+    ],
+    [
+     "E4@0.54/30"
+    ],
+    [
+     "E4@0.48/27"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_fbf3ed58597b",
+   "keep_title": "爱犬",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_8b97d3cfc93b",
+     "title": "爱犬",
+     "surface": "一个女孩独居，陪伴她的只有爱犬。半夜醒来，她听到一下一下的水滴声，非常害怕。于是"
+    },
+    {
+     "id": "lib_440544dff8ed",
+     "title": "爱犬",
+     "surface": "独居女孩半夜听到水滴声，害怕地让爱犬舔手安慰自己，可第二天一醒来，发现狗死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E5@0.22/9"
+    ],
+    [
+     "E5@0.29/11"
+    ],
+    [
+     "E4@0.37/20"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_5351805ac486",
+   "keep_title": "无题 · boop-yyt #1350",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_549137cff6f5",
+     "title": "无题 · boop-yyt #1287",
+     "surface": "A car without a driver moves; a man dies"
+    },
+    {
+     "id": "lib_96327ba35de3",
+     "title": "Jed 1.30",
+     "surface": "A car without a driver moves; a man dies"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.96/0"
+    ],
+    [
+     "E3en@0.97/0"
+    ],
+    [
+     "E3en@0.98/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_63cb507c431d",
+   "keep_title": "漆黑直播间",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_70b990289c70",
+     "title": "死亡直播",
+     "surface": "我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然"
+    },
+    {
+     "id": "lib_630d102b5443",
+     "title": "无题 · KONpiGG #64",
+     "surface": "我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然"
+    }
+   ],
+   "edges": [
+    [],
+    [
+     "E4@0.40/18"
+    ],
+    [
+     "E3@0.90/46"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_668d61fd84da",
+   "keep_title": "无题 · KONpiGG #96",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_b69913650fdf",
+     "title": "051 · 棺材里的死人",
+     "surface": "在一条乡村路上，五个人走在一起，天突然开始下雨。五个人中有四个人加快了脚步，第五"
+    },
+    {
+     "id": "lib_c84fc1792640",
+     "title": "099 · 棺材里的人（经典版）",
+     "surface": "五个人走在路上，下雨了，四个人加快脚步，一个人不急。最终五人同时到达目的地，四人"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.38/21"
+    ],
+    [
+     "E4@0.37/15"
+    ],
+    [
+     "E4@0.40/16"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_672b157d1754",
+   "keep_title": "猜名字",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_a0a04ac21e6e",
+     "title": "猜名字",
+     "surface": "家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛\n并"
+    },
+    {
+     "id": "lib_c750c42858e6",
+     "title": "猜名字",
+     "surface": "家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.75/76"
+    ],
+    [
+     "E3@0.77/77"
+    ],
+    [
+     "E3@0.98/127"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_d1fc971bd1d5",
+   "keep_title": "马戏团",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_895c09070da5",
+     "title": "020 · 满地木屑",
+     "surface": "马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮。马戏团只需要一个侏儒，越矮越好，于是"
+    },
+    {
+     "id": "lib_741df7fb39e2",
+     "title": "无题 · KONpiGG #86",
+     "surface": "马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮，马戏团只需要一个侏儒，马戏团里的侏儒"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.59/47"
+    ],
+    [
+     "E4@0.60/50"
+    ],
+    [
+     "E4@0.49/43"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_7695fa789e5e",
+   "keep_title": "离车30米只走五步",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_e24398bc436c",
+     "title": "五步",
+     "surface": "一个人离车有30米，却只走了五步就上车。"
+    },
+    {
+     "id": "lib_b01ab097ade4",
+     "title": "五步上车",
+     "surface": "一个人离他的车有30米，但是他只走了五步就上车了，这是为什么?"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.71/15"
+    ],
+    [
+     "E3@0.74/16"
+    ],
+    [
+     "E3@0.84/19"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_7e39ee741246",
+   "keep_title": "无题 · boop-yyt #1336",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_c67f366c50ed",
+     "title": "无题 · boop-yyt #1392",
+     "surface": "An ordinary woman walks on water. How co"
+    },
+    {
+     "id": "lib_ebfab81bc1df",
+     "title": "Jed 2.33",
+     "surface": "An ordinary woman walks on water. (_Math"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.86/0"
+    ],
+    [],
+    []
+   ]
+  },
+  {
+   "keep": "lib_9654d2967355",
+   "keep_title": "冰淇淋",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_b04ccdfb4118",
+     "title": "冰淇淋",
+     "surface": "哥哥很后悔：如果那天自己吃了冰淇淋，弟弟就不会死。"
+    },
+    {
+     "id": "lib_8b9daa54f0ed",
+     "title": "冰淇淋",
+     "surface": "哥哥好后悔，如果那天自己吃了冰淇凌，弟弟就不会死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.66/60"
+    ],
+    [
+     "E3@0.97/121"
+    ],
+    [
+     "E4@0.65/59"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_d9a053630dee",
+   "keep_title": "回家",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_fa7f7472ae6b",
+     "title": "回家报平安",
+     "surface": "我是一名大学生，在异地上学。爸妈打电话说想我了，让我五一回家。我到家后给爸爸打电"
+    },
+    {
+     "id": "lib_96b3e65fc4dd",
+     "title": "056 · 精神病",
+     "surface": "我是一名大学生，在异地上学。爸爸妈妈给我打电话说想我了，让我找时间回家。我趁五一"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.68/47"
+    ],
+    [
+     "E3@0.90/54"
+    ],
+    [
+     "E4@0.67/45"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_edb83d6c5d1b",
+   "keep_title": "女明星",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_ee36f852b5c8",
+     "title": "不合适的帽子",
+     "surface": "从小妈妈喜欢给女儿戴不合适的帽子，一天她带女儿去医院，女儿痛哭了。"
+    },
+    {
+     "id": "lib_970ea26e5e78",
+     "title": "045 · 帽子",
+     "surface": "女明星养了一个女儿，从小时不时给女儿戴一顶帽子。有一天她带女儿去医院，女儿在医院"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.81/54"
+    ],
+    [
+     "E4@0.38/26"
+    ],
+    []
+   ]
+  },
+  {
+   "keep": "lib_ca411d1cf9c1",
+   "keep_title": "Jed 1.9",
+   "size": 3,
+   "drop": [
+    {
+     "id": "lib_d9c56fa6081b",
+     "title": "无题 · boop-yyt #1276",
+     "surface": "An avid birdwatcher sees an unexpected b"
+    },
+    {
+     "id": "lib_dd1af577210e",
+     "title": "无题 · boop-yyt #1282",
+     "surface": "An avid birdwatcher sees an unexpected b"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.93/0"
+    ],
+    [
+     "E3en@0.97/0"
+    ],
+    [
+     "E3en@0.91/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0269e650b41f",
+   "keep_title": "一双鞋",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_4580162c5451",
+     "title": "一双鞋",
+     "surface": "男人醒来后只看到一双鞋，然后就自杀了，为什么?"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.92/50"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_028f0dfe1fbe",
+   "keep_title": "忠诚的狗",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_713c1ec8c207",
+     "title": "无题 · KONpiGG #93",
+     "surface": "小强养了一只忠诚的狗，有一天他牵着狗上街，结果小强死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.34/13"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_048dc4d7aeb0",
+   "keep_title": "Jed 1.83",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_d6cd2cb2dc12",
+     "title": "无题 · boop-yyt #1314",
+     "surface": "A woman lies dead in the street near a c"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.96/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_05d55826327b",
+   "keep_title": "Jed 1.19",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_f11b65ee0498",
+     "title": "无题 · boop-yyt #1285",
+     "surface": "There is blood on the ceiling of my bedr"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.92/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_086c4a778b97",
+   "keep_title": "许愿",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_f8b00b40b3c4",
+     "title": "许愿",
+     "surface": "我低下头许愿，愿望实现了，我却吕了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.93/52"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_e10fef909345",
+   "keep_title": "半瓶香水",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_0aae87087f4d",
+     "title": "半瓶香水",
+     "surface": "我的妈妈最近有些反常，不但偷偷用我的香水穿我的衣服，还老是半夜出去。那天我实在忍"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.60/53"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0b330f52e242",
+   "keep_title": "无题 · misc #1303",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_641c88779ab8",
+     "title": "无题 · boop-yyt #1365",
+     "surface": "A man tries to buy poison to kill his wi"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.90/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0cf00682e3ce",
+   "keep_title": "无题 · KONpiGG #135",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_05ee4cafe666",
+     "title": "047 · 洋娃娃",
+     "surface": "一场意外后，妻子便把自己关在房间里不肯出来。那天我突然听到她在嚎啕大哭，急忙冲进"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.54/62"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_3e4770e9b0e5",
+   "keep_title": "冰箱里的父母",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_0d603c7d7b6c",
+     "title": "053 · 冰箱",
+     "surface": "我的父母都不理我，但我还是很爱他们。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.67/43"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_d3c52f26b4cd",
+   "keep_title": "灯塔关灯",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_0daf1eafe0c9",
+     "title": "085 · 守灯人",
+     "surface": "守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.76/45"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4bb30df46863",
+   "keep_title": "电梯",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_0ed4dd3f3ce3",
+     "title": "无题 · KONpiGG #109",
+     "surface": "我走进电梯准备去上学，随着电梯的上升，我知道，我再也无法去学校了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.61/57"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_0fa0dac82fb7",
+   "keep_title": "Jed 1.90",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_27232c3dbbc2",
+     "title": "无题 · boop-yyt #1373",
+     "surface": "A man urinates and dies. How could this "
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.96/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_12eb6f8b848a",
+   "keep_title": "063 · 捕鼠",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_be2920661cad",
+     "title": "无题 · KONpiGG #190",
+     "surface": "生活拮据的孤寡老人杰克，被发现死在家中，生前好像正在吃饭，尸体被发现时已经残缺不"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.33/27"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_146ba5100f1f",
+   "keep_title": "无题 · KONpiGG #66",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_c3e4256b231a",
+     "title": "100元钱",
+     "surface": "小明在图书馆看书，在一本书里翻到了100块钱，但是他却哭了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.98/44"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_28930e0caf4c",
+   "keep_title": "小红裙",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_179cfc38b29c",
+     "title": "小红裙",
+     "surface": "姐姐为我选了一件小红裙，我穿着去上学了，然后有人死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.95/59"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_bb9cfe3405ab",
+   "keep_title": "海龟汤",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_17fc568f14b0",
+     "title": "027 · 海龟汤",
+     "surface": "一名男子走进餐厅，点了一碗海龟汤，喝了一口非常惊讶地问服务员：\"这是真的海龟汤吗"
+    }
+   ],
+   "edges": [
+    [
+     "E5@0.22/16"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_19aa8e7c225d",
+   "keep_title": "雨中女郎",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_d2c1a351b193",
+     "title": "043 · 艺术家的画",
+     "surface": "艺术家买了一幅画叫做《雨中的女郎》，一天他的朋友来到他家欣赏。次日，艺术家来到画"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.73/53"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_e019fdc98552",
+   "keep_title": "丢失的手机",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_1d77e1dd54b7",
+     "title": "丢失的手机",
+     "surface": "我的手机不见了，当我找到它时，我吓了一跳。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.97/80"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_1fe018f884c7",
+   "keep_title": "无题 · boop-yyt #1297",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_4acf292f2375",
+     "title": "无题 · boop-yyt #1272",
+     "surface": "A man is lying drowned in a dead forest."
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.93/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_408d0bacc2de",
+   "keep_title": "蜂蜜水与巧克力",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_20b8c20f05f5",
+     "title": "无题 · KONpiGG #134",
+     "surface": "我发现床头柜上放着一杯蜂蜜水和一块巧克力蛋糕，原本放在床头柜的娃娃却消失不见了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.55/58"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_2299ca62945f",
+   "keep_title": "声音",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_ad7366ba2b30",
+     "title": "声音",
+     "surface": "”滋滋嗡嗡嗡呼呼呼轰隆隆哒哒哒咔嚓啊啊啊嘣嘣咕噜咕噜滋滋“"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.72/65"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_234328857d6d",
+   "keep_title": "无题 · boop-yyt #1362",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_ba1afde7ba05",
+     "title": "无题 · boop-yyt #1300",
+     "surface": "A woman is murdered in front of hundreds"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.94/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_fb44b3fabcd5",
+   "keep_title": "街上的工作",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_24db70bb8c98",
+     "title": "无题 · KONpiGG #104",
+     "surface": "我正在街上努力工作，突然一个疯疯癫癫的女人向我扑来，爸爸赶紧把我抱回了家，但随后"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.85/66"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_255999f4f6ba",
+   "keep_title": "洗头",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_474c41f3b6f8",
+     "title": "037 · 洗头",
+     "surface": "晚上，我在寝室洗了个头，结果我和室友都死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.41/21"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_255eb9ac95c6",
+   "keep_title": "乞丐",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_2eb1bd4b6bf0",
+     "title": "无题 · KONpiGG #107",
+     "surface": "我是个乞丐，醒来发现碗里多了样东西，为此我饱餐了一顿，但是在第七天时，我却死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.89/55"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_f715e86356f5",
+   "keep_title": "白毛的水",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_2821f14a71da",
+     "title": "049 · 水箱",
+     "surface": "那天我洗完澡后，说了一句话，家人们听见后都崩溃了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.96/65"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_29a799606726",
+   "keep_title": "保姆",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_abf8e8b26ae2",
+     "title": "保姆",
+     "surface": "新来的保姆总是偷懒，家里乱糟糟的，我跑去客厅跟父亲告状，父亲都说：”我们家没请保"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.83/89"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4a68dd74f870",
+   "keep_title": "蝴蝶结",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_2a3192fd3cc5",
+     "title": "无题 · KONpiGG #80",
+     "surface": "第一天小熊没有啦！第二天洋娃娃没有啦！第三天小木偶没有啦！最后一天全都不见啦！只"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.60/58"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_2e587d7b6540",
+   "keep_title": "作业里的遗书",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fa1ed8ece75c",
+     "title": "048 · 遗书",
+     "surface": "这两天为了补寒假作业把我搞得晕头转向，还好在开学那天补完了。今天一早，还没等妈妈"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.78/81"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_acfe4ab75d5e",
+   "keep_title": "一盘排骨",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_2e6c800332fa",
+     "title": "一盘排骨",
+     "surface": "生日那天爸爸端上来一盘排骨，并对我说了一句话，说完我痛哭了起来。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.91/110"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_2fb427a16795",
+   "keep_title": "旧的八音盒",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_a9a0bddb7f7c",
+     "title": "旧的八音盒",
+     "surface": "男孩和女孩从小是邻居，女孩过生日时，男孩送给她一个旧的八音盒，不久后女孩搬家了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.76/52"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_314cc038dce2",
+   "keep_title": "借书",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_754074695c41",
+     "title": "借书老人",
+     "surface": "一位老人，每周都会去图书馆借书，但是每次借书前都会翻到第30页，这是为什么?"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.92/35"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_357a5c287302",
+   "keep_title": "无题 · boop-yyt #1372",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_a1d5d6bb539b",
+     "title": "无题 · boop-yyt #1313",
+     "surface": "Two people are dead in a car, which is l"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.92/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_35e327e8890d",
+   "keep_title": "无题 · misc #1278",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_7b28164de2b9",
+     "title": "Jed 1.11",
+     "surface": "Two brothers are involved in a murder. T"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.96/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_afa727cde8c6",
+   "keep_title": "你独自住在郊外，附近只有一户邻居",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_3ab4d2516252",
+     "title": "牛吃草",
+     "surface": "你住在乡下，邻居是一对养牛的夫妻。某天深夜，你听到外面传来奇怪的「牛吃草」声音，"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.69/87"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_3c59d8568b7f",
+   "keep_title": "无题 · boop-yyt #1291",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_b2a5f5e847bf",
+     "title": "无题 · boop-yyt #1354",
+     "surface": "A flash of light, a man dies. How could "
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.91/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_3e4d2da2c331",
+   "keep_title": "男朋友",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_aef19f1b83f9",
+     "title": "无题 · KONpiGG #150",
+     "surface": "我以前有个很爱我的男朋友，但他后来开始欺负我，最后他死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.94/67"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_410b5ac434f2",
+   "keep_title": "墓碑上的文字",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_86ba85ac49fd",
+     "title": "墓碑上的文字",
+     "surface": "我和爸妈一起去旅行，回来时却出了意外，爸妈立马打算要二胎。五十年后，儿孙满堂，爸"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.85/111"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_9f6caf094103",
+   "keep_title": "祭日的三位悼念者",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_4166968fc81c",
+     "title": "祭日",
+     "surface": "在儿子去世一周年的祭日上，我杀死了三个来悼念他的人。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.96/95"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_41e02e0f8c85",
+   "keep_title": "影子",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_d5ad6e7a2851",
+     "title": "影子",
+     "surface": "一天我去公共厕所，那时已是晚上，我看见男厕所门口站着一个人，后面是他的影子，手里"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.63/27"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4a0f40ddff23",
+   "keep_title": "无题 · boop-yyt #1331",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fccd2f662926",
+     "title": "Jed 2.21",
+     "surface": "Bruce wins the race, but he gets no trop"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.85/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4aa8059ec3e8",
+   "keep_title": "诡异的画像",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_ab6cf100d414",
+     "title": "诡异的画像",
+     "surface": "迷路的女孩找到了间空屋子，她很疲惫但她睡不着。第二天清晨，累得睡着的她醒过来，发"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.80/59"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4b27b323a07a",
+   "keep_title": "药水",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_b072e15c06f8",
+     "title": "无题 · KONpiGG #73",
+     "surface": "婆婆给了我一瓶药水，我失去了最爱的男生。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.35/26"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_4cea3fb48eaf",
+   "keep_title": "无题 · boop-yyt #1281",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_92a9fba5867b",
+     "title": "无题 · misc #1275",
+     "surface": "Beulah died in the Appalachians, while C"
+    }
+   ],
+   "edges": [
+    []
+   ]
+  },
+  {
+   "keep": "lib_4fa7348b73fc",
+   "keep_title": "无题 · boop-yyt #1327",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_a86f38e57afd",
+     "title": "无题 · boop-yyt #1384",
+     "surface": "A black leader dies in Africa. How could"
+    }
+   ],
+   "edges": [
+    []
+   ]
+  },
+  {
+   "keep": "lib_eb29b057824f",
+   "keep_title": "条件",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_53d8098e6be8",
+     "title": "男孩的承诺",
+     "surface": "女孩和男孩提了一个条件，只要男孩做到就做他的女朋友，后来男孩做到了，女孩却疯了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.73/47"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_70707f32e1ca",
+   "keep_title": "对赌",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_5454d966fa86",
+     "title": "023 · 对赌",
+     "surface": "两个死人，一把枪，一副牌。发生了什么事？"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.45/20"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_57ae1306e87a",
+   "keep_title": "无题 · boop-yyt #1301",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_e8e8737072bb",
+     "title": "无题 · boop-yyt #1363",
+     "surface": "Charlie died when the music stopped. How"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.89/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_7cf2a178d34a",
+   "keep_title": "不要相信一号",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_5924ff3fa67e",
+     "title": "不要相信一号",
+     "surface": "我睡醒了，我又忘记了一切，手里捏着的纸条上写着几个字:不要相信1号。一个男人走近"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.49/42"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_a8fb92054c63",
+   "keep_title": "贝尔公主",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_5a6993b42523",
+     "title": "无题 · KONpiGG #99",
+     "surface": "我是贝尔公主，父王给我准备了盛大的婚礼，可婚礼上我却看不清王子的脸..."
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.68/56"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_5b31bb7c711b",
+   "keep_title": "无题 · boop-yyt #1318",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_ecab42ccdd54",
+     "title": "无题 · boop-yyt #1375",
+     "surface": "A pile of sawdust, no net, a man dies. H"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.92/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_9d61a5b2df8d",
+   "keep_title": "好运",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_5cac23e1984f",
+     "title": "无题 · KONpiGG #183",
+     "surface": "小明打开瓶盖，里面写着再来一瓶，他崩溃的哭了"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.83/26"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_667e4d272252",
+   "keep_title": "无题 · boop-yyt #1320",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_a44374f323ff",
+     "title": "无题 · boop-yyt #1377",
+     "surface": "A man pushes a car up to a hotel and tel"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.86/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_6c4c07d9075a",
+   "keep_title": "无题 · boop-yyt #1307",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_f3d383d9df0e",
+     "title": "无题 · boop-yyt #1368",
+     "surface": "A rope breaks. A bell rings. A man dies."
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.94/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_6db4d37cfcbb",
+   "keep_title": "给三兄弟的一封信",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_cc9e2fec9557",
+     "title": "给三兄弟的一封信",
+     "surface": "H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.56/17"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_715c8134e625",
+   "keep_title": "广播",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_b0983dc05985",
+     "title": "广播",
+     "surface": "听到广播新闻后，我先庆幸随后痛哭。"
+    }
+   ],
+   "edges": [
+    [
+     "E5@0.13/6"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_72b08b0f2494",
+   "keep_title": "无题 · boop-yyt #1334",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_af575778712a",
+     "title": "无题 · boop-yyt #1390",
+     "surface": "A man shoots himself, and dies. How coul"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.93/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_749507623b5d",
+   "keep_title": "人鱼公主",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_e8d8698eed56",
+     "title": "无题 · KONpiGG #98",
+     "surface": "美人鱼与人类王子相爱并一起来到了王子的国家，可不久后却传来了王子的死讯。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.57/52"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_75185e4de274",
+   "keep_title": "无题 · boop-yyt #1385",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_8e2c5a35d64c",
+     "title": "无题 · boop-yyt #1329",
+     "surface": "A man marries twenty women in his villag"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.90/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_776b70302820",
+   "keep_title": "024 · 关灯",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_16c34d2a101f",
+     "title": "无题 · KONpiGG #67",
+     "surface": "小明半夜起来喝水，然后把灯关上继续睡觉，醒了之后他就自杀了，问小明为什么自杀"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.36/15"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_a471bef44be6",
+   "keep_title": "电话",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_77f7e2dd70c8",
+     "title": "无题 · White-stone36 #",
+     "surface": "一位富豪给她心爱的妻子打了一通电话，于是妻子就死了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.93/29"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_7893be6075d9",
+   "keep_title": "替妹妹写遗书",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_c29ae01ecae9",
+     "title": "050 · 双胞胎替换",
+     "surface": "我一回家就立刻替死去的妹妹写遗书，对我来说，替她写遗书是很简单的，只要写下我想死"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.92/89"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_86e357eccfad",
+   "keep_title": "床的右边空了",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_7bf2b654f6ba",
+     "title": "接连死去的哥哥",
+     "surface": "我有两个哥哥，我们三兄弟自小就睡在一张床上。后来有一天二哥因为生病死了，不久后我"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.49/36"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_c56c62db40b5",
+   "keep_title": "午夜列车",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_7d62556382b0",
+     "title": "午夜列车",
+     "surface": "离午夜还有五分钟，一个男子上了列车。男子的神情很奇怪，他看了看车上的几个人，然后"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.69/65"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_8c299267f7de",
+   "keep_title": "风扇",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_7de73d716ad1",
+     "title": "034 · 寝室恶作剧",
+     "surface": "清晨，我被室友的尖叫声吵醒，睁开眼后，我却说不出话来。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.84/68"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_7e5accb69163",
+   "keep_title": "无题 · boop-yyt #1286",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_9b7562a21e3f",
+     "title": "无题 · boop-yyt #1349",
+     "surface": "Silly variant: same problem statement, w"
+    }
+   ],
+   "edges": [
+    []
+   ]
+  },
+  {
+   "keep": "lib_7e7c1efe43d9",
+   "keep_title": "018 · 葬礼",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_8aa5bc7ee7d4",
+     "title": "096 · 葬礼相亲（经典版）",
+     "surface": "姐妹俩参加母亲的葬礼，妹妹遇到了一个心动的男子，但葬礼后再也找不到他了。一个月后"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.38/17"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_803df945c53e",
+   "keep_title": "038 · 食物中毒",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_91cce3f352ad",
+     "title": "无题 · KONpiGG #94",
+     "surface": "当我们开着救护车赶到食物中毒的那户人家时，所有的人连站都站不起来，脸上全无血色。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.56/36"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_9303cd77d99f",
+   "keep_title": "不能回来",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_83fa8611c113",
+     "title": "不能回来",
+     "surface": "一个人从一间屋子里出来，伸手招了辆出租车，然后他再也没能回来这间屋子，请问这是为"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.69/17"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_84ee71111870",
+   "keep_title": "无题 · KONpiGG #198",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_c90861a96fd3",
+     "title": "011 · 出租车",
+     "surface": "杰克上了一辆出租车，让司机快点把他送到目的地。不久之后，他被枪杀了。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.39/16"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_85c40ab6ed9d",
+   "keep_title": "外婆的苹果",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_f3fa66c22535",
+     "title": "外婆的苹果",
+     "surface": "6岁时外婆告诉我不要吃黄苹果。13岁时，外婆告诉我不要吃青苹果。18岁时外婆告诉"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.88/156"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_acebe5e38366",
+   "keep_title": "060 · 生还者",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_8adc37971ece",
+     "title": "无题 · SUZ-tsinghua #9",
+     "surface": "男子精神正常，却在船上挥起刀，将许多人的手一一砍断。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.42/45"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_e523f1cb58c8",
+   "keep_title": "灰姑娘",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_8e5d0077f03d",
+     "title": "无题 · KONpiGG #97",
+     "surface": "我叫辛德瑞拉，可怜又丑陋的我却嫁给了王子，那天王子对我说了句话，我知道下一场舞会"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.95/128"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_faa800c4c34d",
+   "keep_title": "我正在看着你",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_8f1f82db998d",
+     "title": "058 · 跟踪者",
+     "surface": "女主很喜欢在网上分享自己的近况，有一天她收到一则留言，被吓到的女主夺门而出。或许"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.87/74"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_c12cc7f868a8",
+   "keep_title": "滴水声与狗",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_9227ba24f49e",
+     "title": "滴水声",
+     "surface": "女孩深夜听见洗手间有滴水声，她不敢起床，把手伸到床下，感觉到爱犬在舔她的手，于是"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.65/45"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_d7016f1d33ac",
+   "keep_title": "挑衅",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_9536181a48d1",
+     "title": "072 · 年轻",
+     "surface": "一天，游手好闲的阿星在大街上游荡，被一个小学生不小心撞倒，小学生不仅没道歉还出言"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.69/55"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_95482535a7ae",
+   "keep_title": "Jed 2.17",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_a5ffdd3aa096",
+     "title": "无题 · boop-yyt #1328",
+     "surface": "Two men are found dead outside of an igl"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.96/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_b7c5a3a3b8cd",
+   "keep_title": "诡异的记号",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_97d7c6f3d9ee",
+     "title": "无题 · KONpiGG #78",
+     "surface": "留学回家的我一次出门时，发现家门旁写了个\"X\"，我没有在意索性就擦掉了，可当天回"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.72/105"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_9adc0b280b75",
+   "keep_title": "014 · 我要结婚了",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_ced8e1992e22",
+     "title": "073 · 永远的18岁",
+     "surface": "你的朋友D约你作为伴郎参加他的婚礼，但就在婚礼前几天，你接到了警察的电话，问你是"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.39/28"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ab7525f53ba2",
+   "keep_title": "相册",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_db2f404a3e00",
+     "title": "无题 · KONpiGG #113",
+     "surface": "我是一名医生，一天一个人拿着一本相册放在我面前，我知道他们发现了我所有的秘密。"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.60/37"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ac7f45f3b869",
+   "keep_title": "出差",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fa1b8cbe0344",
+     "title": "无题 · KONpiGG #136",
+     "surface": "我去乡下出差，朋友给我打电话说\"你妈真好…\"，第二天回到家后我崩溃了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.88/61"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_bcda5d38f4bf",
+   "keep_title": "022 · 签名",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_d17e476aeabd",
+     "title": "无题 · White-stone36 #",
+     "surface": "一个男人走进一家餐馆，向服务员要了一杯凉水。然而服务员没有给他，并突然掏出一把枪"
+    }
+   ],
+   "edges": [
+    [
+     "E4@0.39/16"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ff82650c1faa",
+   "keep_title": "没熟",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_cab98c529eaf",
+     "title": "无题 · KONpiGG #108",
+     "surface": "铛铛铛，\"这个没熟\"，铛铛铛，\"这个好像熟了！\"，突然，我的爸爸被吓出一身冷汗。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.75/65"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_cb03c5556b09",
+   "keep_title": "1237",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fde48ed43c23",
+     "title": "无题 · KONpiGG #103",
+     "surface": "幼儿园的一个小朋友数数总是说\"1，2，3，7\"，总是漏掉中间的\"4，5，6\"。可"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.91/101"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_d8b7c8088ed4",
+   "keep_title": "永远在一起",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_d48624c2752a",
+     "title": "无题 · KONpiGG #79",
+     "surface": "我的妈妈很爱我，可自从下过一场大雨之后，她就把我关进了一个伸手不见五指的小黑屋，"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.92/113"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ea9919efc255",
+   "keep_title": "天窗",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_f5e005de8361",
+     "title": "天窗",
+     "surface": "一名作家，在截稿日开了天窗，但是编辑们都非常感谢他，请问这是为什么?"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.85/33"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_ef983ce23926",
+   "keep_title": "无题 · boop-yyt #1277",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fa69fb12b874",
+     "title": "无题 · boop-yyt #1283",
+     "surface": "He was killed by breakfast. What happene"
+    }
+   ],
+   "edges": [
+    [
+     "E3en@0.94/0"
+    ]
+   ]
+  },
+  {
+   "keep": "lib_fc5e37b8dfde",
+   "keep_title": "几节",
+   "size": 2,
+   "drop": [
+    {
+     "id": "lib_fee52ece475e",
+     "title": "几节",
+     "surface": "\"一节，两节，三节…\"数完后我疯掉了。"
+    }
+   ],
+   "edges": [
+    [
+     "E3@0.99/63"
+    ]
+   ]
+  }
+ ],
+ "n_clusters": 116,
+ "involved": 266,
+ "removable": 150,
+ "en_count": 152
+}

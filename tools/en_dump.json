@@ -1,0 +1,922 @@
+[
+ {
+  "id": "lib_048dc4d7aeb0",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.83",
+  "surface": "A woman lies dead in the street near a car.",
+  "truth": "She was on a motorcycle, and her long hair got caught on the car's antenna. It ripped out part of her scalp and she bled to death. Andreas says this is also based on an actual accident."
+ },
+ {
+  "id": "lib_05d55826327b",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.19",
+  "surface": "There is blood on the ceiling of my bedroom.",
+  "truth": "A mosquito bit me, and I swatted it when it later landed on my ceiling (so the blood is my own as well as the mosquito's)."
+ },
+ {
+  "id": "lib_08a08b9bdd9c",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is killed on a train. He is found to have written \"elf\" on the floor in his own blood. What happened?",
+  "truth": "There is a safe full of jewelry on the train. The victim, Schmidt, is the conductor who guards the cargo; He robbed the safe and made an accomplice travel on the train under a false name in order to remove the loot. Accomplice kill Schmidt to keep his share. Schmidt did not know the pseudonym of his accomplice, so he wrote down the murderer's berth number, 11. For clarity, he spelled the number into one word in his native German language."
+ },
+ {
+  "id": "lib_09c0825b5def",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman opens an envelope and dyes. What happened?",
+  "truth": "Should be done orally; the envelope is an envelope of dye, and she's dying some cloth, but it sounds like \"opens an envelope and dies\" if said out loud."
+ },
+ {
+  "id": "lib_0a6d1163d6f9",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man lies dead next to a feather. What happened?",
+  "truth": "The man was a sword swallower in a carnival side-show. While he was practicing, someone tickled his throat with the feather, causing him to gag."
+ },
+ {
+  "id": "lib_0b330f52e242",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man tries to buy poison to kill his wife. The pharmacist figures out what he's up to and finds a way to ensure that he can't kill his wife. How to do this?",
+  "truth": "The pharmacist gives the man a cup of coffee to drink while he's waiting. After the man has drunk the coffee, the pharmacist says, \"There was poison in that coffee. I'll give you the antidote if you write a signed statement that you were planning to kill your wife. I'll keep the confession; if anything happens to your wife, I'll give it to the police.\""
+ },
+ {
+  "id": "lib_0c44293fd6f1",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.51",
+  "surface": "If he'd turned on the light, he'd have lived.",
+  "truth": "A man was shot during a robbery in his store one night. He staggered into the back room, where the telephone was, and called home, dialing by feel since he hadn't turned on the light. Once the call went through he gasped, \"I'm at the store. I've been shot. Help!\" or words to that effect. He set the phone down to await help, but none came; he'd treated the telephone pushbuttons like cash register numbers, when the arrangements of the numbers are upside down reflections of each other. The stranger he'd dialed had no way to know where \"the store\" was."
+ },
+ {
+  "id": "lib_0e134ac04a78",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Two people are playing cards. One looks around and realizes he's going to die. What happened?",
+  "truth": "The one who looks around sees his own reflection in the window (it's dark outside), but not his companion's. Thus, he realizes the other is a vampire, and that he's going to be killed by him."
+ },
+ {
+  "id": "lib_0f05c1b4b831",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man dies in his own home. What happened?",
+  "truth": "His home is a houseboat and he has run out of water while on an extended cruise."
+ },
+ {
+  "id": "lib_0fa0dac82fb7",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.90",
+  "surface": "A man urinates and dies.",
+  "truth": "He urinated on the third rail in the New York subway, was knocked onto the tracks by the shock, and was hit by a train and killed. (Experts apparently disagree on whether he died from the electrical shock before the train hit him.) This is a true story; the man was named Joseph Patrick O'Malley, and Cecil Adams gives the story in _The Straight Dope_, quoting _Where Death Delights_ by Marshall Houta. 1.90 variant answer: The man was in a boat on the Amazon. A tiny fish swam \"upstream\" into the man whereupon it inflated itself to balloon size, killing him. (TK) (I don't know whether fish that can swim up a urethra actually exist or are an urban legend, but all my sources indicate they do exist. The self-inflation may not be true, though. Also, the man might have to be standing in the water (rather than in the boat) for the fish to enter his body.)"
+ },
+ {
+  "id": "lib_10769cc52a8a",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "There are 53 bees instead of 53 bicycles. How could this be?",
+  "truth": "The same (Bee is another brand of playing cards)."
+ },
+ {
+  "id": "lib_153b82ead579",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A bell rings. A man dies. A bell rings. What happened?",
+  "truth": "A blind swimmer sets an alarm clock to tell him when and what direction to go to shore. The first bell is a buoy, which he mistakenly swims to, getting tired and drowning. Then the alarm clock goes off."
+ },
+ {
+  "id": "lib_1f34e7036b8b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man and his brother are in a bar drinking. They begin to argue and the brother won't get out of the man's face, shouting and cursing. The man, finally fed up, pulls out a pistol and blows his brother's brains out. He sits down to die. What happened?",
+  "truth": "They are Siamese twins. In the original story, the argument started when one complained about the other's bad hygiene and bad breath. The shooter bled to death by the time the police arrived."
+ },
+ {
+  "id": "lib_1fe018f884c7",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is lying drowned in a dead forest. What happened?",
+  "truth": "He's scuba diving when a firefighting plane lands nearby and fills its tanks with water, sucking him in with the water. He runs out of air while the plane is in flight; the plane then dumps its load of water, with him in it, onto a burning forest."
+ },
+ {
+  "id": "lib_21b65cf5f303",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Pat went into a luggage shop to buy a suitcase. The assistant said, \"It is most unusual to buy a suitcase. Why don't you rent one like all our other customers?7' Why should this be so?",
+  "truth": "Pat was a Westerner in Tokyo. Houses there are small and, in order to save space, people tend to rent any large item which they might use only occasionally. Most Japanese rent the suitcases they take on holiday."
+ },
+ {
+  "id": "lib_234328857d6d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman is murdered in front of hundreds of people, but they all think it's an accident. How could this be?",
+  "truth": "The woman is a trapeze artist who times her act (from starting time to time to jump for another trapeze) by the music. The organist changes tempo or stops the music too soon, and the trapeze artist falls to her death."
+ },
+ {
+  "id": "lib_269b76a49e5f",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Little Billy was four years old and both his parents were dead. His guardian put him on a train to send him to a new home in the country. Billy could neither read nor write nor remember the address, so a large label on a string was secured around his neck clearly indicating Billy's name and destination. However, despite the best efforts and kindness of the railway staff, Billy never arrived at his new home. Why?",
+  "truth": "Little Billy, as his name suggests, was a goat who unfortunately ate his label, so no one knew where he was supposed to go!"
+ },
+ {
+  "id": "lib_26bcca939ecf",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.84",
+  "surface": "Tim and Greg were talking. Tim said \"The terror of flight.\" Greg said \"The gloom of the grave.\" Greg was arrested. (MPW original, from \"No Refuge Could Save,\" by Isaac Asimov)",
+  "truth": "The setting is America during WWII. Greg is a German spy. His \"friend\" Tim is suspicious, so he plays a word-association game with him. When Tim says \"The land of the free,\" Greg responds with \"The home of the brave.\" Then Tim says \"The terror of flight,\" and Greg says \"The gloom of the grave.\" Any U.S. citizen knows the first verse of the national anthem, but only a spy would have memorized the third verse. (Why Tim knew the third verse is left as an exercise to the reader.)"
+ },
+ {
+  "id": "lib_26d12ef6da2a",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.12",
+  "surface": "A woman in France in 1959 is waiting in her room, with all the doors locked from the inside, for her husband to come home. When he arrives, the house has burned to the ground and she's dead. (JM, originally from _How Come -- Again?_)",
+  "truth": "This is apparently a true story. The hot sun reflected from the woman's large mirror (which I speculate may have been imperfectly flat and therefore focused the sunlight, but I don't know for sure) and heated the lingerie she was wearing to the burning point. She was absorbed in a book at the time and didn't notice the heat until her clothing was afire. Nobody could get to her to help because her doors were locked from the inside. Please disregard the version of this answer from previous editions of this list; it's not true."
+ },
+ {
+  "id": "lib_2c0ba09a2695",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Why is it that, in general, the hair on a man's head goes grey before the hair in his moustache does?",
+  "truth": "The hair on a man's head is usually at least twenty years older than the hair in his moustache."
+ },
+ {
+  "id": "lib_2d7a2f4d5b9f",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man wakes up in a dark room. He switches on the light.why?",
+  "truth": "The man is a lighthouse-keeper. He woke up in the darkness with a nagging feeling that he had forgotten something. He turned on the radio and heard a report that a ship had crashed onto rocks with great loss of life. He realized that it happened because he forgot to start the light that night."
+ },
+ {
+  "id": "lib_30ffbff72d13",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "John was watching television. Just after the midnight news there was a weather forecast: /?It is raining now and will rain for the next two days. However, in 72 hours it will be bright and sunny.\" \"Wrong again/7 snorted John. He was correct but how did he know?",
+  "truth": "In 72 hours it would be midnight again, so it could not be \"bright and sunny.,z"
+ },
+ {
+  "id": "lib_319333fbaf07",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.6",
+  "surface": "A man walks into a bar and asks for a drink. The bartender pulls out a gun and points it at him. The man says, \"Thank you,\" and walks out. (DVS; from _How Come?_)",
+  "truth": "The man has hiccups; the bartender scares them away by pulling a gun."
+ },
+ {
+  "id": "lib_33459e0dc957",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Two brothers are involved in a murder. Though it's clear that one of them actually committed the crime, neither can be punished. What happened?",
+  "truth": "They proved each other guilty and were ultimately found innocent according to the law."
+ },
+ {
+  "id": "lib_33a8157609fc",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "He couldn't find a chair, so he died. (RM, with KH wording; from How Come?) How could this be?",
+  "truth": "He was a lion-tamer. This one is kind of silly, but I like it, and it sounds possible to me (though I'm told a whip is more important than a chair to a lion-tamer)."
+ },
+ {
+  "id": "lib_357a5c287302",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Two people are dead in a car, which is locked from the inside. There's a lot of blood. How could this be?",
+  "truth": "One of the dead people is a woman; the other is the baby she's just given birth to. She died in childbirth."
+ },
+ {
+  "id": "lib_35e327e8890d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Two brothers are involved in a murder. Though it's clear that one of them actually committed the crime, neither can be punished. (from \"Unreasonable Doubt,\" by Stanley Ellin) How could this be",
+  "truth": "One of the brothers (A) confesses to the murder. At his trial, his brother (B) is called as the only defense witness; B immediately confesses, in graphic detail, to having committed the crime. The defense lawyer refuses to have the trial stopped, and A is acquitted under the \"reasonable doubt\" clause. Immediately afterward, B goes on trial for the murder; A is called as the only defense witness and *he* confesses. B is declared innocent; and though everyone knows that *one* of them did it, how can they tell who? Further, neither can be convicted of perjury until it's decided which of them did it... I don't know if that would actually work under the US legal system, but someone else who heard the story said that his father was on the jury for a *very* similar case in New York some years ago. Mark Brader points out that the brothers might be convicted of conspiracy to commit perjury or to obstruct justice, or something of that kind. Scott Purdy says an _L.A. Law_ episode had a similar plot: A petty criminal and a mob boss were accused of murdering someone. The lawyers offered to drop the charges on the criminal if he'd testify against the boss. He said he would, got his charges dropped, and confessed on the stand. Both got away without being punished: the charges couldn't be reinstated for the one, and there was reasonable doubt for the other."
+ },
+ {
+  "id": "lib_36a9685bff7a",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The wind stopped blowing and the man died. What happened?",
+  "truth": "The sole survivor of a shipwreck reached a desert isle. Unfortunately, he was blind. Luckily, there was a freshwater spring on the island, and he rigged the ship's bell (which had drifted to the island also) at the spring's location. The bell rang in the wind, directing him to water. When he was becalmed for a week, he could not find water again, and so he died of thirst."
+ },
+ {
+  "id": "lib_39fb5cec5a60",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Mr. Browning is glad the car ran out of gas. Why?",
+  "truth": "Mr. and Mrs. Browning had just gotten married. Mrs. Browning was subject to fits of depression. They had their first fight soon after they were married; Mr. Browning stormed out of the house, and Mrs. Browning went into the garage and started up the car, intending to kill herself by filling the garage with car exhaust. But the car ran out of gas quickly, and Mr. Browning, returning home, Mrs. Browning in time to be find her to stop this accident."
+ },
+ {
+  "id": "lib_3c59d8568b7f",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A flash of light, a man dies. Why?",
+  "truth": "The man is a lion-tamer, posing for a photo with his lions. The lions react badly to the flash of the camera, and the man can't see properly, so he gets mauled."
+ },
+ {
+  "id": "lib_3ec7a7147508",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man sends a package to someone in Europe and gets a note back saying \"Thank you. I received it.\" What happened?",
+  "truth": "Several men were shipwrecked together. They agreed to survive by eating each other a piece at a time. Each of them in turn gave up an arm, but before they got to the last man, they were rescued. They all demanded that the last man live up to his end of the deal. Instead, he killed a bum and sent the bum's arm to the others in a box to \"prove\" that he had fulfilled the bargain. Later, one of them sees him on the subway, holding onto an overhead ring with the arm he supposedly cut off; the other realizes that the last man cheated, and kills him."
+ },
+ {
+  "id": "lib_42f2bc82bc2f",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is killed on a train. He is found to have written \"elf\" on the floor in his own blood. (MB, from \"The Problem of the Locked Caboose,\" by Edward D. Hoch) How could this be?",
+  "truth": "Attached to the train was a caboose with a safe carrying a shipment of jewels. The victim, Schmidt, was the conductor guarding the shipment; he had robbed the safe himself, and had an accomplice traveling on the train under a false name to remove the loot. The accomplice killed Schmidt to keep his share. Schmidt didn't know the accomplice's false name, so he wrote the killer's berth number, 11. For greater clarity he spelled out the number as a word -- in his native German. (In the original story he didn't want \"11\" to be misread as two parallel lines, but Germans don't write \"1\" as a straight line.) This arguably belongs in section 2 for double meaning, but the double-meaninged word here is explicitly called out, so I'm going to leave it in section 1 for now."
+ },
+ {
+  "id": "lib_43e1934bbc83",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stopped. She died. Explain.",
+  "truth": "She was a circus tightrope walker. Her most daring act was to cross a high wire while blindfolded. The band played while she crossed and when the music stopped it was the signal that she had reached the end of the wire and could safely alight. Unfortunately, one day the conductor was taken ill at the last minute and the stand-in conductor, unaware of the importance of the timing, ended the music just a little too soon. She stepped off the wire to her death."
+ },
+ {
+  "id": "lib_48818f1558f0",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.16",
+  "surface": "Two dead people sit in their cars on a street.",
+  "truth": "Because there was a heavy fog, two people driving in opposite directions on the same road both stuck their heads out of their windows to better see the road's center line. Their heads hit each other at high speed, killing them both. Andreas says this is based on an actual accident."
+ },
+ {
+  "id": "lib_4a0f40ddff23",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Bruce wins the race, but he gets no trophy. What happened?",
+  "truth": "Bruce is a horse."
+ },
+ {
+  "id": "lib_4b5ba3eca22f",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.75",
+  "surface": "A rope breaks. A bell rings. A man dies.",
+  "truth": "A blind man enjoys walking near a cliff, and uses the sound of a buoy to gauge his distance from the edge. One day the buoy's anchor rope breaks, allowing the buoy to drift away from the shore, and the man walks over the edge of the cliff. 1.75a. Variant: A bell rings. A man dies. A bell rings. 1.75a answer: A blind swimmer sets an alarm clock to tell him when and what direction to go to shore. The first bell is a buoy, which he mistakenly swims to, getting tired and drowning. Then the alarm clock goes off. In other variations, the first bell is a ship's bell, and/or the second bell is a hand-bell rung by a friend on shore at a pre-arranged time. 1.75a variant answer: The man falls off a belltower, pulling the bell-cord (perhaps he was climbing a steeple while hanging onto the rope), and dies. The second bell is one rung at his funeral. Could also be a variant on #1.75 (as suggested by Mike Neergaard): the bell-cord breaks when he falls (and there's no second bell involved). 1.75a variant answer: The man is a boxer. The first bell signals the start of a round; the second is either the end of the round or a funeral bell after he dies during the match. Could also be a variant on #1.75 (as suggested by Mike Neergaard): a boxing match in which the top rope breaks, tumbling a boxer to the floor (and he dies of a concussion). 1.75b. Variant: The wind stopped blowing and the man died. 1.75b answer: The sole survivor of a shipwreck reached a desert isle. Unfortunately, he was blind. Luckily, there was a freshwater spring on the island, and he rigged the ship's bell (which had drifted to the island also) at the spring's location. The bell rang in the wind, directing him to water. When he was becalmed for a week, he could not find water again, and so he died of thirst. (from Peter R. Olpe) 1.75c. Variant: The music stopped and the man died. 1.75c answer: Same as #1.75a, but the blind swimmer kept a portable transistor radio on the beach instead of a bell. When the batteries gave out, he got lost and drowned. (from Joe Kincaid) (See also #1.31a, #1.59, and #1.70a.) 1.75d. Variant: A rope breaks. A bell rings. A boy dies. (WW) 1.75d answer: This allows red herrings involving the homonyms \"boy\" and \"buoy\" (in some pronunciations). Only use this wording if you want to intentionally confuse your audience."
+ },
+ {
+  "id": "lib_4cea3fb48eaf",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Beulah died in the Appalachians, while Craig died at sea. Everyone was much happier with Craig's death. What happened?",
+  "truth": "Beulah and Craig were hurricanes."
+ },
+ {
+  "id": "lib_4f76b82838fb",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.59",
+  "surface": "Music stops and a woman dies.",
+  "truth": "The woman is a tightrope walker in a circus. Her act consists of walking the rope blindfolded, accompanied by music, without a net. The musician (organist, or calliopist, or pianist, or whatever) is supposed to stop playing when she reaches the end of the rope, telling her that it's safe to step off onto the platform. For unknown reasons (but with murderous intent), he stops the music early, and she steps off the rope to her death. 1.59 variant answer: The woman is a character in an opera, who \"dies\" at the end of her song. 1.59 variant answer: The \"woman\" is the dancing figure atop a music box, who \"dies\" when the box runs down. (Both of the above variants would probably require placing this puzzle in section 2 of the list.) (See also #1.31a, #1.70a, and #1.75c.) 1.59a. A woman is murdered in front of hundreds of people, but they all think it's an accident. (From _How Come?_) 1.59a variant answer: The woman is a trapeze artist who times her act (from starting time to time to jump for another trapeze) by the music. The organist changes tempo or stops the music too soon, and the trapeze artist falls to her death. 1.59b. Variant: Charlie died when the music stopped. 1.59b answer: Charlie was an insect sitting on a chair; the music playing was for the game Musical Chairs. (from Bob Philhower)"
+ },
+ {
+  "id": "lib_4fa7348b73fc",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A black leader dies in Africa. What happened?",
+  "truth": "The black leader is a chess king, and the game was played in Africa."
+ },
+ {
+  "id": "lib_52b79b7f332d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "It's the year 860 A.D., at Camelot. Two priests are sitting in the castle's chapel. The queen attacks the king. The two priests rise, shake hands, and leave the room. What happened?",
+  "truth": "The two priests are playing chess; one of them just mated by moving his queen."
+ },
+ {
+  "id": "lib_5351805ac486",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A car without a driver moves; a man dies. How could this be?",
+  "truth": "The murderer sets the car on a slope above the hot dog stand where the victim works. He then wedges an ice block in the car to keep the brake pedal down, and puts the car in neutral, after which he flies to another city to avoid suspicion. It's a warm day; when the ice melts, the car rolls down the hill and strikes the hot dog man at his roadside stand, killing him."
+ },
+ {
+  "id": "lib_567d6cda1e1c",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "He couldn't find a chair, so he died. Why?",
+  "truth": "He was a lion-tamer."
+ },
+ {
+  "id": "lib_57ae1306e87a",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Charlie died when the music stopped. What happened?",
+  "truth": "Charlie was an insect sitting on a chair; the music playing was for the game Musical Chairs."
+ },
+ {
+  "id": "lib_5a4734fb2312",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman walked up to a man behind a counter and handed him a book. He looked at it and said, That wɽ be four dollars/' She paid the man and then walked out without the book. He saw her leave without it but did not call her back. How come?",
+  "truth": "She was returning an overdue library book."
+ },
+ {
+  "id": "lib_5b31bb7c711b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A pile of sawdust, no net, a man dies. What happened?",
+  "truth": "A midget is jealous of the clown who walks on stilts. He saws partway through the stilts; the clown walks along and falls and dies when they break."
+ },
+ {
+  "id": "lib_6048cff22007",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A bell rings. A man dies. A bell rings. How could this be?",
+  "truth": "A blind swimmer sets an alarm clock to tell him when and what direction to go to shore. The first bell is a buoy, which he mistakenly swims to, getting tired and drowning. Then the alarm clock goes off. In other variations, the first bell is a ship's bell, and/or the second bell is a hand-bell rung by a friend on shore at a pre-arranged time. The man falls off a belltower, pulling the bell-cord (perhaps he was climbing a steeple while hanging onto the rope), and dies. The second bell is one rung at his funeral. Could also be a variant on #1.75 (as suggested by Mike Neergaard): the bell-cord breaks when he falls (and there's no second bell involved). The man is a boxer. The first bell signals the start of a round; the second is either the end of the round or a funeral bell after he dies during the match. Could also be a variant on #1.75 (as suggested by Mike Neergaard): a boxing match in which the top rope breaks, tumbling a boxer to the floor (and he dies of a concussion)."
+ },
+ {
+  "id": "lib_635d3bbeb251",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.10",
+  "surface": "He was killed by breakfast.",
+  "truth": "A man is camping in the mountains. He makes breakfast, then puts pepper on his food (eggs, perhaps). The pepper makes him sneeze loudly, which starts an avalanche, which kills him. 1.10a. A man lay dead in a field. Next to him was a gun. One shot had been fired and because of that shot the man had died. Yet the man was not shot; in fact, there was no wound or mark on the body. (BGT) 1.10a answer: He fired the gun and caused an avalanche."
+ },
+ {
+  "id": "lib_65fe14d66cba",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.20",
+  "surface": "A man in uniform stands on the beach of a tropical island. He takes out a cigarette, lights it, and begins smoking. He takes out a letter and begins reading it. The cigarette burns down between his fingers, but he doesn't throw it away. He cries.",
+  "truth": "He is a guard/attendant in a leper colony. The letter (to him) tells him that he has contracted the disease. The key is the cigarette burning down between his fingers -- leprosy is fairly unique in killing off sensory nerves without destroying motor ability."
+ },
+ {
+  "id": "lib_667e4d272252",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man pushes a car up to a hotel and tells the owner he's bankrupt. What happened?",
+  "truth": "It's a game of Monopoly."
+ },
+ {
+  "id": "lib_689043d7869e",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Tom and Joe went to a movie. There were many other people there. During a quiet scene, Tom drew a gun. Joe screamed, Don't shoot! but Tom shot him. Tom then left. Many people saw Tom leave and they restrained him. The police arrived and quickly released Tom. Why?",
+  "truth": "Tom and Joe were the stars of the movie. Tom shot Joe in a sequence in the movie. When Tom left he was mobbed by fans seeking his autograph."
+ },
+ {
+  "id": "lib_692bef868539",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "There are 51 instead of 53. What happened?",
+  "truth": "Someone saw the guy conceal a card, and proved the deck was defective by turning it up and pointing out the missing ace."
+ },
+ {
+  "id": "lib_6a2910380309",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stopped and the man died. How could this be?",
+  "truth": "Same as #1.75a, but the blind swimmer kept a portable transistor radio on the beach instead of a bell. When the batteries gave out, he got lost and drowned. (See also #1.31a, #1.59, and #1.70a.)"
+ },
+ {
+  "id": "lib_6bf8c1505a1e",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man kills his wife, then goes inside his house and kills himself. (DH original, from \"Nightmare in Yellow,\" by Fredric Brown) How could this be?",
+  "truth": "It's the man's fiftieth birthday, and in celebration of this he plans to kill his wife, then take the money he's embezzled and move on to a new life in another state. His wife takes him out to dinner; afterward, on their front step, he kills her. He opens the door, dragging her body in with him, and all the lights suddenly turn on and a group of his friends shout \"Surprise!\" He kills himself. (Note that the whole first part, including the motive, isn't really necessary; it was just part of the original story.)"
+ },
+ {
+  "id": "lib_6c4c07d9075a",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A rope breaks. A bell rings. A man dies. What happened?",
+  "truth": "A blind man enjoys walking near a cliff, and uses the sound of a buoy to gauge his distance from the edge. One day the buoy's anchor rope breaks, allowing the buoy to drift away from the shore, and the man walks over the edge of the cliff."
+ },
+ {
+  "id": "lib_6ddef2ee1c6d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is found hanging in a locked room. What happened?",
+  "truth": "He stood on a block of dry ice to hang himself."
+ },
+ {
+  "id": "lib_6e35467a2ea9",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.46",
+  "surface": "A man dies in his own home.",
+  "truth": "His home is a houseboat and he has run out of water while on an extended cruise. 1.46a. Variant wording: A man dies of thirst in his own home. This version goes more quickly because it gives more information; but it may be less likely to annoy people who think the original statement is too vague. 1.46a answer: Same."
+ },
+ {
+  "id": "lib_71e368d13be5",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is doing his job when his suit tears. Fifteen minutes later, he's dead. What happened?",
+  "truth": "The man is an astronaut out on a space walk.It's a radiation suit. The suit was broken, causing him to die from radiation."
+ },
+ {
+  "id": "lib_71ec509dae7a",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Two naturalists were walking in the country. They were both keen to protect the environment and to conserve nature and wildlife. One said to the other, \"I was impressed by the way that you hit that bird.\" The second replied, \"Yes, it was good, but not as good as that large bird that you hit earlier.\" What were they talking about?",
+  "truth": "They were two golfers. In golf parlance, one had hit a \"birdie (one under par) and the other an eagle (two under par)."
+ },
+ {
+  "id": "lib_72b08b0f2494",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man shoots himself, and dies. What happened?",
+  "truth": "The man is a heroin addict, and has contracted AIDS by using an infected needle. In despair, he shoots himself up with an overdose, thereby committing suicide."
+ },
+ {
+  "id": "lib_75185e4de274",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man marries twenty women in his village but isn't charged with polygamy. How could this be?",
+  "truth": "He's a priest; he is marrying them to other people, not to himself."
+ },
+ {
+  "id": "lib_7e39ee741246",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "An ordinary woman walks on water. What happened?",
+  "truth": "It's easy to walk on a lake's surface when the lake is frozen."
+ },
+ {
+  "id": "lib_7e4a5a508741",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "He was killed because of poor eyesight. What happened?",
+  "truth": "He was a referee who made a poor call. He was burned to death by fans reflecting sunlight from their slick-covered game programs."
+ },
+ {
+  "id": "lib_7e5accb69163",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is lying dead face down in the desert wearing a backpack, and the man's shoelaces is untied. What happened?",
+  "truth": "He pulled his shoelace instead of the ripcord."
+ },
+ {
+  "id": "lib_85b2b85c41b1",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.30",
+  "surface": "A man is doing his job when his suit tears. Fifteen minutes later, he's dead. (RM; from _How Come?_)",
+  "truth": "The man is an astronaut out on a space walk. 2.30 variant answer: It's a radiation suit. (JD, SP) 2.30 variant answer: It's a deep-sea diving suit. (_How Come?_)"
+ },
+ {
+  "id": "lib_8651060c9948",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man enters a store. After a short pause, he says \"pain.\" The storekeeper is confused, but then becomes annoyed. How could this be?",
+  "truth": "The shopkeeper is a French baker. An American tourist walks into the bakery, pauses to look up/remember the word for \"bread\" in French, which is spelled \"pain.\" The American says the word as if it were the English word \"pain.\" At first the shopkeeper does not understand what the American is saying. When he does, he gets annoyed with the person's horrible pronunciation. (He then becomes happy after realizing that he can charge whatever exorbitant amount he wishes because the American doesn't know any better.) I may eventually make this one the main entry and #2.22 the variant, since this version works better aloud."
+ },
+ {
+  "id": "lib_8a44218462c8",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman meets the king, cries \"Pain!\", and loses consciousness. How could this be?",
+  "truth": "True story: in France, shortly after the fall of the Bastille, food shortages became a problem again. A mob of people went to Versaille to petition the king to do something about the problem. A small delegation was admitted to meet the king. One woman, overcome with emotion, could only cry \"Pain\" (French for \"bread\") and faint. (Source: Durant, _The Age of Napoleon_, pg. 25) Note that this only works in printed form, not aloud, because the French word is pronounced more like English \"pan\" than like English \"pain.\" Nine months earlier, this woman had been impregnated by the previous king, who died soon afterword. Now, she is giving birth to the new king. (TV)"
+ },
+ {
+  "id": "lib_8ad076c37f47",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.85",
+  "surface": "A woman throws something out a window and dies.",
+  "truth": "The object she throws is a boomerang. It flies out, loops around, and comes back and hits her in the head, killing her. Boomerangs do not often return so close to the point from which they were thrown, but I believe it's possible for this to happen. 1.85 variant answer: (silly) She's in a submarine or spacecraft and throws a heavy object at the window, which breaks."
+ },
+ {
+  "id": "lib_8c78c11c3fa1",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.57",
+  "surface": "A man opens his mouth and dies shortly afterwards.",
+  "truth": "He annoyed the mafia several hours ago; he's now underwater and wearing cement Reeboks. (\"Style is everything, and cement Reeboks sure are stylish.\") (RA) 1.57 variant answer: The man is a vampire, about to bite a girl. Her boyfriend arrives, realizes what is happening, and kills the vampire by driving a wooden stick through his heart. (This was the original answer, by Kari Hautamaki. But this answer would move the question to section 2, and I like Russell's answer better anyway.) 1.57 variant answer: The man opens his mouth; some killer bees (which tend to prefer attacking darker areas) fly inside and sting him; the swelling of his throat asphyxiates him. (MI)"
+ },
+ {
+  "id": "lib_8e9ca5184f96",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.2",
+  "surface": "A man lives on the twelfth floor of an apartment building. Every morning he takes the elevator down to the lobby and leaves the building. In the evening, he gets into the elevator, and, if there is someone else in the elevator -- or if it was raining that day -- he goes back to his floor directly. However, if there is nobody else in the elevator and it hasn't rained, he goes to the tenth floor and walks up two flights of stairs to his room. (MH, from _How Come?_)",
+  "truth": "The man is a midget. He can't reach the upper elevator buttons, but he can ask people to push them for him. He can also push them with his umbrella. I've usually heard this stated with more details: \"Every morning he wakes up, gets dressed, eats, goes to the elevator...\" In the other direction, for a shorter problem statement, leave out the \"someone else in the elevator\" and \"if it was raining\" parts, and just say on his return to the building he always goes to the tenth floor. Ron Carter suggests a nice red herring: the man lives on the 13th floor of the building. 1.2a. Variant: Emily regularly visits the twelfth floor of an apartment building by going to the tenth floor and walking up two flights of stairs. Last year she only took the elevator to the ninth floor. (_Math for Girls_) 1.2a answer: Emily is a child; she can only reach the tenth-floor button, and last year she could only reach the ninth-floor button."
+ },
+ {
+  "id": "lib_94e0759a4aae",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.56",
+  "surface": "As I drive to work on my motorcycle, there is one corner which I go around at a certain speed whether it's rainy or sunny. If it's cloudy but not raining, however, I usually go faster.",
+  "truth": "There's a car wash on that corner. On rainy days, the rain reduces traction. On sunny days, water from the car wash has the same effect. If rain is threatening, though, the car wash gets little business and thus doesn't make the road wet, so I can take the corner faster."
+ },
+ {
+  "id": "lib_95482535a7ae",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.17",
+  "surface": "Two men are found dead outside of an igloo.",
+  "truth": "The men have gone spelunking and have taken an Igloo brand cooler with them so they can have a picnic down in the caves. They cleverly used dry ice to keep their beer cold, not realizing that as the dry ice sublimed (went from solid state to vapor state) it would push the lighter oxygen out of the cave and they would suffocate."
+ },
+ {
+  "id": "lib_97096b7207e0",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman meets the king, cries \"Pain!\", and loses consciousness. What happened?",
+  "truth": "in France, shortly after the fall of the Bastille, food shortages became a problem again. A mob of people went to Versaille to petition the king to do something about the problem. A small delegation was admitted to meet the king. One woman, overcome with emotion, could only cry \"Pain\" (French for \"bread\") and faint."
+ },
+ {
+  "id": "lib_9ab11870482d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A woman walks into a small room and screams. What happened?",
+  "truth": "The woman is a nun, the room is a bathroom in what is supposed to be a women-only area, and the toilet seat has been lift up which means that there are men who have come."
+ },
+ {
+  "id": "lib_9b30970e6dd2",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "There are 51 instead of 53. How could this be?",
+  "truth": "Someone saw the guy conceal a card, and proved the deck was defective by turning it up and pointing out the missing ace. Or, the game was bridge, and the others noticed the cheating when the deal didn't come out even. The man had palmed an ace during the shuffle and meant to put it in his own hand during the deal, but muffed it. (both answers from Mark Brader)"
+ },
+ {
+  "id": "lib_a039666c7124",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.18",
+  "surface": "A man is sitting in a room. Another person enters, carrying a closed cardboard box, and sits down nearby. Though the first man can't see, hear, or smell the box's contents, he knows what's in the box.",
+  "truth": "The man is allergic to cats, and feels the allergy symptoms coming on, so he knows the box contains a cat. (It could be argued that he must be able to smell the cat, but I'd say that \"smell\" implies consciously noticing a smell, and is not the same as reacting to unnoticed dander.)"
+ },
+ {
+  "id": "lib_a521f9bcbdd1",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Variant which puts this in section 2: same statement, ending with \"a large window through which rays are coming.\" How could this be?",
+  "truth": "the rays are manta rays (this version tends to make people assume vampires are involved, unless they notice the awkwardness of the phrase involving rays)."
+ },
+ {
+  "id": "lib_a562d099d9e0",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.23",
+  "surface": "As a man jumps out of a window, he hears the telephone ring and regrets having jumped. (from \"Some Days are Like That,\" by Bruce J. Balfour; partial JM wording)",
+  "truth": "This is a post-holocaust scenario of some kind; for whatever reason, the man believes himself to be the last human on earth. He doesn't want to live by himself, so he jumps, just before the telephone rings... (of course, it could be a computer calling, but he has no way of knowing). 2.23 variant answer: A real-world version (with less plausible motivation) has the man being \"lonely and despondent\" and hoping for phone calls but not receiving any; he finally jumps out the window in despair. (From _Stories With Holes_.) 2.23a. Variant wording: The phone rang, and he regretted what he had done. (TRF) 2.23a answer: Same."
+ },
+ {
+  "id": "lib_a8a56a514808",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man sees sawdust and chooses to living. Why?",
+  "truth": "The man is a blind midget, the shortest one in the circus. Another midget, jealous because he's not as short, has been sawing small pieces off of the first one's cane every night, so that every day he thinks he's taller. Since his only income is from being a circus midget, he decides to kill himself when he gets too tall.But he found out that someone had sawed his crutches, so he chose to living."
+ },
+ {
+  "id": "lib_a9b861531fdd",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is doing his job when his suit tears. Fifteen minutes later, he's dead. How could this be?",
+  "truth": "The man is an astronaut out on a space walk. It's a radiation suit. (JD, SP) It's a deep-sea diving suit. (_How Come?_)"
+ },
+ {
+  "id": "lib_aa939a5ceff4",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Joe wants to go home, but he can't go home because the man in the mask is waiting for him. What happened?",
+  "truth": "Joe is a bee; the man in the mask is a beekeeper."
+ },
+ {
+  "id": "lib_b560a80af76b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stops and a woman dies. What happened?",
+  "truth": "The woman is confined in an iron lung, and the music is playing on her radio or stereo. The power goes out."
+ },
+ {
+  "id": "lib_b5adb2443c5b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The light goes out and a man dies. What happened?",
+  "truth": "A man commits a heinous crime, claiming as his alibi that he was onboard a certain ship. When he learns that (due to a lighthouse failure) the ship was wrecked without reaching port safely, he realizes that his alibi is disproven and commits suicide to avoid being sent to prison."
+ },
+ {
+  "id": "lib_b70036a88d5c",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.78",
+  "surface": "A woman has incontrovertible proof in court that her husband was murdered by her sister. The judge declares, \"This is the strangest case I've ever seen. Though it's a cut-and-dried case, this woman cannot be punished.\" (This is different from #1.11.) (MH; from _How Come?_)",
+  "truth": "The sisters are Siamese twins. 1.78a. Variant: A man and his brother are in a bar drinking. They begin to argue (as always) and the brother won't get out of the man's face, shouting and cursing. The man, finally fed up, pulls out a pistol and blows his brother's brains out. He sits down to die. 1.78a answer: They are Siamese twins. In the original story, the argument started when one complained about the other's bad hygiene and bad breath. The shooter bled to death (from his brother's wounds) by the time the police arrived. (RW, based on a 1987 _Weekly World News_ story)"
+ },
+ {
+  "id": "lib_b7523df2ab20",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Variant wording: A man sends a package to someone in Europe and gets a note back saying \"Thank you. I received it.\" How could this be?",
+  "truth": "This is just a simpler version; the shipwreck situation is the same, and the man actually did send his own arm."
+ },
+ {
+  "id": "lib_b870f4f22820",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man urinates and dies. What happened?",
+  "truth": "He urinated on the third rail in the New York subway, was knocked onto the tracks by the shock, and was hit by a train and killed."
+ },
+ {
+  "id": "lib_bf0a44412d29",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "On a cold winter's day, drivers found that sheep from the fields nearby kept coming onto the road. There was no snow and the road was not warmer than the fields but whenever the sheep were ushered back to the fields they quickly returned to the road. Why?",
+  "truth": "The sheep kept coming to the road because they liked to eat the salt put on the road to stop it freezing."
+ },
+ {
+  "id": "lib_c026a4977b0e",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.65",
+  "surface": "A man was walking down a road when a stone lodged itself between his foot and his sandal. He leaned against a pole and, with his head down to watch, he shook his foot to dislodge the stone. Another man came up and broke the first man's arm in three places.",
+  "truth": "The chap shaking his foot to dislodge the stone was leanig against a metal light pole. The other fellow came along and thought that the pole had become 'live' somehow; he thought the first fellow was being electrocuted (and that the muscles in his hand had contracted and he couldn't let go). So the second fellow rushed over and whacked the first one on the arm, hard. He apologised for it afterwards. (A true story, from an Australian newspaper.)"
+ },
+ {
+  "id": "lib_c0c2a9b3d148",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.3",
+  "surface": "A man pushes a car up to a hotel and tells the owner he's bankrupt. (DVS; partial AL and JM wording)",
+  "truth": "It's a game of Monopoly. 2.3a. Variant: The car came out of the blue and the man came into some money. 2.3a answer: The same; in this case the car token passes Go and the player collects $200. (from \"Mo,\" whose full name I missed)"
+ },
+ {
+  "id": "lib_ca411d1cf9c1",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.9",
+  "surface": "An avid birdwatcher sees an unexpected bird. Soon he's dead.",
+  "truth": "He is a passenger in an airplane and sees the bird get sucked into an engine at 20,000 feet."
+ },
+ {
+  "id": "lib_ca618df9d6da",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.43",
+  "surface": "The king dies and two men both claim to be his long-lost son. One of the king's advisors proposes a test to determine the identity of the true heir. One claimant agrees to the test; the other refuses. The one who agreed is sent packing; the one who refused is identified as the rightful heir. (SP, from _The Next Book of OMNI Games_; earlier from _How Come?_)",
+  "truth": "The proposed test was a blood test. Knowing that blood typing isn't very accurate, the impostor felt it was worth trying to get away with it. But the true heir was a hemophiliac and couldn't give blood for the test."
+ },
+ {
+  "id": "lib_cc9e2fec9557",
+  "s_en": true,
+  "t_en": false,
+  "title": "给三兄弟的一封信",
+  "surface": "H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞",
+  "truth": "化学公式“H₂O+SiO₂+Fe₃O₄+CO₂→∅”的含义是“即使地球毁灭”；数学公式“x2+y2−13=x2y3+∞”的含义是“我也会一直爱你”。"
+ },
+ {
+  "id": "lib_d18a8dcc9c6c",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.5",
+  "surface": "A black man dressed all in black, wearing a black mask, stands at a crossroads in a totally black-painted town. All of the streetlights in town are broken. There is no moon. A black-painted car without headlights drives straight toward him, but turns in time and doesn't hit him. (AL and RM wording; from _How Come?_)",
+  "truth": "It's daytime; the sun is out. 2.5a. Elsa can turn off her bedroom light at the door to her bedroom, and still make it acroos the room and into bed before the room gets dark. (_Math for Girls_) 2.5a answer: It's daytime; the room is lit by a window."
+ },
+ {
+  "id": "lib_d9078a59e095",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man sitting on a park bench reads a newspaper article headlined \"Death at Sea\" and knows a murder has been committed. How could this be",
+  "truth": "The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woman who \"fell\" overboard and drowned on the same voyage, which is the subject of the article he's reading. This may have derived from a story done by Alfred Hitchcock, if the following Hitchcock quotation is accurate: \"If you take your wife on a sea voyage, buy her a round-trip ticket no matter what your plans may be.\" According to _How Come?_, it's loosely based on the real-life case of a killer named Henry Landru."
+ },
+ {
+  "id": "lib_dd5eeb87f7de",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Joe wants to go home, but he can't go home because the man in the mask is waiting for him. How could this be?",
+  "truth": "A baseball game is going on. The base-runner sees the catcher waiting at home plate with the ball, and so decides to stay at third base to avoid being tagged out. Joe's in the hospital. He can't go home, because the man in the mask is a surgeon waiting to remove his appendix. (FF) Joe is a bee; the man in the mask is a beekeeper."
+ },
+ {
+  "id": "lib_df035a53a0a4",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Same without the puddle of water. How could this be?",
+  "truth": "It was dry ice instead of water ice."
+ },
+ {
+  "id": "lib_e0d6ce92565c",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.29",
+  "surface": "Every day a man drinks his breakfast and drinks his lunch. When his boss finds out, he is immediately fired. The man moves to another job and begins doing the same thing; this time, when his boss finds out, the boss jokingly tells him that he'll be fired if he stops.",
+  "truth": "The man is drinking diet shakes for his breakfast and lunch in order to lose weight. Unfortunately, his first job is at a weight-loss clinic, so he is fired for patronizing the competition. His second job is at a health-food store, and his boss wants him to lose weight so he looks \"healthier.\""
+ },
+ {
+  "id": "lib_e12f6b533563",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is dead in a room with a small pile of pieces of wood and sawdust in one corner. (from \"Coroner's Inquest,\" by Marc Connelly; earlier How could this be?",
+  "truth": "The man is a blind midget, the shortest one in the circus. Another midget, jealous because he's not as short, has been sawing small pieces off of the first one's cane every night, so that every day he thinks he's taller. Since his only income is from being a circus midget, he decides to kill himself when he gets too tall. (slight) Instead of sawing pieces off of the midget's cane, someone has sawed the legs off of his bed. He wakes up, stands up, and thinks he's grown during the night. There were termites in his cane."
+ },
+ {
+  "id": "lib_e334c7747e0b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "How could this be?",
+  "truth": "[\"The man was in a ship that was wrecked on a desert island. When there was no food left, another passenger brought what he said was abalone but was really part of the man's wife (who had died in the wreck). The man suspects something fishy, so when they finally return to civilization, he orders abalone, realizes that what he ate before was his wife, and kills himself. (In a slight variant, from Stories With Holes, he simply faints rather than killing himself.)\"]"
+ },
+ {
+  "id": "lib_e4c365f5b151",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.36",
+  "surface": "A flash of light, a man dies.",
+  "truth": "The man is a lion-tamer, posing for a photo with his lions. The lions react badly to the flash of the camera, and the man can't see properly, so he gets mauled. 1.36a. Variant: He couldn't find a chair, so he died. (RM, with KH wording; from _How Come?_) 1.36a answer: He was a lion-tamer. This one is kind of silly, but I like it, and it sounds possible to me (though I'm told a whip is more important than a chair to a lion-tamer)."
+ },
+ {
+  "id": "lib_eace40ad0af6",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stops and the man dies. Why?",
+  "truth": "He worked as a DJ at a radio station. He decided to kill his wife, and so he put on a long tape and quickly drove home and killed her, figuring he had a perfect alibi: he'd been at work. On the way back he turns on his show, discover that the tape is breaking."
+ },
+ {
+  "id": "lib_ee8eecd3c58d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man is running along a corridor with a piece of paper in his hand. The lights flicker and the man drops to his knees and cries out, \"Oh no!\" How could this be?",
+  "truth": "The man is delivering a pardon, and the flicker of the lights indicates that the person to be pardoned has just been electrocuted."
+ },
+ {
+  "id": "lib_ef36d39a419c",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Variant wording: A seated woman is writing a letter. She dies because there's a thunderstorm outside. (SP, from The Next Book of OMNI Games) How could this be?",
+  "truth": "Same. I really like this version; I may even replace the older puzzle statement with this one."
+ },
+ {
+  "id": "lib_ef983ce23926",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "He was killed by breakfast. How could this be",
+  "truth": "A man is camping in the mountains. He makes breakfast, then puts pepper on his food (eggs, perhaps). The pepper makes him sneeze loudly, which starts an avalanche, which kills him."
+ },
+ {
+  "id": "lib_f19f1c8dd5e9",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A blind beggar had a brother who died. What relation was the blind beggar to the brother who died? (\"Brother\" is not the answer.)",
+  "truth": "The blind beggar was the sister of her brother who died."
+ },
+ {
+  "id": "lib_f3b012b87734",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A seated woman is writing a letter. She dies because there's a thunderstorm outside. What happened?",
+  "truth": "He was a skywriter whose plane crashed into another plane."
+ },
+ {
+  "id": "lib_f7706d4b00fa",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.22",
+  "surface": "A woman meets the king, cries \"Pain!\", and loses consciousness.",
+  "truth": "True story: in France, shortly after the fall of the Bastille, food shortages became a problem again. A mob of people went to Versaille to petition the king to do something about the problem. A small delegation was admitted to meet the king. One woman, overcome with emotion, could only cry \"Pain\" (French for \"bread\") and faint. (Source: Durant, _The Age of Napoleon_, pg. 25) Note that this only works in printed form, not aloud, because the French word is pronounced more like English \"pan\" than like English \"pain.\" 2.22 variant answer: Nine months earlier, this woman had been impregnated by the previous king, who died soon afterword. Now, she is giving birth to the new king. (TV) 2.22a. A man enters a store. After a short pause, he says \"pain.\" The storekeeper is confused, but then becomes annoyed. (JC original) 2.22a answer: The shopkeeper is a French baker. An American tourist walks into the bakery, pauses to look up/remember the word for \"bread\" in French, which is spelled \"pain.\" The American says the word as if it were the English word \"pain.\" At first the shopkeeper does not understand what the American is saying. When he does, he gets annoyed with the person's horrible pronunciation. (He then becomes happy after realizing that he can charge whatever exorbitant amount he wishes because the American doesn't know any better.) I may eventually make this one the main entry and #2.22 the variant, since this version works better aloud."
+ },
+ {
+  "id": "lib_fb77315aaeee",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man was brought before a tribal chief, who asked him a question. If he had known the answer, he probably would have died. He didn't, and lived. How could this be?",
+  "truth": "The native chief asked him, \"What is the third baseman's name in the Abbot and Costello routine 'Who's on First'?\" The man, who had no idea, said \"I don't know,\" the correct answer. However, he was a major smartass, so if he had known the answer he would have pointed out that What was the *second* baseman's name. The chief, being quite humorless, would have executed him on the spot. This is fairly silly, but I like it too much to remove it from the list. The question was, \"What does the tattoo on my daughter's tush say?\" or any other question whose answer reveals that you know more than you should. Of course, for this sort of question one can lie and say one doesn't know even if one does. (FF)"
+ },
+ {
+  "id": "lib_fbb763606133",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "A man sat perfectly still for 88 hours. Why?",
+  "truth": "The man had a nasty toothache and he went to the dentist at 5 p.m. on a Friday evening. The dentist's assistants, including the anesthetist, had all gone and the dentist could not administer an anesthetic. The man insisted that the dentist should operate even without anesthetic so the dentist said that he would have to strap the man into the chair. This was done. The dentist then suffered a heart attack and died. The poor man was left strapped in the chair and unable to move. It was a holiday weekend and no staff reported for work until 9 a.m. on the following Tuesday morning88 hours later."
+ },
+ {
+  "id": "lib_fd3477ddff5b",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 1.27",
+  "surface": "A man tells his boss, \"Don't take your planned flight today! I had a dream last night that if you do, your plane will crash and you'll die.\" The boss fires the man. (From _How Come?_)",
+  "truth": "The man was the night watchman; he should've been on duty the previous night, not dreaming. (He tells the boss about the dream out of concern for his safety.)"
+ },
+ {
+  "id": "lib_fddab6f49384",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stopped and the man died. What happened?",
+  "truth": "A blind swimmer kept a portable transistor radio on the beach to tell him when and what direction to go to shore. when the batteries gave out he got lost and drowned."
+ },
+ {
+  "id": "lib_16c80a13e181",
+  "s_en": true,
+  "t_en": true,
+  "title": "Jed 2.20",
+  "surface": "Joe wants to go home, but he can't go home because the man in the mask is waiting for him. (AL wording)",
+  "truth": "A baseball game is going on. The base-runner sees the catcher waiting at home plate with the ball, and so decides to stay at third base to avoid being tagged out. 2.20 variant answer: Joe's in the hospital. He can't go home, because the man in the mask is a surgeon waiting to remove his appendix. (FF) 2.20 variant answer: Joe is a bee; the man in the mask is a beekeeper. 2.20a. Variant wording: Johnny is afraid to go home because of the man in the mask. (DW) 2.20a answer: Same. The diminutive \"Johnny\" makes it sound like he's a little kid, nicely further obfuscating the issue. 2.20b. Variant: Two men are in a field. One is wearing a mask. The other man is running towards him to avoid him. 2.20b answer: The same, but the catcher isn't right at home plate; the runner is trying to get home before the catcher can. (from Hal Lowery, by way of Chris Riley) This phrasing would allow the puzzle to migrate to section 1, but I don't like it as much. 2.20c. Variant wording: Instead of \"home,\" say the man in the mask is standing on the corner. 2.20c answer: Same."
+ },
+ {
+  "id": "lib_4195efaab01e",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Music stops and a woman dies. What happened?",
+  "truth": "The woman is a tightrope walker in a circus. Her act consists of walking the rope blindfolded, accompanied by music, without a net. The musician (organist, or calliopist, or pianist, or whatever) is supposed to stop playing when she reaches the end of the rope, telling her that it's safe to step off onto the platform. For unknown reasons (but with murderous intent), he stops the music early, and she steps off the rope to her death."
+ },
+ {
+  "id": "lib_57c970bf7a82",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stops and the man dies. How could this be?",
+  "truth": "The same, except it's a tape breaking instead of a record skipping. (See also #1.31a, #1.59, and #1.75c.)"
+ },
+ {
+  "id": "lib_bb9b8da83f0b",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "Music stops and a woman dies. How could this be?",
+  "truth": "The woman is a tightrope walker in a circus. Her act consists of walking the rope blindfolded, accompanied by music, without a net. The musician (organist, or calliopist, or pianist, or whatever) is supposed to stop playing when she reaches the end of the rope, telling her that it's safe to step off onto the platform. For unknown reasons (but with murderous intent), he stops the music early, and she steps off the rope to her death. The woman is a character in an opera, who \"dies\" at the end of her song. The \"woman\" is the dancing figure atop a music box, who \"dies\" when the box runs down. (Both of the above variants would probably require placing this puzzle in section 2 of the list.) (See also #1.31a, #1.70a, and #1.75c.)"
+ },
+ {
+  "id": "lib_d54c7f270c6d",
+  "s_en": true,
+  "t_en": true,
+  "title": "",
+  "surface": "The music stops and a woman dies. How could this be?",
+  "truth": "The woman is confined in an iron lung, and the music is playing on her radio or stereo. The power goes out. (RW) (See also #1.59, #1.70a, and #1.75c.)"
+ }
+]

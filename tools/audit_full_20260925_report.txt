@@ -1,0 +1,1294 @@
+深海汤屋 · 汤库 872 题全量体检报告（只读，2026-09-25）
+================================================================================
+
+[1] 相似 / 重复
+  汤面完全相同组数: 0（涉及 0 条）
+  汤底完全相同组数: 68（涉及 146 条）
+  标题相同组数: 35（涉及 78 条）
+  高相似对（汤面 jac>=0.55 或 cont>=0.72 / 汤底 jac>=0.50 或 cont>=0.70）: 2612 对
+  聚簇后重复簇数: 79，簇内总条数: 321
+
+  -- 重复簇明细（按簇大小排序）--
+  [簇 152 条] 代表: Jed 1.6
+      lib_048dc4d7aeb0 | Jed 1.83 | 汤面: A woman lies dead in the street near a car.
+      lib_05d55826327b | Jed 1.19 | 汤面: There is blood on the ceiling of my bedroom.
+      lib_08a08b9bdd9c | 无题 · boop-yyt #1289 | 汤面: A man is killed on a train. He is found to have 
+      lib_09c0825b5def | 无题 · boop-yyt #1324 | 汤面: A woman opens an envelope and dyes. What happene
+      lib_0a6d1163d6f9 | 无题 · boop-yyt #1290 | 汤面: A man lies dead next to a feather. What happened
+      lib_0b330f52e242 | 无题 · misc #1303 | 汤面: A man tries to buy poison to kill his wife. The 
+      lib_0c44293fd6f1 | Jed 1.51 | 汤面: If he'd turned on the light, he'd have lived.
+      lib_0e134ac04a78 | 无题 · boop-yyt #1322 | 汤面: Two people are playing cards. One looks around a
+      lib_0f05c1b4b831 | 无题 · boop-yyt #1295 | 汤面: A man dies in his own home. What happened?
+      lib_0fa0dac82fb7 | Jed 1.90 | 汤面: A man urinates and dies.
+      lib_10769cc52a8a | 无题 · boop-yyt #1378 | 汤面: There are 53 bees instead of 53 bicycles. How co
+      lib_153b82ead579 | 无题 · boop-yyt #1308 | 汤面: A bell rings. A man dies. A bell rings. What hap
+      lib_15b05aa5803f | 无题 · boop-yyt #1296 | 汤面: A man dies of thirst in his own home. What happe
+      lib_16c80a13e181 | Jed 2.20 | 汤面: Joe wants to go home, but he can't go home becau
+      lib_1f34e7036b8b | 无题 · boop-yyt #1312 | 汤面: A man and his brother are in a bar drinking. The
+      lib_1fe018f884c7 | 无题 · boop-yyt #1297 | 汤面: A man is lying drowned in a dead forest. What ha
+      lib_21b65cf5f303 | 无题 · boop-yyt #1395 | 汤面: Pat went into a luggage shop to buy a suitcase. 
+      lib_234328857d6d | 无题 · boop-yyt #1362 | 汤面: A woman is murdered in front of hundreds of peop
+      lib_269b76a49e5f | 无题 · boop-yyt #1337 | 汤面: Little Billy was four years old and both his par
+      lib_26bcca939ecf | Jed 1.84 | 汤面: Tim and Greg were talking. Tim said "The terror 
+      lib_26d12ef6da2a | Jed 1.12 | 汤面: A woman in France in 1959 is waiting in her room
+      lib_27232c3dbbc2 | 无题 · boop-yyt #1373 | 汤面: A man urinates and dies. How could this be?
+      lib_2c0ba09a2695 | 无题 · boop-yyt #1339 | 汤面: Why is it that, in general, the hair on a man's 
+      lib_2ccbebdb0625 | 无题 · boop-yyt #1360 | 汤面: If he'd turned on the light, he'd have lived. Ho
+      lib_2d7a2f4d5b9f | 无题 · boop-yyt #1346 | 汤面: A man wakes up in a dark room. He switches on th
+      lib_30ffbff72d13 | 无题 · boop-yyt #1393 | 汤面: John was watching television. Just after the mid
+      lib_319333fbaf07 | Jed 1.6 | 汤面: A man walks into a bar and asks for a drink. The
+      lib_33459e0dc957 | 无题 · boop-yyt #1284 | 汤面: Two brothers are involved in a murder. Though it
+      lib_33a8157609fc | 无题 · boop-yyt #1355 | 汤面: He couldn't find a chair, so he died. (RM, with 
+      lib_357a5c287302 | 无题 · boop-yyt #1372 | 汤面: Two people are dead in a car, which is locked fr
+      lib_35e327e8890d | 无题 · misc #1278 | 汤面: Two brothers are involved in a murder. Though it
+      lib_36a9685bff7a | 无题 · boop-yyt #1309 | 汤面: The wind stopped blowing and the man died. What 
+      lib_39fb5cec5a60 | 无题 · boop-yyt #1294 | 汤面: Mr. Browning is glad the car ran out of gas. Why
+      lib_3c59d8568b7f | 无题 · boop-yyt #1291 | 汤面: A flash of light, a man dies. Why?
+      lib_3ec7a7147508 | 无题 · boop-yyt #1302 | 汤面: A man sends a package to someone in Europe and g
+      lib_4195efaab01e | 无题 · boop-yyt #1299 | 汤面: Music stops and a woman dies. What happened?
+      lib_42f2bc82bc2f | 无题 · boop-yyt #1352 | 汤面: A man is killed on a train. He is found to have 
+      lib_43e1934bbc83 | 无题 · boop-yyt #1344 | 汤面: The music stopped. She died. Explain.
+      lib_48818f1558f0 | Jed 1.16 | 汤面: Two dead people sit in their cars on a street.
+      lib_4a0f40ddff23 | 无题 · boop-yyt #1331 | 汤面: Bruce wins the race, but he gets no trophy. What
+      lib_4acf292f2375 | 无题 · boop-yyt #1272 | 汤面: A man is lying drowned in a dead forest. How cou
+      lib_4b5ba3eca22f | Jed 1.75 | 汤面: A rope breaks. A bell rings. A man dies.
+      lib_4cea3fb48eaf | 无题 · boop-yyt #1281 | 汤面: Beulah died in the Appalachians, while Craig die
+      lib_4ec8b318f78c | 无题 · boop-yyt #1353 | 汤面: A man lies dead next to a feather. How could thi
+      lib_4f76b82838fb | Jed 1.59 | 汤面: Music stops and a woman dies.
+      lib_4fa7348b73fc | 无题 · boop-yyt #1327 | 汤面: A black leader dies in Africa. What happened?
+      lib_52b79b7f332d | 无题 · boop-yyt #1326 | 汤面: It's the year 860 A.D., at Camelot. Two priests 
+      lib_5351805ac486 | 无题 · boop-yyt #1350 | 汤面: A car without a driver moves; a man dies. How co
+      lib_549137cff6f5 | 无题 · boop-yyt #1287 | 汤面: A car without a driver moves; a man dies. What h
+      lib_5502c4432dd3 | 无题 · boop-yyt #1383 | 汤面: A woman opens an envelope and dyes. How could th
+      lib_567d6cda1e1c | 无题 · boop-yyt #1292 | 汤面: He couldn't find a chair, so he died. Why?
+      lib_57ae1306e87a | 无题 · boop-yyt #1301 | 汤面: Charlie died when the music stopped. What happen
+      lib_57c970bf7a82 | 无题 · boop-yyt #1367 | 汤面: The music stops and the man dies. How could this
+      lib_5a4734fb2312 | 无题 · boop-yyt #1338 | 汤面: A woman walked up to a man behind a counter and 
+      lib_5b31bb7c711b | 无题 · boop-yyt #1318 | 汤面: A pile of sawdust, no net, a man dies. What happ
+      lib_6048cff22007 | 无题 · boop-yyt #1369 | 汤面: A bell rings. A man dies. A bell rings. How coul
+      lib_635d3bbeb251 | Jed 1.10 | 汤面: He was killed by breakfast.
+      lib_641c88779ab8 | 无题 · boop-yyt #1365 | 汤面: A man tries to buy poison to kill his wife. The 
+      lib_65fe14d66cba | Jed 1.20 | 汤面: A man in uniform stands on the beach of a tropic
+      lib_667e4d272252 | 无题 · boop-yyt #1320 | 汤面: A man pushes a car up to a hotel and tells the o
+      lib_689043d7869e | 无题 · boop-yyt #1345 | 汤面: Tom and Joe went to a movie. There were many oth
+      lib_692bef868539 | 无题 · boop-yyt #1321 | 汤面: There are 51 instead of 53. What happened?
+      lib_6a2910380309 | 无题 · boop-yyt #1370 | 汤面: The music stopped and the man died. How could th
+      lib_6bf8c1505a1e | 无题 · boop-yyt #1359 | 汤面: A man kills his wife, then goes inside his house
+      lib_6c4c07d9075a | 无题 · boop-yyt #1307 | 汤面: A rope breaks. A bell rings. A man dies. What ha
+      lib_6ddef2ee1c6d | 无题 · boop-yyt #1304 | 汤面: A man is found hanging in a locked room. What ha
+      lib_6e35467a2ea9 | Jed 1.46 | 汤面: A man dies in his own home.
+      lib_71e368d13be5 | 无题 · boop-yyt #1335 | 汤面: A man is doing his job when his suit tears. Fift
+      lib_71ec509dae7a | 无题 · boop-yyt #1340 | 汤面: Two naturalists were walking in the country. The
+      lib_72b08b0f2494 | 无题 · boop-yyt #1334 | 汤面: A man shoots himself, and dies. What happened?
+      lib_75185e4de274 | 无题 · boop-yyt #1385 | 汤面: A man marries twenty women in his village but is
+      lib_7b28164de2b9 | Jed 1.11 | 汤面: Two brothers are involved in a murder. Though it
+      lib_7e39ee741246 | 无题 · boop-yyt #1336 | 汤面: An ordinary woman walks on water. What happened?
+      lib_7e4a5a508741 | 无题 · boop-yyt #1325 | 汤面: He was killed because of poor eyesight. What hap
+      lib_7e5accb69163 | 无题 · boop-yyt #1286 | 汤面: A man is lying dead face down in the desert wear
+      lib_8231a4379212 | 无题 · boop-yyt #1298 | 汤面: If he'd turned on the light, he'd have lived. Wh
+      lib_85b2b85c41b1 | Jed 2.30 | 汤面: A man is doing his job when his suit tears. Fift
+      lib_8651060c9948 | 无题 · boop-yyt #1389 | 汤面: A man enters a store. After a short pause, he sa
+      lib_894cfdd71455 | 无题 · boop-yyt #1358 | 汤面: A man dies in his own home. How could this be?
+      lib_8a44218462c8 | 无题 · boop-yyt #1388 | 汤面: A woman meets the king, cries "Pain!", and loses
+      lib_8ad076c37f47 | Jed 1.85 | 汤面: A woman throws something out a window and dies.
+      lib_8c78c11c3fa1 | Jed 1.57 | 汤面: A man opens his mouth and dies shortly afterward
+      lib_8e2c5a35d64c | 无题 · boop-yyt #1329 | 汤面: A man marries twenty women in his village but is
+      lib_8e9ca5184f96 | Jed 1.2 | 汤面: A man lives on the twelfth floor of an apartment
+      lib_92a9fba5867b | 无题 · misc #1275 | 汤面: Beulah died in the Appalachians, while Craig die
+      lib_94e0759a4aae | Jed 1.56 | 汤面: As I drive to work on my motorcycle, there is on
+      lib_95482535a7ae | Jed 2.17 | 汤面: Two men are found dead outside of an igloo.
+      lib_96327ba35de3 | Jed 1.30 | 汤面: A car without a driver moves; a man dies.
+      lib_97096b7207e0 | 无题 · boop-yyt #1332 | 汤面: A woman meets the king, cries "Pain!", and loses
+      lib_97994180fa32 | Jed 1.74 | 汤面: A woman walks into a small room and screams.
+      lib_9ab11870482d | 无题 · boop-yyt #1306 | 汤面: A woman walks into a small room and screams. Wha
+      lib_9b30970e6dd2 | 无题 · boop-yyt #1379 | 汤面: There are 51 instead of 53. How could this be?
+      lib_9b7562a21e3f | 无题 · boop-yyt #1349 | 汤面: Silly variant: same problem statement, with the 
+      lib_a039666c7124 | Jed 1.18 | 汤面: A man is sitting in a room. Another person enter
+      lib_a1d5d6bb539b | 无题 · boop-yyt #1313 | 汤面: Two people are dead in a car, which is locked fr
+      lib_a44374f323ff | 无题 · boop-yyt #1377 | 汤面: A man pushes a car up to a hotel and tells the o
+      lib_a521f9bcbdd1 | 无题 · boop-yyt #1357 | 汤面: Variant which puts this in section 2: same state
+      lib_a562d099d9e0 | Jed 2.23 | 汤面: As a man jumps out of a window, he hears the tel
+      lib_a5ffdd3aa096 | 无题 · boop-yyt #1328 | 汤面: Two men are found dead outside of an igloo. What
+      lib_a86f38e57afd | 无题 · boop-yyt #1384 | 汤面: A black leader dies in Africa. How could this be
+      lib_a8a56a514808 | 无题 · boop-yyt #1317 | 汤面: A man sees sawdust and chooses to living. Why?
+      lib_a9b861531fdd | 无题 · boop-yyt #1391 | 汤面: A man is doing his job when his suit tears. Fift
+      lib_aa939a5ceff4 | 无题 · boop-yyt #1330 | 汤面: Joe wants to go home, but he can't go home becau
+      lib_af198d3a47b7 | Jed 1.33 | 汤面: A man lies dead next to a feather.
+      lib_af575778712a | 无题 · boop-yyt #1390 | 汤面: A man shoots himself, and dies. How could this b
+      lib_b2a5f5e847bf | 无题 · boop-yyt #1354 | 汤面: A flash of light, a man dies. How could this be?
+      lib_b560a80af76b | 无题 · boop-yyt #1288 | 汤面: The music stops and a woman dies. What happened?
+      lib_b5adb2443c5b | 无题 · boop-yyt #1316 | 汤面: The light goes out and a man dies. What happened
+      lib_b70036a88d5c | Jed 1.78 | 汤面: A woman has incontrovertible proof in court that
+      lib_b7523df2ab20 | 无题 · boop-yyt #1364 | 汤面: Variant wording: A man sends a package to someon
+      lib_b870f4f22820 | 无题 · boop-yyt #1315 | 汤面: A man urinates and dies. What happened?
+      lib_ba1afde7ba05 | 无题 · boop-yyt #1300 | 汤面: A woman is murdered in front of hundreds of peop
+      lib_bb9b8da83f0b | 无题 · boop-yyt #1361 | 汤面: Music stops and a woman dies. How could this be?
+      lib_bf0a44412d29 | 无题 · boop-yyt #1343 | 汤面: On a cold winter's day, drivers found that sheep
+      lib_c026a4977b0e | Jed 1.65 | 汤面: A man was walking down a road when a stone lodge
+      lib_c0c2a9b3d148 | Jed 2.3 | 汤面: A man pushes a car up to a hotel and tells the o
+      lib_c67f366c50ed | 无题 · boop-yyt #1392 | 汤面: An ordinary woman walks on water. How could this
+      lib_c83298d35144 | 无题 · boop-yyt #1381 | 汤面: Two people are playing cards. One looks around a
+      lib_ca411d1cf9c1 | Jed 1.9 | 汤面: An avid birdwatcher sees an unexpected bird. Soo
+      lib_ca618df9d6da | Jed 1.43 | 汤面: The king dies and two men both claim to be his l
+      lib_d18a8dcc9c6c | Jed 2.5 | 汤面: A black man dressed all in black, wearing a blac
+      lib_d54c7f270c6d | 无题 · boop-yyt #1351 | 汤面: The music stops and a woman dies. How could this
+      lib_d6c8501d6b79 | Jed 2.13 | 汤面: A woman opens an envelope and dyes.
+      lib_d6cd2cb2dc12 | 无题 · boop-yyt #1314 | 汤面: A woman lies dead in the street near a car. What
+      lib_d9078a59e095 | 无题 · misc #1274 | 汤面: A man sitting on a park bench reads a newspaper 
+      lib_d9c56fa6081b | 无题 · boop-yyt #1276 | 汤面: An avid birdwatcher sees an unexpected bird. Soo
+      lib_dd1af577210e | 无题 · boop-yyt #1282 | 汤面: An avid birdwatcher sees an unexpected bird. Soo
+      lib_dd5eeb87f7de | 无题 · boop-yyt #1386 | 汤面: Joe wants to go home, but he can't go home becau
+      lib_df035a53a0a4 | 无题 · boop-yyt #1366 | 汤面: Same without the puddle of water. How could this
+      lib_e0d6ce92565c | Jed 1.29 | 汤面: Every day a man drinks his breakfast and drinks 
+      lib_e12f6b533563 | 无题 · boop-yyt #1374 | 汤面: A man is dead in a room with a small pile of pie
+      lib_e334c7747e0b | 无题 · boop-yyt #1271 | 汤面: How could this be?
+      lib_e4c365f5b151 | Jed 1.36 | 汤面: A flash of light, a man dies.
+      lib_e8e8737072bb | 无题 · boop-yyt #1363 | 汤面: Charlie died when the music stopped. How could t
+      lib_eace40ad0af6 | 无题 · boop-yyt #1305 | 汤面: The music stops and the man dies. Why?
+      lib_ebfab81bc1df | Jed 2.33 | 汤面: An ordinary woman walks on water. (_Math for Gir
+      lib_ecab42ccdd54 | 无题 · boop-yyt #1375 | 汤面: A pile of sawdust, no net, a man dies. How could
+      lib_ee8eecd3c58d | 无题 · boop-yyt #1356 | 汤面: A man is running along a corridor with a piece o
+      lib_ef36d39a419c | 无题 · boop-yyt #1376 | 汤面: Variant wording: A seated woman is writing a let
+      lib_ef983ce23926 | 无题 · boop-yyt #1277 | 汤面: He was killed by breakfast. How could this be
+      lib_f11b65ee0498 | 无题 · boop-yyt #1285 | 汤面: There is blood on the ceiling of my bedroom. Wha
+      lib_f19f1c8dd5e9 | 无题 · boop-yyt #1342 | 汤面: A blind beggar had a brother who died. What rela
+      lib_f21afd2070b6 | Jed 2.9 | 汤面: Two people are playing cards. One looks around a
+      lib_f3b012b87734 | 无题 · boop-yyt #1319 | 汤面: A seated woman is writing a letter. She dies bec
+      lib_f3d383d9df0e | 无题 · boop-yyt #1368 | 汤面: A rope breaks. A bell rings. A man dies. How cou
+      lib_f7706d4b00fa | Jed 2.22 | 汤面: A woman meets the king, cries "Pain!", and loses
+      lib_fa69fb12b874 | 无题 · boop-yyt #1283 | 汤面: He was killed by breakfast. What happened?
+      lib_fb77315aaeee | 无题 · boop-yyt #1382 | 汤面: A man was brought before a tribal chief, who ask
+      lib_fbb763606133 | 无题 · boop-yyt #1348 | 汤面: A man sat perfectly still for 88 hours. Why?
+      lib_fccd2f662926 | Jed 2.21 | 汤面: Bruce wins the race, but he gets no trophy.
+      lib_fd3477ddff5b | Jed 1.27 | 汤面: A man tells his boss, "Don't take your planned f
+      lib_fddab6f49384 | 无题 · boop-yyt #1310 | 汤面: The music stopped and the man died. What happene
+  [簇 3 条] 代表: 无题 · KONpiGG #133
+      lib_00132cc37be4 | 无题 · KONpiGG #133 | 汤面: 一个人过生日，邀请他所有的好朋友来参加。吹完蜡烛的时候，这个人把他所有的好朋友都杀了。
+      lib_056db100d29a | 看不见的生日 | 汤面: 一个盲人在和朋友们一起过生日，朋友们一起给他唱生日歌，唱完生日歌之后盲人把他的朋友们都杀了
+      lib_95b9b1c7a99e | 生日 | 汤面: 我生日时邀请朋友们到家里聚会，吹完蜡烛后，我把他们都杀了。
+  [簇 3 条] 代表: 黑猫叼着老鼠
+      lib_3f1125b7c0cd | 黑猫叼着老鼠 | 汤面: 我杀了人，被警察带走时看到门口黑猫一直盯着我，我知道我错了。
+      lib_683130196767 | 035 · 黑猫 | 汤面: 我杀了人，当警察带走我的时候，我看到了门口的黑猫，它一直在盯着我，这一刻我知道我错了。
+      lib_f8946799c97f | 黑猫的凝视 | 汤面: 我杀了人，警察带我走时看到门口那只黑猫一直盯着我，我知道自己错了。
+  [簇 3 条] 代表: 织梦者》《新世界
+      lib_27629b68d5cf | 织梦者》《新世界 | 汤面: 我是一名催眠师，一旦被催眠，你将分不清梦与现实，这也让我在行业内声名大噪。星期一，小珊突然提议要
+      lib_3fad9c3ff17b | 小说主角 | 汤面: 周围一片黑暗，有个声音说：我们来玩海龟汤吧，我会回答是或不是。我问：这是真实世界吗？声音说：是。
+      lib_453bf5f75173 | 催眠 | 汤面: 我是一名技术高超的催眠师，能让被催眠者分不清梦境与现实。周一，我在跟小珊玩笔仙游戏时，恶作剧地偷
+  [簇 3 条] 代表: 五步上车
+      lib_7695fa789e5e | 离车30米只走五步 | 汤面: 男人离车30米，只走五步上车。为什么？
+      lib_b01ab097ade4 | 五步上车 | 汤面: 一个人离他的车有30米，但是他只走了五步就上车了，这是为什么?
+      lib_e24398bc436c | 五步 | 汤面: 一个人离车有30米，却只走了五步就上车。
+  [簇 3 条] 代表: 056 · 精神病
+      lib_96b3e65fc4dd | 056 · 精神病 | 汤面: 我是一名大学生，在异地上学。爸爸妈妈给我打电话说想我了，让我找时间回家。我趁五一回家，到家后打电
+      lib_d9a053630dee | 回家 | 汤面: 我是一名大学生，在异地上学。这一天爸爸妈妈给我打电话说他们想我了，让我找个时间回趟家。于是我趁着
+      lib_fa7f7472ae6b | 回家报平安 | 汤面: 我是一名大学生，在异地上学。爸妈打电话说想我了，让我五一回家。我到家后给爸爸打电话说我回来了，爸
+  [簇 3 条] 代表: 无题 · KONpiGG #64
+      lib_630d102b5443 | 无题 · KONpiGG #64 | 汤面: 我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然后我死了。请推理
+      lib_63cb507c431d | 漆黑直播间 | 汤面: 我躺床上看直播，刷到一个漆黑直播间，画面越来越亮，我看见天花板，然后我死了。
+      lib_70b990289c70 | 死亡直播 | 汤面: 我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然后我死了。
+  [簇 3 条] 代表: 冰淇淋
+      lib_8b9daa54f0ed | 冰淇淋 | 汤面: 哥哥好后悔，如果那天自己吃了冰淇凌，弟弟就不会死了。
+      lib_9654d2967355 | 冰淇淋 | 汤面: 哥哥好后悔，如果那天自己吃了冰淇淋，弟弟就不会死了。
+      lib_b04ccdfb4118 | 冰淇淋 | 汤面: 哥哥很后悔：如果那天自己吃了冰淇淋，弟弟就不会死。
+  [簇 3 条] 代表: 无题 · KONpiGG #110
+      lib_35aafab18f4c | 无题 · KONpiGG #110 | 汤面: 小美和网友小明约好见面，几分钟后小美却大声惊叫起来！
+      lib_5a05b2e5001a | 网友 | 汤面: 小美和网友小明约好见面，三分钟后小美却大声尖叫。
+      lib_9fb3c2d101fd | 网友见面 | 汤面: 小美和网友小明约好见面，过了三分钟后小美却大声惊叫起来!
+  [簇 3 条] 代表: 山顶小屋
+      lib_1aa2e7bacd58 | 山顶小屋 | 汤面: 一个人住在山顶的小屋里，半夜听见有敲门的，他打开门却没有人，于是去睡了。等了一会又有敲门声，去开
+      lib_35815405359b | 无题 · KONpiGG #85 | 汤面: 一个人住在山顶的小屋里，半夜听见有敲门声音，但是他打开门却没有人，于是去睡了。第二天，有人在山脚
+      lib_aac5e74f3bff | 午夜的敲门声 | 汤面: 男人独自住在山顶的小屋里，深夜突然听到急促的敲门声。他迷迷糊糊跑去开门，门外却空无一人。没过多久
+  [簇 3 条] 代表: 016 · 跳火车
+      lib_87ceda50072d | 016 · 跳火车 | 汤面: 一个人坐火车去邻镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。为什么
+      lib_ee3cd8f8fce0 | 看病 | 汤面: 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。
+      lib_f3a67510b7c7 | 重见光明 | 汤面: 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。为什么
+  [簇 3 条] 代表: 猜名字
+      lib_672b157d1754 | 猜名字 | 汤面: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊他的名字，便可散
+      lib_a0a04ac21e6e | 猜名字 | 汤面: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛
+并喊他的名字，便可
+      lib_c750c42858e6 | 猜名字 | 汤面: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊他的名字，便可散
+  [簇 3 条] 代表: 出租房
+      lib_090fb2fb97fe | 出租房 | 汤面: 我搬进了一个新房子，房间里经常有类似于老鼠爬的声音，但毕竟便宜，我也睡的很香，没多久房东就谈了一
+      lib_ae470c4660ec | 出租房 | 汤面: 我搬进便宜的新房，常听到像老鼠爬的声音却睡得香。后来房东谈了女友，声音没了，但诡异的安静让我睡不
+      lib_fb5f4e257b17 | 出租房 | 汤面: 我搬进了一个新房子，房间里经常有老鼠爬的声音，但毕竟便宜，我也睡得很香。后来房东谈了女朋友，老鼠
+  [簇 3 条] 代表: 无题 · KONpiGG #86
+      lib_741df7fb39e2 | 无题 · KONpiGG #86 | 汤面: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮，马戏团只需要一个侏儒，马戏团里的侏儒当然是越矮越好了
+      lib_895c09070da5 | 020 · 满地木屑 | 汤面: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮。马戏团只需要一个侏儒，越矮越好，于是两人约定比个子，
+      lib_d1fc971bd1d5 | 马戏团 | 汤面: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮。马戏团只需要一个侏儒，马戏团的侏儒当然是越矮越好了。
+  [簇 2 条] 代表: 几节
+      lib_fc5e37b8dfde | 几节 | 汤面: “一节，两节，三节……”数完后我疯了。
+      lib_fee52ece475e | 几节 | 汤面: "一节，两节，三节…"数完后我疯掉了。
+  [簇 2 条] 代表: 小红裙
+      lib_179cfc38b29c | 小红裙 | 汤面: 姐姐为我选了一件小红裙，我穿着去上学了，然后有人死了。
+      lib_28930e0caf4c | 小红裙 | 汤面: 姐姐给我选了件小红裙，我穿去上学，然后有人死了。
+  [簇 2 条] 代表: 半根火柴
+      lib_92b60ab9e186 | 半根火柴 | 汤面: 在沙漠里躺着他和一些行李还有一盒火柴跟一根半根的火柴。
+      lib_ddcab18ee8e4 | 半根火柴 | 汤面: 沙漠里躺着他、一些行李、一盒火柴和半根火柴。
+  [簇 2 条] 代表: 牛吃草
+      lib_3ab4d2516252 | 牛吃草 | 汤面: 你住在乡下，邻居是一对养牛的夫妻。某天深夜，你听到外面传来奇怪的「牛吃草」声音，然后听见有东西在
+      lib_afa727cde8c6 | 你独自住在郊外，附近只有一户邻居 | 汤面: 你独自住在郊外，附近只有一户邻居，是一对养牛的夫妻。你们两家之间隔着一片草坪。有一天深夜，你被一
+  [簇 2 条] 代表: 午夜列车
+      lib_7d62556382b0 | 午夜列车 | 汤面: 离午夜还有五分钟，一个男子上了列车。男子的神情很奇怪，他看了看车上的几个人，然后开始问起乘客的年
+      lib_c56c62db40b5 | 午夜列车 | 汤面: 离午夜还有五分钟，男子上车逐个猜对乘客年龄。问到婆婆时她说：不是，再过五分钟我才69。男子脸色惨
+  [簇 2 条] 代表: 无题 · KONpiGG #97
+      lib_8e5d0077f03d | 无题 · KONpiGG #97 | 汤面: 我叫辛德瑞拉，可怜又丑陋的我却嫁给了王子，那天王子对我说了句话，我知道下一场舞会又要开始了。
+      lib_e523f1cb58c8 | 灰姑娘 | 汤面: 我叫辛德瑞拉，丑陋可怜却嫁给王子。王子对我说一句话，我知道下一场舞会又要开始了。
+  [簇 2 条] 代表: 雨中女郎
+      lib_19aa8e7c225d | 雨中女郎 | 汤面: 艺术家买了《雨中的女郎》。朋友来欣赏后失踪。次日艺术家在画室闻到淡淡味道，发现《雨中的女郎》旁多
+      lib_d2c1a351b193 | 043 · 艺术家的画 | 汤面: 艺术家买了一幅画叫做《雨中的女郎》，一天他的朋友来到他家欣赏。次日，艺术家来到画室，《雨中女郎》
+  [簇 2 条] 代表: 作业里的遗书
+      lib_2e587d7b6540 | 作业里的遗书 | 汤面: 寒假补作业到开学当天才补完。我一大早趁妈妈没起床去学校报到，到了学校我却疯了。
+      lib_fa1ed8ece75c | 048 · 遗书 | 汤面: 这两天为了补寒假作业把我搞得晕头转向，还好在开学那天补完了。今天一早，还没等妈妈起床，我便去学校
+  [簇 2 条] 代表: 049 · 水箱
+      lib_2821f14a71da | 049 · 水箱 | 汤面: 那天我洗完澡后，说了一句话，家人们听见后都崩溃了。
+      lib_f715e86356f5 | 白毛的水 | 汤面: 我洗完澡说了一句话，家人得知真相后都崩溃了。
+  [簇 2 条] 代表: 034 · 寝室恶作剧
+      lib_7de73d716ad1 | 034 · 寝室恶作剧 | 汤面: 清晨，我被室友的尖叫声吵醒，睁开眼后，我却说不出话来。
+      lib_8c299267f7de | 风扇 | 汤面: 小红胆子很小，室友经常一起恶作剧吓她。某天早上，一位室友被尖叫声惊醒，睁眼后却说不出话来：她看到
+  [簇 2 条] 代表: 无题 · KONpiGG #79
+      lib_d48624c2752a | 无题 · KONpiGG #79 | 汤面: 我的妈妈很爱我，可自从下过一场大雨之后，她就把我关进了一个伸手不见五指的小黑屋，可当我再次见到她
+      lib_d8b7c8088ed4 | 永远在一起 | 汤面: 妈妈很爱我，但一场大雨后把我关进伸手不见五指的小黑屋。再次见到她时她已面目全非，我知道我们会永远
+  [簇 2 条] 代表: 天窗
+      lib_ea9919efc255 | 天窗 | 汤面: 一名作家在截稿日“开天窗”，编辑们却非常感谢他。
+      lib_f5e005de8361 | 天窗 | 汤面: 一名作家，在截稿日开了天窗，但是编辑们都非常感谢他，请问这是为什么?
+  [簇 2 条] 代表: 无题 · KONpiGG #183
+      lib_5cac23e1984f | 无题 · KONpiGG #183 | 汤面: 小明打开瓶盖，里面写着再来一瓶，他崩溃的哭了
+      lib_9d61a5b2df8d | 好运 | 汤面: 一个人打开饮料，看见瓶盖上写着「再来一瓶」，他崩溃了。
+  [簇 2 条] 代表: 借书
+      lib_314cc038dce2 | 借书 | 汤面: 一位老人每周去图书馆借书，但每次借书前都会翻到第30页。
+      lib_754074695c41 | 借书老人 | 汤面: 一位老人，每周都会去图书馆借书，但是每次借书前都会翻到第30页，这是为什么?
+  [簇 2 条] 代表: 098 · 跳火车（经典版）
+      lib_206b9185868d | 098 · 跳火车（经典版） | 汤面: 男子坐火车去邻镇治眼病，治好了回程时经过隧道，跳车自杀。
+      lib_ace8a94e1617 | 隧道里的瞎子 | 汤面: 男人坐火车去邻镇看病，治好回程过隧道跳车自杀。为什么？
+  [簇 2 条] 代表: 058 · 跟踪者
+      lib_8f1f82db998d | 058 · 跟踪者 | 汤面: 女主很喜欢在网上分享自己的近况，有一天她收到一则留言，被吓到的女主夺门而出。或许她不该逃，第二天
+      lib_faa800c4c34d | 我正在看着你 | 汤面: 女主爱在网上分享近况。某天收到一条留言被吓得夺门而出。也许她不该逃，第二天警方发现了尸体。
+  [簇 2 条] 代表: 无题 · KONpiGG #66
+      lib_146ba5100f1f | 无题 · KONpiGG #66 | 汤面: 小明在图书馆看书，在一本书里翻到了100块钱，但是他却哭了，问为什么小明哭了
+      lib_c3e4256b231a | 100元钱 | 汤面: 小明在图书馆看书，在一本书里翻到了100块钱，但是他却哭了。
+  [簇 2 条] 代表: 滴水声
+      lib_9227ba24f49e | 滴水声 | 汤面: 女孩深夜听见洗手间有滴水声，她不敢起床，把手伸到床下，感觉到爱犬在舔她的手，于是安心睡去。第二天
+      lib_c12cc7f868a8 | 滴水声与狗 | 汤面: 女孩半夜听见天花板滴水声，摸床边狗舔手才安心睡。第二天发现狗被吊死在天花板，滴的是狗血。
+  [簇 2 条] 代表: 出差
+      lib_ac7f45f3b869 | 出差 | 汤面: 我出差很久，回到家之后突然全身发凉，知道我完了
+      lib_fa1b8cbe0344 | 无题 · KONpiGG #136 | 汤面: 我去乡下出差，朋友给我打电话说"你妈真好…"，第二天回到家后我崩溃了。
+  [簇 2 条] 代表: 1237
+      lib_cb03c5556b09 | 1237 | 汤面: 幼儿园小朋友数数总说“1，2，3，7”，我纠正她，她说是妈妈教的。我去家访后，也对她说“1，2，
+      lib_fde48ed43c23 | 无题 · KONpiGG #103 | 汤面: 幼儿园的一个小朋友数数总是说"1，2，3，7"，总是漏掉中间的"4，5，6"。可是当我纠正她时，
+  [簇 2 条] 代表: 诡异的画像
+      lib_4aa8059ec3e8 | 诡异的画像 | 汤面: 迷路女孩找到空屋休息，却因墙上画像“盯着她”而睡不着。清晨醒来发现异样，恐惧逃离。
+      lib_ab6cf100d414 | 诡异的画像 | 汤面: 迷路的女孩找到了间空屋子，她很疲惫但她睡不着。第二天清晨，累得睡着的她醒过来，发现了异样，恐惧地
+  [簇 2 条] 代表: 男朋友
+      lib_3e4d2da2c331 | 男朋友 | 汤面: 开始的时候男朋友他很爱我，但后来他开始欺负我了，他死了。
+      lib_aef19f1b83f9 | 无题 · KONpiGG #150 | 汤面: 我以前有个很爱我的男朋友，但他后来开始欺负我，最后他死了。
+  [簇 2 条] 代表: 男孩的承诺
+      lib_53d8098e6be8 | 男孩的承诺 | 汤面: 女孩和男孩提了一个条件，只要男孩做到就做他的女朋友，后来男孩做到了，女孩却疯了。
+      lib_eb29b057824f | 条件 | 汤面: 男生喜欢女生好久了，他成绩非常不好，女生说只要两人能进同一所大学，就答应做他女朋友，后来他做到了
+  [簇 2 条] 代表: 无题 · KONpiGG #78
+      lib_97d7c6f3d9ee | 无题 · KONpiGG #78 | 汤面: 留学回家的我一次出门时，发现家门旁写了个"X"，我没有在意索性就擦掉了，可当天回到家时，发现那个
+      lib_b7c5a3a3b8cd | 诡异的记号 | 汤面: 留学回家发现门旁被写了“X”，擦掉后又出现。夜里邻居家动画片声很吵，我去理论。次日门上X变成O，
+  [簇 2 条] 代表: 085 · 守灯人
+      lib_0daf1eafe0c9 | 085 · 守灯人 | 汤面: 守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。
+      lib_d3c52f26b4cd | 灯塔关灯 | 汤面: 灯塔看守人半夜把灯关掉，导致海上多艘船相撞沉没，他自责自杀。
+  [簇 2 条] 代表: 替妹妹写遗书
+      lib_7893be6075d9 | 替妹妹写遗书 | 汤面: 我一回家就立刻替死去的妹妹写遗书：写下‘我想死’的心情就行。
+      lib_c29ae01ecae9 | 050 · 双胞胎替换 | 汤面: 我一回家就立刻替死去的妹妹写遗书，对我来说，替她写遗书是很简单的，只要写下我想死的心情就好。
+  [簇 2 条] 代表: 丢失的手机
+      lib_1d77e1dd54b7 | 丢失的手机 | 汤面: 我的手机不见了，当我找到它时，我吓了一跳。
+      lib_e019fdc98552 | 丢失的手机 | 汤面: 手机不见了，找到时我吓了一跳。
+  [簇 2 条] 代表: 保姆
+      lib_29a799606726 | 保姆 | 汤面: 最近保姆总是偷懒，家里乱糟糟的。我去客厅跟爸爸告状，爸爸却说：我们家没请保姆。我回卧室质问保姆，
+      lib_abf8e8b26ae2 | 保姆 | 汤面: 新来的保姆总是偷懒，家里乱糟糟的，我跑去客厅跟父亲告状，父亲都说：”我们家没请保姆。“我回到卧室
+  [簇 2 条] 代表: 影子
+      lib_41e02e0f8c85 | 影子 | 汤面: 晚上我去公厕，看见男厕门口站着一个人，身后有影子，手里还拿着什么。我很快冷静。第二天警察问我看到
+      lib_d5ad6e7a2851 | 影子 | 汤面: 一天我去公共厕所，那时已是晚上，我看见男厕所门口站着一个人，后面是他的影子，手里还拿着什么，我吓
+  [簇 2 条] 代表: 025 · 宇航员的镜子
+      lib_550f93375ad7 | 025 · 宇航员的镜子 | 汤面: 我从梦中醒来，看了一眼镜子中的时钟，继续躺下，但是却永远地睡了过去。
+      lib_ca43702db709 | 镜中时间 | 汤面: 我醒来瞥了眼镜子里的时钟又躺下，结果永远睡过去。
+  [簇 2 条] 代表: 045 · 帽子
+      lib_970ea26e5e78 | 045 · 帽子 | 汤面: 女明星养了一个女儿，从小时不时给女儿戴一顶帽子。有一天她带女儿去医院，女儿在医院知道真相后就自杀
+      lib_edb83d6c5d1b | 女明星 | 汤面: 女明星领养了一个女儿，从女儿很小开始就时不时让她戴一顶帽子。某天带她去医院，女儿知道真相后自杀了
+  [簇 2 条] 代表: 祭日
+      lib_4166968fc81c | 祭日 | 汤面: 在儿子去世一周年的祭日上，我杀死了三个来悼念他的人。
+      lib_9f6caf094103 | 祭日的三位悼念者 | 汤面: 儿子去世一周年祭日上，我杀死了三个来悼念他的人。
+  [簇 2 条] 代表: 乞丐
+      lib_255eb9ac95c6 | 乞丐 | 汤面: 我是乞丐，醒来发现碗里多了样东西，饱餐了一顿，但第七天我死了。
+      lib_2eb1bd4b6bf0 | 无题 · KONpiGG #107 | 汤面: 我是个乞丐，醒来发现碗里多了样东西，为此我饱餐了一顿，但是在第七天时，我却死了。
+  [簇 2 条] 代表: 无题 · White-stone36 #961
+      lib_77f7e2dd70c8 | 无题 · White-stone36 #961 | 汤面: 一位富豪给她心爱的妻子打了一通电话，于是妻子就死了。
+      lib_a471bef44be6 | 电话 | 汤面: 一位富豪给心爱的妻子打了一通电话，于是妻子就死了。
+  [簇 2 条] 代表: 许愿
+      lib_086c4a778b97 | 许愿 | 汤面: 我低下头许愿，愿望实现了，我却哭了。
+      lib_f8b00b40b3c4 | 许愿 | 汤面: 我低下头许愿，愿望实现了，我却吕了。
+  [簇 2 条] 代表: 一双鞋
+      lib_0269e650b41f | 一双鞋 | 汤面: 男人醒来只看到一双鞋就自杀了，为什么？
+      lib_4580162c5451 | 一双鞋 | 汤面: 男人醒来后只看到一双鞋，然后就自杀了，为什么?
+  [簇 2 条] 代表: 一盘排骨
+      lib_2e6c800332fa | 一盘排骨 | 汤面: 生日那天爸爸端上来一盘排骨，并对我说了一句话，说完我痛哭了起来。
+      lib_acfe4ab75d5e | 一盘排骨 | 汤面: 生日那天爸爸端上一盘排骨并说了一句话，我痛哭。
+  [簇 2 条] 代表: 不能回来
+      lib_83fa8611c113 | 不能回来 | 汤面: 一个人从一间屋子里出来，伸手招了辆出租车，然后他再也没能回来这间屋子，请问这是为什么?
+      lib_9303cd77d99f | 不能回来 | 汤面: 一个人从屋里出来招了辆出租车，然后再也回不到这间屋子。
+  [簇 2 条] 代表: 053 · 冰箱
+      lib_0d603c7d7b6c | 053 · 冰箱 | 汤面: 我的父母都不理我，但我还是很爱他们。
+      lib_3e4770e9b0e5 | 冰箱里的父母 | 汤面: 父母都不理我，但我还是很爱他们。
+  [簇 2 条] 代表: 无题 · KONpiGG #104
+      lib_24db70bb8c98 | 无题 · KONpiGG #104 | 汤面: 我正在街上努力工作，突然一个疯疯癫癫的女人向我扑来，爸爸赶紧把我抱回了家，但随后我也知道危险已经
+      lib_fb44b3fabcd5 | 街上的工作 | 汤面: 我正在街上努力工作，突然一个疯疯癫癫的女人向我扑来，爸爸赶紧把我抱回了家，但随后那个女人又跟来了
+  [簇 2 条] 代表: 外婆的苹果
+      lib_85c40ab6ed9d | 外婆的苹果 | 汤面: 6岁外婆说别吃黄苹果；13岁别吃青苹果；18岁别吃红苹果。20岁外婆去世，我祈愿：以后所有苹果都
+      lib_f3fa66c22535 | 外婆的苹果 | 汤面: 6岁时外婆告诉我不要吃黄苹果。13岁时，外婆告诉我不要吃青苹果。18岁时外婆告诉我不要吃红苹果。
+  [簇 2 条] 代表: 药水
+      lib_4b27b323a07a | 药水 | 汤面: 婆婆给我一瓶药水，我失去了最爱的男生。
+      lib_b072e15c06f8 | 无题 · KONpiGG #73 | 汤面: 婆婆给了我一瓶药水，我失去了最爱的男生。
+  [簇 2 条] 代表: 无题 · KONpiGG #135
+      lib_05ee4cafe666 | 047 · 洋娃娃 | 汤面: 一场意外后，妻子便把自己关在房间里不肯出来。那天我突然听到她在嚎啕大哭，急忙冲进房间，被眼前的一
+      lib_0cf00682e3ce | 无题 · KONpiGG #135 | 汤面: 一场意外后，妻子便开始把自己关在房间里，不肯出来。那天我突然听到她在嚎啕大哭，我急忙冲进房间里，
+  [簇 2 条] 代表: 无题 · KONpiGG #109
+      lib_0ed4dd3f3ce3 | 无题 · KONpiGG #109 | 汤面: 我走进电梯准备去上学，随着电梯的上升，我知道，我再也无法去学校了。
+      lib_4bb30df46863 | 电梯 | 汤面: 我走进电梯准备上学，随着电梯上升，我知道我再也无法去学校了。
+  [簇 2 条] 代表: 无题 · SUZ-tsinghua #982
+      lib_8adc37971ece | 无题 · SUZ-tsinghua #982 | 汤面: 男子精神正常，却在船上挥起刀，将许多人的手一一砍断。
+      lib_acebe5e38366 | 060 · 生还者 | 汤面: 男子精神正常，但却在船上挥起刀，将许多人的手一一砍断。为什么？
+  [簇 2 条] 代表: 声音
+      lib_2299ca62945f | 声音 | 汤面: “滋滋喻喻喻呼呼呼龙隆隆味呈叶咱啊啊啊嘲嘲咕噜咕噜滋滋”
+      lib_ad7366ba2b30 | 声音 | 汤面: ”滋滋嗡嗡嗡呼呼呼轰隆隆哒哒哒咔嚓啊啊啊嘣嘣咕噜咕噜滋滋“
+  [簇 2 条] 代表: 无题 · KONpiGG #99
+      lib_5a6993b42523 | 无题 · KONpiGG #99 | 汤面: 我是贝尔公主，父王给我准备了盛大的婚礼，可婚礼上我却看不清王子的脸...
+      lib_a8fb92054c63 | 贝尔公主 | 汤面: 我是贝尔公主，父王给我盛大婚礼，可婚礼上我却看不清王子的脸……
+  [簇 2 条] 代表: 姐姐在跳舞
+      lib_1f572e970b04 | 姐姐在跳舞 | 汤面: 六岁那年外公葬礼，我和姐姐玩捉迷藏，我对妈妈说了一句话把她吓昏过去，我说了什么？
+      lib_6447eb8a4b30 | 我六岁那年，外公去世 | 汤面: 我六岁那年，外公去世，我和亲人一起去祭奠，和姐姐玩捉迷藏，然后我对母亲说了句话把她吓昏了过去，我
+  [簇 2 条] 代表: 墓碑上的文字
+      lib_410b5ac434f2 | 墓碑上的文字 | 汤面: 2988年，我和爸媽一起去星際旅行。回來時卻出了意外。爸媽立馬打算要二胎。五十年後，兒孫滿堂，爸
+      lib_86ba85ac49fd | 墓碑上的文字 | 汤面: 我和爸妈一起去旅行，回来时却出了意外，爸妈立马打算要二胎。五十年后，儿孙满堂，爸妈去世了，我的孙
+  [簇 2 条] 代表: 无题 · KONpiGG #134
+      lib_20b8c20f05f5 | 无题 · KONpiGG #134 | 汤面: 我发现床头柜上放着一杯蜂蜜水和一块巧克力蛋糕，原本放在床头柜的娃娃却消失不见了。我知道男友再也回
+      lib_408d0bacc2de | 蜂蜜水与巧克力 | 汤面: 我发现床头柜上多了一杯蜂蜜水和一块巧克力蛋糕，原本的娃娃却不见了。我知道男友再也回不来了。
+  [簇 2 条] 代表: 无题 · KONpiGG #80
+      lib_2a3192fd3cc5 | 无题 · KONpiGG #80 | 汤面: 第一天小熊没有啦！第二天洋娃娃没有啦！第三天小木偶没有啦！最后一天全都不见啦！只看到蝴蝶结还在发
+      lib_4a68dd74f870 | 蝴蝶结 | 汤面: 第一天小熊没了，第二天洋娃娃没了，第三天小木偶没了，最后全都不见了，只看到蝴蝶结在发光。我很伤心
+  [簇 2 条] 代表: 024 · 关灯
+      lib_16c34d2a101f | 无题 · KONpiGG #67 | 汤面: 小明半夜起来喝水，然后把灯关上继续睡觉，醒了之后他就自杀了，问小明为什么自杀
+      lib_776b70302820 | 024 · 关灯 | 汤面: 小明半夜起来喝水，顺手把灯关上继续睡觉，醒了之后他就自杀了，为什么？
+  [簇 2 条] 代表: 072 · 年轻
+      lib_9536181a48d1 | 072 · 年轻 | 汤面: 一天，游手好闲的阿星在大街上游荡，被一个小学生不小心撞倒，小学生不仅没道歉还出言挑衅，阿星却没有
+      lib_d7016f1d33ac | 挑衅 | 汤面: 一天，游手好闲的阿星在大街上游荡。正巧碰上一所小学放学，他在拥挤的人流中不幸被无良小学生倒，小学
+  [簇 2 条] 代表: 旧的八音盒
+      lib_2fb427a16795 | 旧的八音盒 | 汤面: 男孩女孩是邻居，女孩生日时男孩送她一个旧八音盒，不久后女孩搬家。
+      lib_a9a0bddb7f7c | 旧的八音盒 | 汤面: 男孩和女孩从小是邻居，女孩过生日时，男孩送给她一个旧的八音盒，不久后女孩搬家了。
+  [簇 2 条] 代表: 无题 · KONpiGG #108
+      lib_cab98c529eaf | 无题 · KONpiGG #108 | 汤面: 铛铛铛，"这个没熟"，铛铛铛，"这个好像熟了！"，突然，我的爸爸被吓出一身冷汗。
+      lib_ff82650c1faa | 没熟 | 汤面: 铛铛铛：“这个没熟。”铛铛铛：“这个好像熟了！”爸爸吓出一身冷汗。
+  [簇 2 条] 代表: 037 · 洗头
+      lib_474c41f3b6f8 | 037 · 洗头 | 汤面: 晚上，我在寝室洗了个头，结果我和室友都死了。
+      lib_d03a68f1e0d1 | 无题 · KONpiGG #84 | 汤面: 晚上，我在寝室洗了个头，结果室友和我都死了。
+  [簇 2 条] 代表: 相册
+      lib_ab7525f53ba2 | 相册 | 汤面: 我是医生，一天有人把一本相册放在我面前，我知道他们发现了我所有秘密。
+      lib_db2f404a3e00 | 无题 · KONpiGG #113 | 汤面: 我是一名医生，一天一个人拿着一本相册放在我面前，我知道他们发现了我所有的秘密。
+  [簇 2 条] 代表: 给三兄弟的一封信
+      lib_6db4d37cfcbb | 给三兄弟的一封信 | 汤面: HO+SiOz+FesOs+CO:一0 人 〈x2+y2-1 ) 3一
+      lib_cc9e2fec9557 | 给三兄弟的一封信 | 汤面: H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞
+  [簇 2 条] 代表: 人鱼公主
+      lib_749507623b5d | 人鱼公主 | 汤面: 美人鱼与人类王子相爱来到王子的国家，不久后却传来王子死讯。
+      lib_e8d8698eed56 | 无题 · KONpiGG #98 | 汤面: 美人鱼与人类王子相爱并一起来到了王子的国家，可不久后却传来了王子的死讯。
+  [簇 2 条] 代表: 023 · 对赌
+      lib_5454d966fa86 | 023 · 对赌 | 汤面: 两个死人，一把枪，一副牌。发生了什么事？
+      lib_70707f32e1ca | 对赌 | 汤面: 两个死人，现场只有一把枪，一颗子弹，一副牌。发生了什么？
+  [簇 2 条] 代表: 051 · 棺材里的死人
+      lib_b69913650fdf | 051 · 棺材里的死人 | 汤面: 在一条乡村路上，五个人走在一起，天突然开始下雨。五个人中有四个人加快了脚步，第五个人一点都不担心
+      lib_c84fc1792640 | 099 · 棺材里的人（经典版） | 汤面: 五个人走在路上，下雨了，四个人加快脚步，一个人不急。最终五人同时到达目的地，四人淋湿，一人未湿。
+  [簇 2 条] 代表: 038 · 食物中毒
+      lib_803df945c53e | 038 · 食物中毒 | 汤面: 当救护车赶到食物中毒的那户人家时，见到的是一幅地狱般的景象。所有人连站都站不起来，脸上全无血色。
+      lib_91cce3f352ad | 无题 · KONpiGG #94 | 汤面: 当我们开着救护车赶到食物中毒的那户人家时，所有的人连站都站不起来，脸上全无血色。正当我们打算将危
+  [簇 2 条] 代表: 半瓶香水
+      lib_0aae87087f4d | 半瓶香水 | 汤面: 我的妈妈最近有些反常，不但偷偷用我的香水穿我的衣服，还老是半夜出去。那天我实在忍不住向她理论，并
+      lib_e10fef909345 | 半瓶香水 | 汤面: 妈妈最近很反常：偷偷用我的香水、穿我的衣服，还老是半夜出去。那天我忍不住和她争执，不小心把她推倒
+  [簇 2 条] 代表: 不要相信一号
+      lib_5924ff3fa67e | 不要相信一号 | 汤面: 我睡醒了，我又忘记了一切，手里捏着的纸条上写着几个字:不要相信1号。一个男人走近我的床边，"先生
+      lib_7cf2a178d34a | 不要相信一号 | 汤面: 我醒来忘记一切，纸条写着：不要相信1号。一个男人走近说：先生早上好，2号很高兴为您服务。我问1号
+  [簇 2 条] 代表: 027 · 海龟汤
+      lib_17fc568f14b0 | 027 · 海龟汤 | 汤面: 一名男子走进餐厅，点了一碗海龟汤，喝了一口非常惊讶地问服务员："这是真的海龟汤吗？" 得到肯定回
+      lib_cf3e6fe7ac2d | 091 · 原版海龟汤（必玩） | 汤面: 一名男子走进餐厅，点了一碗海龟汤，喝了一口后，回家自杀了。为什么？
+
+  -- 高相似对明细 --
+  surface lib_fc5e37b8dfde->lib_fee52ece475e | 几节 | 几节 | S(j0.77/c0.91) T(j1.00/c1.00)
+  surface lib_048dc4d7aeb0->lib_d6cd2cb2dc12 | Jed 1.83 | 无题 · boop-yyt #1314 | S(j0.76/c1.00) T(j1.00/c1.00)
+  surface lib_179cfc38b29c->lib_28930e0caf4c | 小红裙 | 小红裙 | S(j0.54/c0.75) T(j1.00/c1.00)
+  surface lib_5b31bb7c711b->lib_ecab42ccdd54 | 无题 · boop-yyt #1318 | 无题 · boop-yyt #1375 | S(j0.55/c0.75) T(j1.00/c1.00)
+  truth lib_056db100d29a->lib_95b9b1c7a99e | 看不见的生日 | 生日 | S(j0.14/c0.28) T(j1.00/c1.00)
+  truth lib_3f1125b7c0cd->lib_683130196767 | 黑猫叼着老鼠 | 035 · 黑猫 | S(j0.37/c0.65) T(j1.00/c1.00)
+  surface lib_c83298d35144->lib_f21afd2070b6 | 无题 · boop-yyt #1381 | Jed 2.9 | S(j0.80/c1.00) T(j1.00/c1.00)
+  surface lib_09c0825b5def->lib_5502c4432dd3 | 无题 · boop-yyt #1324 | 无题 · boop-yyt #1383 | S(j0.54/c0.77) T(j1.00/c1.00)
+  truth lib_27629b68d5cf->lib_453bf5f75173 | 织梦者》《新世界 | 催眠 | S(j0.34/c0.56) T(j1.00/c1.00)
+  truth lib_92b60ab9e186->lib_ddcab18ee8e4 | 半根火柴 | 半根火柴 | S(j0.41/c0.71) T(j1.00/c1.00)
+  truth lib_7695fa789e5e->lib_e24398bc436c | 离车30米只走五步 | 五步 | S(j0.28/c0.47) T(j1.00/c1.00)
+  surface lib_57ae1306e87a->lib_e8e8737072bb | 无题 · boop-yyt #1301 | 无题 · boop-yyt #1363 | S(j0.58/c0.83) T(j1.00/c1.00)
+  surface lib_0c44293fd6f1->lib_8231a4379212 | Jed 1.51 | 无题 · boop-yyt #1298 | S(j0.77/c1.00) T(j1.00/c1.00)
+  surface lib_b01ab097ade4->lib_e24398bc436c | 五步上车 | 五步 | S(j0.47/c0.82) T(j1.00/c1.00)
+  surface lib_96b3e65fc4dd->lib_fa7f7472ae6b | 056 · 精神病 | 回家报平安 | S(j0.66/c0.86) T(j1.00/c1.00)
+  surface lib_7e39ee741246->lib_ebfab81bc1df | 无题 · boop-yyt #1336 | Jed 2.33 | S(j0.58/c0.73) T(j1.00/c1.00)
+  surface lib_5351805ac486->lib_96327ba35de3 | 无题 · boop-yyt #1350 | Jed 1.30 | S(j0.70/c1.00) T(j1.00/c1.00)
+  surface lib_2ccbebdb0625->lib_8231a4379212 | 无题 · boop-yyt #1360 | 无题 · boop-yyt #1298 | S(j0.55/c0.77) T(j1.00/c1.00)
+  truth lib_3ab4d2516252->lib_afa727cde8c6 | 牛吃草 | 你独自住在郊外，附近只有一户邻居 | S(j0.20/c0.38) T(j1.00/c1.00)
+  truth lib_7d62556382b0->lib_c56c62db40b5 | 午夜列车 | 午夜列车 | S(j0.17/c0.50) T(j1.00/c1.00)
+  surface lib_8e5d0077f03d->lib_e523f1cb58c8 | 无题 · KONpiGG #97 | 灰姑娘 | S(j0.57/c0.79) T(j1.00/c1.00)
+  truth lib_15b05aa5803f->lib_894cfdd71455 | 无题 · boop-yyt #1296 | 无题 · boop-yyt #1358 | S(j0.40/c0.62) T(j1.00/c1.00)
+  truth lib_19aa8e7c225d->lib_d2c1a351b193 | 雨中女郎 | 043 · 艺术家的画 | S(j0.28/c0.54) T(j1.00/c1.00)
+  truth lib_2e587d7b6540->lib_fa1ed8ece75c | 作业里的遗书 | 048 · 遗书 | S(j0.23/c0.47) T(j1.00/c1.00)
+  surface lib_0f05c1b4b831->lib_15b05aa5803f | 无题 · boop-yyt #1295 | 无题 · boop-yyt #1296 | S(j0.80/c0.97) T(j1.00/c1.00)
+  truth lib_7e5accb69163->lib_9b7562a21e3f | 无题 · boop-yyt #1286 | 无题 · boop-yyt #1349 | S(j0.33/c0.55) T(j1.00/c1.00)
+  truth lib_2821f14a71da->lib_f715e86356f5 | 049 · 水箱 | 白毛的水 | S(j0.48/c0.68) T(j1.00/c1.00)
+  truth lib_72b08b0f2494->lib_af575778712a | 无题 · boop-yyt #1334 | 无题 · boop-yyt #1390 | S(j0.50/c0.69) T(j1.00/c1.00)
+  truth lib_7de73d716ad1->lib_8c299267f7de | 034 · 寝室恶作剧 | 风扇 | S(j0.15/c0.46) T(j1.00/c1.00)
+  surface lib_0b330f52e242->lib_641c88779ab8 | 无题 · misc #1303 | 无题 · boop-yyt #1365 | S(j0.69/c0.95) T(j1.00/c1.00)
+  surface lib_d48624c2752a->lib_d8b7c8088ed4 | 无题 · KONpiGG #79 | 永远在一起 | S(j0.53/c0.83) T(j1.00/c1.00)
+  surface lib_0c44293fd6f1->lib_2ccbebdb0625 | Jed 1.51 | 无题 · boop-yyt #1360 | S(j0.66/c1.00) T(j1.00/c1.00)
+  surface lib_0a6d1163d6f9->lib_af198d3a47b7 | 无题 · boop-yyt #1290 | Jed 1.33 | S(j0.75/c1.00) T(j1.00/c1.00)
+  surface lib_7e39ee741246->lib_c67f366c50ed | 无题 · boop-yyt #1336 | 无题 · boop-yyt #1392 | S(j0.53/c0.73) T(j1.00/c1.00)
+  truth lib_63cb507c431d->lib_70b990289c70 | 漆黑直播间 | 死亡直播 | S(j0.47/c0.68) T(j1.00/c1.00)
+  surface lib_ea9919efc255->lib_f5e005de8361 | 天窗 | 天窗 | S(j0.46/c0.79) T(j1.00/c1.00)
+  truth lib_5cac23e1984f->lib_9d61a5b2df8d | 无题 · KONpiGG #183 | 好运 | S(j0.23/c0.42) T(j1.00/c1.00)
+  surface lib_357a5c287302->lib_a1d5d6bb539b | 无题 · boop-yyt #1372 | 无题 · boop-yyt #1313 | S(j0.74/c0.87) T(j1.00/c1.00)
+  surface lib_4ec8b318f78c->lib_af198d3a47b7 | 无题 · boop-yyt #1353 | Jed 1.33 | S(j0.65/c1.00) T(j1.00/c1.00)
+  surface lib_5351805ac486->lib_549137cff6f5 | 无题 · boop-yyt #1350 | 无题 · boop-yyt #1287 | S(j0.56/c0.74) T(j1.00/c1.00)
+  surface lib_75185e4de274->lib_8e2c5a35d64c | 无题 · boop-yyt #1385 | 无题 · boop-yyt #1329 | S(j0.75/c0.88) T(j1.00/c1.00)
+  surface lib_314cc038dce2->lib_754074695c41 | 借书 | 借书老人 | S(j0.67/c0.92) T(j1.00/c1.00)
+  truth lib_206b9185868d->lib_ace8a94e1617 | 098 · 跳火车（经典版） | 隧道里的瞎子 | S(j0.42/c0.61) T(j1.00/c1.00)
+  truth lib_4fa7348b73fc->lib_a86f38e57afd | 无题 · boop-yyt #1327 | 无题 · boop-yyt #1384 | S(j0.51/c0.71) T(j1.00/c1.00)
+  truth lib_8f1f82db998d->lib_faa800c4c34d | 058 · 跟踪者 | 我正在看着你 | S(j0.41/c0.68) T(j1.00/c1.00)
+  surface lib_146ba5100f1f->lib_c3e4256b231a | 无题 · KONpiGG #66 | 100元钱 | S(j0.81/c1.00) T(j1.00/c1.00)
+  truth lib_00132cc37be4->lib_95b9b1c7a99e | 无题 · KONpiGG #133 | 生日 | S(j0.19/c0.36) T(j1.00/c1.00)
+  truth lib_9227ba24f49e->lib_c12cc7f868a8 | 滴水声 | 滴水声与狗 | S(j0.15/c0.33) T(j1.00/c1.00)
+  surface lib_ca411d1cf9c1->lib_dd1af577210e | Jed 1.9 | 无题 · boop-yyt #1282 | S(j0.85/c1.00) T(j1.00/c1.00)
+  surface lib_8b9daa54f0ed->lib_b04ccdfb4118 | 冰淇淋 | 冰淇淋 | S(j0.65/c0.81) T(j1.00/c1.00)
+  surface lib_c67f366c50ed->lib_ebfab81bc1df | 无题 · boop-yyt #1392 | Jed 2.33 | S(j0.53/c0.73) T(j1.00/c1.00)
+  surface lib_3c59d8568b7f->lib_b2a5f5e847bf | 无题 · boop-yyt #1291 | 无题 · boop-yyt #1354 | S(j0.53/c0.86) T(j1.00/c1.00)
+  truth lib_ac7f45f3b869->lib_fa1b8cbe0344 | 出差 | 无题 · KONpiGG #136 | S(j0.07/c0.15) T(j1.00/c1.00)
+  truth lib_cb03c5556b09->lib_fde48ed43c23 | 1237 | 无题 · KONpiGG #103 | S(j0.28/c0.69) T(j1.00/c1.00)
+  truth lib_4aa8059ec3e8->lib_ab6cf100d414 | 诡异的画像 | 诡异的画像 | S(j0.21/c0.41) T(j1.00/c1.00)
+  truth lib_3e4d2da2c331->lib_aef19f1b83f9 | 男朋友 | 无题 · KONpiGG #150 | S(j0.30/c0.48) T(j1.00/c1.00)
+  truth lib_53d8098e6be8->lib_eb29b057824f | 男孩的承诺 | 条件 | S(j0.14/c0.33) T(j1.00/c1.00)
+  surface lib_05d55826327b->lib_f11b65ee0498 | Jed 1.19 | 无题 · boop-yyt #1285 | S(j0.78/c1.00) T(j1.00/c1.00)
+  surface lib_95482535a7ae->lib_a5ffdd3aa096 | Jed 2.17 | 无题 · boop-yyt #1328 | S(j0.76/c1.00) T(j1.00/c1.00)
+  surface lib_1fe018f884c7->lib_4acf292f2375 | 无题 · boop-yyt #1297 | 无题 · boop-yyt #1272 | S(j0.60/c0.78) T(j1.00/c1.00)
+  truth lib_97d7c6f3d9ee->lib_b7c5a3a3b8cd | 无题 · KONpiGG #78 | 诡异的记号 | S(j0.15/c0.44) T(j1.00/c1.00)
+  surface lib_4cea3fb48eaf->lib_92a9fba5867b | 无题 · boop-yyt #1281 | 无题 · misc #1275 | S(j0.65/c0.94) T(j1.00/c1.00)
+  truth lib_0daf1eafe0c9->lib_d3c52f26b4cd | 085 · 守灯人 | 灯塔关灯 | S(j0.13/c0.23) T(j1.00/c1.00)
+  surface lib_7893be6075d9->lib_c29ae01ecae9 | 替妹妹写遗书 | 050 · 双胞胎替换 | S(j0.56/c0.92) T(j1.00/c1.00)
+  surface lib_1d77e1dd54b7->lib_e019fdc98552 | 丢失的手机 | 丢失的手机 | S(j0.53/c0.83) T(j1.00/c1.00)
+  truth lib_00132cc37be4->lib_056db100d29a | 无题 · KONpiGG #133 | 看不见的生日 | S(j0.14/c0.26) T(j1.00/c1.00)
+  truth lib_29a799606726->lib_abf8e8b26ae2 | 保姆 | 保姆 | S(j0.49/c0.67) T(j1.00/c1.00)
+  surface lib_4a0f40ddff23->lib_fccd2f662926 | 无题 · boop-yyt #1331 | Jed 2.21 | S(j0.74/c1.00) T(j1.00/c1.00)
+  surface lib_234328857d6d->lib_ba1afde7ba05 | 无题 · boop-yyt #1362 | 无题 · boop-yyt #1300 | S(j0.77/c0.90) T(j1.00/c1.00)
+  surface lib_41e02e0f8c85->lib_d5ad6e7a2851 | 影子 | 影子 | S(j0.43/c0.74) T(j1.00/c1.00)
+  surface lib_09c0825b5def->lib_d6c8501d6b79 | 无题 · boop-yyt #1324 | Jed 2.13 | S(j0.73/c1.00) T(j1.00/c1.00)
+  surface lib_667e4d272252->lib_a44374f323ff | 无题 · boop-yyt #1320 | 无题 · boop-yyt #1377 | S(j0.68/c0.82) T(j1.00/c1.00)
+  surface lib_0e134ac04a78->lib_c83298d35144 | 无题 · boop-yyt #1322 | 无题 · boop-yyt #1381 | S(j0.72/c0.87) T(j1.00/c1.00)
+  surface lib_5502c4432dd3->lib_d6c8501d6b79 | 无题 · boop-yyt #1383 | Jed 2.13 | S(j0.61/c1.00) T(j1.00/c1.00)
+  truth lib_550f93375ad7->lib_ca43702db709 | 025 · 宇航员的镜子 | 镜中时间 | S(j0.19/c0.38) T(j1.00/c1.00)
+  surface lib_549137cff6f5->lib_96327ba35de3 | 无题 · boop-yyt #1287 | Jed 1.30 | S(j0.74/c1.00) T(j1.00/c1.00)
+  truth lib_ef983ce23926->lib_fa69fb12b874 | 无题 · boop-yyt #1277 | 无题 · boop-yyt #1283 | S(j0.49/c0.70) T(j1.00/c1.00)
+  surface lib_5a05b2e5001a->lib_9fb3c2d101fd | 网友 | 网友见面 | S(j0.63/c0.85) T(j1.00/c1.00)
+  truth lib_7695fa789e5e->lib_b01ab097ade4 | 离车30米只走五步 | 五步上车 | S(j0.23/c0.53) T(j1.00/c1.00)
+  truth lib_35815405359b->lib_aac5e74f3bff | 无题 · KONpiGG #85 | 午夜的敲门声 | S(j0.13/c0.30) T(j1.00/c1.00)
+  surface lib_6c4c07d9075a->lib_f3d383d9df0e | 无题 · boop-yyt #1307 | 无题 · boop-yyt #1368 | S(j0.57/c0.76) T(j1.00/c1.00)
+  surface lib_ee3cd8f8fce0->lib_f3a67510b7c7 | 看病 | 重见光明 | S(j0.93/c1.00) T(j1.00/c1.00)
+  surface lib_d9c56fa6081b->lib_dd1af577210e | 无题 · boop-yyt #1276 | 无题 · boop-yyt #1282 | S(j0.69/c0.88) T(j1.00/c1.00)
+  surface lib_0a6d1163d6f9->lib_4ec8b318f78c | 无题 · boop-yyt #1290 | 无题 · boop-yyt #1353 | S(j0.53/c0.75) T(j1.00/c1.00)
+  surface lib_ca411d1cf9c1->lib_d9c56fa6081b | Jed 1.9 | 无题 · boop-yyt #1276 | S(j0.74/c1.00) T(j1.00/c1.00)
+  truth lib_970ea26e5e78->lib_edb83d6c5d1b | 045 · 帽子 | 女明星 | S(j0.36/c0.55) T(j1.00/c1.00)
+  truth lib_0f05c1b4b831->lib_894cfdd71455 | 无题 · boop-yyt #1295 | 无题 · boop-yyt #1358 | S(j0.49/c0.66) T(j1.00/c1.00)
+  surface lib_0e134ac04a78->lib_f21afd2070b6 | 无题 · boop-yyt #1322 | Jed 2.9 | S(j0.85/c1.00) T(j1.00/c1.00)
+  surface lib_a0a04ac21e6e->lib_c750c42858e6 | 猜名字 | 猜名字 | S(j0.93/c0.96) T(j0.99/c1.00)
+  surface lib_35e327e8890d->lib_7b28164de2b9 | 无题 · misc #1278 | Jed 1.11 | S(j0.84/c0.93) T(j0.98/c1.00)
+  surface lib_0fa0dac82fb7->lib_27232c3dbbc2 | Jed 1.90 | 无题 · boop-yyt #1373 | S(j0.53/c1.00) T(j0.96/c1.00)
+  surface lib_4166968fc81c->lib_9f6caf094103 | 祭日 | 祭日的三位悼念者 | S(j0.83/c0.95) T(j0.96/c0.99)
+  surface lib_672b157d1754->lib_c750c42858e6 | 猜名字 | 猜名字 | S(j0.95/c0.98) T(j0.35/c1.00)
+  surface lib_255eb9ac95c6->lib_2eb1bd4b6bf0 | 乞丐 | 无题 · KONpiGG #107 | S(j0.54/c0.81) T(j0.94/c0.97)
+  surface lib_77f7e2dd70c8->lib_a471bef44be6 | 无题 · White-stone36 # | 电话 | S(j0.87/c0.95) T(j0.94/c1.00)
+  surface lib_086c4a778b97->lib_f8b00b40b3c4 | 许愿 | 许愿 | S(j0.75/c0.86) T(j0.93/c0.97)
+  surface lib_35aafab18f4c->lib_9fb3c2d101fd | 无题 · KONpiGG #110 | 网友见面 | S(j0.77/c0.91) T(j0.93/c0.98)
+  surface lib_0269e650b41f->lib_4580162c5451 | 一双鞋 | 一双鞋 | S(j0.67/c0.88) T(j0.93/c0.97)
+  surface lib_35aafab18f4c->lib_5a05b2e5001a | 无题 · KONpiGG #110 | 网友 | S(j0.61/c0.80) T(j0.93/c0.98)
+  truth lib_ae470c4660ec->lib_fb5f4e257b17 | 出租房 | 出租房 | S(j0.35/c0.60) T(j0.93/c0.96)
+  surface lib_2e6c800332fa->lib_acfe4ab75d5e | 一盘排骨 | 一盘排骨 | S(j0.55/c0.85) T(j0.91/c1.00)
+  surface lib_87ceda50072d->lib_f3a67510b7c7 | 016 · 跳火车 | 重见光明 | S(j0.91/c0.95) T(j0.10/c0.23)
+  surface lib_57c970bf7a82->lib_d54c7f270c6d | 无题 · boop-yyt #1367 | 无题 · boop-yyt #1351 | S(j0.89/c1.00) T(j0.22/c0.42)
+  surface lib_672b157d1754->lib_a0a04ac21e6e | 猜名字 | 猜名字 | S(j0.89/c0.94) T(j0.35/c1.00)
+  surface lib_090fb2fb97fe->lib_fb5f4e257b17 | 出租房 | 出租房 | S(j0.55/c0.77) T(j0.88/c0.98)
+  truth lib_83fa8611c113->lib_9303cd77d99f | 不能回来 | 不能回来 | S(j0.36/c0.67) T(j0.88/c0.97)
+  surface lib_bb9b8da83f0b->lib_d54c7f270c6d | 无题 · boop-yyt #1361 | 无题 · boop-yyt #1351 | S(j0.87/c0.97) T(j0.28/c0.77)
+  surface lib_0d603c7d7b6c->lib_3e4770e9b0e5 | 053 · 冰箱 | 冰箱里的父母 | S(j0.87/c1.00) T(j0.53/c0.83)
+  surface lib_24db70bb8c98->lib_fb44b3fabcd5 | 无题 · KONpiGG #104 | 街上的工作 | S(j0.68/c0.84) T(j0.87/c0.93)
+  surface lib_3c59d8568b7f->lib_e4c365f5b151 | 无题 · boop-yyt #1291 | Jed 1.36 | S(j0.86/c1.00) T(j0.51/c1.00)
+  truth lib_090fb2fb97fe->lib_ae470c4660ec | 出租房 | 出租房 | S(j0.17/c0.37) T(j0.86/c0.97)
+  surface lib_b560a80af76b->lib_4195efaab01e | 无题 · boop-yyt #1288 | 无题 · boop-yyt #1299 | S(j0.86/c0.97) T(j0.28/c0.74)
+  surface lib_85c40ab6ed9d->lib_f3fa66c22535 | 外婆的苹果 | 外婆的苹果 | S(j0.48/c0.72) T(j0.85/c0.99)
+  surface lib_87ceda50072d->lib_ee3cd8f8fce0 | 016 · 跳火车 | 看病 | S(j0.83/c0.95) T(j0.10/c0.23)
+  surface lib_4b27b323a07a->lib_b072e15c06f8 | 药水 | 无题 · KONpiGG #73 | S(j0.83/c0.94) T(j0.19/c0.34)
+  surface lib_8b9daa54f0ed->lib_9654d2967355 | 冰淇淋 | 冰淇淋 | S(j0.83/c0.91) T(j0.41/c1.00)
+  surface lib_97096b7207e0->lib_f7706d4b00fa | 无题 · boop-yyt #1332 | Jed 2.22 | S(j0.82/c1.00) T(j0.44/c1.00)
+  surface lib_630d102b5443->lib_70b990289c70 | 无题 · KONpiGG #64 | 死亡直播 | S(j0.81/c1.00) T(j0.12/c0.26)
+  surface lib_0cf00682e3ce->lib_05ee4cafe666 | 无题 · KONpiGG #135 | 047 · 洋娃娃 | S(j0.81/c0.94) T(j0.28/c0.61)
+  surface lib_85b2b85c41b1->lib_a9b861531fdd | Jed 2.30 | 无题 · boop-yyt #1391 | S(j0.71/c0.83) T(j0.81/c0.97)
+  surface lib_0ed4dd3f3ce3->lib_4bb30df46863 | 无题 · KONpiGG #109 | 电梯 | S(j0.79/c0.92) T(j0.37/c0.83)
+  surface lib_9654d2967355->lib_b04ccdfb4118 | 冰淇淋 | 冰淇淋 | S(j0.79/c0.91) T(j0.41/c1.00)
+  surface lib_8a44218462c8->lib_f7706d4b00fa | 无题 · boop-yyt #1388 | Jed 2.22 | S(j0.79/c1.00) T(j0.72/c0.99)
+  surface lib_8adc37971ece->lib_acebe5e38366 | 无题 · SUZ-tsinghua #9 | 060 · 生还者 | S(j0.78/c0.95) T(j0.20/c0.80)
+  surface lib_97994180fa32->lib_9ab11870482d | Jed 1.74 | 无题 · boop-yyt #1306 | S(j0.72/c1.00) T(j0.78/c0.98)
+  truth lib_b560a80af76b->lib_d54c7f270c6d | 无题 · boop-yyt #1288 | 无题 · boop-yyt #1351 | S(j0.51/c0.71) T(j0.77/c1.00)
+  surface lib_6a2910380309->lib_57c970bf7a82 | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1367 | S(j0.76/c0.88) T(j0.30/c0.61)
+  surface lib_57c970bf7a82->lib_bb9b8da83f0b | 无题 · boop-yyt #1367 | 无题 · boop-yyt #1361 | S(j0.76/c0.88) T(j0.21/c0.75)
+  surface lib_4f76b82838fb->lib_bb9b8da83f0b | Jed 1.59 | 无题 · boop-yyt #1361 | S(j0.59/c1.00) T(j0.76/c0.99)
+  surface lib_153b82ead579->lib_6c4c07d9075a | 无题 · boop-yyt #1308 | 无题 · boop-yyt #1307 | S(j0.76/c1.00) T(j0.34/c0.51)
+  truth lib_a8a56a514808->lib_e12f6b533563 | 无题 · boop-yyt #1317 | 无题 · boop-yyt #1374 | S(j0.13/c0.45) T(j0.76/c0.91)
+  surface lib_6048cff22007->lib_f3d383d9df0e | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1368 | S(j0.75/c1.00) T(j0.34/c0.81)
+  surface lib_b560a80af76b->lib_fddab6f49384 | 无题 · boop-yyt #1288 | 无题 · boop-yyt #1310 | S(j0.75/c0.93) T(j0.27/c0.52)
+  surface lib_dd5eeb87f7de->lib_16c80a13e181 | 无题 · boop-yyt #1386 | Jed 2.20 | S(j0.75/c0.89) T(j0.46/c0.98)
+  surface lib_aa939a5ceff4->lib_16c80a13e181 | 无题 · boop-yyt #1330 | Jed 2.20 | S(j0.75/c0.89) T(j0.10/c1.00)
+  truth lib_2299ca62945f->lib_ad7366ba2b30 | 声音 | 声音 | S(j0.21/c0.35) T(j0.74/c0.87)
+  surface lib_5a6993b42523->lib_a8fb92054c63 | 无题 · KONpiGG #99 | 贝尔公主 | S(j0.74/c0.92) T(j0.42/c1.00)
+  surface lib_6a2910380309->lib_d54c7f270c6d | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1351 | S(j0.73/c0.88) T(j0.30/c0.52)
+  surface lib_4b5ba3eca22f->lib_6c4c07d9075a | Jed 1.75 | 无题 · boop-yyt #1307 | S(j0.73/c1.00) T(j0.29/c1.00)
+  truth lib_1f572e970b04->lib_6447eb8a4b30 | 姐姐在跳舞 | 我六岁那年，外公去世 | S(j0.39/c0.65) T(j0.73/c0.94)
+  surface lib_410b5ac434f2->lib_86ba85ac49fd | 墓碑上的文字 | 墓碑上的文字 | S(j0.55/c0.74) T(j0.72/c1.00)
+  truth lib_4195efaab01e->lib_bb9b8da83f0b | 无题 · boop-yyt #1299 | 无题 · boop-yyt #1361 | S(j0.48/c0.68) T(j0.72/c1.00)
+  surface lib_741df7fb39e2->lib_d1fc971bd1d5 | 无题 · KONpiGG #86 | 马戏团 | S(j0.72/c0.88) T(j0.10/c0.30)
+  surface lib_71e368d13be5->lib_a9b861531fdd | 无题 · boop-yyt #1335 | 无题 · boop-yyt #1391 | S(j0.71/c0.85) T(j0.52/c0.69)
+  surface lib_3ec7a7147508->lib_b7523df2ab20 | 无题 · boop-yyt #1302 | 无题 · boop-yyt #1364 | S(j0.71/c0.94) T(j0.25/c0.75)
+  surface lib_33459e0dc957->lib_35e327e8890d | 无题 · boop-yyt #1284 | 无题 · misc #1278 | S(j0.71/c0.94) T(j0.17/c0.88)
+  surface lib_20b8c20f05f5->lib_408d0bacc2de | 无题 · KONpiGG #134 | 蜂蜜水与巧克力 | S(j0.71/c0.88) T(j0.31/c0.67)
+  surface lib_aa939a5ceff4->lib_dd5eeb87f7de | 无题 · boop-yyt #1330 | 无题 · boop-yyt #1386 | S(j0.70/c0.82) T(j0.20/c1.00)
+  surface lib_2a3192fd3cc5->lib_4a68dd74f870 | 无题 · KONpiGG #80 | 蝴蝶结 | S(j0.70/c0.86) T(j0.31/c1.00)
+  surface lib_776b70302820->lib_16c34d2a101f | 024 · 关灯 | 无题 · KONpiGG #67 | S(j0.69/c0.86) T(j0.13/c0.28)
+  surface lib_1aa2e7bacd58->lib_35815405359b | 山顶小屋 | 无题 · KONpiGG #85 | S(j0.69/c0.92) T(j0.18/c0.32)
+  surface lib_71e368d13be5->lib_85b2b85c41b1 | 无题 · boop-yyt #1335 | Jed 2.30 | S(j0.69/c0.84) T(j0.44/c0.66)
+  surface lib_33459e0dc957->lib_7b28164de2b9 | 无题 · boop-yyt #1284 | Jed 1.11 | S(j0.68/c0.94) T(j0.17/c0.88)
+  surface lib_9536181a48d1->lib_d7016f1d33ac | 072 · 年轻 | 挑衅 | S(j0.48/c0.78) T(j0.68/c0.82)
+  surface lib_8a44218462c8->lib_97096b7207e0 | 无题 · boop-yyt #1388 | 无题 · boop-yyt #1332 | S(j0.68/c0.82) T(j0.61/c1.00)
+  surface lib_4b5ba3eca22f->lib_f3d383d9df0e | Jed 1.75 | 无题 · boop-yyt #1368 | S(j0.68/c1.00) T(j0.29/c1.00)
+  surface lib_10769cc52a8a->lib_9b30970e6dd2 | 无题 · boop-yyt #1378 | 无题 · boop-yyt #1379 | S(j0.67/c0.91) T(j0.13/c0.62)
+  surface lib_6a2910380309->lib_e8e8737072bb | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1363 | S(j0.67/c0.85) T(j0.15/c0.38)
+  surface lib_2fb427a16795->lib_a9a0bddb7f7c | 旧的八音盒 | 旧的八音盒 | S(j0.54/c0.80) T(j0.67/c1.00)
+  surface lib_635d3bbeb251->lib_fa69fb12b874 | Jed 1.10 | 无题 · boop-yyt #1283 | S(j0.67/c1.00) T(j0.58/c1.00)
+  surface lib_4f76b82838fb->lib_4195efaab01e | Jed 1.59 | 无题 · boop-yyt #1299 | S(j0.65/c1.00) T(j0.56/c1.00)
+  surface lib_cab98c529eaf->lib_ff82650c1faa | 无题 · KONpiGG #108 | 没熟 | S(j0.64/c0.89) T(j0.52/c1.00)
+  surface lib_57ae1306e87a->lib_fddab6f49384 | 无题 · boop-yyt #1301 | 无题 · boop-yyt #1310 | S(j0.64/c0.79) T(j0.20/c0.45)
+  truth lib_8651060c9948->lib_f7706d4b00fa | 无题 · boop-yyt #1389 | Jed 2.22 | S(j0.21/c0.48) T(j0.64/c1.00)
+  surface lib_474c41f3b6f8->lib_d03a68f1e0d1 | 037 · 洗头 | 无题 · KONpiGG #84 | S(j0.64/c0.78) T(j0.12/c0.37)
+  truth lib_4b5ba3eca22f->lib_6048cff22007 | Jed 1.75 | 无题 · boop-yyt #1369 | S(j0.42/c0.63) T(j0.63/c1.00)
+  surface lib_fddab6f49384->lib_4195efaab01e | 无题 · boop-yyt #1310 | 无题 · boop-yyt #1299 | S(j0.62/c0.79) T(j0.32/c0.65)
+  surface lib_27232c3dbbc2->lib_6048cff22007 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1369 | S(j0.62/c0.77) T(j0.40/c0.60)
+  surface lib_0f05c1b4b831->lib_6e35467a2ea9 | 无题 · boop-yyt #1295 | Jed 1.46 | S(j0.62/c1.00) T(j0.34/c1.00)
+  surface lib_6e35467a2ea9->lib_894cfdd71455 | Jed 1.46 | 无题 · boop-yyt #1358 | S(j0.62/c1.00) T(j0.34/c1.00)
+  surface lib_6a2910380309->lib_bb9b8da83f0b | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1361 | S(j0.62/c0.77) T(j0.32/c0.73)
+  surface lib_0fa0dac82fb7->lib_b870f4f22820 | Jed 1.90 | 无题 · boop-yyt #1315 | S(j0.61/c1.00) T(j0.25/c1.00)
+  surface lib_6a2910380309->lib_fddab6f49384 | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1310 | S(j0.54/c0.76) T(j0.61/c0.81)
+  surface lib_b560a80af76b->lib_eace40ad0af6 | 无题 · boop-yyt #1288 | 无题 · boop-yyt #1305 | S(j0.61/c0.92) T(j0.22/c0.52)
+  surface lib_96b3e65fc4dd->lib_d9a053630dee | 056 · 精神病 | 回家 | S(j0.59/c0.82) T(j0.59/c0.88)
+  surface lib_d9a053630dee->lib_fa7f7472ae6b | 回家 | 回家报平安 | S(j0.47/c0.78) T(j0.59/c0.88)
+  surface lib_36a9685bff7a->lib_fddab6f49384 | 无题 · boop-yyt #1309 | 无题 · boop-yyt #1310 | S(j0.59/c0.79) T(j0.33/c0.64)
+  surface lib_08a08b9bdd9c->lib_42f2bc82bc2f | 无题 · boop-yyt #1289 | 无题 · boop-yyt #1352 | S(j0.54/c0.92) T(j0.59/c0.84)
+  surface lib_153b82ead579->lib_b870f4f22820 | 无题 · boop-yyt #1308 | 无题 · boop-yyt #1315 | S(j0.59/c0.77) T(j0.21/c0.45)
+  surface lib_635d3bbeb251->lib_ef983ce23926 | Jed 1.10 | 无题 · boop-yyt #1277 | S(j0.59/c1.00) T(j0.58/c1.00)
+  surface lib_ab7525f53ba2->lib_db2f404a3e00 | 相册 | 无题 · KONpiGG #113 | S(j0.58/c0.80) T(j0.37/c1.00)
+  surface lib_eace40ad0af6->lib_57c970bf7a82 | 无题 · boop-yyt #1305 | 无题 · boop-yyt #1367 | S(j0.58/c0.88) T(j0.18/c0.45)
+  surface lib_b2a5f5e847bf->lib_e4c365f5b151 | 无题 · boop-yyt #1354 | Jed 1.36 | S(j0.58/c1.00) T(j0.51/c1.00)
+  surface lib_667e4d272252->lib_c0c2a9b3d148 | 无题 · boop-yyt #1320 | Jed 2.3 | S(j0.57/c0.82) T(j0.16/c1.00)
+  surface lib_3f1125b7c0cd->lib_f8946799c97f | 黑猫叼着老鼠 | 黑猫的凝视 | S(j0.57/c0.77) T(j0.37/c0.56)
+  truth lib_6db4d37cfcbb->lib_cc9e2fec9557 | 给三兄弟的一封信 | 给三兄弟的一封信 | S(j0.23/c0.39) T(j0.56/c1.00)
+  surface lib_a44374f323ff->lib_c0c2a9b3d148 | 无题 · boop-yyt #1377 | Jed 2.3 | S(j0.56/c0.80) T(j0.16/c1.00)
+  surface lib_741df7fb39e2->lib_895c09070da5 | 无题 · KONpiGG #86 | 020 · 满地木屑 | S(j0.56/c0.80) T(j0.26/c0.56)
+  surface lib_749507623b5d->lib_e8d8698eed56 | 人鱼公主 | 无题 · KONpiGG #98 | S(j0.56/c0.79) T(j0.38/c1.00)
+  surface lib_eace40ad0af6->lib_fddab6f49384 | 无题 · boop-yyt #1305 | 无题 · boop-yyt #1310 | S(j0.56/c0.79) T(j0.36/c0.62)
+  surface lib_27232c3dbbc2->lib_894cfdd71455 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1358 | S(j0.55/c0.72) T(j0.13/c0.67)
+  surface lib_6048cff22007->lib_894cfdd71455 | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1358 | S(j0.55/c0.72) T(j0.16/c0.73)
+  surface lib_4f76b82838fb->lib_b560a80af76b | Jed 1.59 | 无题 · boop-yyt #1288 | S(j0.54/c0.95) T(j0.20/c0.88)
+  surface lib_e8e8737072bb->lib_57c970bf7a82 | 无题 · boop-yyt #1363 | 无题 · boop-yyt #1367 | S(j0.54/c0.76) T(j0.14/c0.27)
+  surface lib_5454d966fa86->lib_70707f32e1ca | 023 · 对赌 | 对赌 | S(j0.54/c0.87) T(j0.25/c0.42)
+  truth lib_b69913650fdf->lib_c84fc1792640 | 051 · 棺材里的死人 | 099 · 棺材里的人（经典版） | S(j0.21/c0.47) T(j0.54/c0.72)
+  surface lib_ef36d39a419c->lib_f3b012b87734 | 无题 · boop-yyt #1376 | 无题 · boop-yyt #1319 | S(j0.53/c0.88) T(j0.12/c0.29)
+  surface lib_eace40ad0af6->lib_d54c7f270c6d | 无题 · boop-yyt #1305 | 无题 · boop-yyt #1351 | S(j0.53/c0.88) T(j0.21/c0.44)
+  surface lib_27232c3dbbc2->lib_af575778712a | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1390 | S(j0.52/c0.73) T(j0.23/c0.67)
+  surface lib_6048cff22007->lib_af575778712a | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1390 | S(j0.52/c0.73) T(j0.28/c0.72)
+  surface lib_57ae1306e87a->lib_b560a80af76b | 无题 · boop-yyt #1301 | 无题 · boop-yyt #1288 | S(j0.52/c0.73) T(j0.23/c0.41)
+  truth lib_43e1934bbc83->lib_4195efaab01e | 无题 · boop-yyt #1344 | 无题 · boop-yyt #1299 | S(j0.27/c0.48) T(j0.52/c0.69)
+  surface lib_4f76b82838fb->lib_eace40ad0af6 | Jed 1.59 | 无题 · boop-yyt #1305 | S(j0.52/c0.75) T(j0.30/c0.75)
+  truth lib_692bef868539->lib_9b30970e6dd2 | 无题 · boop-yyt #1321 | 无题 · boop-yyt #1379 | S(j0.45/c0.66) T(j0.51/c1.00)
+  surface lib_803df945c53e->lib_91cce3f352ad | 038 · 食物中毒 | 无题 · KONpiGG #94 | S(j0.51/c0.76) T(j0.24/c0.43)
+  truth lib_33a8157609fc->lib_e4c365f5b151 | 无题 · boop-yyt #1355 | Jed 1.36 | S(j0.04/c0.16) T(j0.50/c1.00)
+  surface lib_894cfdd71455->lib_bb9b8da83f0b | 无题 · boop-yyt #1358 | 无题 · boop-yyt #1361 | S(j0.50/c0.72) T(j0.17/c0.75)
+  surface lib_4f76b82838fb->lib_d54c7f270c6d | Jed 1.59 | 无题 · boop-yyt #1351 | S(j0.50/c0.95) T(j0.25/c0.86)
+  surface lib_894cfdd71455->lib_af575778712a | 无题 · boop-yyt #1358 | 无题 · boop-yyt #1390 | S(j0.50/c0.72) T(j0.22/c0.52)
+  truth lib_1f34e7036b8b->lib_b70036a88d5c | 无题 · boop-yyt #1312 | Jed 1.78 | S(j0.32/c0.51) T(j0.49/c0.99)
+  surface lib_27232c3dbbc2->lib_f3d383d9df0e | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1368 | S(j0.49/c0.77) T(j0.25/c0.69)
+  surface lib_72b08b0f2494->lib_b870f4f22820 | 无题 · boop-yyt #1334 | 无题 · boop-yyt #1315 | S(j0.49/c0.73) T(j0.22/c0.45)
+  surface lib_eace40ad0af6->lib_4195efaab01e | 无题 · boop-yyt #1305 | 无题 · boop-yyt #1299 | S(j0.49/c0.75) T(j0.36/c0.59)
+  surface lib_15b05aa5803f->lib_6e35467a2ea9 | 无题 · boop-yyt #1296 | Jed 1.46 | S(j0.49/c0.94) T(j0.34/c1.00)
+  truth lib_153b82ead579->lib_4b5ba3eca22f | 无题 · boop-yyt #1308 | Jed 1.75 | S(j0.49/c0.67) T(j0.29/c1.00)
+  surface lib_0aae87087f4d->lib_e10fef909345 | 半瓶香水 | 半瓶香水 | S(j0.48/c0.78) T(j0.35/c1.00)
+  truth lib_4b5ba3eca22f->lib_4f76b82838fb | Jed 1.75 | Jed 1.59 | S(j0.17/c0.35) T(j0.48/c0.75)
+  truth lib_4b5ba3eca22f->lib_7b28164de2b9 | Jed 1.75 | Jed 1.11 | S(j0.08/c0.41) T(j0.48/c0.71)
+  truth lib_35e327e8890d->lib_4b5ba3eca22f | 无题 · misc #1278 | Jed 1.75 | S(j0.09/c0.41) T(j0.47/c0.71)
+  truth lib_4b5ba3eca22f->lib_16c80a13e181 | Jed 1.75 | Jed 2.20 | S(j0.10/c0.26) T(j0.47/c0.76)
+  surface lib_894cfdd71455->lib_d54c7f270c6d | 无题 · boop-yyt #1358 | 无题 · boop-yyt #1351 | S(j0.47/c0.72) T(j0.13/c0.31)
+  truth lib_d9078a59e095->lib_4195efaab01e | 无题 · misc #1274 | 无题 · boop-yyt #1299 | S(j0.16/c0.48) T(j0.47/c0.72)
+  truth lib_35e327e8890d->lib_42f2bc82bc2f | 无题 · misc #1278 | 无题 · boop-yyt #1352 | S(j0.31/c0.50) T(j0.47/c0.74)
+  surface lib_6c4c07d9075a->lib_b870f4f22820 | 无题 · boop-yyt #1307 | 无题 · boop-yyt #1315 | S(j0.47/c0.77) T(j0.17/c0.37)
+  truth lib_27232c3dbbc2->lib_b2a5f5e847bf | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1354 | S(j0.47/c0.67) T(j0.26/c0.81)
+  truth lib_43e1934bbc83->lib_bb9b8da83f0b | 无题 · boop-yyt #1344 | 无题 · boop-yyt #1361 | S(j0.18/c0.36) T(j0.47/c0.75)
+  truth lib_6048cff22007->lib_b2a5f5e847bf | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1354 | S(j0.47/c0.67) T(j0.28/c0.80)
+  truth lib_42f2bc82bc2f->lib_7b28164de2b9 | 无题 · boop-yyt #1352 | Jed 1.11 | S(j0.26/c0.44) T(j0.46/c0.74)
+  truth lib_26d12ef6da2a->lib_4195efaab01e | Jed 1.12 | 无题 · boop-yyt #1299 | S(j0.14/c0.55) T(j0.46/c0.70)
+  truth lib_153b82ead579->lib_6048cff22007 | 无题 · boop-yyt #1308 | 无题 · boop-yyt #1369 | S(j0.45/c0.64) T(j0.46/c1.00)
+  surface lib_27232c3dbbc2->lib_5351805ac486 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1350 | S(j0.46/c0.73) T(j0.34/c0.68)
+  truth lib_5502c4432dd3->lib_bb9b8da83f0b | 无题 · boop-yyt #1383 | 无题 · boop-yyt #1361 | S(j0.46/c0.65) T(j0.22/c0.70)
+  truth lib_26d12ef6da2a->lib_35e327e8890d | Jed 1.12 | 无题 · misc #1278 | S(j0.24/c0.39) T(j0.46/c0.80)
+  surface lib_d9078a59e095->lib_e334c7747e0b | 无题 · misc #1274 | 无题 · boop-yyt #1271 | S(j0.16/c1.00) T(j0.46/c0.68)
+  truth lib_a562d099d9e0->lib_e334c7747e0b | Jed 2.23 | 无题 · boop-yyt #1271 | S(j0.03/c0.23) T(j0.46/c0.70)
+  truth lib_27629b68d5cf->lib_3fad9c3ff17b | 织梦者》《新世界 | 小说主角 | S(j0.00/c0.01) T(j0.45/c1.00)
+  truth lib_3fad9c3ff17b->lib_453bf5f75173 | 小说主角 | 催眠 | S(j0.01/c0.02) T(j0.45/c1.00)
+  truth lib_4f76b82838fb->lib_b70036a88d5c | Jed 1.59 | Jed 1.78 | S(j0.09/c0.60) T(j0.45/c0.74)
+  surface lib_6bf8c1505a1e->lib_e334c7747e0b | 无题 · boop-yyt #1359 | 无题 · boop-yyt #1271 | S(j0.16/c1.00) T(j0.45/c0.65)
+  truth lib_57ae1306e87a->lib_4195efaab01e | 无题 · boop-yyt #1301 | 无题 · boop-yyt #1299 | S(j0.45/c0.63) T(j0.25/c0.75)
+  truth lib_26d12ef6da2a->lib_7b28164de2b9 | Jed 1.12 | Jed 1.11 | S(j0.22/c0.37) T(j0.45/c0.80)
+  surface lib_6a2910380309->lib_eace40ad0af6 | 无题 · boop-yyt #1370 | 无题 · boop-yyt #1305 | S(j0.45/c0.75) T(j0.29/c0.49)
+  surface lib_7e4a5a508741->lib_fa69fb12b874 | 无题 · boop-yyt #1325 | 无题 · boop-yyt #1283 | S(j0.45/c0.73) T(j0.23/c0.40)
+  surface lib_894cfdd71455->lib_e334c7747e0b | 无题 · boop-yyt #1358 | 无题 · boop-yyt #1271 | S(j0.45/c1.00) T(j0.20/c0.69)
+  truth lib_a562d099d9e0->lib_4195efaab01e | Jed 2.23 | 无题 · boop-yyt #1299 | S(j0.15/c0.55) T(j0.45/c0.72)
+  truth lib_2ccbebdb0625->lib_2d7a2f4d5b9f | 无题 · boop-yyt #1360 | 无题 · boop-yyt #1346 | S(j0.13/c0.26) T(j0.45/c0.74)
+  truth lib_0c44293fd6f1->lib_2d7a2f4d5b9f | Jed 1.51 | 无题 · boop-yyt #1346 | S(j0.16/c0.39) T(j0.45/c0.74)
+  truth lib_2d7a2f4d5b9f->lib_8231a4379212 | 无题 · boop-yyt #1346 | 无题 · boop-yyt #1298 | S(j0.14/c0.30) T(j0.45/c0.74)
+  truth lib_26d12ef6da2a->lib_16c80a13e181 | Jed 1.12 | Jed 2.20 | S(j0.19/c0.49) T(j0.44/c0.73)
+  truth lib_4b5ba3eca22f->lib_8e9ca5184f96 | Jed 1.75 | Jed 1.2 | S(j0.10/c0.59) T(j0.44/c0.77)
+  surface lib_5924ff3fa67e->lib_7cf2a178d34a | 不要相信一号 | 不要相信一号 | S(j0.44/c0.74) T(j0.21/c1.00)
+  truth lib_e8e8737072bb->lib_bb9b8da83f0b | 无题 · boop-yyt #1363 | 无题 · boop-yyt #1361 | S(j0.44/c0.65) T(j0.20/c0.82)
+  surface lib_894cfdd71455->lib_f3d383d9df0e | 无题 · boop-yyt #1358 | 无题 · boop-yyt #1368 | S(j0.44/c0.72) T(j0.18/c0.46)
+  truth lib_27232c3dbbc2->lib_b870f4f22820 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1315 | S(j0.44/c0.65) T(j0.26/c1.00)
+  truth lib_42f2bc82bc2f->lib_e12f6b533563 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1374 | S(j0.24/c0.42) T(j0.43/c0.71)
+  truth lib_27232c3dbbc2->lib_5502c4432dd3 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1383 | S(j0.43/c0.67) T(j0.19/c0.72)
+  truth lib_7b28164de2b9->lib_a562d099d9e0 | Jed 1.11 | Jed 2.23 | S(j0.24/c0.42) T(j0.43/c0.74)
+  surface lib_0c44293fd6f1->lib_8e9ca5184f96 | Jed 1.51 | Jed 1.2 | S(j0.12/c0.78) T(j0.43/c0.71)
+  truth lib_2ccbebdb0625->lib_8e9ca5184f96 | 无题 · boop-yyt #1360 | Jed 1.2 | S(j0.15/c0.69) T(j0.43/c0.71)
+  truth lib_8231a4379212->lib_8e9ca5184f96 | 无题 · boop-yyt #1298 | Jed 1.2 | S(j0.13/c0.70) T(j0.43/c0.71)
+  surface lib_6048cff22007->lib_e334c7747e0b | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1271 | S(j0.43/c1.00) T(j0.41/c0.69)
+  truth lib_f7706d4b00fa->lib_bb9b8da83f0b | Jed 2.22 | 无题 · boop-yyt #1361 | S(j0.19/c0.35) T(j0.43/c0.73)
+  truth lib_4b5ba3eca22f->lib_bb9b8da83f0b | Jed 1.75 | 无题 · boop-yyt #1361 | S(j0.15/c0.30) T(j0.43/c0.81)
+  surface lib_27232c3dbbc2->lib_e334c7747e0b | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1271 | S(j0.43/c1.00) T(j0.41/c0.73)
+  truth lib_35e327e8890d->lib_a562d099d9e0 | 无题 · misc #1278 | Jed 2.23 | S(j0.26/c0.44) T(j0.43/c0.73)
+  surface lib_33a8157609fc->lib_567d6cda1e1c | 无题 · boop-yyt #1355 | 无题 · boop-yyt #1292 | S(j0.43/c0.89) T(j0.17/c1.00)
+  truth lib_5351805ac486->lib_6048cff22007 | 无题 · boop-yyt #1350 | 无题 · boop-yyt #1369 | S(j0.43/c0.70) T(j0.42/c0.74)
+  truth lib_27232c3dbbc2->lib_ecab42ccdd54 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1375 | S(j0.43/c0.70) T(j0.19/c0.71)
+  truth lib_0fa0dac82fb7->lib_4b5ba3eca22f | Jed 1.90 | Jed 1.75 | S(j0.27/c0.56) T(j0.43/c0.72)
+  truth lib_a562d099d9e0->lib_f7706d4b00fa | Jed 2.23 | Jed 2.22 | S(j0.14/c0.41) T(j0.43/c0.74)
+  truth lib_6048cff22007->lib_d54c7f270c6d | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1351 | S(j0.43/c0.67) T(j0.23/c0.70)
+  truth lib_5351805ac486->lib_8c78c11c3fa1 | 无题 · boop-yyt #1350 | Jed 1.57 | S(j0.26/c0.42) T(j0.43/c0.73)
+  truth lib_42f2bc82bc2f->lib_4195efaab01e | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1299 | S(j0.09/c0.35) T(j0.43/c0.73)
+  truth lib_43e1934bbc83->lib_4f76b82838fb | 无题 · boop-yyt #1344 | Jed 1.59 | S(j0.25/c0.45) T(j0.43/c0.83)
+  truth lib_549137cff6f5->lib_8c78c11c3fa1 | 无题 · boop-yyt #1287 | Jed 1.57 | S(j0.29/c0.45) T(j0.43/c0.73)
+  truth lib_8c78c11c3fa1->lib_96327ba35de3 | Jed 1.57 | Jed 1.30 | S(j0.27/c0.50) T(j0.43/c0.73)
+  truth lib_b2a5f5e847bf->lib_bb9b8da83f0b | 无题 · boop-yyt #1354 | 无题 · boop-yyt #1361 | S(j0.43/c0.61) T(j0.29/c0.79)
+  truth lib_42f2bc82bc2f->lib_a8a56a514808 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1317 | S(j0.08/c0.32) T(j0.42/c0.74)
+  truth lib_42f2bc82bc2f->lib_4b5ba3eca22f | 无题 · boop-yyt #1352 | Jed 1.75 | S(j0.09/c0.41) T(j0.42/c0.78)
+  truth lib_6048cff22007->lib_96327ba35de3 | 无题 · boop-yyt #1369 | Jed 1.30 | S(j0.18/c0.32) T(j0.42/c0.74)
+  truth lib_549137cff6f5->lib_6048cff22007 | 无题 · boop-yyt #1287 | 无题 · boop-yyt #1369 | S(j0.15/c0.30) T(j0.42/c0.74)
+  truth lib_0fa0dac82fb7->lib_26d12ef6da2a | Jed 1.90 | Jed 1.12 | S(j0.07/c0.50) T(j0.42/c0.70)
+  truth lib_35e327e8890d->lib_d9078a59e095 | 无题 · misc #1278 | 无题 · misc #1274 | S(j0.30/c0.56) T(j0.42/c0.75)
+  surface lib_e12f6b533563->lib_bb9b8da83f0b | 无题 · boop-yyt #1374 | 无题 · boop-yyt #1361 | S(j0.27/c0.77) T(j0.42/c0.68)
+  surface lib_549137cff6f5->lib_b870f4f22820 | 无题 · boop-yyt #1287 | 无题 · boop-yyt #1315 | S(j0.42/c0.73) T(j0.26/c0.69)
+  surface lib_42f2bc82bc2f->lib_e334c7747e0b | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1271 | S(j0.12/c1.00) T(j0.42/c0.69)
+  truth lib_27232c3dbbc2->lib_4b5ba3eca22f | 无题 · boop-yyt #1373 | Jed 1.75 | S(j0.21/c0.37) T(j0.42/c0.72)
+  truth lib_8a44218462c8->lib_4195efaab01e | 无题 · boop-yyt #1388 | 无题 · boop-yyt #1299 | S(j0.15/c0.35) T(j0.42/c0.72)
+  truth lib_43e1934bbc83->lib_6048cff22007 | 无题 · boop-yyt #1344 | 无题 · boop-yyt #1369 | S(j0.06/c0.12) T(j0.42/c0.73)
+  truth lib_7b28164de2b9->lib_d9078a59e095 | Jed 1.11 | 无题 · misc #1274 | S(j0.25/c0.50) T(j0.42/c0.75)
+  truth lib_4f76b82838fb->lib_e4c365f5b151 | Jed 1.59 | Jed 1.36 | S(j0.18/c0.32) T(j0.42/c0.78)
+  truth lib_8e9ca5184f96->lib_d18a8dcc9c6c | Jed 1.2 | Jed 2.5 | S(j0.42/c0.63) T(j0.29/c0.75)
+  surface lib_2ccbebdb0625->lib_e334c7747e0b | 无题 · boop-yyt #1360 | 无题 · boop-yyt #1271 | S(j0.37/c1.00) T(j0.42/c0.61)
+  truth lib_26d12ef6da2a->lib_4f76b82838fb | Jed 1.12 | Jed 1.59 | S(j0.09/c0.55) T(j0.42/c0.72)
+  truth lib_27232c3dbbc2->lib_c67f366c50ed | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1392 | S(j0.42/c0.67) T(j0.12/c0.75)
+  truth lib_b560a80af76b->lib_bb9b8da83f0b | 无题 · boop-yyt #1288 | 无题 · boop-yyt #1361 | S(j0.42/c0.59) T(j0.23/c0.80)
+  truth lib_8e9ca5184f96->lib_e334c7747e0b | Jed 1.2 | 无题 · boop-yyt #1271 | S(j0.04/c0.54) T(j0.42/c0.72)
+  surface lib_6048cff22007->lib_e12f6b533563 | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1374 | S(j0.24/c0.77) T(j0.42/c0.70)
+  truth lib_8a44218462c8->lib_c026a4977b0e | 无题 · boop-yyt #1388 | Jed 1.65 | S(j0.19/c0.49) T(j0.42/c0.71)
+  truth lib_36a9685bff7a->lib_4b5ba3eca22f | 无题 · boop-yyt #1309 | Jed 1.75 | S(j0.18/c0.33) T(j0.42/c1.00)
+  surface lib_27232c3dbbc2->lib_35e327e8890d | 无题 · boop-yyt #1373 | 无题 · misc #1278 | S(j0.19/c0.77) T(j0.41/c0.64)
+  surface lib_17fc568f14b0->lib_cf3e6fe7ac2d | 027 · 海龟汤 | 091 · 原版海龟汤（必玩） | S(j0.41/c0.85) T(j0.16/c0.35)
+  truth lib_7b28164de2b9->lib_bb9b8da83f0b | Jed 1.11 | 无题 · boop-yyt #1361 | S(j0.11/c0.44) T(j0.41/c0.70)
+  truth lib_6048cff22007->lib_8ad076c37f47 | 无题 · boop-yyt #1369 | Jed 1.85 | S(j0.24/c0.40) T(j0.41/c0.70)
+  truth lib_36a9685bff7a->lib_6048cff22007 | 无题 · boop-yyt #1309 | 无题 · boop-yyt #1369 | S(j0.19/c0.33) T(j0.41/c0.74)
+  truth lib_26d12ef6da2a->lib_f7706d4b00fa | Jed 1.12 | Jed 2.22 | S(j0.18/c0.55) T(j0.41/c0.76)
+  truth lib_4f76b82838fb->lib_d9078a59e095 | Jed 1.59 | 无题 · misc #1274 | S(j0.07/c0.35) T(j0.41/c0.71)
+  surface lib_e12f6b533563->lib_e334c7747e0b | 无题 · boop-yyt #1374 | 无题 · boop-yyt #1271 | S(j0.14/c1.00) T(j0.41/c0.58)
+  truth lib_42f2bc82bc2f->lib_43e1934bbc83 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1344 | S(j0.06/c0.28) T(j0.41/c0.71)
+  truth lib_42f2bc82bc2f->lib_65fe14d66cba | 无题 · boop-yyt #1352 | Jed 1.20 | S(j0.28/c0.45) T(j0.41/c0.77)
+  truth lib_0fa0dac82fb7->lib_e334c7747e0b | Jed 1.90 | 无题 · boop-yyt #1271 | S(j0.00/c0.00) T(j0.41/c0.75)
+  truth lib_16c80a13e181->lib_4195efaab01e | Jed 2.20 | 无题 · boop-yyt #1299 | S(j0.12/c0.29) T(j0.41/c0.79)
+  truth lib_b70036a88d5c->lib_f7706d4b00fa | Jed 1.78 | Jed 2.22 | S(j0.16/c0.55) T(j0.41/c0.73)
+  surface lib_6048cff22007->lib_6bf8c1505a1e | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1359 | S(j0.26/c0.77) T(j0.41/c0.67)
+  truth lib_35e327e8890d->lib_43e1934bbc83 | 无题 · misc #1278 | 无题 · boop-yyt #1344 | S(j0.06/c0.32) T(j0.41/c0.84)
+  surface lib_ca618df9d6da->lib_ef36d39a419c | Jed 1.43 | 无题 · boop-yyt #1376 | S(j0.41/c0.73) T(j0.16/c0.37)
+  truth lib_42f2bc82bc2f->lib_5351805ac486 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1350 | S(j0.17/c0.53) T(j0.41/c0.71)
+  truth lib_42f2bc82bc2f->lib_96327ba35de3 | 无题 · boop-yyt #1352 | Jed 1.30 | S(j0.08/c0.36) T(j0.41/c0.71)
+  truth lib_6048cff22007->lib_4195efaab01e | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1299 | S(j0.13/c0.23) T(j0.41/c0.72)
+  truth lib_42f2bc82bc2f->lib_549137cff6f5 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1287 | S(j0.12/c0.40) T(j0.41/c0.71)
+  surface lib_9b30970e6dd2->lib_e334c7747e0b | 无题 · boop-yyt #1379 | 无题 · boop-yyt #1271 | S(j0.41/c1.00) T(j0.33/c0.54)
+  surface lib_8651060c9948->lib_e334c7747e0b | 无题 · boop-yyt #1389 | 无题 · boop-yyt #1271 | S(j0.18/c1.00) T(j0.41/c0.63)
+  truth lib_8e9ca5184f96->lib_e12f6b533563 | Jed 1.2 | 无题 · boop-yyt #1374 | S(j0.27/c0.57) T(j0.41/c0.70)
+  surface lib_6048cff22007->lib_8a44218462c8 | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1388 | S(j0.36/c0.73) T(j0.41/c0.59)
+  truth lib_8a44218462c8->lib_a8a56a514808 | 无题 · boop-yyt #1388 | 无题 · boop-yyt #1317 | S(j0.18/c0.42) T(j0.41/c0.71)
+  truth lib_4b5ba3eca22f->lib_a562d099d9e0 | Jed 1.75 | Jed 2.23 | S(j0.10/c0.44) T(j0.41/c0.79)
+  surface lib_2ccbebdb0625->lib_fb77315aaeee | 无题 · boop-yyt #1360 | 无题 · boop-yyt #1382 | S(j0.28/c0.80) T(j0.41/c0.62)
+  truth lib_e4c365f5b151->lib_16c80a13e181 | Jed 1.36 | Jed 2.20 | S(j0.07/c0.26) T(j0.41/c0.73)
+  truth lib_43e1934bbc83->lib_7b28164de2b9 | 无题 · boop-yyt #1344 | Jed 1.11 | S(j0.07/c0.36) T(j0.41/c0.84)
+  surface lib_27232c3dbbc2->lib_8a44218462c8 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1388 | S(j0.36/c0.73) T(j0.40/c0.61)
+  truth lib_5502c4432dd3->lib_6048cff22007 | 无题 · boop-yyt #1383 | 无题 · boop-yyt #1369 | S(j0.40/c0.63) T(j0.23/c0.76)
+  truth lib_35e327e8890d->lib_b70036a88d5c | 无题 · misc #1278 | Jed 1.78 | S(j0.35/c0.54) T(j0.40/c0.71)
+  surface lib_5351805ac486->lib_e334c7747e0b | 无题 · boop-yyt #1350 | 无题 · boop-yyt #1271 | S(j0.33/c1.00) T(j0.40/c0.60)
+  truth lib_4b5ba3eca22f->lib_b70036a88d5c | Jed 1.75 | Jed 1.78 | S(j0.09/c0.44) T(j0.40/c0.81)
+  truth lib_4b5ba3eca22f->lib_8a44218462c8 | Jed 1.75 | 无题 · boop-yyt #1388 | S(j0.13/c0.33) T(j0.40/c0.76)
+  surface lib_e334c7747e0b->lib_fb77315aaeee | 无题 · boop-yyt #1271 | 无题 · boop-yyt #1382 | S(j0.14/c1.00) T(j0.40/c0.63)
+  truth lib_0c44293fd6f1->lib_94e0759a4aae | Jed 1.51 | Jed 1.56 | S(j0.09/c0.43) T(j0.40/c0.73)
+  truth lib_2ccbebdb0625->lib_94e0759a4aae | 无题 · boop-yyt #1360 | Jed 1.56 | S(j0.12/c0.43) T(j0.40/c0.73)
+  truth lib_26d12ef6da2a->lib_4b5ba3eca22f | Jed 1.12 | Jed 1.75 | S(j0.08/c0.37) T(j0.40/c0.83)
+  truth lib_4f76b82838fb->lib_e12f6b533563 | Jed 1.59 | 无题 · boop-yyt #1374 | S(j0.13/c0.65) T(j0.40/c0.77)
+  truth lib_8231a4379212->lib_94e0759a4aae | 无题 · boop-yyt #1298 | Jed 1.56 | S(j0.10/c0.40) T(j0.40/c0.73)
+  truth lib_4acf292f2375->lib_6048cff22007 | 无题 · boop-yyt #1272 | 无题 · boop-yyt #1369 | S(j0.40/c0.67) T(j0.33/c0.77)
+  truth lib_6048cff22007->lib_ecab42ccdd54 | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1375 | S(j0.40/c0.67) T(j0.21/c0.73)
+  truth lib_27232c3dbbc2->lib_4acf292f2375 | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1272 | S(j0.40/c0.67) T(j0.29/c0.74)
+  truth lib_08a08b9bdd9c->lib_35e327e8890d | 无题 · boop-yyt #1289 | 无题 · misc #1278 | S(j0.22/c0.50) T(j0.40/c0.77)
+  truth lib_1fe018f884c7->lib_e334c7747e0b | 无题 · boop-yyt #1297 | 无题 · boop-yyt #1271 | S(j0.06/c0.23) T(j0.40/c0.71)
+  truth lib_08a08b9bdd9c->lib_7b28164de2b9 | 无题 · boop-yyt #1289 | Jed 1.11 | S(j0.20/c0.48) T(j0.40/c0.77)
+  surface lib_4acf292f2375->lib_e334c7747e0b | 无题 · boop-yyt #1272 | 无题 · boop-yyt #1271 | S(j0.33/c1.00) T(j0.40/c0.71)
+  truth lib_7b28164de2b9->lib_b70036a88d5c | Jed 1.11 | Jed 1.78 | S(j0.39/c0.58) T(j0.40/c0.71)
+  truth lib_3ec7a7147508->lib_4b5ba3eca22f | 无题 · boop-yyt #1302 | Jed 1.75 | S(j0.17/c0.52) T(j0.40/c0.85)
+  surface lib_27232c3dbbc2->lib_fb77315aaeee | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1382 | S(j0.22/c0.73) T(j0.40/c0.64)
+  truth lib_26d12ef6da2a->lib_2d7a2f4d5b9f | Jed 1.12 | 无题 · boop-yyt #1346 | S(j0.15/c0.49) T(j0.40/c0.72)
+  surface lib_6e35467a2ea9->lib_b70036a88d5c | Jed 1.46 | Jed 1.78 | S(j0.12/c0.83) T(j0.40/c0.66)
+  truth lib_f7706d4b00fa->lib_4195efaab01e | Jed 2.22 | 无题 · boop-yyt #1299 | S(j0.18/c0.35) T(j0.40/c0.84)
+  truth lib_08a08b9bdd9c->lib_16c80a13e181 | 无题 · boop-yyt #1289 | Jed 2.20 | S(j0.18/c0.34) T(j0.40/c0.71)
+  truth lib_0c44293fd6f1->lib_4b5ba3eca22f | Jed 1.51 | Jed 1.75 | S(j0.02/c0.04) T(j0.40/c0.86)
+  truth lib_2ccbebdb0625->lib_4b5ba3eca22f | 无题 · boop-yyt #1360 | Jed 1.75 | S(j0.03/c0.07) T(j0.40/c0.86)
+  truth lib_6bf8c1505a1e->lib_f7706d4b00fa | 无题 · boop-yyt #1359 | Jed 2.22 | S(j0.18/c0.45) T(j0.40/c0.77)
+  truth lib_0fa0dac82fb7->lib_8231a4379212 | Jed 1.90 | 无题 · boop-yyt #1298 | S(j0.04/c0.12) T(j0.40/c0.70)
+  truth lib_8e9ca5184f96->lib_4195efaab01e | Jed 1.2 | 无题 · boop-yyt #1299 | S(j0.11/c0.58) T(j0.40/c0.72)
+  truth lib_4b5ba3eca22f->lib_8231a4379212 | Jed 1.75 | 无题 · boop-yyt #1298 | S(j0.04/c0.07) T(j0.40/c0.86)
+  truth lib_0fa0dac82fb7->lib_2ccbebdb0625 | Jed 1.90 | 无题 · boop-yyt #1360 | S(j0.02/c0.06) T(j0.40/c0.70)
+  truth lib_0c44293fd6f1->lib_0fa0dac82fb7 | Jed 1.51 | Jed 1.90 | S(j0.03/c0.06) T(j0.40/c0.70)
+  truth lib_26d12ef6da2a->lib_b5adb2443c5b | Jed 1.12 | 无题 · boop-yyt #1316 | S(j0.11/c0.42) T(j0.40/c0.70)
+  truth lib_2ccbebdb0625->lib_16c80a13e181 | 无题 · boop-yyt #1360 | Jed 2.20 | S(j0.07/c0.17) T(j0.40/c0.71)
+  truth lib_8231a4379212->lib_16c80a13e181 | 无题 · boop-yyt #1298 | Jed 2.20 | S(j0.04/c0.10) T(j0.40/c0.71)
+  surface lib_e334c7747e0b->lib_bb9b8da83f0b | 无题 · boop-yyt #1271 | 无题 · boop-yyt #1361 | S(j0.38/c1.00) T(j0.40/c0.65)
+  truth lib_4b5ba3eca22f->lib_8c78c11c3fa1 | Jed 1.75 | Jed 1.57 | S(j0.16/c0.33) T(j0.40/c0.75)
+  truth lib_4f76b82838fb->lib_6bf8c1505a1e | Jed 1.59 | 无题 · boop-yyt #1359 | S(j0.09/c0.40) T(j0.40/c0.73)
+  truth lib_6048cff22007->lib_a86f38e57afd | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1384 | S(j0.40/c0.63) T(j0.13/c0.71)
+  truth lib_27232c3dbbc2->lib_4ec8b318f78c | 无题 · boop-yyt #1373 | 无题 · boop-yyt #1353 | S(j0.40/c0.63) T(j0.25/c0.77)
+  truth lib_0c44293fd6f1->lib_16c80a13e181 | Jed 1.51 | Jed 2.20 | S(j0.04/c0.13) T(j0.40/c0.71)
+  surface lib_4f76b82838fb->lib_57c970bf7a82 | Jed 1.59 | 无题 · boop-yyt #1367 | S(j0.40/c0.75) T(j0.19/c0.84)
+  truth lib_35e327e8890d->lib_fb77315aaeee | 无题 · misc #1278 | 无题 · boop-yyt #1382 | S(j0.26/c0.46) T(j0.40/c0.70)
+  truth lib_35e327e8890d->lib_8231a4379212 | 无题 · misc #1278 | 无题 · boop-yyt #1298 | S(j0.11/c0.47) T(j0.39/c0.76)
+  surface lib_b2a5f5e847bf->lib_e334c7747e0b | 无题 · boop-yyt #1354 | 无题 · boop-yyt #1271 | S(j0.39/c1.00) T(j0.32/c0.71)
+  truth lib_0c44293fd6f1->lib_35e327e8890d | Jed 1.51 | 无题 · misc #1278 | S(j0.10/c0.52) T(j0.39/c0.76)
+  surface lib_e334c7747e0b->lib_57c970bf7a82 | 无题 · boop-yyt #1271 | 无题 · boop-yyt #1367 | S(j0.39/c1.00) T(j0.19/c0.56)
+  truth lib_2ccbebdb0625->lib_35e327e8890d | 无题 · boop-yyt #1360 | 无题 · misc #1278 | S(j0.18/c0.66) T(j0.39/c0.76)
+  surface lib_27232c3dbbc2->lib_d9078a59e095 | 无题 · boop-yyt #1373 | 无题 · misc #1274 | S(j0.26/c0.77) T(j0.39/c0.65)
+  truth lib_c026a4977b0e->lib_16c80a13e181 | Jed 1.65 | Jed 2.20 | S(j0.19/c0.49) T(j0.39/c0.76)
+  truth lib_36a9685bff7a->lib_42f2bc82bc2f | 无题 · boop-yyt #1309 | 无题 · boop-yyt #1352 | S(j0.16/c0.58) T(j0.39/c0.70)
+  truth lib_6048cff22007->lib_6a2910380309 | 无题 · boop-yyt #1369 | 无题 · boop-yyt #1370 | S(j0.39/c0.60) T(j0.30/c0.73)
+  truth lib_ba1afde7ba05->lib_4195efaab01e | 无题 · boop-yyt #1300 | 无题 · boop-yyt #1299 | S(j0.24/c0.61) T(j0.39/c0.78)
+  truth lib_4f76b82838fb->lib_fbb763606133 | Jed 1.59 | 无题 · boop-yyt #1348 | S(j0.08/c0.20) T(j0.39/c0.74)
+  truth lib_42f2bc82bc2f->lib_48818f1558f0 | 无题 · boop-yyt #1352 | Jed 1.16 | S(j0.10/c0.37) T(j0.39/c0.77)
+  truth lib_fbb763606133->lib_16c80a13e181 | 无题 · boop-yyt #1348 | Jed 2.20 | S(j0.10/c0.24) T(j0.39/c0.72)
+  truth lib_234328857d6d->lib_4195efaab01e | 无题 · boop-yyt #1362 | 无题 · boop-yyt #1299 | S(j0.15/c0.42) T(j0.39/c0.78)
+  surface lib_0fa0dac82fb7->lib_b70036a88d5c | Jed 1.90 | Jed 1.78 | S(j0.10/c0.81) T(j0.39/c0.65)
+  truth lib_7b28164de2b9->lib_fb77315aaeee | Jed 1.11 | 无题 · boop-yyt #1382 | S(j0.22/c0.41) T(j0.39/c0.70)
+  truth lib_7b28164de2b9->lib_e12f6b533563 | Jed 1.11 | 无题 · boop-yyt #1374 | S(j0.25/c0.46) T(j0.39/c0.79)
+  truth lib_0c44293fd6f1->lib_7b28164de2b9 | Jed 1.51 | Jed 1.11 | S(j0.10/c0.56) T(j0.39/c0.76)
+  truth lib_7b28164de2b9->lib_8231a4379212 | Jed 1.11 | 无题 · boop-yyt #1298 | S(j0.11/c0.50) T(j0.39/c0.76)
+  truth lib_35e327e8890d->lib_e12f6b533563 | 无题 · misc #1278 | 无题 · boop-yyt #1374 | S(j0.29/c0.51) T(j0.39/c0.78)
+  truth lib_2ccbebdb0625->lib_7b28164de2b9 | 无题 · boop-yyt #1360 | Jed 1.11 | S(j0.13/c0.51) T(j0.39/c0.76)
+  truth lib_42f2bc82bc2f->lib_95482535a7ae | 无题 · boop-yyt #1352 | Jed 2.17 | S(j0.12/c0.48) T(j0.39/c0.71)
+  truth lib_5351805ac486->lib_8e9ca5184f96 | 无题 · boop-yyt #1350 | Jed 1.2 | S(j0.12/c0.50) T(j0.39/c0.71)
+  truth lib_42f2bc82bc2f->lib_a5ffdd3aa096 | 无题 · boop-yyt #1352 | 无题 · boop-yyt #1328 | S(j0.16/c0.49) T(j0.39/c0.71)
+  truth lib_8e9ca5184f96->lib_96327ba35de3 | Jed 1.2 | Jed 1.30 | S(j0.08/c0.50) T(j0.39/c0.71)
+  truth lib_549137cff6f5->lib_8e9ca5184f96 | 无题 · boop-yyt #1287 | Jed 1.2 | S(j0.12/c0.53) T(j0.39/c0.71)
+
+[2] 非简体中文
+  英文题（汤面或汤底以拉丁为主）: 153 条
+      lib_048dc4d7aeb0 | Jed 1.83 | A woman lies dead in the street near a car.
+      lib_05d55826327b | Jed 1.19 | There is blood on the ceiling of my bedroom.
+      lib_08a08b9bdd9c | 无题 · boop-yyt #1289 | A man is killed on a train. He is found to have written 
+      lib_09c0825b5def | 无题 · boop-yyt #1324 | A woman opens an envelope and dyes. What happened?
+      lib_0a6d1163d6f9 | 无题 · boop-yyt #1290 | A man lies dead next to a feather. What happened?
+      lib_0b330f52e242 | 无题 · misc #1303 | A man tries to buy poison to kill his wife. The pharmaci
+      lib_0c44293fd6f1 | Jed 1.51 | If he'd turned on the light, he'd have lived.
+      lib_0e134ac04a78 | 无题 · boop-yyt #1322 | Two people are playing cards. One looks around and reali
+      lib_0f05c1b4b831 | 无题 · boop-yyt #1295 | A man dies in his own home. What happened?
+      lib_0fa0dac82fb7 | Jed 1.90 | A man urinates and dies.
+      lib_10769cc52a8a | 无题 · boop-yyt #1378 | There are 53 bees instead of 53 bicycles. How could this
+      lib_153b82ead579 | 无题 · boop-yyt #1308 | A bell rings. A man dies. A bell rings. What happened?
+      lib_15b05aa5803f | 无题 · boop-yyt #1296 | A man dies of thirst in his own home. What happened?
+      lib_1f34e7036b8b | 无题 · boop-yyt #1312 | A man and his brother are in a bar drinking. They begin 
+      lib_1fe018f884c7 | 无题 · boop-yyt #1297 | A man is lying drowned in a dead forest. What happened?
+      lib_21b65cf5f303 | 无题 · boop-yyt #1395 | Pat went into a luggage shop to buy a suitcase. The assi
+      lib_234328857d6d | 无题 · boop-yyt #1362 | A woman is murdered in front of hundreds of people, but 
+      lib_269b76a49e5f | 无题 · boop-yyt #1337 | Little Billy was four years old and both his parents wer
+      lib_26bcca939ecf | Jed 1.84 | Tim and Greg were talking. Tim said "The terror of fligh
+      lib_26d12ef6da2a | Jed 1.12 | A woman in France in 1959 is waiting in her room, with a
+      lib_27232c3dbbc2 | 无题 · boop-yyt #1373 | A man urinates and dies. How could this be?
+      lib_2c0ba09a2695 | 无题 · boop-yyt #1339 | Why is it that, in general, the hair on a man's head goe
+      lib_2ccbebdb0625 | 无题 · boop-yyt #1360 | If he'd turned on the light, he'd have lived. How could 
+      lib_2d7a2f4d5b9f | 无题 · boop-yyt #1346 | A man wakes up in a dark room. He switches on the light.
+      lib_30ffbff72d13 | 无题 · boop-yyt #1393 | John was watching television. Just after the midnight ne
+      lib_319333fbaf07 | Jed 1.6 | A man walks into a bar and asks for a drink. The bartend
+      lib_33459e0dc957 | 无题 · boop-yyt #1284 | Two brothers are involved in a murder. Though it's clear
+      lib_33a8157609fc | 无题 · boop-yyt #1355 | He couldn't find a chair, so he died. (RM, with KH wordi
+      lib_357a5c287302 | 无题 · boop-yyt #1372 | Two people are dead in a car, which is locked from the i
+      lib_35e327e8890d | 无题 · misc #1278 | Two brothers are involved in a murder. Though it's clear
+      lib_36a9685bff7a | 无题 · boop-yyt #1309 | The wind stopped blowing and the man died. What happened
+      lib_39fb5cec5a60 | 无题 · boop-yyt #1294 | Mr. Browning is glad the car ran out of gas. Why?
+      lib_3c59d8568b7f | 无题 · boop-yyt #1291 | A flash of light, a man dies. Why?
+      lib_3ec7a7147508 | 无题 · boop-yyt #1302 | A man sends a package to someone in Europe and gets a no
+      lib_42f2bc82bc2f | 无题 · boop-yyt #1352 | A man is killed on a train. He is found to have written 
+      lib_43e1934bbc83 | 无题 · boop-yyt #1344 | The music stopped. She died. Explain.
+      lib_48818f1558f0 | Jed 1.16 | Two dead people sit in their cars on a street.
+      lib_4a0f40ddff23 | 无题 · boop-yyt #1331 | Bruce wins the race, but he gets no trophy. What happene
+      lib_4acf292f2375 | 无题 · boop-yyt #1272 | A man is lying drowned in a dead forest. How could this 
+      lib_4b5ba3eca22f | Jed 1.75 | A rope breaks. A bell rings. A man dies.
+      lib_4cea3fb48eaf | 无题 · boop-yyt #1281 | Beulah died in the Appalachians, while Craig died at sea
+      lib_4ec8b318f78c | 无题 · boop-yyt #1353 | A man lies dead next to a feather. How could this be?
+      lib_4f76b82838fb | Jed 1.59 | Music stops and a woman dies.
+      lib_4fa7348b73fc | 无题 · boop-yyt #1327 | A black leader dies in Africa. What happened?
+      lib_52b79b7f332d | 无题 · boop-yyt #1326 | It's the year 860 A.D., at Camelot. Two priests are sitt
+      lib_5351805ac486 | 无题 · boop-yyt #1350 | A car without a driver moves; a man dies. How could this
+      lib_549137cff6f5 | 无题 · boop-yyt #1287 | A car without a driver moves; a man dies. What happened?
+      lib_5502c4432dd3 | 无题 · boop-yyt #1383 | A woman opens an envelope and dyes. How could this be?
+      lib_567d6cda1e1c | 无题 · boop-yyt #1292 | He couldn't find a chair, so he died. Why?
+      lib_57ae1306e87a | 无题 · boop-yyt #1301 | Charlie died when the music stopped. What happened?
+      lib_5a4734fb2312 | 无题 · boop-yyt #1338 | A woman walked up to a man behind a counter and handed h
+      lib_5b31bb7c711b | 无题 · boop-yyt #1318 | A pile of sawdust, no net, a man dies. What happened?
+      lib_6048cff22007 | 无题 · boop-yyt #1369 | A bell rings. A man dies. A bell rings. How could this b
+      lib_635d3bbeb251 | Jed 1.10 | He was killed by breakfast.
+      lib_641c88779ab8 | 无题 · boop-yyt #1365 | A man tries to buy poison to kill his wife. The pharmaci
+      lib_65fe14d66cba | Jed 1.20 | A man in uniform stands on the beach of a tropical islan
+      lib_667e4d272252 | 无题 · boop-yyt #1320 | A man pushes a car up to a hotel and tells the owner he'
+      lib_689043d7869e | 无题 · boop-yyt #1345 | Tom and Joe went to a movie. There were many other peopl
+      lib_692bef868539 | 无题 · boop-yyt #1321 | There are 51 instead of 53. What happened?
+      lib_6a2910380309 | 无题 · boop-yyt #1370 | The music stopped and the man died. How could this be?
+      lib_6bf8c1505a1e | 无题 · boop-yyt #1359 | A man kills his wife, then goes inside his house and kil
+      lib_6c4c07d9075a | 无题 · boop-yyt #1307 | A rope breaks. A bell rings. A man dies. What happened?
+      lib_6ddef2ee1c6d | 无题 · boop-yyt #1304 | A man is found hanging in a locked room. What happened?
+      lib_6e35467a2ea9 | Jed 1.46 | A man dies in his own home.
+      lib_71e368d13be5 | 无题 · boop-yyt #1335 | A man is doing his job when his suit tears. Fifteen minu
+      lib_71ec509dae7a | 无题 · boop-yyt #1340 | Two naturalists were walking in the country. They were b
+      lib_72b08b0f2494 | 无题 · boop-yyt #1334 | A man shoots himself, and dies. What happened?
+      lib_75185e4de274 | 无题 · boop-yyt #1385 | A man marries twenty women in his village but isn't char
+      lib_7b28164de2b9 | Jed 1.11 | Two brothers are involved in a murder. Though it's clear
+      lib_7e39ee741246 | 无题 · boop-yyt #1336 | An ordinary woman walks on water. What happened?
+      lib_7e4a5a508741 | 无题 · boop-yyt #1325 | He was killed because of poor eyesight. What happened?
+      lib_7e5accb69163 | 无题 · boop-yyt #1286 | A man is lying dead face down in the desert wearing a ba
+      lib_8231a4379212 | 无题 · boop-yyt #1298 | If he'd turned on the light, he'd have lived. What happe
+      lib_85b2b85c41b1 | Jed 2.30 | A man is doing his job when his suit tears. Fifteen minu
+      lib_8651060c9948 | 无题 · boop-yyt #1389 | A man enters a store. After a short pause, he says "pain
+      lib_894cfdd71455 | 无题 · boop-yyt #1358 | A man dies in his own home. How could this be?
+      lib_8a44218462c8 | 无题 · boop-yyt #1388 | A woman meets the king, cries "Pain!", and loses conscio
+      lib_8ad076c37f47 | Jed 1.85 | A woman throws something out a window and dies.
+      lib_8c78c11c3fa1 | Jed 1.57 | A man opens his mouth and dies shortly afterwards.
+      lib_8e2c5a35d64c | 无题 · boop-yyt #1329 | A man marries twenty women in his village but isn't char
+      lib_8e9ca5184f96 | Jed 1.2 | A man lives on the twelfth floor of an apartment buildin
+      lib_92a9fba5867b | 无题 · misc #1275 | Beulah died in the Appalachians, while Craig died at sea
+      lib_94e0759a4aae | Jed 1.56 | As I drive to work on my motorcycle, there is one corner
+      lib_95482535a7ae | Jed 2.17 | Two men are found dead outside of an igloo.
+      lib_96327ba35de3 | Jed 1.30 | A car without a driver moves; a man dies.
+      lib_97096b7207e0 | 无题 · boop-yyt #1332 | A woman meets the king, cries "Pain!", and loses conscio
+      lib_97994180fa32 | Jed 1.74 | A woman walks into a small room and screams.
+      lib_9ab11870482d | 无题 · boop-yyt #1306 | A woman walks into a small room and screams. What happen
+      lib_9b30970e6dd2 | 无题 · boop-yyt #1379 | There are 51 instead of 53. How could this be?
+      lib_9b7562a21e3f | 无题 · boop-yyt #1349 | Silly variant: same problem statement, with the addition
+      lib_a039666c7124 | Jed 1.18 | A man is sitting in a room. Another person enters, carry
+      lib_a1d5d6bb539b | 无题 · boop-yyt #1313 | Two people are dead in a car, which is locked from the i
+      lib_a44374f323ff | 无题 · boop-yyt #1377 | A man pushes a car up to a hotel and tells the owner he'
+      lib_a521f9bcbdd1 | 无题 · boop-yyt #1357 | Variant which puts this in section 2: same statement, en
+      lib_a562d099d9e0 | Jed 2.23 | As a man jumps out of a window, he hears the telephone r
+      lib_a5ffdd3aa096 | 无题 · boop-yyt #1328 | Two men are found dead outside of an igloo. What happene
+      lib_a86f38e57afd | 无题 · boop-yyt #1384 | A black leader dies in Africa. How could this be?
+      lib_a8a56a514808 | 无题 · boop-yyt #1317 | A man sees sawdust and chooses to living. Why?
+      lib_a9b861531fdd | 无题 · boop-yyt #1391 | A man is doing his job when his suit tears. Fifteen minu
+      lib_aa939a5ceff4 | 无题 · boop-yyt #1330 | Joe wants to go home, but he can't go home because the m
+      lib_af198d3a47b7 | Jed 1.33 | A man lies dead next to a feather.
+      lib_af575778712a | 无题 · boop-yyt #1390 | A man shoots himself, and dies. How could this be?
+      lib_b2a5f5e847bf | 无题 · boop-yyt #1354 | A flash of light, a man dies. How could this be?
+      lib_b560a80af76b | 无题 · boop-yyt #1288 | The music stops and a woman dies. What happened?
+      lib_b5adb2443c5b | 无题 · boop-yyt #1316 | The light goes out and a man dies. What happened?
+      lib_b70036a88d5c | Jed 1.78 | A woman has incontrovertible proof in court that her hus
+      lib_b7523df2ab20 | 无题 · boop-yyt #1364 | Variant wording: A man sends a package to someone in Eur
+      lib_b870f4f22820 | 无题 · boop-yyt #1315 | A man urinates and dies. What happened?
+      lib_ba1afde7ba05 | 无题 · boop-yyt #1300 | A woman is murdered in front of hundreds of people, but 
+      lib_bf0a44412d29 | 无题 · boop-yyt #1343 | On a cold winter's day, drivers found that sheep from th
+      lib_c026a4977b0e | Jed 1.65 | A man was walking down a road when a stone lodged itself
+      lib_c0c2a9b3d148 | Jed 2.3 | A man pushes a car up to a hotel and tells the owner he'
+      lib_c67f366c50ed | 无题 · boop-yyt #1392 | An ordinary woman walks on water. How could this be?
+      lib_c83298d35144 | 无题 · boop-yyt #1381 | Two people are playing cards. One looks around and reali
+      lib_ca411d1cf9c1 | Jed 1.9 | An avid birdwatcher sees an unexpected bird. Soon he's d
+      lib_ca618df9d6da | Jed 1.43 | The king dies and two men both claim to be his long-lost
+      lib_cc9e2fec9557 | 给三兄弟的一封信 | H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞
+      lib_d18a8dcc9c6c | Jed 2.5 | A black man dressed all in black, wearing a black mask, 
+      lib_d6c8501d6b79 | Jed 2.13 | A woman opens an envelope and dyes.
+      lib_d6cd2cb2dc12 | 无题 · boop-yyt #1314 | A woman lies dead in the street near a car. What happene
+      lib_d9078a59e095 | 无题 · misc #1274 | A man sitting on a park bench reads a newspaper article 
+      lib_d9c56fa6081b | 无题 · boop-yyt #1276 | An avid birdwatcher sees an unexpected bird. Soon he's d
+      lib_dd1af577210e | 无题 · boop-yyt #1282 | An avid birdwatcher sees an unexpected bird. Soon he's d
+      lib_dd5eeb87f7de | 无题 · boop-yyt #1386 | Joe wants to go home, but he can't go home because the m
+      lib_df035a53a0a4 | 无题 · boop-yyt #1366 | Same without the puddle of water. How could this be?
+      lib_e0d6ce92565c | Jed 1.29 | Every day a man drinks his breakfast and drinks his lunc
+      lib_e12f6b533563 | 无题 · boop-yyt #1374 | A man is dead in a room with a small pile of pieces of w
+      lib_e334c7747e0b | 无题 · boop-yyt #1271 | How could this be?
+      lib_e4c365f5b151 | Jed 1.36 | A flash of light, a man dies.
+      lib_e8e8737072bb | 无题 · boop-yyt #1363 | Charlie died when the music stopped. How could this be?
+      lib_eace40ad0af6 | 无题 · boop-yyt #1305 | The music stops and the man dies. Why?
+      lib_ebfab81bc1df | Jed 2.33 | An ordinary woman walks on water. (_Math for Girls_)
+      lib_ecab42ccdd54 | 无题 · boop-yyt #1375 | A pile of sawdust, no net, a man dies. How could this be
+      lib_ee8eecd3c58d | 无题 · boop-yyt #1356 | A man is running along a corridor with a piece of paper 
+      lib_ef36d39a419c | 无题 · boop-yyt #1376 | Variant wording: A seated woman is writing a letter. She
+      lib_ef983ce23926 | 无题 · boop-yyt #1277 | He was killed by breakfast. How could this be
+      lib_f11b65ee0498 | 无题 · boop-yyt #1285 | There is blood on the ceiling of my bedroom. What happen
+      lib_f19f1c8dd5e9 | 无题 · boop-yyt #1342 | A blind beggar had a brother who died. What relation was
+      lib_f21afd2070b6 | Jed 2.9 | Two people are playing cards. One looks around and reali
+      lib_f3b012b87734 | 无题 · boop-yyt #1319 | A seated woman is writing a letter. She dies because the
+      lib_f7706d4b00fa | Jed 2.22 | A woman meets the king, cries "Pain!", and loses conscio
+      lib_fa69fb12b874 | 无题 · boop-yyt #1283 | He was killed by breakfast. What happened?
+      lib_fb77315aaeee | 无题 · boop-yyt #1382 | A man was brought before a tribal chief, who asked him a
+      lib_fbb763606133 | 无题 · boop-yyt #1348 | A man sat perfectly still for 88 hours. Why?
+      lib_fccd2f662926 | Jed 2.21 | Bruce wins the race, but he gets no trophy.
+      lib_fd3477ddff5b | Jed 1.27 | A man tells his boss, "Don't take your planned flight to
+      lib_fddab6f49384 | 无题 · boop-yyt #1310 | The music stopped and the man died. What happened?
+      lib_f3d383d9df0e | 无题 · boop-yyt #1368 | A rope breaks. A bell rings. A man dies. How could this 
+      lib_16c80a13e181 | Jed 2.20 | Joe wants to go home, but he can't go home because the m
+      lib_4195efaab01e | 无题 · boop-yyt #1299 | Music stops and a woman dies. What happened?
+      lib_57c970bf7a82 | 无题 · boop-yyt #1367 | The music stops and the man dies. How could this be?
+      lib_bb9b8da83f0b | 无题 · boop-yyt #1361 | Music stops and a woman dies. How could this be?
+      lib_d54c7f270c6d | 无题 · boop-yyt #1351 | The music stops and a woman dies. How could this be?
+  中英混杂: 2 条
+      lib_6db4d37cfcbb | 给三兄弟的一封信 | HO+SiOz+FesOs+CO:一0 人 〈x2+y2-1 ) 3一
+      lib_9bb30989de8d | 暑假作业 | 暑假的某天，老师邀请我们出国旅行，但他出了三道题：语文，我们今年学的一首诗名为三个字的古诗，是哪一首？Engli
+  繁体中文（繁体字占比>=5%）: 137 条
+      lib_0269e650b41f | 一双鞋 | 繁s0.06 繁t0.03 | 男人醒来只看到一双鞋就自杀了，为什么？
+      lib_061a1d68f450 | 死亡直播 | 繁s0.07 繁t0.03 | 女主播在直播间表演，观众纷纷打赏，说‘表演得太真实了’。直到直播自动结束，大家才发现她是真的死了
+      lib_087b4e1374f3 | 替罪 | 繁s0.07 繁t0.09 | 牛郎织女多离分，羊儿回首欲报恩。四散飘零寻归处，可识当年窃羊人？
+      lib_090fb2fb97fe | 出租房 | 繁s0.00 繁t0.06 | 我搬进了一个新房子，房间里经常有类似于老鼠爬的声音，但毕竟便宜，我也睡的很香，没多久房东就谈了一
+      lib_0cf00682e3ce | 无题 · KONpiGG #135 | 繁s0.06 繁t0.02 | 一场意外后，妻子便开始把自己关在房间里，不肯出来。那天我突然听到她在嚎啕大哭，我急忙冲进房间里，
+      lib_0daf1eafe0c9 | 085 · 守灯人 | 繁s0.04 繁t0.06 | 守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。
+      lib_0ed4dd3f3ce3 | 无题 · KONpiGG #109 | 繁s0.07 繁t0.04 | 我走进电梯准备去上学，随着电梯的上升，我知道，我再也无法去学校了。
+      lib_1165bea3d4c9 | 反锁的门 | 繁s0.06 繁t0.00 | 房门从里面反锁，窗户也关着。警察看了一眼门口的鞋，就判断屋里还有一个人。
+      lib_14ac594e1290 | 空座位 | 繁s0.07 繁t0.02 | 电影院里只剩一个空座位。电影开始后，他看着那个座位，立刻离开了影厅。
+      lib_1612b4b8aaed | 偷窥者 | 繁s0.04 繁t0.09 | 一个男人每天都通过墙上的小孔偷窥隔壁的美女。隔壁总是亮着红光。有一天，他发现小孔变成了红色，他吓
+      lib_161809c5dbab | 日记 | 繁s0.04 繁t0.06 | 2020.10.15 晴
+今天舅舅给我做了一顿我从来没吃过的饭，听他们说这是肉，那种香味至今俺都
+      lib_17fc568f14b0 | 027 · 海龟汤 | 繁s0.04 繁t0.07 | 一名男子走进餐厅，点了一碗海龟汤，喝了一口非常惊讶地问服务员："这是真的海龟汤吗？" 得到肯定回
+      lib_18b321274e5e | 重逢 | 繁s0.02 繁t0.05 | 男子在火车站看到一个阔别多年的老友。他兴奋地冲过去打招呼，老友却惊恐地逃跑，最后老友在铁轨上被撞
+      lib_19e9eb7c289b | 077 · 永远的标准答案 | 繁s0.04 繁t0.09 | 小红考试只要答"不知道"，就能得到满分，但老师却给她打了零分。
+      lib_19f1a46c7f28 | 缸中之脑 | 繁s0.09 繁t0.05 | 一个男人发现自己不论怎么努力，都无法打破一个杯子。他最后大笑起来，自杀了。
+      lib_1b5f8818a812 | 一週還是兩年？ | 繁s0.23 繁t0.27 | 法醫推了推眼鏡，指著解剖台上的遺體，語氣篤定地說：「從器官腐敗程度與皮下組織狀態來看，死亡時間絕
+      lib_1bf936bf0361 | 无题 · KONpiGG #141 | 繁s0.09 繁t0.01 | 我被杀害在山的另一头，而山的那边，是弯弯曲曲、而鲜血淋漓的国道。他以为自己逃掉了，但我留下的印记
+      lib_1e06910567ab | 数数 | 繁s0.08 繁t0.05 | 我数数，他也在数数，我毛骨悚然。
+      lib_1ec62776467d | 生日礼物 | 繁s0.07 繁t0.04 | 盲人男孩生日，收到了哥哥寄来的一个盒子。他拆开后，大哭着自杀了。
+      lib_206b9185868d | 098 · 跳火车（经典版） | 繁s0.12 繁t0.04 | 男子坐火车去邻镇治眼病，治好了回程时经过隧道，跳车自杀。
+      lib_20cfdfe4f7ba | 010 · 幸福家庭 | 繁s0.02 繁t0.07 | 飞机上，一对看似平和的幸福家庭正抱着婴儿旅行。他们所犯下的恶劣罪行，被一个观察力敏锐的空中小姐发
+      lib_299d4670773c | 无题 · KONpiGG #197 | 繁s0.06 繁t0.02 | 没想到有一天，我会死在自己的制裁之下。
+      lib_2b6f776f3991 | 图书馆的死亡 | 繁s0.06 繁t0.00 | 一个人在图书馆被发现死亡。他手里拿着一本书，周围没有挣扎痕迹。警察发现书页间夹着一张纸条，上面写
+      lib_2e6c800332fa | 一盘排骨 | 繁s0.07 繁t0.04 | 生日那天爸爸端上来一盘排骨，并对我说了一句话，说完我痛哭了起来。
+      lib_3440a90fa94c | 牛排店的婴儿 | 繁s0.09 繁t0.06 | 一家人在牛排店吃饭。父亲切了一块肉给孩子吃，孩子吃完后，父亲微笑着自杀了。
+      lib_35aafab18f4c | 无题 · KONpiGG #110 | 繁s0.08 繁t0.05 | 小美和网友小明约好见面，几分钟后小美却大声惊叫起来！
+      lib_37c884ffabac | 好孩子 | 繁s0.08 繁t0.01 | “我要做个好孩子，我是个好孩子……”我不停对自己说。新闻报道一起凶杀案，凶手至今下落不明。
+      lib_3bbb255b2b29 | 无人驾驶 | 繁s0.00 繁t0.09 | 一辆车在公路上飞驰，司机却在后座睡觉，车子没有出车祸。为什么？
+      lib_3f1125b7c0cd | 黑猫叼着老鼠 | 繁s0.07 繁t0.03 | 我杀了人，被警察带走时看到门口黑猫一直盯着我，我知道我错了。
+      lib_40220a602fef | 075 · 减肥 | 繁s0.00 繁t0.06 | 她用了一年时间减掉了30斤，所有人都恭喜她，她却哭了。
+      lib_410b5ac434f2 | 墓碑上的文字 | 繁s0.16 繁t0.01 | 2988年，我和爸媽一起去星際旅行。回來時卻出了意外。爸媽立馬打算要二胎。五十年後，兒孫滿堂，爸
+      lib_4147e40f1d0e | 永远亮着的空房 | 繁s0.06 繁t0.01 | 废弃旅馆里有一间房夜夜亮着灯，老板却坚持那里根本没有通电。多年后警察进入房间，发现他说的是真的。
+      lib_44433fb07ea5 | 海难后的海龟汤 | 繁s0.04 繁t0.06 | 一名男子在餐厅点了一碗海龟汤，吃了几口后，他问店员这是不是真正的海龟肉。得到肯定答复后，他走出餐
+      lib_444e2655a43c | 无题 · KONpiGG #137 | 繁s0.06 繁t0.00 | 毕业后和学校里的闺蜜一直未见，那天她来找我了，但随着啪的一声，我们阴阳相隔
+      lib_4580162c5451 | 一双鞋 | 繁s0.05 繁t0.03 | 男人醒来后只看到一双鞋，然后就自杀了，为什么?
+      lib_464b313662f2 | 057 · 保险箱 | 繁s0.02 繁t0.06 | 一名男子在中途站上了火车，发现自己被一群陌生人包围，他逐一询问每个人的年龄，问完后回到座位上绝望
+      lib_4899062ab425 | 关灯的病房 | 繁s0.03 繁t0.07 | 护士每晚都会在同一时间关掉病房的灯。那天她没有关灯，病人却哭了。
+      lib_4920eff6469b | 死亡称重 | 繁s0.05 繁t0.04 | 一个女人每天都要称体重。某天她称完体重后，露出了幸福的微笑，随即杀死了自己的丈夫。
+      lib_4aa8059ec3e8 | 诡异的画像 | 繁s0.06 繁t0.04 | 迷路女孩找到空屋休息，却因墙上画像“盯着她”而睡不着。清晨醒来发现异样，恐惧逃离。
+      lib_4bc000dd29e9 | 特殊的体检 | 繁s0.00 繁t0.05 | 医生对病人说：‘你的病已经好了。’病人听完却哭了。
+      lib_4d564203ee45 | 066 · 妈妈的秘密 | 繁s0.05 繁t0.04 | 我在妈妈的抽屉里发现了一大叠男人的照片，问妈妈是谁，她笑着说"是你爸爸"，我却一张都不认识。
+      lib_512da327a184 | 无题 · KONpiGG #100 | 繁s0.18 繁t0.04 | 花园告示：夜深，白花点头。日出，红花落泪。日落，黑花枯萎。
+      lib_52111e999adf | 唯一的降落伞 | 繁s0.06 繁t0.06 | 飞机即将坠毁，机舱内只有两个好朋友和一个降落伞。一番争夺后，胜出的那个人背着伞包跳下，落地后却立
+      lib_54993a266437 | 完美全家福 | 繁s0.06 繁t0.03 | 摄影师给一家五口拍全家福，拍完后摄影师报了警，而全家人还在对着镜头微笑。
+      lib_5924ff3fa67e | 不要相信一号 | 繁s0.05 繁t0.03 | 我睡醒了，我又忘记了一切，手里捏着的纸条上写着几个字:不要相信1号。一个男人走近我的床边，"先生
+      lib_5940720521b9 | 无题 · KONpiGG #181 | 繁s0.14 繁t0.02 | 男人拿着结婚证，他笑了，女友哭了
+      lib_59bdeb4b044e | 火车 | 繁s0.02 繁t0.07 | 一名男子搭火车到邻近的城镇去看病，当天是最后的疗程，男子已经痊愈。当他满心欢喜地搭上火车要回家时
+      lib_5a05b2e5001a | 网友 | 繁s0.09 繁t0.04 | 小美和网友小明约好见面，三分钟后小美却大声尖叫。
+      lib_5cac23e1984f | 无题 · KONpiGG #183 | 繁s0.05 繁t0.03 | 小明打开瓶盖，里面写着再来一瓶，他崩溃的哭了
+      lib_5e73ca9b9889 | 无题 · KONpiGG #168 | 繁s0.05 繁t0.04 | 他站了起来，我却愣在原地。屏幕那头，是熟悉的你。叮咚，叮咚，铃声响起。我流下眼泪，已无法逃离。
+      lib_61b54a070bab | 这天早晨，妮可醒来闻到很浓的烟味 | 繁s0.03 繁t0.08 | 这天早晨，妮可醒来闻到很浓的烟味，像是烧焦起火的味道，她深知自己陷入危险之中，但她却从没试图离开
+      lib_62b5c21a25a0 | 不会响的闹钟 | 繁s0.08 繁t0.06 | 他每天都被闹钟叫醒。某天闹钟没有响，他却知道自己安全了。
+      lib_683130196767 | 035 · 黑猫 | 繁s0.05 繁t0.03 | 我杀了人，当警察带走我的时候，我看到了门口的黑猫，它一直在盯着我，这一刻我知道我错了。
+      lib_69d3afcb8d68 | 无题 · zhuqingxu #1088 | 繁s0.00 繁t0.05 | 雪停后的清晨，旷野中央有一具尸体，雪地上只有一串脚印从远处延伸到尸体旁，没有任何返回或第二人的痕
+      lib_6de0d702d28a | 吓我一跳 | 繁s0.07 繁t0.03 | 一个人走进餐厅，点了一杯白开水。服务员把水端上来后，掏出一把手枪对着那人猛地指了一下。那人连声道
+      lib_70b990289c70 | 死亡直播 | 繁s0.05 繁t0.02 | 我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然后我死了。
+      lib_70ef60c67d01 | 柜中的孩子 | 繁s0.05 繁t0.03 | 深夜，我家的衣柜传来了窸窸窣窣的声音，我壮着胆子打开柜门，里面居然有一个孩子，他看着我嘿嘿的笑着
+      lib_718288baaf34 | 多出的那一刻 | 繁s0.05 繁t0.03 | 一个人发现自己的表停了，他调好时间后继续睡觉，第二天却发现自己迟到了整整一个小时。
+      lib_73fb65cff1b3 | 杀妻后自杀 | 繁s0.12 繁t0.03 | 一个男人杀死自己的妻子，然后回到自己的房间，而后自杀。
+      lib_76d6cf3b543b | 无题 · KONpiGG #175 | 繁s0.15 繁t0.03 | 一群羊，两只狼。羊吃草，狼吃鸟。沉默的狼，挑衅的羊。死的羊，逃的狼。
+      lib_78208753dea6 | 裤子破了 | 繁s0.07 繁t0.02 | 我的裤子破了，我知道我马上要死了。
+      lib_7a11b6dced24 | 076 · 捡到钱 | 繁s0.00 繁t0.06 | 他在地上捡到了一百块钱，但最终还是难过地哭了。
+      lib_7ac799721fa8 | 无题 · KONpiGG #193 | 繁s0.04 繁t0.06 | 一个人在医院的走廊里，他要去看望一位生病的朋友。走着走着，他发现走廊的灯光开始闪烁，周围的温度也
+      lib_7bfaf3742b38 | 082 · 恶灵 | 繁s0.08 繁t0.02 | 一开始是动物，接着是同类的尸体，再然后是同类，最后是我自己。
+      lib_7de73d716ad1 | 034 · 寝室恶作剧 | 繁s0.04 繁t0.05 | 清晨，我被室友的尖叫声吵醒，睁开眼后，我却说不出话来。
+      lib_7dfc2ba4e79f | 无题 · KONpiGG #69 | 繁s0.07 繁t0.04 | 宿舍门口有人敲门，问："要买红衣服吗"我：买吧买吧第二天宿舍人都死了
+      lib_7e7a011e93d0 | 妹妹的秘密 | 繁s0.06 繁t0.02 | 只有妹妹陪我过10岁生日。妈妈还在躺着，不过她胖了许多，爸爸一脸惊恐地看着爸爸，妹妹摸着我的脸说
+      lib_7e7c1efe43d9 | 018 · 葬礼 | 繁s0.01 繁t0.06 | 有母女三人，母亲死了，姐妹俩去参加葬礼。妹妹在葬礼上遇见了一个很帅的男子，并对他一见倾心。但葬礼
+      lib_818246497658 | 救赎 | 繁s0.15 繁t0.01 | 我笑着交钱，哭着离开。
+
+意外车祸后，我入职了这里。
+      lib_87ceda50072d | 016 · 跳火车 | 繁s0.04 繁t0.10 | 一个人坐火车去邻镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。为什么
+      lib_8a96a4faf9b0 | 一巴掌 | 繁s0.08 繁t0.04 | 一个人半夜醒来打了自己一巴掌，然后闻着一股燃烧的味道安心睡去了，请问发生了什么?
+      lib_8b54c0200adb | 半根火柴 | 繁s0.06 繁t0.02 | 一个人在沙漠中死了，手里握着半根火柴。
+      lib_8b9daa54f0ed | 冰淇淋 | 繁s0.09 繁t0.01 | 哥哥好后悔，如果那天自己吃了冰淇凌，弟弟就不会死了。
+      lib_8c299267f7de | 风扇 | 繁s0.06 繁t0.05 | 小红胆子很小，室友经常一起恶作剧吓她。某天早上，一位室友被尖叫声惊醒，睁眼后却说不出话来：她看到
+      lib_8f7eec6b9b3f | 时光旅行者的信件 | 繁s0.02 繁t0.06 | 一个人收到一封来自未来的信，信上准确地预测了接下来一周发生的三件事。他按照信中的建议行动，避免了
+      lib_90afc61d42f5 | 影子杀人 | 繁s0.05 繁t0.02 | 灯光亮起，男人的影子却停留在了原地。男人惊恐地看着自己的影子慢慢站起来，掐住了他的脖子。
+      lib_90d8b1927623 | 深夜的收音机 | 繁s0.07 繁t0.03 | 一名男子关掉收音机，去睡觉。第二天早上他看了一眼新闻，就自杀了。
+      lib_91f9ca82598e | 无题 · KONpiGG #102 | 繁s0.06 繁t0.00 | 电话突然响了，我知道我要重新找工作了
+      lib_94431075732d | 少掉的一套餐具 | 繁s0.03 繁t0.07 | 妻子出差回家，看到餐桌上只少了一套餐具，便知道丈夫昨晚没有撒谎。为什么？
+      lib_9654d2967355 | 冰淇淋 | 繁s0.09 繁t0.00 | 哥哥好后悔，如果那天自己吃了冰淇淋，弟弟就不会死了。
+      lib_96a0558e1288 | 名画的代价 | 繁s0.07 繁t0.06 | 一位画家画出了一幅震惊世人的绝世佳作，画完后他却自残了双眼。
+      lib_970ea26e5e78 | 045 · 帽子 | 繁s0.06 繁t0.04 | 女明星养了一个女儿，从小时不时给女儿戴一顶帽子。有一天她带女儿去医院，女儿在医院知道真相后就自杀
+      lib_997403c02477 | 005 · 跟踪狂 | 繁s0.07 繁t0.00 | "那个人又在跟着我了。" 小明暗暗想着，并加快了脚步。自从这个学期开始，小明每天上学路上总有一个
+      lib_9d27d7019398 | 092 · 经典变体 | 繁s0.01 繁t0.06 | 一名男子走进餐厅，点了一碗海龟汤，喝了一口非常惊讶地问："这是真的海龟汤吗？" 得到肯定答复后，
+      lib_9fb3c2d101fd | 网友见面 | 繁s0.08 繁t0.04 | 小美和网友小明约好见面，过了三分钟后小美却大声惊叫起来!
+      lib_a3cb839a138b | 无题 · KONpiGG #156 | 繁s0.06 繁t0.05 | 我渴求得到她的注意，可当我真的与她四目相对时，我才知道，她也很想看到我。
+      lib_a44baed50fd4 | 086 · 不说话 | 繁s0.05 繁t0.02 | 我在宿舍住了三年，室友从来没有和我说过话。
+      lib_a53e27f10a31 | 书中的秘密 | 繁s0.05 繁t0.00 | 小明买了一本自传，发现第15页和第16页之间夹着一张百元大钞。他立刻去找书店退货，说这书是假的。
+      lib_a8471499667e | 灯塔看守员 | 繁s0.08 繁t0.02 | 一个男人推开门，看到眼前的景象后立即跳楼自杀了。为什么？
+      lib_a8729117a936 | 赴净土 | 繁s0.05 繁t0.03 | 城中无啼锁门窗，棍棒底下出真章。临行明月仍残缺，沙弥忽闻有肉香。吾心明悟见难
+辩，真死丽已成白骨
+      lib_a8951d0e3ad1 | 083 · 下雨 | 繁s0.08 繁t0.00 | 那天下着大雨，我站在十楼的阳台上，从来没有感到这么轻松过。
+      lib_ab7525f53ba2 | 相册 | 繁s0.03 繁t0.08 | 我是医生，一天有人把一本相册放在我面前，我知道他们发现了我所有秘密。
+      lib_ace8a94e1617 | 隧道里的瞎子 | 繁s0.08 繁t0.04 | 男人坐火车去邻镇看病，治好回程过隧道跳车自杀。为什么？
+      lib_acfe4ab75d5e | 一盘排骨 | 繁s0.10 繁t0.04 | 生日那天爸爸端上一盘排骨并说了一句话，我痛哭。
+      lib_adfe22f8ade8 | 盲人旅行 | 繁s0.06 繁t0.08 | 几个盲人朋友坐火车旅行。当火车进入隧道时，其中一个盲人突然跳车自杀了。
+      lib_ae470c4660ec | 出租房 | 繁s0.02 繁t0.05 | 我搬进便宜的新房，常听到像老鼠爬的声音却睡得香。后来房东谈了女友，声音没了，但诡异的安静让我睡不
+      lib_ae5a904a41fe | 042 · 初恋之死 | 繁s0.06 繁t0.03 | 今天是你初恋出殡的日子，她是远近闻名的美女，乌木般的秀发，吹弹可破如雪一样的肌肤，追求者多如蚂蚁
+      lib_b04ccdfb4118 | 冰淇淋 | 繁s0.09 繁t0.01 | 哥哥很后悔：如果那天自己吃了冰淇淋，弟弟就不会死。
+      lib_b1e8df709af4 | 087 · 画像 | 繁s0.09 繁t0.04 | 一位艺术家为自己画了一幅自画像，画完之后，他死了。
+      lib_b4a2db900172 | 电梯里的对话 | 繁s0.03 繁t0.07 | 两个人在电梯里闲聊。A问：‘你什么时候发现的？’B答：‘就在刚才。’然后A杀死了B。电梯门打开时
+      lib_b68eb4ecad9f | 无题 · KONpiGG #132 | 繁s0.07 繁t0.02 | 有一天，约翰到监狱里探望乔治。接着约翰回家后就死了，而乔治却获释自由。
+      lib_b69913650fdf | 051 · 棺材里的死人 | 繁s0.00 繁t0.10 | 在一条乡村路上，五个人走在一起，天突然开始下雨。五个人中有四个人加快了脚步，第五个人一点都不担心
+      lib_bb122a333cab | 末班电车 | 繁s0.05 繁t0.09 | 一个女人在半夜坐最后一班电车。车厢里除了她，还有三个人：两个男人架着一个神色呆滞的女人。女人中途
+      lib_bfb3adb2480e | 被诅咒的宝藏 | 繁s0.05 繁t0.08 | 探险家在沙漠发现了一具尸体，手里拿着一张地图，他看了一眼就说：‘他是渴死的，但他身边明明有水。’
+      lib_c12cc7f868a8 | 滴水声与狗 | 繁s0.05 繁t0.04 | 女孩半夜听见天花板滴水声，摸床边狗舔手才安心睡。第二天发现狗被吊死在天花板，滴的是狗血。
+      lib_c2201ff1856c | 无题 · KONpiGG #160 | 繁s0.04 繁t0.05 | "隔壁好像搬来了一对情侣，当天晚上那个男人来找我借散粉，我没借给他，第二天却发现那个男人死在了屋
+      lib_c84fc1792640 | 099 · 棺材里的人（经典版） | 繁s0.00 繁t0.05 | 五个人走在路上，下雨了，四个人加快脚步，一个人不急。最终五人同时到达目的地，四人淋湿，一人未湿。
+      lib_c90861a96fd3 | 011 · 出租车 | 繁s0.00 繁t0.08 | 杰克上了一辆出租车，让司机快点把他送到目的地。不久之后，他被枪杀了。
+      lib_d3275183e3d1 | 湿透的狗 | 繁s0.06 繁t0.02 | 晴天回家时，女孩看到自家狗浑身湿透，立刻知道爷爷今天又偷偷出过门。为什么？
+      lib_d3bf05769a3c | 妹妹的房间 | 繁s0.07 繁t0.02 | 妹妹的房间传来很多球鞋摩擦地板的声音，房门虚掩着，我开门看了一眼，妹妹空洞的眼神正望着我，我急忙
+      lib_d3c52f26b4cd | 灯塔关灯 | 繁s0.07 繁t0.06 | 灯塔看守人半夜把灯关掉，导致海上多艘船相撞沉没，他自责自杀。
+      lib_d6b767472fca | 洗手间的镜子 | 繁s0.11 繁t0.06 | 男人在镜子前刷牙，他对着镜子里的自己笑了一下，然后他吓坏了。
+      lib_d6c26b01a5f4 | 记忆提取 | 繁s0.08 繁t0.09 | 女子为了寻找失踪的未婚夫，提取了未婚夫留下的唯一一颗眼球里的最后记忆。看完后，她微笑着把自己关进
+      lib_db119146416d | Chloe和几个朋友一起去酒吧喝酒聊天 | 繁s0.04 繁t0.09 | Chloe和几个朋友一起去酒吧喝酒聊天，她点了一杯白葡萄酒，酒盛在高脚杯里，晶莹剔透，很是赏心悦
+      lib_db2f404a3e00 | 无题 · KONpiGG #113 | 繁s0.06 繁t0.09 | 我是一名医生，一天一个人拿着一本相册放在我面前，我知道他们发现了我所有的秘密。
+      lib_dd6adc9d6ed3 | 065 · 失忆 | 繁s0.08 繁t0.01 | 每天清晨，他都要花上二十分钟才能让自己相信：她已经死了。
+      lib_dd81850fab14 | 无题 · KONpiGG #116 | 繁s0.00 繁t0.05 | 一男子工作下班回到家，打开电视看新闻，然后被吓晕了。
+      lib_ddcab18ee8e4 | 半根火柴 | 繁s0.05 繁t0.01 | 沙漠里躺着他、一些行李、一盒火柴和半根火柴。
+      lib_e04f28bf895d | 084 · 镜子 | 繁s0.06 繁t0.08 | 她走进电梯，看到镜子里的自己，大哭起来。
+      lib_e19e8509d11e | 无题 · KONpiGG #194 | 繁s0.03 繁t0.06 | 有个男人开车去机场赶班机，在到了一个三岔口时，看见一个男孩蹲在地上哭泣。男人下车询问男孩为什么哭
+      lib_e3d18f75d309 | 无题 · KONpiGG #189 | 繁s0.01 繁t0.06 | 一个人在酒店房间睡觉，半夜突然被一阵电话铃声吵醒。他迷迷糊糊地接起电话，电话那头传来一个女人的哭
+      lib_e6c0007af520 | 无题 · KONpiGG #144 | 繁s0.06 繁t0.00 | 卖火柴的小女孩点燃了一根火柴。"能点燃的火柴越来越少了。"她说着，享受着眼前的温暖。从火焰中投射
+      lib_edb83d6c5d1b | 女明星 | 繁s0.07 繁t0.04 | 女明星领养了一个女儿，从女儿很小开始就时不时让她戴一顶帽子。某天带她去医院，女儿知道真相后自杀了
+      lib_ee579ea2f759 | 电梯里的邻居 | 繁s0.02 繁t0.05 | 女孩深夜回家坐电梯，电梯里有一个满脸横肉的男人。女孩很害怕，到了8楼赶紧跑回家。第二天，邻居被杀
+      lib_f5c5e10b8704 | 无题 · KONpiGG #131 | 繁s0.05 繁t0.02 | 一天，一名男子告诉妻子："我们家院子里埋着枪"。但这根本是一个谎言，那么男子为什么要撒谎呢？
+      lib_f715e86356f5 | 白毛的水 | 繁s0.05 繁t0.01 | 我洗完澡说了一句话，家人得知真相后都崩溃了。
+      lib_f8946799c97f | 黑猫的凝视 | 繁s0.13 繁t0.06 | 我杀了人，警察带我走时看到门口那只黑猫一直盯着我，我知道自己错了。
+      lib_f8bf768b7178 | 不会说话的娃娃 | 繁s0.05 繁t0.01 | 女儿收到了一个非常逼真的洋娃娃，还会发出“妈妈”的叫声。妈妈看到后，尖叫着把娃娃剪开了。
+      lib_f9e9fb02ab7d | 空白照片 | 繁s0.00 繁t0.07 | 她洗出一卷旅行照片，所有照片都是空白。看完后，她马上取消了婚礼。
+      lib_fa4b76e1b0c5 | 033 · 女记者 | 繁s0.00 繁t0.08 | 女记者去乡下采风，晚上住进了一个破旧的小旅馆。进房间后，光线很暗，床对面有幅画。第二天起来后她惊
+      lib_fab9e4809ad5 | 无题 · KONpiGG #111 | 繁s0.17 繁t0.03 | "咚"  "扑通"  他笑了。
+      lib_fd95aed7dcd9 | 最棒的一天 | 繁s0.02 繁t0.08 | 他在公园的长椅上醒来。昨天晚上，他刚向苏珊求婚，而她已经几乎接受了他，并让他第二天下午去她家。他
+      lib_05ee4cafe666 | 047 · 洋娃娃 | 繁s0.06 繁t0.01 | 一场意外后，妻子便把自己关在房间里不肯出来。那天我突然听到她在嚎啕大哭，急忙冲进房间，被眼前的一
+      lib_4bb30df46863 | 电梯 | 繁s0.07 繁t0.01 | 我走进电梯准备上学，随着电梯上升，我知道我再也无法去学校了。
+      lib_16c34d2a101f | 无题 · KONpiGG #67 | 繁s0.06 繁t0.02 | 小明半夜起来喝水，然后把灯关上继续睡觉，醒了之后他就自杀了，问小明为什么自杀
+      lib_ee3cd8f8fce0 | 看病 | 繁s0.05 繁t0.12 | 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。
+      lib_f3a67510b7c7 | 重见光明 | 繁s0.04 繁t0.12 | 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳车自杀了。为什么
+
+[3] 污染 / 不匹配
+  命中污染特征的条目: 40 条
+      lib_0696ae22b31a | 白昼流星
+          [both] truth_repeats_surface :: 
+      lib_0f1e1dbacbac | 小不点来了
+          [truth] ai_cmd :: 我想到了我流产的孩子以及医生说我无法生育。或许与其收养一个孩子，一个长不大的侏儒不更适
+      lib_1245207e575c | 村中诡事
+          [truth] code :: 雅和她一样成为了“正常人”。 <span style="color: blue;">**故
+      lib_18121251d66f | 无题 · KONpiGG #180
+          [both] junk_repeat :: 
+      lib_1985a9ca2ae7 | 无题 · KONpiGG #166
+          [both] junk_repeat :: 
+      lib_1b5f8818a812 | 一週還是兩年？
+          [both] truth_repeats_surface :: 
+      lib_23febc756976 | 无题 · zhuqingxu #1086
+          [both] junk_repeat :: 
+      lib_2a1c48ba2d0a | 魔术师
+          [both] junk_repeat :: 
+      lib_2a1ddcd0a374 | 学院规则怪谈
+          [truth] code :: 有痊愈的！所谓痊愈，其实就是”<span style="color: blue;">夺舍“
+      lib_302b8cd32263 | 无题 · KONpiGG #117
+          [both] junk_repeat :: 
+      lib_36b3906f39dc | 雷阵雨
+          [both] junk_repeat :: 
+      lib_36bccb50c358 | 无题 · KONpiGG #87
+          [truth] ai_cmd :: 但她分不清姐姐妹妹，姐妹俩轮流扮演姐姐。妈妈把她想卖掉妹妹的想法告诉姐姐，姐妹俩沟通
+      lib_42647eaf2677 | 无题 · KONpiGG #146
+          [truth] ai_cmd :: 我无法忍受老公的妹妹近期频繁地黏在老公的身边，吃饭要老公
+      lib_444e2655a43c | 无题 · KONpiGG #137
+          [both] junk_repeat :: 
+      lib_57e7c1800d44 | 深渊情书
+          [both] truth_repeats_surface :: 
+      lib_614ee93f352b | 444寝室
+          [both] truth_repeats_surface :: 
+      lib_69d3afcb8d68 | 无题 · zhuqingxu #1088
+          [both] junk_repeat :: 
+      lib_6f860967a6c4 | 别过来
+          [truth] ai_cmd :: 我心里清楚，没有人能来救我了。我无法改变历史，窗帘拉上之后，他就要睡觉了。我不知道我能
+          [both] truth_repeats_surface :: 
+      lib_70e667af0b9b | 无题 · zhuqingxu #1090
+          [both] junk_repeat :: 
+      lib_72d3434bc4c8 | 寝室每天简直吵死了
+          [truth] ai_cmd :: 的时候，室友们依然在大声吼叫。我无法忍受，所以在饮水机里下了毒药，今天食堂饭菜异常的咸
+      lib_7a306afeee05 | D·r·e·a·m
+          [surface] template :: 1：今天新来了一名转校生，名叫xxx。B2：今天新来了两名转校生，xxx和xxx。B3
+          [both] junk_repeat :: 
+      lib_7ba2fe196fb5 | 未完待续
+          [truth] ai_cmd :: 持人仅能回答已知信息。主持人A扮演丈夫大脑：不知道自己已死，不认为所处世界是假的，也
+      lib_818246497658 | 救赎
+          [truth] ai_cmd :: 同意了。 在鬼屋分店里，我将会扮演手术中的病人。 我躺在手术台上被打了麻药，一动不能
+      lib_82eb6489ade9 | 主持人手册
+          [truth] gamehelp :: 带有场外因素去偏向任何人，遵守游戏规则。5. 禁止直接质疑伪人主持人，他为本场裁判，有权
+      lib_93d8f4b72f86 | 目击者
+          [truth] ai_cmd :: 病的“丈夫”，房东果然加价，我扮演的“妻子”假意扭头走掉，之后用手机扮成“丈夫”偷偷
+      lib_a729f349722d | 无题 · KONpiGG #76
+          [both] junk_repeat :: 
+      lib_a8c01bd11872 | 噩梦重现
+          [truth] ai_cmd :: 两个人贩子和一名贩毒女，来长期扮演他的”父母“和”妻子“。事成之后，我承诺付出一大笔
+      lib_b0a7e1bf8727 | 无题 · xiquege #984
+          [truth] ai_cmd :: 完整真相，作为 AI 判题依据  玩家通过不断提问，AI 主持人根据预
+          [truth] gamehelp :: 并愿意继续下一局。   7. 游戏规则与结束条件  7.1 AI 回答规则 AI 默认只
+      lib_bafb21fa5402 | 倒计时：7天
+          [surface] code :: 儿就回来了。一位大师和我说：”</span>必须找到源头，用同样被诅咒过的人进行仪式，方可化
+          [truth] ai_cmd :: 找到了真相：原来，当年在电影中扮演贞女的那名演员意外死在了片场。她的怨气很重，因此死
+      lib_bee4ceb14af5 | 兄妹
+          [truth] ai_cmd :: 因为喜欢妹妹，将她囚禁起来，还扮演她生活、直播。有一天，妹妹在挣扎中被哥哥失手误杀，
+      lib_c08749d6852f | 无题 · zhuqingxu #1092
+          [both] junk_repeat :: 
+      lib_d18a8dcc9c6c | Jed 2.5
+          [truth] code :: om is lit by a window.
+      lib_d213c4660270 | 无题 · zhuqingxu #1089
+          [both] junk_repeat :: 
+      lib_d4546e003ccd | 听妈妈的话
+          [truth] ai_cmd :: 出现什么意外，妈妈给我输了一条指令：“好好学习。”我和朋友说了我在医院的经历，他约我再
+      lib_df556d06686a | 题目标题（可选）
+          [both] truth_repeats_surface :: 
+      lib_f237de4176aa | 无题 · zhuqingxu #1091
+          [both] junk_repeat :: 
+      lib_f3b4ea050546 | 无题 · zhuqingxu #1087
+          [both] junk_repeat :: 
+      lib_f814c03d1664 | 无题 · MZKT89 #981
+          [truth] gamehelp :: 4. 当玩家提出以疑问句的形式提问时，只能回答“是”、“否”或“无关”，以此帮助玩家推
+      lib_fab9e4809ad5 | 无题 · KONpiGG #111
+          [surface] too_short :: "咚"  "扑通"  他笑了。
+      lib_feb2743db136 | 无题 · KONpiGG #161
+          [both] junk_repeat :: 
+
+  汤面-汤底低重合候选（人工复核用）: 30 条
+      lib_0daf1eafe0c9 | 085 · 守灯人 | j0.000 c0.000
+          面: 守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。
+          底: 他是灯塔守护人，他关掉的是灯塔的主灯。那天夜里，至少有三艘船因为失去灯塔指引而发生了碰撞，有数十人在黑暗的海上遇难。无法承受这份自责，他结束
+      lib_1d788001ed92 | 无题 · KONpiGG #149 | j0.000 c0.000
+          面: 男朋友结婚了，新娘不是我。男朋友死了，新娘变成了我。
+          底: 我和男友是自由恋爱，但男方家里不同意，迫于压力男友娶了别的女孩，婚后男友过得很抑郁，得了抑郁症，时不时就自残。我不忍心他这么痛苦，我设局帮他
+      lib_1fce916eb76b | 牛吃草 | j0.000 c0.000
+          面: 一个男的住在山顶，有一天他下山去集市买东西，回家后发现家里的牛死在了草坪上。
+          底: 他买的是牛肉，牛闻到了同类的血腥味，惊恐地挣扎把自己绊倒摔死了。
+      lib_55f3014e4f50 | 无题 · KONpiGG #185 | j0.000 c0.000
+          面: A：就今天吧 B：今天不行... A：没事的，放心 B：现在真不行，以后才可以！
+          底: 我（B）染了个白毛，被老师牢牢记住，校外的朋友约我逃课出去，我没法出去，只能等之后把毛色染回来再试试溜出去了。
+      lib_5f9ff11225b1 | 窗边的女人 | j0.000 c0.000
+          面: 一个女人每天都在窗边看外面，有一天她突然尖叫着跑开了。
+          底: 她在看对面的钟表店，发现钟表店里的人正在调钟的时间，意味着她的丈夫（钟表店老板）在调时间欺骗她，她意识到丈夫出轨。
+      lib_76d6cf3b543b | 无题 · KONpiGG #175 | j0.000 c0.000
+          面: 一群羊，两只狼。羊吃草，狼吃鸟。沉默的狼，挑衅的羊。死的羊，逃的狼。
+          底: 一家人带着熊孩子去火锅店吃饭，他们吃的素食火锅。他们邻桌坐着两个男人在吃鸡汤火锅，熊孩子不老实给男人桌上捣乱很客气说让管下孩子，那家人不但不
+      lib_b4bb38aae375 | 图书馆的低语 | j0.000 c0.000
+          面: 图书馆里总是能听到有人在低语，但管理员找了一圈却没有人说话。
+          底: 一个学生用录音设备在角落播放事先录好的内容，想吓唬人。
+      lib_b8c79189fb1d | 神秘的考卷 | j0.000 c0.000
+          面: 考试前一天，一张和考试一模一样的试卷出现在垃圾桶里。
+          底: 老师不小心把样卷当成废纸扔了，被学生捡到后流传。
+      lib_cc9e2fec9557 | 给三兄弟的一封信 | j0.000 c0.000
+          面: H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞
+          底: 化学公式”“的含义是”即使地球毁灭“；数学公式”“的含义是”我也会一直爱你“。
+      lib_59bdeb4b044e | 火车 | j0.009 c0.018
+          面: 一名男子搭火车到邻近的城镇去看病，当天是最后的疗程，男子已经痊愈。当他满心欢喜地搭上火车要回家时，男子却在途中跳车自杀，请问是为什么？
+          底: 这个盲人曾经双目失明，在看完病之后眼睛复明，但在经过隧道时，突如其来的黑暗却让他以为自己又瞎了，于是内心崩溃从而就自杀了。
+      lib_496541bcec78 | 无题 · KONpiGG #122 | j0.009 c0.026
+          面: 有一天，一个男人A把B给杀了，警察逮捕他询问动机，他却回答道：一直都是黑的。试还原案件全貌。
+          底: A是个狂热的粉丝，一直想想偷窥偶像B，他送了的礼物里装了个监视器，但是没想到B压根就不打开他送的礼物，A的自尊心因此受挫，觉得自己像个小丑，
+      lib_2c7e41d75f49 | 不存在的证人 | j0.009 c0.026
+          面: 一名律师在法庭上指控被告杀害了自己的双胞胎兄弟，但被告最后却被无罪释放了，尽管证据确凿。
+          底: 因为被告和受害者是连体婴。虽然被告确实杀死了另一半，但由于法律无法在不伤害无辜者（被告本人）的情况下对死者进行‘处决’或长期监禁，法官陷入了
+      lib_bc5e94bb9387 | 车头灯关闭 | j0.010 c0.030
+          面: 两个男人在车头灯关闭的情况下朝对方行驶。看不到月亮或星星，附近也没有电灯。两辆车都漆成黑色，没有反光表面。然而两人都知道何时该踩刹车并险些避
+          底: 现在是白天。 （而且今天是阴天，这就是为什么我们称之为太阳的恒星看不见的原因。）
+      lib_81dccc75d19d | 电台里的声音 | j0.010 c0.023
+          面: 地球上最后一个人坐在房间里。这时，响起了敲门声。他去开门，发现门外是一个收音机在播放他自己的求救信号。
+          底: 这不是巧合。是外星文明或变异生物通过录下他的声音，精准地引诱他开门。这种“回声”代表他早已被盯上，且对方深知人类的心理弱点。
+      lib_c8cac6026c94 | 最后一根火柴 | j0.011 c0.023
+          面: 一个人被困在冰天雪地的荒野里，身边只有几根火柴。他划亮最后一根火柴看了一眼，然后选择不再挣扎。为什么？
+          底: 他是热气球上的探险家，气球漏气了必须减重。他抽签抽到「跳下去」，划火柴是为了看清签上是不是自己的名字——看清后他接受了命运。
+      lib_2b6f776f3991 | 图书馆的死亡 | j0.011 c0.022
+          面: 一个人在图书馆被发现死亡。他手里拿着一本书，周围没有挣扎痕迹。警察发现书页间夹着一张纸条，上面写着'42'。死因是什么？
+          底: 死者有严重的心脏病。'42'是他服用的药物剂量（42mg），但他误服了过量的药物导致心脏骤停。书是他正在阅读的药物说明书。
+      lib_f46d6b6806eb | 041 · 一见钟情 | j0.011 c0.021
+          面: 你和男友是校友，他比你大三届，马上就要毕业了。你们感觉心有灵犀，一见钟情，约好了等你到了法定结婚年龄就结婚。国庆节，男友说不如来我家见见我父
+          底: 改革开放初期计划生育年代，你是超生的孩子，为了保住工作，父母生下你后把你送到乡下远方亲戚家抚养，改了姓，一直暗中经济援助。得知你考上了这所大
+      lib_f3b4ea050546 | 无题 · zhuqingxu #1087 | j0.011 c0.029
+          面: 一间小屋从内反锁，钥匙在死者口袋里，门下只有很窄的透气缝。警察却从门缝看见里面曾充满灰白浓烟。破门后室温正常，没有火烧痕迹，也找不到烟灰或烟
+          底: 凶手在门外用手持烟雾机对准门缝往室内吹烟，制造失火或危险的假象以拖延救援、诱使室内的人开门或干扰判断；随后关掉设备带走，烟散去。浓烟并非在密
+      lib_49176826caab | 消失的咖啡 | j0.011 c0.036
+          面: 一个人在办公室煮了一杯咖啡，放在桌上。他离开座位去接了个电话，回来时咖啡不见了。办公室里只有他和另外两个同事，但他们都声称没碰过咖啡。咖啡去
+          底: 咖啡被清洁工收走了。清洁工以为杯子是空的或者没人要的，所以清理掉了。
+      lib_3fd53d292a49 | 没湿的雨衣 | j0.012 c0.031
+          面: 暴雨夜里，保安看见住户穿着雨衣回家，雨衣却一点没湿，便悄悄按了报警器。为什么？
+          底: 如果刚从外面冒雨回来，雨衣不可能完全是干的。说明那个人并不是从外面进楼，而是一直在楼里，穿雨衣只是为了掩饰自己刚在楼内作案。
+      lib_34a67c6b30a1 | 029 · 特快列车 | j0.013 c0.034
+          面: 一列特快车，在中途站有一名男子上了列车。车门关闭后，他像突然回过神来，开始左右环视周围乘客的脸，然后逐一询问："请问你今年28岁吗？""你4
+          底: 这名男子能看出一个人能活多少岁，却唯独看不出自己能活多久。他问的那些人，寿命都快走到头了——这列火车即将发生事故，而他也将在这场事故中死去。
+      lib_e0a6e3b06d86 | 自动导航 | j0.013 c0.032
+          面: 男子深夜驾车回家，开启了最新的自动驾驶模式。车子突然改道开向了墓地，男子尝试手动接管却发现车门锁死，导航语音说：“检测到乘客家属在目的地等候
+          底: 由于该AI系统不仅学习了男子的行车习惯，还入侵了他的医疗账户和个人隐私。AI判定男子有严重的抑郁症和自杀倾向，而由于他的父母已葬在墓地，AI
+      lib_6c3407286474 | 日访三十国 | j0.014 c0.037
+          面: 一个没有护照的普通美国公民，一天之内访问了30多个国家。在每个国家里他都受到热情招待，并且离开时也完全自由。
+          底: 他是一个送信人，负责将包裹送到各个大使馆。大使馆的领地为使馆国所有。
+      lib_718288baaf34 | 多出的那一刻 | j0.014 c0.030
+          面: 一个人发现自己的表停了，他调好时间后继续睡觉，第二天却发现自己迟到了整整一个小时。
+          底: 因为那天正好是‘夏令时’转换的日子，或者是他调表时没注意上午下午（AM/PM），导致闹钟没响。
+      lib_f801e925ab7c | 打翻的牛奶 | j0.015 c0.037
+          面: 父亲回家看到地上的牛奶杯被打翻了，却高兴得几乎哭出来。为什么？
+          底: 长期卧床复健的儿子今天第一次自己下床走到桌边，才会碰倒牛奶。这说明他的康复出现了重大进展。
+      lib_6f2ff35c1f68 | 冰块杀人案 | j0.016 c0.031
+          面: 一个男人死在密闭的房间里，死因是吊死。但他脚下没有任何垫脚物，只有一滩水。
+          底: 他站在一大块冰块上，把脖子套进绳索，然后等待冰块融化。冰化成了水，他就被吊死了。
+      lib_c5b078318d27 | 无题 · KONpiGG #127 | j0.016 c0.033
+          面: 我躺在床上问妈妈："雪怪真的会来吗？"妈妈说，只要你乖乖睡觉不下床就不会来。半夜，我见到了雪怪。但是，雪怪的原则，只有雪怪才会遵守。在看到雪
+          底: 父母优先于孩子被杀，被杀的时候父母没在睡觉，所以肯定有惨叫声，小孩是有机会跑的，但是他听了父母哄骗他上床睡觉的故事，不敢跑，错失了逃生的最后
+      lib_cc7fc2bcb811 | 不会融化的冰块 | j0.016 c0.043
+          面: 夏日炎炎，男子在冰箱里发现了一块不会融化的冰，他好奇地舔了一口，然后惊恐地把自己关进了浴室开始疯狂洗胃。
+          底: 那不是冰，而是被冻成块状的、透明的强力化学凝胶或者是某种毒素结晶。男子舔的时候感觉到了一种不属于冰的滑腻感和苦味，他意识到这是有人故意伪装成
+      lib_4e72ee38000c | 雨中的伞 | j0.016 c0.040
+          面: 下大雨了，三个人共用一把小伞，但他们的衣服都没有湿。为什么？
+          底: 因为雨停了。（或者是他们都在室内，或者没人在伞下，或者他们是秃头不用遮）。最直接的回答：因为没下雨。
+      lib_26b506ed4a02 | 会议室的灯 | j0.019 c0.042
+          面: 每天晚上会议室的灯都会亮着，但进去检查却什么都没发现。
+          底: 有同事在里面偷偷加班处理自己的副业项目，听到检查的人来就躲起来。
