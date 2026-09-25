@@ -165,6 +165,7 @@
     document.body.classList.remove("my-turn");
     /* 回到建房/进房页：停掉房间专属的左栏自动滚动 */
     stopQaScroll();
+    paintVote(null);
     resetRoomSigs();
     var e = $("#room-entry"), l = $("#room-live");
     if (e) e.classList.remove("hidden");
@@ -427,8 +428,9 @@
         rb.textContent = "撤回准备（回大堂）";
         rb.disabled = false;
       } else if (s.phase === "playing") {
-        /* 第⑧条：中途进来的人点一下就直接排进本锅队尾，不打断别人 */
-        rb.textContent = (mine && mine.ready) ? "已排进本锅（等轮到你）" : "加入本锅提问";
+        /* 第④条：中途进来 / 退出重进的人，点一下 = 准备并排进本锅队尾，
+           不影响任何人；已排上的人再点才是退出队列（文案说清楚，防手滑）。 */
+        rb.textContent = (mine && mine.ready) ? "已排进本锅，等轮到你（点一下退出）" : "🙋 准备，参与本锅提问";
         rb.disabled = false;
       } else if (s.phase === "revealed") {
         rb.textContent = mineReady ? "已为下一锅准备" : "为下一锅准备";
@@ -453,6 +455,8 @@
     if (s.phase !== "revealed") R.revealedShown = false;
 
     paintCooldown(s);
+    /* 第⑥条：放弃投票卡（有投票才出现） */
+    paintVote(s);
   }
 
   /* 轮到自己：整屏轻闪 + 短促轻铃，只在轮次真正换到自己时响一次 */
@@ -524,8 +528,10 @@
     /* 第④条：问答记录只留真正的「问 / 答 / 推理」，
        离开 / 撤回 / 超时 / 转让这类系统事件全部只进「实时对话」 */
     var qaOnly = log.filter(function (x) { return x.kind === "ask" || x.kind === "guess"; });
-    /* 只在新内容真的到了才重建 DOM，避免每 1.5s 无意义重排 */
-    var sig = qaOnly.length + "|" + (qaOnly.length ? qaOnly[qaOnly.length - 1].at : 0) + "|" + (s.chatSeq || 0);
+    /* 只在新内容真的到了才重建 DOM，避免每 1.5s 无意义重排。
+       第③条修复：旧签名混入了 chatSeq —— 别人发一句房间聊天就把问答记录
+       整栏重建，滚动位置被拍回 0，看起来就是「永远卡在开头十条」。 */
+    var sig = qaOnly.length + "|" + (qaOnly.length ? qaOnly[qaOnly.length - 1].at : 0);
     if (box.__sig === sig) { ensureQaScroll(); return; }
     box.__sig = sig;
     if (!qaOnly.length) {
@@ -554,24 +560,32 @@
   }
 
   /* ------------------------------------------------------------
-   * 左栏「电影片尾」式自动慢速滚动
+   * 左栏「电影片尾」式自动慢速滚动（2026-09-25 重写）
    * ------------------------------------------------------------
    * 规则（主人指定）：
-   *   - 恒定慢速向下滚，到底后回顶部继续，无限循环；
-   *   - 禁止任何人手动拖动（触摸 / 滚轮 / 中键全部拦掉），房主服主也一样；
+   *   - 电脑端与手机端都要自动慢滚：向下逐条展示，滚到底停一下，
+   *     再回顶部继续循环；
+   *   - 电脑端禁止手动拖动（滚轮 / 拖动 / 键盘全部拦掉）；
+   *   - 手机端允许手动滑翻，但手一碰，自动滚动先让位 4 秒再接管；
    *   - 内容比容器短时不滚，静止显示。
-   * 用 requestAnimationFrame 做恒定像素速度：60fps 下约 0.35px/帧 ≈ 21px/s，
-   * 比浏览器原生 smooth 慢很多，看着像片尾字幕。
+   * 实现要点：
+   *   - 按 dt 计速（24px/s），60Hz / 120Hz 屏一个速度；
+   *   - 心跳看门狗：万一某帧抛异常把循环弄死，下一次 render 会自动重启，
+   *     不会再出现「整栏卡死不动」；
+   *   - 重建问答记录 DOM 不再被聊天消息触发（旧 sig 混入 chatSeq，
+   *     别人每发一句聊天就把滚动拍回顶部）。
    */
 
-  var QA_SPEED = 0.35;      /* px / 帧 */
+  var QA_SPEED = 24;          /* px / 秒 */
+  var QA_HOLD_MS = 4000;      /* 移动端手动滑动后的让位时长 */
   var qaRaf = 0;
-  var qaPaused = 0;         /* 到底后停顿的截止时间戳 */
+  var qaPaused = 0;           /* 到底后停顿的截止时间戳 */
+  var qaUserHold = 0;         /* 移动端手动接管：自动滚动暂停到此时刻 */
+  var qaLastBeat = 0;         /* 循环心跳：看门狗用它判断循环是否假死 */
+  var qaLastTs = 0;
 
   function qaScrollWanted() {
-    /* 桌面才自动慢滚。触屏上禁止手动滚动会把整页手势锁死，
-       窄屏左栏又在页面最上面，玩家会滑不动。 */
-    if (window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches) return false;
+    /* 双端都自动滚：房间模式或单人对局屏可见即可（不再排除触屏 / 窄屏） */
     if (R.inRoom) return true;
     var game = document.getElementById("screen-game");
     return !!(game && !game.classList.contains("hidden"));
@@ -581,31 +595,48 @@
     var box = $("#qa-log");
     if (!box) return;
     blockManualScroll(box);
+    /* 看门狗：循环自称在跑却 3 秒没心跳 → 判死，重启 */
+    if (qaRaf && Date.now() - qaLastBeat > 3000) {
+      cancelAnimationFrame(qaRaf);
+      qaRaf = 0;
+    }
     if (qaRaf) return;      /* 已经在跑 */
-    var step = function () {
-      var el = $("#qa-log");
-      if (!el || !qaScrollWanted()) { qaRaf = 0; return; }
-      var over = el.scrollHeight - el.clientHeight;
-      if (over <= 4) {
-        /* 内容不够长：不动，也不花帧 */
-        el.scrollTop = 0;
+    qaLastTs = 0;
+    var step = function (ts) {
+      try {
+        qaLastBeat = Date.now();
+        var el = $("#qa-log");
+        if (!el || !qaScrollWanted()) { qaRaf = 0; return; }
+        var dt = qaLastTs ? Math.min((ts - qaLastTs) / 1000, 0.25) : 0.016;
+        qaLastTs = ts;
+        var over = el.scrollHeight - el.clientHeight;
+        if (over <= 4) {
+          /* 内容不够长：不动，也不花帧 */
+          if (el.scrollTop !== 0) el.scrollTop = 0;
+          qaRaf = 0;
+          return;
+        }
+        var t = Date.now();
+        if (t < qaUserHold || (qaPaused && t < qaPaused)) {
+          qaRaf = requestAnimationFrame(step);
+          return;
+        }
+        qaPaused = 0;
+        el.scrollTop = el.scrollTop + QA_SPEED * dt;
+        /* 到底了：停 1.6s，再回顶部继续 —— 给玩家时间看完最后一条 */
+        if (el.scrollTop >= over - 1) {
+          el.scrollTop = over;
+          qaPaused = t + 1600;
+          setTimeout(function () {
+            var e2 = $("#qa-log");
+            if (e2 && qaScrollWanted() && Date.now() >= qaUserHold) e2.scrollTop = 0;
+          }, 1600);
+        }
+        qaRaf = requestAnimationFrame(step);
+      } catch (e) {
+        /* 任何异常都不许把循环弄死：交还句柄，等下一次 ensureQaScroll 重启 */
         qaRaf = 0;
-        return;
       }
-      var t = Date.now();
-      if (qaPaused && t < qaPaused) { qaRaf = requestAnimationFrame(step); return; }
-      qaPaused = 0;
-      el.scrollTop = el.scrollTop + QA_SPEED;
-      /* 到底了：停 1.6s，再回顶部继续 —— 给玩家时间看完最后一条 */
-      if (el.scrollTop >= over - 1) {
-        el.scrollTop = over;
-        qaPaused = t + 1600;
-        setTimeout(function () {
-          var e2 = $("#qa-log");
-          if (e2 && qaScrollWanted()) e2.scrollTop = 0;
-        }, 1600);
-      }
-      qaRaf = requestAnimationFrame(step);
     };
     qaRaf = requestAnimationFrame(step);
   }
@@ -613,12 +644,29 @@
   function stopQaScroll() {
     if (qaRaf) { cancelAnimationFrame(qaRaf); qaRaf = 0; }
     qaPaused = 0;
+    qaUserHold = 0;
   }
 
-  /* 禁止手动滚动：只锁桌面。触屏 / 窄屏必须能用手指翻问答记录。 */
+  function isCoarsePointer() {
+    try {
+      return !!(window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches);
+    } catch (e) { return false; }
+  }
+
+  /* 手动滚动策略：
+     - 桌面（fine pointer / 宽屏）：彻底锁死手动滚动，只留自动循环；
+     - 触屏 / 窄屏：允许手指翻，但 touchstart / wheel 会把自动滚动按住 4 秒。 */
   function blockManualScroll(el) {
     if (!el || el.__block) return;
-    if (window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches) return;
+    if (isCoarsePointer()) {
+      el.__block = true;
+      ["touchstart", "wheel"].forEach(function (t) {
+        el.addEventListener(t, function () {
+          qaUserHold = Date.now() + QA_HOLD_MS;
+        }, { passive: true });
+      });
+      return;
+    }
     el.__block = true;
     ["wheel", "touchmove", "mousedown", "pointerdown"].forEach(function (t) {
       el.addEventListener(t, function (ev) {
@@ -793,10 +841,20 @@
   function showReveal(s) {
     var host = document.createElement("div");
     host.className = "modal-wrap";
+    var byVote = !!s.giveUp;
+    /* 第⑦条：猜出者的昵称挂在汤底框正上方，流光 + 弹跳小特效 */
+    var winnerLine = s.winnerNick
+      ? '<div class="winner-tag">' +
+        '<span class="wt-spark" aria-hidden="true">✦</span>' +
+        '<span class="wt-name">' + esc(s.winnerNick) + "</span>" +
+        '<span class="wt-spark" aria-hidden="true">✦</span>' +
+        "</div>"
+      : "";
     host.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true">' +
       "<h3>汤底揭晓</h3>" +
-      '<p class="end-note">' + esc(s.winnerNick ? s.winnerNick + " 说破了汤底" : "本锅结束") + " · 共 " + ((s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length) + " 问</p>" +
+      '<p class="end-note">' + (byVote ? "🏳️ 全房投票放弃，直接上汤底" : (s.winnerNick ? "🎉 " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束")) + " · 共 " + ((s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length) + " 问</p>" +
+      winnerLine +
       '<div class="truth-box"><p style="margin:0">' + esc(s.truth) + "</p></div>" +
       '<div class="modal-actions">' +
       '<button type="button" class="btn ghost" id="rv-close">知道了</button>' +
@@ -807,6 +865,13 @@
       document.body.classList.remove("modal-open");
     });
     document.body.classList.add("modal-open");
+    /* 第⑦条：说破汤底 = 礼炮 + 烟花 + 音效三连（celebrate 内部自带乐音）；
+       投票放弃只放轻一点的揭底音 */
+    if (s.winnerNick && !byVote) {
+      if (root.SoupFx && root.SoupFx.celebrate) { try { root.SoupFx.celebrate(); } catch (e) { /* 忽略 */ } }
+    } else if (root.SoupAudio && root.SoupAudio.sfx) {
+      root.SoupAudio.sfx("reveal");
+    }
   }
 
   /* ---------------- 动作 ---------------- */
@@ -864,11 +929,18 @@
     var mine = null;
     var s = R.snap;
     if (s) (s.players || []).forEach(function (p) { if (p.uid === myUid(s)) mine = p; });
-    /* playing 阶段点按 = 撤回准备（服务端会把整桌掀回大堂） */
-    var next = (s && s.phase === "playing") ? false : !(mine && mine.ready);
+    /* 第④条修复：playing 阶段只有「本锅首发」撤回才会整桌掀回大堂；
+       中途加入 / 退出重进的人（不在 potUids 里）点按钮 = 准备排进本锅队尾，
+       必须发 ready:true —— 旧代码在 playing 一律发 false，
+       才会出现「点加入本锅反而退出队列」的死循环 bug。 */
+    var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
+    var withdraw = !!(s && s.phase === "playing" && inThisPot);
+    var next = withdraw ? false : !(mine && mine.ready);
     act("ready", { ready: next }).then(function (snap) {
       if (snap && snap.exists) { R.snap = snap; render(snap); }
-      R.toast(next ? "已准备，等其他人…" : (s && s.phase === "playing" ? "已撤回，整桌回大堂" : "已取消准备"));
+      R.toast(next
+        ? (s && s.phase === "playing" ? "已准备，排进本锅提问队列，等轮到你" : "已准备，等其他人…")
+        : (withdraw ? "已撤回，整桌回大堂" : "已退出本锅提问队列"));
     }).catch(function (e) { R.toast("操作失败：" + e.message); });
   }
 
@@ -923,7 +995,11 @@
       paintAskBusy(false);
       if (qi) qi.value = "";
       if (r && r.item && r.item.verdict) {
-        R.toast("汤主：" + (LEAD_TEXT[r.item.verdict] || "") + " " + (r.item.reply || ""));
+        /* 第⑤条：正文开头往往自带一遍判定词（「是。死法正是…」），
+           弹字前面又拼了标签，会出现「是 是。…」——这里同样走 qaStrip 去重。 */
+        var leadT = LEAD_TEXT[r.item.verdict] || "";
+        var bodyT = qaStrip(leadT, r.item.reply || "");
+        R.toast("汤主：" + leadT + (bodyT ? " " + bodyT : ""));
       }
       startWatch();
     }).catch(function (e) {
@@ -1442,6 +1518,98 @@
     setTimeout(function () { input.focus(); }, 30);
   }
 
+  /* ------------------------------------------------------------
+   * 第⑥条（重做）：「放弃」投票 —— 替代旧「权」密码按钮
+   * 任何人游戏途中随时点；全房弹投票卡（同意 / 拒绝）；
+   * 同意人数 ≥ 房间人数 - 1 → 服务端直接揭本锅汤底。
+   * ------------------------------------------------------------ */
+  var voteTick = 0;
+
+  function doGiveup() {
+    act("giveup", {}).then(function (r) {
+      R.toast("🏳️ 已发起「放弃看汤底」投票，全房 60 秒内表态");
+      if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
+      startWatch();
+    }).catch(function (e) {
+      var m = e.message;
+      if (m === "NOT_PLAYING") R.toast("这锅还没在打，不用放弃");
+      else if (m === "VOTE_RUNNING") R.toast(e.note || "已有放弃投票进行中，先投完这一轮");
+      else R.toast("发起投票失败：" + m);
+    });
+  }
+
+  function castVote(yes) {
+    act("vote", { agree: !!yes, yes: !!yes }).then(function (r) {
+      if (r && r.passed) R.toast("🏳️ 放弃投票通过，上汤底！");
+      else if (r && r.passed === false) R.toast("放弃被否决，继续熬");
+      if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
+      startWatch();
+    }).catch(function (e) {
+      var m = e.message;
+      if (m === "NO_VOTE") R.toast("这一轮投票已经结束了");
+      else R.toast(e.note || ("投票失败：" + m));
+      startWatch();
+    });
+  }
+
+  function voteSubText(v, left) {
+    var you = v.youYes ? "你：同意" : (v.youNo ? "你：拒绝" : "你：未投");
+    return "同意 " + v.yes + " / 需 " + v.need + "（共 " + v.total + " 人） · 拒绝 " + v.no +
+      " · " + you + " · 剩 " + left + "s";
+  }
+
+  function paintVote(s) {
+    var v = s && s.vote;
+    var card = $("#vote-card");
+    if (!v || s.phase !== "playing") {
+      if (card) card.classList.add("hidden");
+      if (voteTick) { clearInterval(voteTick); voteTick = 0; }
+      return;
+    }
+    if (!card) {
+      card = document.createElement("div");
+      card.id = "vote-card";
+      card.className = "vote-card";
+      card.setAttribute("role", "dialog");
+      card.setAttribute("aria-label", "放弃投票");
+      card.innerHTML =
+        '<div class="vc-title" id="vc-title"></div>' +
+        '<div class="vc-sub" id="vc-sub"></div>' +
+        '<div class="vc-actions">' +
+        '<button type="button" class="btn vc-yes" id="vc-agree">👍 同意</button>' +
+        '<button type="button" class="btn vc-no" id="vc-reject">👎 拒绝</button>' +
+        "</div>";
+      document.body.appendChild(card);
+      card.querySelector("#vc-agree").addEventListener("click", function () { castVote(true); });
+      card.querySelector("#vc-reject").addEventListener("click", function () { castVote(false); });
+    }
+    card.classList.remove("hidden");
+    var t = $("#vc-title", card);
+    if (t) t.textContent = "🏳️ " + (v.byNick || "有玩家") + " 想放弃本锅，直接看汤底";
+    var left = Math.max(0, Math.ceil((v.until - Date.now()) / 1000));
+    var sub = $("#vc-sub", card);
+    if (sub) sub.textContent = voteSubText(v, left);
+    var ya = $("#vc-agree", card), yn = $("#vc-reject", card);
+    if (ya) ya.classList.toggle("on", !!v.youYes);
+    if (yn) yn.classList.toggle("on", !!v.youNo);
+    /* 本地秒表：不用等下一轮轮询，倒计时数字也在走 */
+    if (!voteTick) {
+      voteTick = setInterval(function () {
+        var snap = R.snap || {};
+        var vv = snap.vote;
+        var c = $("#vote-card");
+        if (!c || !vv || snap.phase !== "playing") {
+          if (c) c.classList.add("hidden");
+          clearInterval(voteTick); voteTick = 0;
+          return;
+        }
+        var l2 = Math.max(0, Math.ceil((vv.until - Date.now()) / 1000));
+        var s2 = $("#vc-sub", c);
+        if (s2) s2.textContent = voteSubText(vv, l2);
+      }, 1000);
+    }
+  }
+
   /* 第⑨条：房主转让。两段式确认，防手滑点错人 */
   var pendingTransfer = "";
   function doTransfer(uid) {
@@ -1600,7 +1768,7 @@
     var br = $("#btn-room-rand"); if (br) br.addEventListener("click", doRoomRandom);
     var bn = $("#btn-room-next"); if (bn) bn.addEventListener("click", doNext);
     var bk = $("#btn-room-kick"); if (bk) bk.addEventListener("click", doKick);
-    var bu = $("#btn-room-unlock"); if (bu) bu.addEventListener("click", function () { doUnlock(false); });
+    var bu = $("#btn-room-giveup"); if (bu) bu.addEventListener("click", doGiveup);
     var bai = $("#btn-room-ai"); if (bai) bai.addEventListener("click", doAi);
 
     /* 玩家列表里的「请离死座位」是动态生成的，用事件委托接 */
@@ -1618,6 +1786,21 @@
     var cs = $("#btn-room-chat-send"); if (cs) cs.addEventListener("click", doChat);
     var ci = $("#room-chat-input");
     if (ci) ci.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); doChat(); } });
+
+    /* 第①条修复（移动端打字）：键盘弹起时旧 CSS 会把整个聊天框 display:none，
+       输入框一被藏起来就失焦 → 键盘秒开秒收，永远打不了字。
+       现在焦点在聊天框里就给 body 挂 .chat-kb：CSS 据此改为
+       「把聊天框整体抬到键盘上方」，而不是收掉它。 */
+    if (ci) {
+      ci.addEventListener("focus", function () { document.body.classList.add("chat-kb"); });
+      ci.addEventListener("blur", function () {
+        setTimeout(function () {
+          var a = document.activeElement;
+          if (a && a.closest && a.closest("#room-chat")) return;   /* 焦点还在框内（比如发送键） */
+          document.body.classList.remove("chat-kb");
+        }, 120);
+      });
+    }
 
     var jc = $("#room-join-code");
     if (jc) jc.addEventListener("keydown", function (ev) { if (ev.key === "Enter") joinRoom(); });
@@ -1637,6 +1820,7 @@
     startWatch: startWatch,
     inRoom: function () { return R.inRoom; },
     ensureQaScroll: ensureQaScroll,
+    stopQaScroll: stopQaScroll,
     blockQaScroll: function () {
       var box = $("#qa-log");
       if (box) blockManualScroll(box);
@@ -1647,6 +1831,7 @@
     leaveScreen: function () {
       stopWatch();
       stopQaScroll();
+      paintVote(null);
       R.inRoom = false;
       var sr = document.getElementById("screen-room");
       if (sr) sr.classList.add("hidden");

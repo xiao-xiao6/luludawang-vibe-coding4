@@ -288,8 +288,8 @@
           <input id="room-q-input" class="input" type="text" placeholder="没轮到你也可以先写好问题，轮到再发送" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
           <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
-          <!-- 第③条：多人房里「权」紧贴在「我要猜汤底」正右方 -->
-          <button type="button" class="btn quan-btn" id="btn-room-unlock" title="密码看汤底（权区）——只有噜噜大王知晓"><span class="quan-glyph">权</span></button>
+          <!-- 第⑥条（重做）：旧「权」密码按钮下线，换成红色「放弃」——发起全房投票看汤底 -->
+          <button type="button" class="btn giveup-btn" id="btn-room-giveup" title="卡住了？发起全房投票，同意满「人数-1」就直接上汤底"><span class="giveup-glyph">放弃</span></button>
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
         </div>
       </div>
