@@ -2238,3 +2238,196 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
     min-height: 0;
   }
 }
+
+/* ============================================================
+ * 多人「私有猜汤底」大改（2026-09-25）
+ *   ① 猜底内容与汤主判定全程私密：判定就地反馈（🔴🟡🟢 只有猜的人可见）
+ *   ② 汤主报喜：聊天框里的彩虹流光 + 扫光华丽框（只报名次，绝不带汤底）
+ *   ③ 说破者专属庆祝弹窗：金冠 + 炫彩昵称 + 汤底明文
+ *   ④ 全员说破：统一揭底 + 排行榜逐行华丽入场（礼炮烟花复用 SoupFx.celebrate）
+ * ============================================================ */
+
+/* ---- 名单里的「🏆 说破」金章 ---- */
+.room-tag.solved {
+  border-color: rgba(255, 209, 102, .65);
+  color: #ffe4a6;
+  background: linear-gradient(120deg, rgba(255, 209, 102, .2), rgba(255, 143, 110, .16));
+  text-shadow: 0 0 10px rgba(255, 209, 102, .5);
+  animation: tagGlow 2.2s ease-in-out infinite;
+}
+@keyframes tagGlow {
+  0%, 100% { box-shadow: 0 0 4px rgba(255, 209, 102, .18); }
+  50%      { box-shadow: 0 0 14px rgba(255, 209, 102, .55); }
+}
+
+/* ---- 房间聊天：汤主报喜的炫彩华丽花哨框 ---- */
+.chat-item.congrats { display: block; padding: 2px 0 6px; }
+.cg-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  padding: 9px 12px 8px;
+  background: linear-gradient(160deg, rgba(42, 18, 52, .96), rgba(18, 10, 24, .96));
+}
+.cg-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: conic-gradient(from 0deg, #ffd166, #ff8f6e, #ff5f9e, #b98ae0, #8fd3ff, #68cf9a, #ffd166);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: cgSpin 4s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(255, 150, 200, .45));
+  pointer-events: none;
+}
+@keyframes cgSpin {
+  to { filter: drop-shadow(0 0 6px rgba(255, 150, 200, .45)) hue-rotate(360deg); }
+}
+.cg-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 40%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .16), transparent);
+  animation: cgSweep 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes cgSweep { 0% { left: -45%; } 55%, 100% { left: 120%; } }
+.cg-head { display: flex; align-items: center; justify-content: center; gap: 8px; }
+.cg-title {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  letter-spacing: .22em;
+  background: linear-gradient(100deg, #ffd98a, #ff9d6e, #ffe9c4, #8fd3ff, #ffd98a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wtFlow 2.6s linear infinite;
+}
+.cg-bell { font-size: 12px; color: #ffd98a; animation: wtSpark 1.1s ease-in-out infinite; }
+.cg-bell:last-child { animation-delay: .55s; }
+.cg-text { margin-top: 4px; font-size: 13px; color: var(--ink); text-align: center; line-height: 1.65; }
+.cg-foot { margin-top: 4px; text-align: center; font-size: 11px; color: var(--dim-2); letter-spacing: .04em; }
+
+/* ---- 猜底弹窗：只有你看得见的就地判定 ---- */
+.guess-feedback.pv {
+  border: 1px solid var(--line-2);
+  border-left: 4px solid var(--dim);
+  border-radius: 10px;
+  background: rgba(12, 9, 7, .55);
+  padding: 10px 12px;
+  line-height: 1.7;
+}
+.guess-feedback.pv.close { border-left-color: var(--part); }
+.guess-feedback.pv.no { border-left-color: var(--no); }
+.guess-feedback.pv .pv-note { font-size: 11.5px; color: var(--dim-2); margin-left: 6px; }
+
+/* ---- 私有猜底手账 ---- */
+.room-qa-sheet .qa-item.guess { border-color: var(--part); }
+.room-qa-sheet .qa-item.guess.solved { border-color: var(--yes); }
+.room-qa-sheet .qa-item.guess.no,
+.room-qa-sheet .qa-item.guess.vague { border-color: var(--no); }
+
+/* ---- 个人说破弹窗（只有猜对者自己看得到汤底） ---- */
+.me-solved-wrap .modal.me-solved {
+  border: 1px solid rgba(255, 209, 102, .5);
+  box-shadow: 0 0 60px rgba(255, 190, 90, .22), var(--shadow);
+  text-align: center;
+  animation: msIn .5s cubic-bezier(.2, 1.5, .4, 1);
+}
+@keyframes msIn { from { transform: scale(.72) translateY(26px); opacity: 0; } }
+.ms-crown {
+  font-size: 44px;
+  line-height: 1;
+  animation: msCrown 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 16px rgba(255, 209, 102, .55));
+}
+@keyframes msCrown {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-8px) rotate(5deg); }
+}
+.ms-name { font-size: 24px; }
+.ms-rank { margin: 8px 0 12px; color: var(--dim); font-size: 13.5px; }
+.ms-rank b { color: #ffe4a6; }
+.ms-truth { text-align: left; }
+.ms-truth .ms-truth-k { margin: 0 0 8px; font-size: 12px; letter-spacing: .14em; color: var(--broth-dim); }
+.ms-note { margin: 12px 0 0; font-size: 12px; color: var(--dim-2); line-height: 1.7; }
+
+/* ---- 全员说破：统一揭底 + 说破排行榜 ---- */
+.reveal-final .modal-reveal { max-height: 88vh; overflow: auto; }
+.reveal-final.all-solved .modal-reveal {
+  border-color: rgba(255, 209, 102, .45);
+  box-shadow: 0 0 46px rgba(255, 190, 90, .18), var(--shadow);
+}
+.rank-board {
+  margin-top: 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 13px;
+  background: linear-gradient(165deg, rgba(38, 22, 10, .75), rgba(14, 10, 8, .8));
+  padding: 10px 12px 12px;
+}
+.rb-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: .2em;
+  background: linear-gradient(100deg, #ffd98a, #ff9d6e, #ffe9c4, #8fd3ff, #ffd98a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wtFlow 2.6s linear infinite;
+}
+.rank-board .rb-spark { font-size: 12px; color: #ffd98a; -webkit-text-fill-color: initial; animation: wtSpark 1.1s ease-in-out infinite; }
+.rank-board .rb-spark:last-child { animation-delay: .55s; }
+.rk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(12, 9, 7, .5);
+  opacity: 0;
+  transform: translateX(-22px);
+  animation: rkIn .5s ease forwards;
+}
+@keyframes rkIn { to { opacity: 1; transform: translateX(0); } }
+.rk-medal { font-size: 18px; }
+.rk-name { flex: 1; font-family: var(--serif); font-size: 14.5px; color: var(--ink); }
+.rk-tag { font-size: 11.5px; color: var(--dim-2); }
+.rk1 {
+  border-color: rgba(255, 209, 102, .6);
+  background: linear-gradient(120deg, rgba(255, 209, 102, .16), rgba(12, 9, 7, .55));
+  box-shadow: 0 0 18px rgba(255, 209, 102, .18);
+}
+.rk1 .rk-name {
+  background: linear-gradient(100deg, #ffd98a, #ff9d6e, #ffe9c4, #8fd3ff, #ffd98a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wtFlow 2.6s linear infinite;
+}
+.rk1 .rk-tag { color: #ffe4a6; }
+.rk2 {
+  border-color: rgba(210, 214, 222, .5);
+  background: linear-gradient(120deg, rgba(210, 214, 222, .12), rgba(12, 9, 7, .55));
+}
+.rk3 {
+  border-color: rgba(205, 127, 50, .55);
+  background: linear-gradient(120deg, rgba(205, 127, 50, .14), rgba(12, 9, 7, .55));
+}
+.rk-none { background: rgba(12, 9, 7, .42); }
+.rk-none .rk-medal { filter: grayscale(1); opacity: .6; }
+.rk-none .rk-name { color: var(--dim-2); }

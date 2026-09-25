@@ -69,6 +69,10 @@
     chatOpen: true,    /* 默认展开在右下角；点标题才收起 */
     timerTimer: 0,      /* 顺序提问 90s 倒计时的 setInterval 句柄 */
     seenTurn: "",       /* 已经提醒过的轮次，避免每次轮询都再响一次 */
+    /* ---- 多人「私有猜底」大改（2026-09-25）---- */
+    mySolvedShown: false, /* 个人说破弹窗（含刷新恢复）每次进锅只弹一次 */
+    personalOpen: false,  /* 个人说破弹窗当前开着：全员揭底等它关完再弹，不叠罗汉 */
+    cgSeenSeq: 0,         /* 已响过音效的汤主报喜 seq，防止每次重绘都叮 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
 
@@ -310,6 +314,8 @@
         var tags = [];
         if (p.isHost) tags.push('<span class="room-tag host">房主</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
+        /* 私有猜底大改：说破的人挂金徽章（聊天里汤主已报喜，不算剧透） */
+        if (p.solved) tags.push('<span class="room-tag solved">🏆 说破</span>');
         if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">' + (mine && p.uid === mine.uid ? "该你问" : "该他问") + "</span>");
         /* 房主可请离 / 转让任意在座玩家；离线超过 1 分钟的单独标成死座位 */
         if (isHostMe && !p.isHost) {
@@ -380,25 +386,29 @@
 
     /* 输入区状态：把「轮次」与「汤主正在想」两件事分开表达
        —— 多①的根源就是两者没区分：没轮到自己 / 汤主在忙，反馈完全不一样。
-       没轮到自己时输入框仍然能打字（提前写好下一句），只锁「提问」按钮。 */
-    var myTurn = s.phase === "playing" && s.turnUid === myUid(s);
+       没轮到自己时输入框仍然能打字（提前写好下一句），只锁「提问」按钮。
+       私有猜底大改：已说破的人从此刻起只旁观：锁提问，聊天框照常可以递提示。 */
+    var iSolved = !!(s.mySolved || (mine && mine.solved));
+    var myTurn = !iSolved && s.phase === "playing" && s.turnUid === myUid(s);
     var pending = s.pendingAI || null;
     /* 上一句还没回来（服务端飞行锁 + 本地 askBusy），才锁住发送 */
     var canAsk = myTurn && !pending && !R.askBusy;
     var qi = $("#room-q-input");
     if (qi) {
-      qi.disabled = false;
-      qi.readOnly = false;
-      qi.placeholder = pending
-        ? "可以先写下轮到你时要问的话…"
-        : (myTurn ? "轮到你了，向汤主提问…" : "没轮到你也可以先写好问题，轮到再发送");
+      qi.disabled = iSolved && s.phase === "playing";
+      qi.readOnly = qi.disabled;
+      qi.placeholder = iSolved && s.phase === "playing"
+        ? "🏆 你已说破汤底 —— 安静看大家一问一答，想递话去右下角聊天框…"
+        : (pending
+          ? "可以先写下轮到你时要问的话…"
+          : (myTurn ? "轮到你了，向汤主提问…" : "没轮到你也可以先写好问题，轮到再发送"));
     }
     noteTurn(s, myTurn);
     var ba = $("#btn-room-ask");
     if (ba) {
       ba.disabled = !canAsk;
       /* 按钮就地变文案 + 带省略号动效，点完立刻有反馈（多①） */
-      ba.textContent = R.askBusy ? "汤主思考中…" : "提问";
+      ba.textContent = R.askBusy ? "汤主思考中…" : (iSolved && s.phase === "playing" ? "旁观中" : "提问");
       ba.classList.toggle("busy", !!R.askBusy);
     }
 
@@ -424,7 +434,11 @@
       var mineReady = mine && mine.ready;
       var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
       rb.classList.toggle("on", !!mineReady);
-      if (s.phase === "playing" && inThisPot) {
+      if (s.phase === "playing" && iSolved) {
+        /* 已说破：不再撤回也不再排队，本锅只剩旁观 */
+        rb.textContent = "🏆 已说破 · 旁观本锅";
+        rb.disabled = true;
+      } else if (s.phase === "playing" && inThisPot) {
         rb.textContent = "撤回准备（回大堂）";
         rb.disabled = false;
       } else if (s.phase === "playing") {
@@ -447,8 +461,15 @@
       var b = document.getElementById(id);
       if (b) b.disabled = !isHost;
     });
-    /* 揭底 */
-    if (s.phase === "revealed" && s.truth && !R.revealedShown) {
+    /* 多人私有猜底（个人揭底）：猜对那一刻只弹猜对者自己的屏幕——
+       POST 当场由 submit 直接弹；刷新 / 断线重进凭快照 myTruth 在这里补弹。 */
+    if (s.phase === "playing" && iSolved && s.myTruth && !R.mySolvedShown) {
+      R.mySolvedShown = true;
+      showMySolvedPopup({ truth: s.myTruth, rank: s.myRank, total: s.potCount });
+    }
+    if (s.phase !== "playing" || !iSolved) R.mySolvedShown = false;
+    /* 揭底（全员说破 / 投票放弃才走到这里；单人说破同一条通道） */
+    if (s.phase === "revealed" && s.truth && !R.revealedShown && !R.personalOpen) {
       R.revealedShown = true;
       showReveal(s);
     }
@@ -498,20 +519,37 @@
   }
 
   function phaseText(s, mine) {
+    var iSolved = !!(s.mySolved || (mine && mine.solved));
     if (s.phase === "lobby") {
       var ready = (s.players || []).filter(function (p) { return p.ready; }).length;
       if (!s.puzzleId) return "等房主选一锅汤。选好后大家点「我准备好了」。";
       return "汤已备好，已准备 " + ready + "/" + (s.players || []).length + "，全员准备后自动开锅。";
     }
     if (s.phase === "playing") {
+      var solvedN = (s.solveOrder || []).length;
+      var totalN = s.potCount || (s.players || []).length;
+      if (iSolved) {
+        return "🏆 你已说破汤底：一问一答对你停了，安静看大家熬；想递话可以去聊天框打字。"
+          + (solvedN >= totalN ? "" : "还在熬的只剩 " + (totalN - solvedN) + " 位，全员说破才统一揭底。");
+      }
       var who = (s.players || []).filter(function (p) { return p.uid === s.turnUid; })[0];
       var you = s.turnUid === myUid(s);
-      /* 第⑦条：原「汤主的话」文案已合并进这里 */
-      return (you ? "轮到你提问了，问一句「是 / 不是」能答的问题。" : "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + (who ? " " + who.nickname : "") + " 提问，你可以顺着问答记录想推理。") +
-        "嫌慢可以随时猜汤底。";
+      var head = you
+        ? "轮到你提问了，问一句「是 / 不是」能答的问题。"
+        : (who
+          ? "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + " " + who.nickname + " 提问，你可以顺着问答记录想推理。"
+          : "都在等你这一句——问吧。");
+      if (solvedN > 0) head += "本锅已有 " + solvedN + "/" + totalN + " 人说破"
+        + (totalN - solvedN === 1 && solvedN > 0 ? "，只剩你一个，加油！" : "。");
+      return head + "嫌慢可以随时猜汤底——你猜了什么、汤主怎么判，全桌只有你自己看得到。";
     }
     if (s.phase === "revealed") {
-      return "汤底已揭晓——" + (s.winnerNick ? "恭喜 " + s.winnerNick + " 说破。" : "") + "房主可以选下一锅。";
+      if (s.allSolved) {
+        return "🎊 全员说破，本锅圆满收官！汤底与排行榜已统一展示，房主可以选下一锅。";
+      }
+      var sn = (s.solveOrder || []).length;
+      return "汤底已揭晓——" + (s.giveUp ? "🏳️ 全房投票放弃。" : (s.winnerNick ? "恭喜 " + s.winnerNick + " 说破。" : ""))
+        + (sn ? "本锅共 " + sn + " 人抢先说破。" : "") + "房主可以选下一锅。";
     }
     return "";
   }
@@ -525,9 +563,9 @@
     var asks = log.filter(function (x) { return x.kind === "ask"; });
     if (badge) badge.textContent = asks.length + " 问";
     if (!box) return;
-    /* 第④条：问答记录只留真正的「问 / 答 / 推理」，
-       离开 / 撤回 / 超时 / 转让这类系统事件全部只进「实时对话」 */
-    var qaOnly = log.filter(function (x) { return x.kind === "ask" || x.kind === "guess"; });
+    /* 第④条：问答记录只留真正的「问 / 答」；私有猜底大改（2026-09-25）：
+       猜汤底的内容与判定彻底退出问答记录与实时对话，只活在猜的人自己手里 */
+    var qaOnly = log.filter(function (x) { return x.kind === "ask"; });
     /* 只在新内容真的到了才重建 DOM，避免每 1.5s 无意义重排。
        第③条修复：旧签名混入了 chatSeq —— 别人发一句房间聊天就把问答记录
        整栏重建，滚动位置被拍回 0，看起来就是「永远卡在开头十条」。 */
@@ -691,8 +729,8 @@
     var box = $("#room-feed");
     if (!box) return;
     var log = (s.qaLog || []).filter(function (x) {
-      /* 第④条：实时对话才是系统事件与超时的家，这里 ask/guess/sys/timeout 全要 */
-      return x.kind === "ask" || x.kind === "guess" || x.kind === "sys" || x.kind === "timeout";
+      /* 第④条：实时对话才是系统事件与超时的家；猜底条目一律不上（只留 ask/sys/timeout） */
+      return x.kind === "ask" || x.kind === "sys" || x.kind === "timeout";
     });
     var cnt = $("#room-feed-count");
     if (cnt) cnt.textContent = (s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length + " 问";
@@ -757,10 +795,26 @@
     }
     if (box.__sig === log.length + "|" + last) { box.scrollTop = box.scrollHeight; return; }
     box.__sig = log.length + "|" + last;
+    /* 汤主报喜（私有猜底大改）：新到一条 congrats 就先「叮」一声再上屏 */
+    if (R.cgSeenSeq && last > R.cgSeenSeq) {
+      var fresh = log.filter(function (x) { return x.type === "congrats" && (x.seq || 0) > R.cgSeenSeq; });
+      if (fresh.length && root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("pop");
+    }
+    R.cgSeenSeq = last;
     if (!log.length) {
       box.innerHTML = '<p class="empty">房间闲聊区：聊什么都可以，汤主不看这里。</p>';
     } else {
       box.innerHTML = log.map(function (x) {
+        /* 汤主报喜：炫彩华丽花哨特效框，只报名次与人名，绝不带汤底 */
+        if (x.type === "congrats") {
+          return '<div class="chat-item congrats">' +
+            '<div class="cg-frame"><span class="cg-shine" aria-hidden="true"></span>' +
+            '<div class="cg-head"><span class="cg-bell" aria-hidden="true">✨</span>' +
+            '<b class="cg-title">汤主报喜</b><span class="cg-bell" aria-hidden="true">✨</span></div>' +
+            '<div class="cg-text">' + esc(x.text) + "</div>" +
+            '<div class="cg-foot">🏆 当前 ' + (x.rank || "?") + "/" + (x.total || "?") + " 人已说破 · 猜底内容与判定全桌保密</div>" +
+            "</div></div>";
+        }
         var mineCls = (x.uid === myUid(R.snap || {})) ? " me" : "";
         return '<div class="chat-item' + mineCls + '">' +
           '<span class="ci-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
@@ -807,6 +861,24 @@
     var btn = $("#btn-room-guess");
     if (!btn) return;
     if (R.cooldownTimer) { clearInterval(R.cooldownTimer); R.cooldownTimer = 0; }
+    /* 私有猜底大改：已说破的人不再能猜（也没必要），按钮变金章 */
+    if (s && (s.mySolved || (function () {
+      var ps = (s.players || []);
+      for (var i = 0; i < ps.length; i++) { if (ps[i].uid === myUid(s)) return !!ps[i].solved; }
+      return false;
+    })())) {
+      btn.disabled = true;
+      btn.textContent = "🏆 已说破";
+      var bg = $("#btn-room-giveup");
+      if (bg && s.phase === "playing") {
+        bg.disabled = true;
+        bg.title = "你已说破本锅——不替还没猜出的人发起放弃";
+      }
+      return;
+    }
+    var bg2 = $("#btn-room-giveup");
+    if (bg2) { bg2.disabled = false; if (bg2.dataset && bg2.dataset.titled) { /* noop */ } }
+    if (bg2) bg2.title = "卡住了？发起全房投票，同意满「人数-1」就直接上汤底";
     var tick = function () {
       var left = Math.ceil(((s.myGuessCooldownUntil || 0) - Date.now()) / 1000);
       if (left > 0) {
@@ -841,24 +913,62 @@
     R.timerTimer = setInterval(tick, 1000);
   }
 
+  /* 说破排行榜（全员揭底 / 投票放弃时同屏展示）：金銀銅 + 未说破灰条，逐行华丽入场 */
+  function rankBoardHtml(s) {
+    var order = s.solveOrder || [];
+    var players = s.players || [];
+    var rows = order.map(function (o) {
+      var medal = o.rank === 1 ? "🥇" : o.rank === 2 ? "🥈" : o.rank === 3 ? "🥉" : "🎖️";
+      var delay = ((o.rank - 1) * 0.16).toFixed(2);
+      return '<div class="rk rk' + Math.min(o.rank, 4) + '" style="animation-delay:' + delay + 's">' +
+        '<span class="rk-medal">' + medal + "</span>" +
+        '<span class="rk-name">' + esc(o.nickname) + "</span>" +
+        '<span class="rk-tag">第 ' + o.rank + " 个说破</span></div>";
+    });
+    var extra = 0;
+    players.forEach(function (p) {
+      var got = false;
+      for (var i = 0; i < order.length; i++) { if (order[i].uid === p.uid) { got = true; break; } }
+      if (got) return;
+      extra++;
+      rows.push('<div class="rk rk-none" style="animation-delay:' + ((order.length + extra - 1) * 0.12).toFixed(2) + 's">' +
+        '<span class="rk-medal">🥣</span>' +
+        '<span class="rk-name">' + esc(p.nickname) + "</span>" +
+        '<span class="rk-tag">这锅没熬出来</span></div>');
+    });
+    if (!rows.length) return "";
+    return '<div class="rank-board">' +
+      '<div class="rb-head"><span class="rb-spark" aria-hidden="true">✦</span>' +
+      "<b>本锅说破排行榜</b>" +
+      '<span class="rb-spark" aria-hidden="true">✦</span></div>' +
+      rows.join("") + "</div>";
+  }
+
   function showReveal(s) {
     var host = document.createElement("div");
-    host.className = "modal-wrap";
+    var allSolved = !!s.allSolved;
+    host.className = "modal-wrap reveal-final" + (allSolved ? " all-solved" : "");
     var byVote = !!s.giveUp;
-    /* 第⑦条：猜出者的昵称挂在汤底框正上方，流光 + 弹跳小特效 */
-    var winnerLine = s.winnerNick
+    /* 第⑦条：猜出者的昵称挂在汤底框正上方，流光 + 弹跳小特效（全员说破时交给排行榜展示） */
+    var winnerLine = (!allSolved && s.winnerNick)
       ? '<div class="winner-tag">' +
         '<span class="wt-spark" aria-hidden="true">✦</span>' +
         '<span class="wt-name">' + esc(s.winnerNick) + "</span>" +
         '<span class="wt-spark" aria-hidden="true">✦</span>' +
         "</div>"
       : "";
+    var note = byVote
+      ? "🏳️ 全房投票放弃，直接上汤底"
+      : (allSolved
+        ? "🎊 全员说破！猜对的人各自庆功，汤底此刻统一上桌"
+        : (s.winnerNick ? "🎉 " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束"));
     host.innerHTML =
-      '<div class="modal" role="dialog" aria-modal="true">' +
-      "<h3>汤底揭晓</h3>" +
-      '<p class="end-note">' + (byVote ? "🏳️ 全房投票放弃，直接上汤底" : (s.winnerNick ? "🎉 " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束")) + " · 共 " + ((s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length) + " 问</p>" +
+      '<div class="modal modal-reveal" role="dialog" aria-modal="true">' +
+      "<h3>" + (allSolved ? "全员说破 · 统一揭底 &amp; 排行榜" : "汤底揭晓") + "</h3>" +
+      '<p class="end-note">' + note + " · 共 " + ((s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length) + " 问</p>" +
       winnerLine +
       '<div class="truth-box"><p style="margin:0">' + esc(s.truth) + "</p></div>" +
+      rankBoardHtml(s) +
       '<div class="modal-actions">' +
       '<button type="button" class="btn ghost" id="rv-close">知道了</button>' +
       "</div></div>";
@@ -869,12 +979,56 @@
     });
     document.body.classList.add("modal-open");
     /* 第⑦条：说破汤底 = 礼炮 + 烟花 + 音效三连（celebrate 内部自带乐音）；
-       投票放弃只放轻一点的揭底音 */
-    if (s.winnerNick && !byVote) {
+       全员说破更是大团圆，照放不误；投票放弃只放轻一点的揭底音 */
+    if (!byVote) {
       if (root.SoupFx && root.SoupFx.celebrate) { try { root.SoupFx.celebrate(); } catch (e) { /* 忽略 */ } }
     } else if (root.SoupAudio && root.SoupAudio.sfx) {
       root.SoupAudio.sfx("reveal");
     }
+  }
+
+  /* ------------------------------------------------------------
+   * 个人说破弹窗（私有猜底大改 2026-09-25）
+   * 猜对汤底只弹在猜对者自己的屏幕上：汤底明文 + 炫彩昵称 +
+   * 左下右下礼炮 / 上方礼花烟花 + 号角音效（SoupFx.celebrate 自带）。
+   * ------------------------------------------------------------ */
+  function showMySolvedPopup(o) {
+    o = o || {};
+    if (!document.getElementById("qa-log")) return;
+    var host = document.createElement("div");
+    host.className = "modal-wrap me-solved-wrap";
+    var rest = Math.max(0, (o.total || 0) - (o.rank || 1));
+    host.innerHTML =
+      '<div class="modal me-solved" role="dialog" aria-modal="true">' +
+      '<div class="ms-crown" aria-hidden="true">🏆</div>' +
+      "<h3 class=\"ms-h\">说破啦！</h3>" +
+      '<div class="winner-tag">' +
+      '<span class="wt-spark" aria-hidden="true">✦</span>' +
+      '<span class="wt-name ms-name">' + esc(me().nickname || "你") + "</span>" +
+      '<span class="wt-spark" aria-hidden="true">✦</span></div>' +
+      '<p class="ms-rank">你是本锅 <b>第 ' + (o.rank || 1) + " 个</b> 猜对汤底的人" +
+      (rest > 0 ? " · 还有 " + rest + " 位在熬" : " · 本锅就此收官") + "</p>" +
+      '<div class="truth-box ms-truth"><p class="ms-truth-k">汤底（此刻只有你看得见）</p><p style="margin:0">' + esc(o.truth || "（这一锅没有汤底）") + "</p></div>" +
+      '<p class="ms-note">系统不会把汤底剧透给任何人：本锅继续，你转入旁观——' +
+      "想看大家怎么熬就安静看，想递提示就去聊天框打字。</p>" +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn primary" id="ms-ok">进入旁观 👀</button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    R.personalOpen = true;
+    if (root.SoupFx && root.SoupFx.celebrate) { try { root.SoupFx.celebrate(); } catch (e) { /* 忽略 */ } }
+    host.querySelector("#ms-ok").addEventListener("click", function () {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+      R.personalOpen = false;
+      /* 压轴的全体揭底：等个人弹窗关完再弹，不叠罗汉 */
+      var snap = R.snap;
+      if (snap && snap.phase === "revealed" && snap.truth && !R.revealedShown) {
+        R.revealedShown = true;
+        showReveal(snap);
+      }
+    });
   }
 
   /* ---------------- 动作 ---------------- */
@@ -915,6 +1069,9 @@
       var el = $(sel);
       if (el) el.__sig = "";
     });
+    /* 进房基线：旧报喜不补响铃，上一次锅的个人弹窗状态也不带入 */
+    R.cgSeenSeq = 0;
+    R.mySolvedShown = false;
   }
   root.SoupAppToast = function (m) {
     var el = document.getElementById("toast");
@@ -1016,6 +1173,12 @@
   /* 提问（多①）：点下去立刻锁按钮 + 变文案，不让玩家以为没反应而狂点。
      真正的防重复烧额度在服务端飞行锁，这里只管手感。 */
   function doAsk() {
+    var ssnap = R.snap || {};
+    /* 私有猜底大改：说破者只剩旁观，提问通道已对其关闭 */
+    if (ssnap.phase === "playing" && ssnap.mySolved) {
+      R.toast("你已说破汤底，本锅只旁观；想递话去聊天框～");
+      return;
+    }
     var qi = $("#room-q-input");
     var v = qi ? qi.value.trim() : "";
     var ba = $("#btn-room-ask");
@@ -1081,6 +1244,8 @@
   }
 
   function doGuess() {
+    var s = R.snap || {};
+    if (s.mySolved) { R.toast("你已说破本锅汤底，接下来旁观大家熬～"); return; }
     openGuessModal();
   }
 
@@ -1092,7 +1257,8 @@
    */
   function openQaPanel() {
     var s = R.snap || {};
-    var log = s.qaLog || [];
+    /* 猜底条目彻底退出问答面板（私有猜底大改），只剩一问一答 */
+    var log = (s.qaLog || []).filter(function (x) { return x.kind === "ask"; });
     var asks = log.filter(function (x) { return x.kind === "ask"; });
     var host = document.createElement("div");
     host.className = "modal-wrap";
@@ -1146,10 +1312,12 @@
     host.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true">' +
       "<h3>说出你的推理</h3>" +
-      '<p class="modal-sub">不用复述原文，把关键的那几层讲清楚就行。汤主会判断你有没有真的熬到汤底。</p>' +
+      '<p class="modal-sub">🤫 全程私密：你写了什么、汤主判了什么色，<b>只有你自己的屏幕看得到</b>——' +
+      "不进问答记录，不进实时对话，别人不知道你猜过。</p>" +
       '<textarea id="rguess-input" rows="5" placeholder="我认为，他之所以……是因为……" autocapitalize="off" spellcheck="false"></textarea>' +
       '<p class="guess-feedback" id="rguess-fb"></p>' +
       '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="rguess-book">📓 我的猜底手账</button>' +
       '<button type="button" class="btn ghost" id="rguess-cancel">再想想</button>' +
       '<button type="button" class="btn primary" id="rguess-submit">提交推理</button>' +
       "</div></div>";
@@ -1157,6 +1325,8 @@
     document.body.classList.add("modal-open");
     var ta = host.querySelector("#rguess-input");
     var fb = host.querySelector("#rguess-fb");
+    var sub = host.querySelector("#rguess-submit");
+    var cancel = host.querySelector("#rguess-cancel");
     setTimeout(function () { if (ta) ta.focus(); }, 40);
 
     function close() {
@@ -1168,36 +1338,101 @@
       if (!t) { fb.textContent = "先写下你的推理，再交给汤主。"; fb.className = "guess-feedback no"; return; }
       fb.textContent = "汤主正在判断你的推理…";
       fb.className = "guess-feedback";
-      host.querySelector("#rguess-submit").disabled = true;
+      sub.disabled = true;
       act("guess", { text: t }).then(function (r) {
-        close();
+        startWatch();
         var lv = r && r.level;
+        if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; }
+        if (r && r.private) {
+          /* 私有判定：就地给结果，绝不外流 */
+          if (lv === "solved") {
+            R.mySolvedShown = true;   /* 拦住快照兜底重复补弹 */
+            close();
+            /* 先立个人庆祝弹窗，再重绘：全员揭底会被 personalOpen 押后，不叠罗汉 */
+            showMySolvedPopup({ truth: r.truth, rank: r.rank, total: r.participants });
+            if (R.snap) render(R.snap);
+            return;
+          }
+          var cls = (lv === "close" || lv === "vague") ? "close" : "no";
+          var lead = lv === "close" ? "🟡 部分正确" : (lv === "vague" ? "🟡 方向模糊" : "🔴 完全错误");
+          fb.innerHTML = "<b>" + lead + "</b><span class=\"pv-note\">（只有你看得见）</span><br>" +
+            esc((r && r.note) || "方向还不对。") +
+            (lv === "close" || lv === "vague" ? " 60 秒后可再猜一次；🔴 要等 180 秒。" : " 冷却结束后再来。");
+          fb.className = "guess-feedback pv " + cls;
+          ta.readOnly = true;
+          cancel.textContent = "知道了";
+          R.toast(lead + " · 判定只有你可见");
+          return;
+        }
+        /* 兜底：服务端还是旧版（没有 private 标记）时维持原行为 */
+        close();
+        if (R.snap) render(R.snap);
         if (lv === "solved") R.toast("对了！汤底揭晓");
         else if (lv === "close") R.toast("已经很近了！60 秒后可再猜");
         else R.toast((r && r.note) || "方向还不对");
-        if (r && r.snapshot) { R.snap = r.snapshot; render(r.snapshot); }
-        startWatch();
       }).catch(function (e) {
         var m = e.message;
         if (m === "COOLDOWN") { close(); R.toast("你还在冷却，等一下再猜（别人不受影响）"); }
+        else if (m === "ALREADY_SOLVED") { close(); R.toast(e.note || "你已说破本锅汤底"); }
         else if (AI_ERR_TEXT[m]) {
-          host.querySelector("#rguess-submit").disabled = false;
+          sub.disabled = false;
           fb.textContent = aiErrText(m, e.note);
           fb.className = "guess-feedback no";
         } else {
-          host.querySelector("#rguess-submit").disabled = false;
+          sub.disabled = false;
           fb.textContent = "提交失败：" + m;
           fb.className = "guess-feedback no";
         }
         startWatch();
       });
     }
-    host.querySelector("#rguess-submit").addEventListener("click", submit);
-    host.querySelector("#rguess-cancel").addEventListener("click", close);
+    sub.addEventListener("click", submit);
+    cancel.addEventListener("click", close);
+    host.querySelector("#rguess-book").addEventListener("click", function () { openMyGuessNotebook(); });
     ta.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) submit();
       if (ev.key === "Escape") close();
     });
+  }
+
+  /* 我的猜底手账：猜过的每一条内容与判定，只存在我自己的快照视角里 */
+  function openMyGuessNotebook() {
+    var s = R.snap || {};
+    var log = s.myGuessLog || [];
+    var LV = {
+      solved: ["🟢 说破了", "yes"],
+      close: ["🟡 部分正确", "partial"],
+      vague: ["🟡 方向模糊", "partial"],
+      "no": ["🔴 完全错误", "no"]
+    };
+    var host = document.createElement("div");
+    host.className = "modal-wrap";
+    host.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mgn-title">' +
+      '<h3 id="mgn-title">📓 我的猜底手账</h3>' +
+      '<p class="modal-sub">这里每一条都只有你看得见：别人既不知道你何时猜、猜了什么，也看不到汤主的判定。</p>' +
+      '<div class="room-qa-sheet" id="mgn-body"></div>' +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn primary" id="mgn-close">合上手账</button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    var body = host.querySelector("#mgn-body");
+    body.innerHTML = log.length
+      ? log.slice().reverse().map(function (x) {
+        var v = LV[x.level] || ["⚪ 未判定", ""];
+        return '<div class="qa-item guess ' + esc(x.level || "") + '">' +
+          '<div class="qa-q"><span class="qa-k">我的推理</span>' + esc(x.text) + "</div>" +
+          '<div class="qa-a"><span class="qa-k verdict ' + esc(v[1]) + '">' + esc(v[0]) + "</span>" + esc(qaStrip("", x.reply)) + "</div>" +
+          "</div>";
+      }).join("")
+      : '<p class="empty">还没猜过。放心猜——这一页只属于你。</p>';
+    function close() {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    }
+    host.querySelector("#mgn-close").addEventListener("click", close);
+    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
   }
 
   /* 选汤：直接弹超大汤库 UI——与单人汤库同款（筛选+搜索+分页+卡片），不再是单独二级选汤界面。
@@ -1885,6 +2120,7 @@
     if (qi) qi.addEventListener("keydown", function (ev) { if (ev.key === "Enter") doAsk(); });
     var bg = $("#btn-room-guess"); if (bg) bg.addEventListener("click", doGuess);
     var bq = $("#btn-room-qa"); if (bq) bq.addEventListener("click", openQaPanel);
+    var bnb = $("#btn-room-notebook"); if (bnb) bnb.addEventListener("click", openMyGuessNotebook);
     var bc = $("#btn-room-choose"); if (bc) bc.addEventListener("click", doChoose);
     var br = $("#btn-room-rand"); if (br) br.addEventListener("click", doRoomRandom);
     var bn = $("#btn-room-next"); if (bn) bn.addEventListener("click", doNext);

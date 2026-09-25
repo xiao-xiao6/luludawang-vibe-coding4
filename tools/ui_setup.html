@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- 本地联调小工具：给浏览器种好「本地 Worker 地址 + 独立身份」再进主页面。
+     仅供 tools/ 下开发测试用，不参与线上部署。 -->
+<html lang="zh-CN">
+<meta charset="utf-8" />
+<title>UI setup</title>
+<body>
+<script>
+  var who = (location.search.match(/who=(\w+)/) || [])[1] || "a";
+  var ids = {
+    a: { internalId: "ui_player_a_001", nickname: "甲甲" },
+    b: { internalId: "ui_player_b_002", nickname: "乙乙" },
+    c: { internalId: "ui_player_c_003", nickname: "丙丙" }
+  };
+  var pick = ids[who] || ids.a;
+  localStorage.setItem("soupnet.v1", JSON.stringify({
+    internalId: pick.internalId,
+    nickname: pick.nickname,
+    roomCode: "",
+    solo: false,
+    base: "http://127.0.0.1:8788"
+  }));
+  location.href = "/index.html";
+</script>
+</body>
+</html>
