@@ -1424,6 +1424,70 @@
     });
   }
 
+  /* 本地找汤底：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB。
+     【策略】汤底明文公开（js/library.public.js 含 truth），所以单人 / 多人
+     都能直接查，不必等房号进 revealed 阶段。 */
+  function localTruth(pid) {
+    if (!pid) return "";
+    var pools = [root.PUZZLES, root.SOUP_LIBRARY, root.LIB];
+    for (var k = 0; k < pools.length; k++) {
+      var list = pools[k];
+      if (!list || !list.length) continue;
+      for (var i = 0; i < list.length; i++) {
+        if (list[i] && list[i].id === pid) {
+          if (list[i].truth) return String(list[i].truth);
+          break;   /* 同一 id 只在一层，找到就够 */
+        }
+      }
+    }
+    /* 引擎索引也会命中核心层：再退一步问它 */
+    var E2 = root.SoupEngine;
+    var p = E2 && E2.getPuzzle ? E2.getPuzzle(pid) : null;
+    return (p && p.truth) ? String(p.truth) : "";
+  }
+
+  /* 第⑥条：单人端「放弃」——没有全房可投票，点一下确认就直接上汤底。 */
+  function doGiveupSolo() {
+    var host = document.createElement("div");
+    host.className = "modal-wrap";
+    host.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true">' +
+      '<h3>🏳️ 放弃这一锅？</h3>' +
+      '<p class="modal-sub">被卡住了不丢人。放弃后直接揭开本锅汤底，这锅就算过去了。</p>' +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="gs-no">再想想</button>' +
+      '<button type="button" class="btn giveup-btn" id="gs-yes"><span class="giveup-glyph">放弃，上汤底</span></button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    var close = function () {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    };
+    host.querySelector("#gs-no").addEventListener("click", close);
+    host.querySelector("#gs-yes").addEventListener("click", function () {
+      close();
+      var pid0 = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
+      var truth = localTruth(pid0);
+      var rv = document.createElement("div");
+      rv.className = "modal-wrap";
+      rv.innerHTML =
+        '<div class="modal" role="dialog" aria-modal="true">' +
+        "<h3>汤底揭晓</h3>" +
+        '<p class="end-note">🏳️ 你选择了放弃，直接上汤底。</p>' +
+        '<div class="truth-box"><p style="margin:0">' + esc(truth || "这一锅没有汤底。") + "</p></div>" +
+        '<div class="modal-actions"><button type="button" class="btn ghost" id="gs-close">知道了</button></div></div>';
+      document.body.appendChild(rv);
+      document.body.classList.add("modal-open");
+      if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("reveal");
+      rv.querySelector("#gs-close").addEventListener("click", function () {
+        if (rv.parentNode) rv.parentNode.removeChild(rv);
+        document.body.classList.remove("modal-open");
+      });
+    });
+    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
+  }
+
   /* 密码看汤底（权区）：正确密码 608521。只在本机弹出汤底，不改房间阶段。
      这是「噜噜大王」的专属后门，文案走搞怪风；按钮独立放在别的区域，不跟提问 / 猜底挤一起。 */
   var TRUTH_CODE = "608521";
@@ -1457,28 +1521,7 @@
       fb.className = "guess-feedback ok";
     }
 
-    /* 本地找汤底：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB。
-       【策略】汤底明文公开（js/library.public.js 含 truth），所以单人 / 多人
-       都能直接查，不必等房号进 revealed 阶段 —— 这正是「密码看汤底」的意义。 */
-    function localTruth(pid) {
-      if (!pid) return "";
-      var pools = [root.PUZZLES, root.SOUP_LIBRARY, root.LIB];
-      for (var k = 0; k < pools.length; k++) {
-        var list = pools[k];
-        if (!list || !list.length) continue;
-        for (var i = 0; i < list.length; i++) {
-          if (list[i] && list[i].id === pid) {
-            if (list[i].truth) return String(list[i].truth);
-            break;   /* 同一 id 只在一层，找到就够 */
-          }
-        }
-      }
-      /* 引擎索引也会命中核心层：再退一步问它 */
-      var E2 = root.SoupEngine;
-      var p = E2 && E2.getPuzzle ? E2.getPuzzle(pid) : null;
-      return (p && p.truth) ? String(p.truth) : "";
-    }
-
+    /* 本地找汤底走模块级 localTruth（精品 / 汤库 / 引擎索引三层兜底） */
     function submit() {
       var v = String(input.value || "").trim();
       if (v !== TRUTH_CODE) {
@@ -1736,6 +1779,13 @@
     host.querySelector("#rai-cancel").addEventListener("click", close);
   }
 
+  /* 全局看门狗：每 2 秒确认一次循环活着。
+     单人局没有轮询驱动 render，光靠 ensureQaScroll 的惰性调用可能救不回来，
+     这里补一个便宜的定时器，谁卡死都能被重新拉起来。 */
+  setInterval(function () {
+    if (qaScrollWanted()) ensureQaScroll();
+  }, 2000);
+
   /* ---------------- 绑定 ---------------- */
 
   function bind() {
@@ -1826,6 +1876,7 @@
       if (box) blockManualScroll(box);
     },
     doUnlock: doUnlock,
+    doGiveupSolo: doGiveupSolo,
     /* 从房间界面切走（去汤库 / 随机 / 单人对局）：停轮询、收起房间屏、摘掉 room-mode，
        并把右下角聊天框藏起来 —— 它只属于「正在多人房间内」的状态 */
     leaveScreen: function () {

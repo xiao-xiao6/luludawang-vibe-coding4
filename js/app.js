@@ -1851,7 +1851,8 @@
 
     var unlockBtn = $("#btn-unlock");
     if (unlockBtn) unlockBtn.addEventListener("click", function () {
-      if (root.SoupRoom && root.SoupRoom.doUnlock) root.SoupRoom.doUnlock(true);
+      /* 第⑥条：单人端「放弃」= 确认后直接上汤底（旧密码权区下线） */
+      if (root.SoupRoom && root.SoupRoom.doGiveupSolo) root.SoupRoom.doGiveupSolo();
     });
 
     var gCancel = $("#btn-guess-cancel");
