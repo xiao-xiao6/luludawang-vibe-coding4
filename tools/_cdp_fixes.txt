@@ -1,0 +1,6 @@
+fx enabled = True
+celebrate: ok
+canvas@1s: {"exists":true,"litPixels":47847,"zIndex":"120","pointerEvents":"none","modalZ":"80","modalBlur":"blur(3px)","frontAboveModal":true}
+canvas@3.5s: {"exists":true,"litPixels":13260,"zIndex":"120","pointerEvents":"none","modalZ":"80","modalBlur":"blur(3px)","frontAboveModal":true}
+confirm: {"shown":true,"hasYes":true,"hasNo":true,"title":"放弃这一锅？","closedAfterNo":true,"closedAfterBackdrop":true}
+DONE

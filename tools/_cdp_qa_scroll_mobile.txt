@@ -1,0 +1,18 @@
+MODE: mobile
+  vw = 390
+  vh = 844
+  pointerFine = False
+  pointerCoarse = True
+  mq861 = False
+  overflowY = auto
+  touchAction = auto
+  scrollHeight = 3710
+  clientHeight = 200
+  over = 3510
+  fracSupported = False
+  fracReadback = 10
+  hasSoupRoom = True
+auto-scroll samples: t0=0 t+2s=48 t+5s=120
+AUTO_SCROLL_MOVING: True (expect ~120 px in 5s)
+after jump-to-bottom + 2.4s: scrollTop=19 (expect small: 1.6s hold then restart from top)
+DONE

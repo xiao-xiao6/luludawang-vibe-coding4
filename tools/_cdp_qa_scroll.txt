@@ -1,0 +1,20 @@
+MODE: desktop
+  vw = 1584
+  vh = 805
+  pointerFine = True
+  pointerCoarse = False
+  mq861 = True
+  overflowY = auto
+  touchAction = auto
+  scrollHeight = 3710
+  clientHeight = 601
+  over = 3109
+  fracSupported = False
+  fracReadback = 10
+  hasSoupRoom = True
+auto-scroll samples: t0=0 t+2s=48 t+5s=120
+AUTO_SCROLL_MOVING: True (expect ~120 px in 5s)
+wheel: defaultPrevented=false scrollTop_after_wheel=242
+wheel+4.6s: scrollTop=265 (expect > wheel pos 242, auto resumed)
+after jump-to-bottom + 2.4s: scrollTop=18 (expect small: 1.6s hold then restart from top)
+DONE

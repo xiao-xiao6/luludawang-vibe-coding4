@@ -497,6 +497,8 @@
     var badge = $("#qa-count");
     if (badge) badge.textContent = hist.length + " 问";
 
+    /* 重建 DOM 前记住玩家/自动滚动看到哪了，重建后原位接上，不再拍回顶部 */
+    var keepTop = box.scrollTop;
     if (!hist.length) {
       box.innerHTML = '<p class="empty">还没有提问。<br />打开一道汤，向汤主问出第一句吧。</p>';
       return;
@@ -512,8 +514,9 @@
           esc(item.a) + "</div>" +
         "</div>";
     }).join("");
-    /* 单人局和多人房一样：禁止手动滑，内容超出后自己慢慢滚 */
-    if (root.SoupRoom && root.SoupRoom.blockQaScroll) root.SoupRoom.blockQaScroll();
+    box.scrollTop = keepTop;
+    /* 单人局和多人房一样：自动慢滚循环，手动一碰先让位 4 秒 */
+    if (root.SoupRoom && root.SoupRoom.watchQaScroll) root.SoupRoom.watchQaScroll();
     if (root.SoupRoom && root.SoupRoom.ensureQaScroll) root.SoupRoom.ensureQaScroll();
   }
 
@@ -529,7 +532,7 @@
   function renderStats() {
     var p = E.getPuzzle(state.pid);
     if (!p) return;
-    /* 单人局也挂上自动慢滚，和多人房同一套：不能手动滑，滚到底自己回顶 */
+    /* 单人局也挂上自动慢滚，和多人房同一套：自己循环滚，玩家也能手动翻 */
     if (root.SoupRoom && root.SoupRoom.ensureQaScroll) root.SoupRoom.ensureQaScroll();
     var s = state;
     /* 第⑥条：线索 / 提示 / 探索度统计已全部下线，只留提问计数 */
@@ -1254,8 +1257,9 @@
           var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(qaStrip("对了", out.note)), "AI 判定");
           sfx("win");
           if (FX) {
-            if (ln) FX.burstAt(ln, { count: 40, power: 1.3, colors: ["#e2a44f", "#f6cf90", "#68cf9a", "#ffe9c4"] });
-            FX.burst(window.innerWidth / 2, window.innerHeight * 0.34, { count: 70, power: 1.7 });
+            /* 说破瞬间弹窗马上要盖上来：庆祝改画在前景层，不再被遮罩糊掉 */
+            if (ln) FX.burstFrontAt(ln, { count: 90, power: 1.4, colors: ["#ffd166", "#f6cf90", "#68cf9a", "#ffe9c4", "#ff8f6e"] });
+            FX.burstFront(window.innerWidth / 2, window.innerHeight * 0.34, { count: 150, power: 1.8 });
           }
           setTimeout(function () { finish(); }, 520);
         } else {
@@ -1311,7 +1315,7 @@
     sfx("reveal");
     if (FX) {
       FX.surge(5);
-      FX.burst(window.innerWidth / 2, window.innerHeight * 0.3, { count: 80, power: 1.6 });
+      FX.burstFront(window.innerWidth / 2, window.innerHeight * 0.3, { count: 160, power: 1.8 });
     }
 
     set("#end-stars", new Array(st + 1).join("★") + new Array(4 - st).join("☆"));

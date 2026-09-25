@@ -604,6 +604,19 @@ body.room-mode .qa-clear { display: none; }
 }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
+/* ---------- 通用二级确认面板（防误触，2026-09-25） ---------- */
+.confirm-wrap .modal { max-width: 430px; }
+.confirm-modal h3 { margin: 0 0 8px; }
+.btn.danger {
+  background: linear-gradient(158deg, #8c2f28 0%, #6d1f1a 46%, #a03a2e 100%);
+  border-color: rgba(240, 150, 140, .58);
+  color: #fff0ee;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 175, 165, .55), 0 1px 0 rgba(0, 0, 0, .8);
+  box-shadow: 0 8px 20px rgba(150, 40, 32, .34);
+}
+.btn.danger:hover { background: linear-gradient(158deg, #a03a30 0%, #7d281f 46%, #b44436 100%); }
+
 .modal {
   width: min(620px, 100%);
   max-height: 88vh;
@@ -1726,7 +1739,7 @@ body.modal-open .room-chat { display: none; }
 }
 .room-qa-sheet .empty { font-size: 12.5px; color: var(--dim-2); }
 
-/* 多人房模式下，左栏是「电影片尾」自动滚动：禁止手动选/拖 */
+/* 多人房模式下，左栏是「电影片尾」自动滚动 + 可手动翻阅 */
 .qa-log {
   user-select: none;
   -webkit-user-select: none;
@@ -1736,23 +1749,18 @@ body.room-mode .qa-log {
   -webkit-user-select: none;
   overscroll-behavior: contain;
 }
-@media (pointer: fine) and (min-width: 861px) {
-  body.room-mode .qa-log { touch-action: none; }
-}
 
-/* ---------- 第⑤条：PC 端问答记录彻底锁死，只能自己循环滚 ----------
- * overflow:hidden 拦掉滚轮 / 触控板 / 拖动 / 键盘翻页，
- * 但 JS 给 scrollTop 赋值依然有效 —— 「电影片尾」循环保留。
- * 触屏 / 窄屏不走这里：那里左栏在页面最上面，锁了会把整页手势堵死。 */
+/* ---------- 第⑤条（2026-09-25 彻查重做）：PC 端问答记录不再锁死 ----------
+ * 旧版这里给桌面端上了 overflow:hidden + 滚轮 preventDefault 双保险，
+ * 结果 PC 玩家连手动翻都翻不动；而自动滚动又因为桌面浏览器 scrollTop
+ * 取整、每帧 0.4px 被吞而原地卡死（根因与修法见 room-ui.js 注释）。
+ * 现在双端同一套：自动慢滚循环 + 滚轮 / 触屏 / 滚动条随意翻，
+ * 手一碰自动滚动先让位 4 秒再接管。 */
 @media (pointer: fine) and (min-width: 861px) {
   .qa-log {
-    overflow: hidden;
-    overscroll-behavior: none;
-    scroll-behavior: auto;
-    touch-action: none;
-    scrollbar-width: none;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
-  .qa-log::-webkit-scrollbar { width: 0; height: 0; display: none; }
 }
 
 /* ---------- 第③条：「权」——水墨印章按钮（单人 / 多人共用） ----------
