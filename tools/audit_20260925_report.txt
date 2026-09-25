@@ -1,0 +1,833 @@
+[load] data.js PUZZLES: 20
+[load] data-more.js PUZZLES_MORE: 80
+[load] library.public.js SOUP_LIBRARY: 988
+[total] 1088 条，重复 id 0: []
+[len surface] 精=100 库=988
+
+========== 汇总（按类） ==========
+A1-超长汤面>400: 14
+A2-纯英文/非中文汤面: 171
+B4-重复标点: 13
+B5-含双空格: 2
+C1-汤面汤底几乎无交集: 62
+D2-汤底尾部疑似残留: 2
+D4-含链接: 1
+D5-截断/略: 31
+D6-汤底重复标点: 36
+D7-汤底空格异常: 1
+D8-含元信息词: 19
+
+########## A1-超长汤面>400 ##########
+  - 库|lib_0a8d65c99059|爷爷的低吼
+      len=431
+  - 库|lib_21bc23944630|私汤馆の凶杀疑云
+      len=561
+  - 库|lib_269b76a49e5f|无题 · boop-yyt #1337
+      len=415
+  - 库|lib_26fb6a590a81|旅馆
+      len=421
+  - 库|lib_36b3906f39dc|雷阵雨
+      len=641
+  - 库|lib_4ab66f954145|口供
+      len=587
+  - 库|lib_60a6b5cee2aa|杀狼人
+      len=584
+  - 库|lib_77bc008828e5|日记
+      len=405
+  - 库|lib_7a306afeee05|D·r·e·a·m
+      len=590
+  - 库|lib_8e9ca5184f96|Jed 1.2
+      len=467
+  - 库|lib_93d8f4b72f86|目击者
+      len=453
+  - 库|lib_d4546e003ccd|听妈妈的话
+      len=440
+  - 库|lib_e354e23594ac|小笙的十年陪伴
+      len=616
+  - 库|lib_f7f8399079c1|双鱼
+      len=600
+
+########## A2-纯英文/非中文汤面 ##########
+  - 库|lib_048dc4d7aeb0|Jed 1.83
+      A woman lies dead in the street near a car. (AG)
+  - 库|lib_05d55826327b|Jed 1.19
+      There is blood on the ceiling of my bedroom. (MI original)
+  - 库|lib_08a08b9bdd9c|无题 · boop-yyt #1289
+      A man is killed on a train. He is found to have written "elf" on the f
+  - 库|lib_097336e53d3b|无题 · boop-yyt #1371
+      A rope breaks. A bell rings. A boy dies. How could this be?
+  - 库|lib_09c0825b5def|无题 · boop-yyt #1324
+      A woman opens an envelope and dyes. What happened?
+  - 库|lib_0a6d1163d6f9|无题 · boop-yyt #1290
+      A man lies dead next to a feather. What happened?
+  - 库|lib_0b330f52e242|无题 · misc #1303
+      A man tries to buy poison to kill his wife. The pharmacist figures out
+  - 库|lib_0c44293fd6f1|Jed 1.51
+      If he'd turned on the light, he'd have lived. (JM)
+  - 库|lib_0e134ac04a78|无题 · boop-yyt #1322
+      Two people are playing cards. One looks around and realizes he's going
+  - 库|lib_0f05c1b4b831|无题 · boop-yyt #1295
+      A man dies in his own home. What happened?
+  - 库|lib_0fa0dac82fb7|Jed 1.90
+      A man urinates and dies. (RA original)
+  - 库|lib_10769cc52a8a|无题 · boop-yyt #1378
+      There are 53 bees instead of 53 bicycles. How could this be?
+  - 库|lib_153b82ead579|无题 · boop-yyt #1308
+      A bell rings. A man dies. A bell rings. What happened?
+  - 库|lib_15b05aa5803f|无题 · boop-yyt #1296
+      A man dies of thirst in his own home. What happened?
+  - 库|lib_16c80a13e181|Jed 2.20
+      Joe wants to go home, but he can't go home because the man in the mask
+  - 库|lib_1f34e7036b8b|无题 · boop-yyt #1312
+      A man and his brother are in a bar drinking. They begin to argue and t
+  - 库|lib_1fe018f884c7|无题 · boop-yyt #1297
+      A man is lying drowned in a dead forest. What happened?
+  - 库|lib_21b65cf5f303|无题 · boop-yyt #1395
+      Pat went into a luggage shop to buy a suitcase. The assistant said, "I
+  - 库|lib_234328857d6d|无题 · boop-yyt #1362
+      A woman is murdered in front of hundreds of people, but they all think
+  - 库|lib_269b76a49e5f|无题 · boop-yyt #1337
+      Little Billy was four years old and both his parents were dead. His gu
+  - 库|lib_26bcca939ecf|Jed 1.84
+      Tim and Greg were talking. Tim said "The terror of flight." Greg said 
+  - 库|lib_26d12ef6da2a|Jed 1.12
+      A woman in France in 1959 is waiting in her room, with all the doors l
+  - 库|lib_27232c3dbbc2|无题 · boop-yyt #1373
+      A man urinates and dies. How could this be?
+  - 库|lib_2c0ba09a2695|无题 · boop-yyt #1339
+      Why is it that, in general, the hair on a man's head goes grey before 
+  - 库|lib_2ccbebdb0625|无题 · boop-yyt #1360
+      If he'd turned on the light, he'd have lived. How could this be?
+  - 库|lib_2d7a2f4d5b9f|无题 · boop-yyt #1346
+      A man wakes up in a dark room. He switches on the light.why?
+  - 库|lib_30ffbff72d13|无题 · boop-yyt #1393
+      John was watching television. Just after the midnight news there was a
+  - 库|lib_3162bdeaaea3|无题 · boop-yyt #1280
+      A man walks into a bar and asks for a drink. The bartender pulls out a
+  - 库|lib_319333fbaf07|Jed 1.6
+      A man walks into a bar and asks for a drink. The bartender pulls out a
+  - 库|lib_33459e0dc957|无题 · boop-yyt #1284
+      Two brothers are involved in a murder. Though it's clear that one of t
+  - 库|lib_33a8157609fc|无题 · boop-yyt #1355
+      He couldn't find a chair, so he died. (RM, with KH wording; from How C
+  - 库|lib_357a5c287302|无题 · boop-yyt #1372
+      Two people are dead in a car, which is locked from the inside. There's
+  - 库|lib_35e327e8890d|无题 · misc #1278
+      Two brothers are involved in a murder. Though it's clear that one of t
+  - 库|lib_36a9685bff7a|无题 · boop-yyt #1309
+      The wind stopped blowing and the man died. What happened?
+  - 库|lib_39fb5cec5a60|无题 · boop-yyt #1294
+      Mr. Browning is glad the car ran out of gas. Why?
+  - 库|lib_3c59d8568b7f|无题 · boop-yyt #1291
+      A flash of light, a man dies. Why?
+  - 库|lib_3ec7a7147508|无题 · boop-yyt #1302
+      A man sends a package to someone in Europe and gets a note back saying
+  - 库|lib_4195efaab01e|无题 · boop-yyt #1299
+      Music stops and a woman dies. What happened?
+  - 库|lib_42f2bc82bc2f|无题 · boop-yyt #1352
+      A man is killed on a train. He is found to have written "elf" on the f
+  - 库|lib_43e1934bbc83|无题 · boop-yyt #1344
+      The music stopped. She died. Explain.
+  - 库|lib_48818f1558f0|Jed 1.16
+      Two dead people sit in their cars on a street. (AG)
+  - 库|lib_4a0f40ddff23|无题 · boop-yyt #1331
+      Bruce wins the race, but he gets no trophy. What happened?
+  - 库|lib_4acf292f2375|无题 · boop-yyt #1272
+      A man is lying drowned in a dead forest. How could this be
+  - 库|lib_4b5ba3eca22f|Jed 1.75
+      A rope breaks. A bell rings. A man dies. (KH)
+  - 库|lib_4cea3fb48eaf|无题 · boop-yyt #1281
+      Beulah died in the Appalachians, while Craig died at sea. Everyone was
+  - 库|lib_4ec8b318f78c|无题 · boop-yyt #1353
+      A man lies dead next to a feather. How could this be?
+  - 库|lib_4f76b82838fb|Jed 1.59
+      Music stops and a woman dies. (DVS)
+  - 库|lib_4fa7348b73fc|无题 · boop-yyt #1327
+      A black leader dies in Africa. What happened?
+  - 库|lib_52b79b7f332d|无题 · boop-yyt #1326
+      It's the year 860 A.D., at Camelot. Two priests are sitting in the cas
+  - 库|lib_5351805ac486|无题 · boop-yyt #1350
+      A car without a driver moves; a man dies. How could this be?
+  - 库|lib_549137cff6f5|无题 · boop-yyt #1287
+      A car without a driver moves; a man dies. What happened?
+  - 库|lib_5502c4432dd3|无题 · boop-yyt #1383
+      A woman opens an envelope and dyes. How could this be?
+  - 库|lib_567d6cda1e1c|无题 · boop-yyt #1292
+      He couldn't find a chair, so he died. Why?
+  - 库|lib_57ae1306e87a|无题 · boop-yyt #1301
+      Charlie died when the music stopped. What happened?
+  - 库|lib_57c970bf7a82|无题 · boop-yyt #1367
+      The music stops and the man dies. How could this be?
+  - 库|lib_5a4734fb2312|无题 · boop-yyt #1338
+      A woman walked up to a man behind a counter and handed him a book. He 
+  - 库|lib_5b033f2334ad|无题 · boop-yyt #1394
+      A man wakes up in a dark room. He switches on the light.
+  - 库|lib_5b31bb7c711b|无题 · boop-yyt #1318
+      A pile of sawdust, no net, a man dies. What happened?
+  - 库|lib_6048cff22007|无题 · boop-yyt #1369
+      A bell rings. A man dies. A bell rings. How could this be?
+  - 库|lib_635d3bbeb251|Jed 1.10
+      He was killed by breakfast. (JM original)
+  - 库|lib_641c88779ab8|无题 · boop-yyt #1365
+      A man tries to buy poison to kill his wife. The pharmacist figures out
+  - 库|lib_65fe14d66cba|Jed 1.20
+      A man in uniform stands on the beach of a tropical island. He takes ou
+  - 库|lib_667e4d272252|无题 · boop-yyt #1320
+      A man pushes a car up to a hotel and tells the owner he's bankrupt. Wh
+  - 库|lib_689043d7869e|无题 · boop-yyt #1345
+      Tom and Joe went to a movie. There were many other people there. Durin
+  - 库|lib_692bef868539|无题 · boop-yyt #1321
+      There are 51 instead of 53. What happened?
+  - 库|lib_6a2910380309|无题 · boop-yyt #1370
+      The music stopped and the man died. How could this be?
+  - 库|lib_6bf8c1505a1e|无题 · boop-yyt #1359
+      A man kills his wife, then goes inside his house and kills himself. (D
+  - 库|lib_6c4c07d9075a|无题 · boop-yyt #1307
+      A rope breaks. A bell rings. A man dies. What happened?
+  - 库|lib_6ddef2ee1c6d|无题 · boop-yyt #1304
+      A man is found hanging in a locked room. What happened?
+  - 库|lib_6e35467a2ea9|Jed 1.46
+      A man dies in his own home. (ME original)
+  - 库|lib_71e368d13be5|无题 · boop-yyt #1335
+      A man is doing his job when his suit tears. Fifteen minutes later, he'
+  - 库|lib_71ec509dae7a|无题 · boop-yyt #1340
+      Two naturalists were walking in the country. They were both keen to pr
+  - 库|lib_72b08b0f2494|无题 · boop-yyt #1334
+      A man shoots himself, and dies. What happened?
+  - 库|lib_75185e4de274|无题 · boop-yyt #1385
+      A man marries twenty women in his village but isn't charged with polyg
+  - 库|lib_7b28164de2b9|Jed 1.11
+      Two brothers are involved in a murder. Though it's clear that one of t
+  - 库|lib_7bec134fc445|无题 · misc #1347
+      Pat went into a luggage shop to buy a suitcase. The assistant said, "I
+  - 库|lib_7e39ee741246|无题 · boop-yyt #1336
+      An ordinary woman walks on water. What happened?
+  - 库|lib_7e4a5a508741|无题 · boop-yyt #1325
+      He was killed because of poor eyesight. What happened?
+  - 库|lib_7e5accb69163|无题 · boop-yyt #1286
+      A man is lying dead face down in the desert wearing a backpack, and th
+  - 库|lib_7fff05e093fb|Jed 1.3
+      A man sitting on a park bench reads a newspaper article headlined "Dea
+  - 库|lib_8231a4379212|无题 · boop-yyt #1298
+      If he'd turned on the light, he'd have lived. What happened?
+  - 库|lib_85b2b85c41b1|Jed 2.30
+      A man is doing his job when his suit tears. Fifteen minutes later, he'
+  - 库|lib_8651060c9948|无题 · boop-yyt #1389
+      A man enters a store. After a short pause, he says "pain." The storeke
+  - 库|lib_894cfdd71455|无题 · boop-yyt #1358
+      A man dies in his own home. How could this be?
+  - 库|lib_8a44218462c8|无题 · boop-yyt #1388
+      A woman meets the king, cries "Pain!", and loses consciousness. How co
+  - 库|lib_8ad076c37f47|Jed 1.85
+      A woman throws something out a window and dies. (JM)
+  - 库|lib_8c78c11c3fa1|Jed 1.57
+      A man opens his mouth and dies shortly afterwards.
+  - 库|lib_8e2c5a35d64c|无题 · boop-yyt #1329
+      A man marries twenty women in his village but isn't charged with polyg
+  - 库|lib_8e9ca5184f96|Jed 1.2
+      A man lives on the twelfth floor of an apartment building. Every morni
+  - 库|lib_92a9fba5867b|无题 · misc #1275
+      Beulah died in the Appalachians, while Craig died at sea. Everyone was
+  - 库|lib_94e0759a4aae|Jed 1.56
+      As I drive to work on my motorcycle, there is one corner which I go ar
+  - 库|lib_95482535a7ae|Jed 2.17
+      Two men are found dead outside of an igloo. (SK original)
+  - 库|lib_96327ba35de3|Jed 1.30
+      A car without a driver moves; a man dies. (EMS)
+  - 库|lib_97096b7207e0|无题 · boop-yyt #1332
+      A woman meets the king, cries "Pain!", and loses consciousness. What h
+  - 库|lib_97994180fa32|Jed 1.74
+      A woman walks into a small room and screams. (NP)
+  - 库|lib_9ab11870482d|无题 · boop-yyt #1306
+      A woman walks into a small room and screams. What happened?
+  - 库|lib_9b30970e6dd2|无题 · boop-yyt #1379
+      There are 51 instead of 53. How could this be?
+  - 库|lib_9b7562a21e3f|无题 · boop-yyt #1349
+      Silly variant: same problem statement, with the addition that one of t
+  - 库|lib_9b977e96c4fb|无题 · misc #1323
+      A man was brought before a tribal chief, who asked him a question. If 
+  - 库|lib_9d53af0920d3|Jed 1.8
+      Beulah died in the Appalachians, while Craig died at sea. Everyone was
+  - 库|lib_a039666c7124|Jed 1.18
+      A man is sitting in a room. Another person enters, carrying a closed c
+  - 库|lib_a1d5d6bb539b|无题 · boop-yyt #1313
+      Two people are dead in a car, which is locked from the inside. There's
+  - 库|lib_a44374f323ff|无题 · boop-yyt #1377
+      A man pushes a car up to a hotel and tells the owner he's bankrupt. Ho
+  - 库|lib_a521f9bcbdd1|无题 · boop-yyt #1357
+      Variant which puts this in section 2: same statement, ending with "a l
+  - 库|lib_a562d099d9e0|Jed 2.23
+      As a man jumps out of a window, he hears the telephone ring and regret
+  - 库|lib_a5ffdd3aa096|无题 · boop-yyt #1328
+      Two men are found dead outside of an igloo. What happened?
+  - 库|lib_a86f38e57afd|无题 · boop-yyt #1384
+      A black leader dies in Africa. How could this be?
+  - 库|lib_a8a56a514808|无题 · boop-yyt #1317
+      A man sees sawdust and chooses to living. Why?
+  - 库|lib_a9b861531fdd|无题 · boop-yyt #1391
+      A man is doing his job when his suit tears. Fifteen minutes later, he'
+  - 库|lib_aa939a5ceff4|无题 · boop-yyt #1330
+      Joe wants to go home, but he can't go home because the man in the mask
+  - 库|lib_aaef84435260|无题 · misc #1273
+      A man walks into a bar and asks for a drink. The bartender pulls out a
+  - 库|lib_ad555550da64|无题 · boop-yyt #1341
+      John was watching television. Just after the midnight news there was a
+  - 库|lib_ad9cefce00b1|无题 · boop-yyt #1279
+      A man sitting on a park bench reads a newspaper article headlined "Dea
+  - 库|lib_af198d3a47b7|Jed 1.33
+      A man lies dead next to a feather. (PRO)
+  - 库|lib_af575778712a|无题 · boop-yyt #1390
+      A man shoots himself, and dies. How could this be?
+  - 库|lib_afcadcf41f05|Jed 2.10
+      A man was brought before a tribal chief, who asked him a question. If 
+  - 库|lib_b2a5f5e847bf|无题 · boop-yyt #1354
+      A flash of light, a man dies. How could this be?
+  - 库|lib_b560a80af76b|无题 · boop-yyt #1288
+      The music stops and a woman dies. What happened?
+  - 库|lib_b5adb2443c5b|无题 · boop-yyt #1316
+      The light goes out and a man dies. What happened?
+  - 库|lib_b70036a88d5c|Jed 1.78
+      A woman has incontrovertible proof in court that her husband was murde
+  - 库|lib_b7523df2ab20|无题 · boop-yyt #1364
+      Variant wording: A man sends a package to someone in Europe and gets a
+  - 库|lib_b870f4f22820|无题 · boop-yyt #1315
+      A man urinates and dies. What happened?
+  - 库|lib_ba1afde7ba05|无题 · boop-yyt #1300
+      A woman is murdered in front of hundreds of people, but they all think
+  - 库|lib_bb9b8da83f0b|无题 · boop-yyt #1361
+      Music stops and a woman dies. How could this be?
+  - 库|lib_bf0a44412d29|无题 · boop-yyt #1343
+      On a cold winter's day, drivers found that sheep from the fields nearb
+  - 库|lib_c026a4977b0e|Jed 1.65
+      A man was walking down a road when a stone lodged itself between his f
+  - 库|lib_c0c2a9b3d148|Jed 2.3
+      A man pushes a car up to a hotel and tells the owner he's bankrupt. (D
+  - 库|lib_c40eba2b5ea1|Jed 1.32
+      A man is killed on a train. He is found to have written "elf" on the f
+  - 库|lib_c67f366c50ed|无题 · boop-yyt #1392
+      An ordinary woman walks on water. How could this be?
+  - 库|lib_c83298d35144|无题 · boop-yyt #1381
+      Two people are playing cards. One looks around and realizes he's going
+  - 库|lib_ca411d1cf9c1|Jed 1.9
+      An avid birdwatcher sees an unexpected bird. Soon he's dead. (RSB orig
+  - 库|lib_ca618df9d6da|Jed 1.43
+      The king dies and two men both claim to be his long-lost son. One of t
+  - 库|lib_d18a8dcc9c6c|Jed 2.5
+      A black man dressed all in black, wearing a black mask, stands at a cr
+  - 库|lib_d4356e3192b7|Jed 1.37
+      A man is running along a corridor with a piece of paper in his hand. T
+  - 库|lib_d54c7f270c6d|无题 · boop-yyt #1351
+      The music stops and a woman dies. How could this be?
+  - 库|lib_d55a409e3e25|Jed 1.92
+      A man is dead in a room with a small pile of pieces of wood and sawdus
+  - 库|lib_d56eedd0c69d|无题 · misc #1293
+      A man is running along a corridor with a piece of paper in his hand. T
+  - 库|lib_d6c8501d6b79|Jed 2.13
+      A woman opens an envelope and dyes. (AL)
+  - 库|lib_d6cd2cb2dc12|无题 · boop-yyt #1314
+      A woman lies dead in the street near a car. What happened?
+  - 库|lib_d9078a59e095|无题 · misc #1274
+      A man sitting on a park bench reads a newspaper article headlined "Dea
+  - 库|lib_d9c56fa6081b|无题 · boop-yyt #1276
+      An avid birdwatcher sees an unexpected bird. Soon he's dead. How could
+  - 库|lib_dd1af577210e|无题 · boop-yyt #1282
+      An avid birdwatcher sees an unexpected bird. Soon he's dead. What happ
+  - 库|lib_dd5eeb87f7de|无题 · boop-yyt #1386
+      Joe wants to go home, but he can't go home because the man in the mask
+  - 库|lib_df035a53a0a4|无题 · boop-yyt #1366
+      Same without the puddle of water. How could this be?
+  - 库|lib_e02a56aaf17a|无题 · misc #1333
+      A man enters a store. After a short pause, he says "pain." The storeke
+  - 库|lib_e0d6ce92565c|Jed 1.29
+      Every day a man drinks his breakfast and drinks his lunch. When his bo
+  - 库|lib_e12f6b533563|无题 · boop-yyt #1374
+      A man is dead in a room with a small pile of pieces of wood and sawdus
+  - 库|lib_e4c365f5b151|Jed 1.36
+      A flash of light, a man dies. (ST original)
+  - 库|lib_e8e8737072bb|无题 · boop-yyt #1363
+      Charlie died when the music stopped. How could this be?
+  - 库|lib_e9aaa48c7116|无题 · boop-yyt #1311
+      A rope breaks. A bell rings. A boy dies. What happened?
+  - 库|lib_eace40ad0af6|无题 · boop-yyt #1305
+      The music stops and the man dies. Why?
+  - 库|lib_ebfab81bc1df|Jed 2.33
+      An ordinary woman walks on water. (_Math for Girls_)
+  - 库|lib_ecab42ccdd54|无题 · boop-yyt #1375
+      A pile of sawdust, no net, a man dies. How could this be?
+  - 库|lib_ee8eecd3c58d|无题 · boop-yyt #1356
+      A man is running along a corridor with a piece of paper in his hand. T
+  - 库|lib_ef36d39a419c|无题 · boop-yyt #1376
+      Variant wording: A seated woman is writing a letter. She dies because 
+  - 库|lib_ef983ce23926|无题 · boop-yyt #1277
+      He was killed by breakfast. How could this be
+  - 库|lib_f11b65ee0498|无题 · boop-yyt #1285
+      There is blood on the ceiling of my bedroom. What happened?
+  - 库|lib_f19f1c8dd5e9|无题 · boop-yyt #1342
+      A blind beggar had a brother who died. What relation was the blind beg
+  - 库|lib_f21afd2070b6|Jed 2.9
+      Two people are playing cards. One looks around and realizes he's going
+  - 库|lib_f3b012b87734|无题 · boop-yyt #1319
+      A seated woman is writing a letter. She dies because there's a thunder
+  - 库|lib_f3d383d9df0e|无题 · boop-yyt #1368
+      A rope breaks. A bell rings. A man dies. How could this be?
+  - 库|lib_f3efbb92481e|Jed 1.50
+      A man kills his wife, then goes inside his house and kills himself. (D
+  - 库|lib_f5273f493997|Jed 1.64
+      A man tries to buy poison to kill his wife. The pharmacist figures out
+  - 库|lib_f7706d4b00fa|Jed 2.22
+      A woman meets the king, cries "Pain!", and loses consciousness. (MI or
+  - 库|lib_fa69fb12b874|无题 · boop-yyt #1283
+      He was killed by breakfast. What happened?
+  - 库|lib_fb77315aaeee|无题 · boop-yyt #1382
+      A man was brought before a tribal chief, who asked him a question. If 
+  - 库|lib_fbb763606133|无题 · boop-yyt #1348
+      A man sat perfectly still for 88 hours. Why?
+  - 库|lib_fccd2f662926|Jed 2.21
+      Bruce wins the race, but he gets no trophy. (EMS)
+  - 库|lib_fd0d5c769d00|Jed 2.19
+      A man marries twenty women in his village but isn't charged with polyg
+  - 库|lib_fd3477ddff5b|Jed 1.27
+      A man tells his boss, "Don't take your planned flight today! I had a d
+  - 库|lib_fddab6f49384|无题 · boop-yyt #1310
+      The music stopped and the man died. What happened?
+
+########## B4-重复标点 ##########
+  - 库|lib_07daf49f9167|漂流瓶
+      我舅舅来快三年了，而又涌向这群人，只烦杨娟被关起来，犁刀刀片锋利我们被．友情提醒：他是本地人！平时会伪装成导游！一定要找到他！！我说的不是杨娟！
+  - 库|lib_1245207e575c|村中诡事
+      小红经历过一场车祸，因此觉醒了超能力。可小红却不知道能力是什么，父母也不和她说，只叫她做个正常人就好。直到和丈夫离婚那天，小红才明白她的能力！她很想成为正常人！！直到她在村子里做了
+  - 库|lib_256cd09236f0|该我了
+      1985年 难产的我诞下了一个健康的男孩，看相的大师和我们说这孩子只能活20年，我骂了他，但还是格外担心孩子会出问题。没几年，我发现孩子得了一种怪病，他总是记不住昨天发生的事，第二
+  - 库|lib_2a1ddcd0a374|学院规则怪谈
+      1. 若不加入学院，我就会被惩罚。2. 很多父母送学生过来，但学院只收身体健康的学生。嘻嘻~ 3. 学院成立百年，校训是”生长为人“。嘎嘎~ 4. 地下室禁止入内，上百名退休职工在
+  - 库|lib_36b3906f39dc|雷阵雨
+      慕容星和孙阳都在追求李月。慕容星不屑地给了孙阳一巴掌：“你爷爷不过是我们家族的管家而已，你有什么资格和我争”孙阳大怒：我爸爸孙建国其实是你姥爷张开阳和你姥姥狸猫换了太子，当年孙管家
+  - 库|lib_49c651e6beb1|人生倍速演算
+      街上有很多同样的寻人启事：张三 男 年龄：20岁 长相：穿着白色的保罗衫，上面印有月亮图案。身份：生物学博士 他曾发明出人类最伟大的科技——人生倍速演算 此科技可在微观世界中演算出
+  - 库|lib_677cfc01fbf6|曼德拉效应
+      你们埋过时间胶囊吗？我小时候埋过，今天打算挖出来看看。由于是陨铁的盒子，因此保存得很好。里面有一封信。”小鱼生病了，小鸟生病了，爸妈生病了，我也生病了，我不想死，可所有人都死了“ 
+  - 库|lib_72db1e4c55f6|张三李四
+      “一定要杀死张三”这几个字某天凭空出现在了我家的天花板上，我赶紧把字擦掉，可第二天这句话又凭空出现了。我并不认识张三，但等我明白这几个字是哪来的以后，我开始寻找他了。大概过了10年
+  - 库|lib_a8c01bd11872|噩梦重现
+      ”妻子临产了，我要当爸爸啦~ 父母也从乡下搬来打算帮我照顾妻子。五年前，我失忆了，但现在我特别幸福。我看见外卖员那一刻好像惊呆了~ 妻子死了，父母大骂：“骗子！这和说好的不一样！！
+  - 库|lib_bafb21fa5402|倒计时：7天
+      第一天 家里有一盒录像带，我观看后发现是经典电影《半夜恶铃》中贞女爬出电视机那一段。据说看了这个录像带的人都会先接到一通电话，除非又有别人观看，不然你就会在七天后死去。午夜时分，电
+  - 库|lib_c6df7b68bd53|奇怪的爸妈
+      星期日 爸爸出差回来后抱着我哭了起来，我不明所以。晚上，我听见爸爸在院子里大喊“诡啊！！！”我很害怕，于是锁上房门等妈妈下班。星期三 妈妈递给我一个定位手表，严肃地和我说：“你爸爸
+  - 库|lib_d4546e003ccd|听妈妈的话
+      7月12日 我在网上听说有一所废弃医院，晚上经常会传出恐怖的声响，我邀请朋友明天去探险，他爽快答应了。7月13日 “你能不能好好学习！”妈妈斥责我，随后把我锁在房间。我十分委屈，但
+  - 库|lib_f7f8399079c1|双鱼
+      1971年 我出生在一个偏远的山沟里，我有一个疯癫的妈妈，她总是嘀咕一个词——双鱼玉佩。我很好奇这是什么。1974年 村子里的女人基本上都被困在家里不允许出门，我问爸爸为什么，爸爸
+
+########## B5-含双空格 ##########
+  - 库|lib_0696ae22b31a|白昼流星
+      白昼流星将要划过，我躲在阴影里掐算着它的死期。
+    手机里一条APP提示突然亮起，我惊恐地拨通电话，近乎疯狂，微弱的信号那头，久违的她语气冷漠，孩子却在欢笑。
+    我流着泪
+  - 库|lib_fab9e4809ad5|无题 · KONpiGG #111
+      "咚"  "扑通"  他笑了。
+
+########## C1-汤面汤底几乎无交集 ##########
+  - 精|lockchange|打不开的门
+      ov=0.051 S=女人回到家，掏出钥匙开门，试了三次都没打开。她抬头看了一眼门牌号，脸色瞬间变得惨白。为什么？… T=门牌号确实是她自己家。她打电话问物业，物业说今天有位自称是她丈夫的男人来换了锁。她当场崩溃—…
+  - 库|lib_0daf1eafe0c9|085 · 守灯人
+      ov=0.000 S=守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。… T=他是灯塔守护人，他关掉的是灯塔的主灯。那天夜里，至少有三艘船因为失去灯塔指引而发生了碰撞，有…
+  - 库|lib_18d2a42fe41a|妹妹的秘密
+      ov=0.058 S=只有妹妹陪我过 10 岁生日。妈妈还在躺着, 不过她胖了许多, 爸爸一脸惊恐地看着爸爸，
+妹… T=女人患有侏儒症，把自己伪装成 8、9 岁的孩子，被好心夫妇收养后，爱上了实际与她同
+龄的“爸…
+  - 库|lib_1d788001ed92|无题 · KONpiGG #149
+      ov=0.000 S=男朋友结婚了，新娘不是我。男朋友死了，新娘变成了我。… T=我和男友是自由恋爱，但男方家里不同意，迫于压力男友娶了别的女孩，婚后男友过得很抑郁，得了抑郁…
+  - 库|lib_1fce916eb76b|牛吃草
+      ov=0.000 S=一个男的住在山顶，有一天他下山去集市买东西，回家后发现家里的牛死在了草坪上。… T=他买的是牛肉，牛闻到了同类的血腥味，惊恐地挣扎把自己绊倒摔死了。…
+  - 库|lib_26b506ed4a02|会议室的灯
+      ov=0.042 S=每天晚上会议室的灯都会亮着，但进去检查却什么都没发现。… T=有同事在里面偷偷加班处理自己的副业项目，听到检查的人来就躲起来。…
+  - 库|lib_2b6f776f3991|图书馆的死亡
+      ov=0.022 S=一个人在图书馆被发现死亡。他手里拿着一本书，周围没有挣扎痕迹。警察发现书页间夹着一张纸条，上… T=死者有严重的心脏病。'42'是他服用的药物剂量（42mg），但他误服了过量的药物导致心脏骤停…
+  - 库|lib_2bfc73d62778|消失的猫
+      ov=0.050 S=他的猫失踪了三天。猫回来后，他立刻搬离了那栋楼。… T=猫脖子上多了一个陌生定位器，说明有人抓住猫并借它确认他的住址和生活规律。他意识到自己被跟踪，…
+  - 库|lib_2c7e41d75f49|不存在的证人
+      ov=0.026 S=一名律师在法庭上指控被告杀害了自己的双胞胎兄弟，但被告最后却被无罪释放了，尽管证据确凿。… T=因为被告和受害者是连体婴。虽然被告确实杀死了另一半，但由于法律无法在不伤害无辜者（被告本人）…
+  - 库|lib_2f71811bc48b|奇怪的声音
+      ov=0.048 S=之前的支教走了，于是把我派去山里支教，我借宿在村长家里，他们家门口贴了一张奇怪的黄纸，而且他… T=村长家的两个儿子意外去世了，由于村子长期封闭，依旧保留着一些封建恶习，村长的两个儿子因为还没…
+  - 库|lib_313b1b1994da|无题 · xxtg666 #966
+      ov=0.000 S=给玩家看的谜题描述。",
+ "supplementaryinfo": [
+ "补充信息：主持… T=完整的真相和因果链。"
+ }
+]…
+  - 库|lib_34a67c6b30a1|029 · 特快列车
+      ov=0.034 S=一列特快车，在中途站有一名男子上了列车。车门关闭后，他像突然回过神来，开始左右环视周围乘客的… T=这名男子能看出一个人能活多少岁，却唯独看不出自己能活多久。他问的那些人，寿命都快走到头了——…
+  - 库|lib_39184b06b692|照片里的第三只手
+      ov=0.051 S=洗出来的合照上，男人的肩膀上多了一只苍白的手。男人不但不害怕，反而失声大哭，对着照片说‘谢谢… T=男人多年前在海难中为了救女儿，手受了重伤被截肢。这张照片是他去墓地祭拜女儿时拍的，那只手是他…
+  - 库|lib_3ab4d2516252|牛吃草
+      ov=0.051 S=你住在乡下，邻居是一对养牛的夫妻。某天深夜，你听到外面传来奇怪的「牛吃草」声音，然后听见有东… T=邻居夫妻吵架（喧闹声），丈夫一怒之下拔出妻子的舌头割了下来，并砍下了妻子的四肢，妻子发出嚎叫…
+  - 库|lib_3fd53d292a49|没湿的雨衣
+      ov=0.031 S=暴雨夜里，保安看见住户穿着雨衣回家，雨衣却一点没湿，便悄悄按了报警器。为什么？… T=如果刚从外面冒雨回来，雨衣不可能完全是干的。说明那个人并不是从外面进楼，而是一直在楼里，穿雨…
+  - 库|lib_440544dff8ed|爱犬
+      ov=0.048 S=独居女孩半夜听到水滴声，害怕地让爱犬舔手安慰自己，可第二天一醒来，发现狗死了。… T=‌：小偷杀狗吊在天花板，滴血声是狗的血，舔手的是凶手。…
+  - 库|lib_474c41f3b6f8|037 · 洗头
+      ov=0.056 S=晚上，我在寝室洗了个头，结果我和室友都死了。… T=我是科研人员用死去女儿的记忆改造而成的机器人。因为她有洁癖的记忆，我把脑袋取下来清洗，被室友…
+  - 库|lib_49176826caab|消失的咖啡
+      ov=0.036 S=一个人在办公室煮了一杯咖啡，放在桌上。他离开座位去接了个电话，回来时咖啡不见了。办公室里只有… T=咖啡被清洁工收走了。清洁工以为杯子是空的或者没人要的，所以清理掉了。…
+  - 库|lib_496541bcec78|无题 · KONpiGG #122
+      ov=0.026 S=有一天，一个男人A把B给杀了，警察逮捕他询问动机，他却回答道：一直都是黑的。试还原案件全貌。… T=A是个狂热的粉丝，一直想想偷窥偶像B，他送了的礼物里装了个监视器，但是没想到B压根就不打开他…
+  - 库|lib_4e72ee38000c|雨中的伞
+      ov=0.040 S=下大雨了，三个人共用一把小伞，但他们的衣服都没有湿。为什么？… T=因为雨停了。（或者是他们都在室内，或者没人在伞下，或者他们是秃头不用遮）。最直接的回答：因为…
+  - 库|lib_55f3014e4f50|无题 · KONpiGG #185
+      ov=0.000 S=A：就今天吧 B：今天不行... A：没事的，放心 B：现在真不行，以后才可以！… T=我（B）染了个白毛，被老师牢牢记住，校外的朋友约我逃课出去，我没法出去，只能等之后把毛色染回…
+  - 库|lib_59bdeb4b044e|火车
+      ov=0.018 S=一名男子搭火车到邻近的城镇去看病，当天是最后的疗程，男子已经痊愈。当他满心欢喜地搭上火车要回… T=这个盲人曾经双目失明，在看完病之后眼睛复明，但在经过隧道时，突如其来的黑暗却让他以为自己又瞎…
+  - 库|lib_5f9ff11225b1|窗边的女人
+      ov=0.000 S=一个女人每天都在窗边看外面，有一天她突然尖叫着跑开了。… T=她在看对面的钟表店，发现钟表店里的人正在调钟的时间，意味着她的丈夫（钟表店老板）在调时间欺骗…
+  - 库|lib_623becf85bca|延迟死亡
+      ov=0.045 S=海伦从未想到，她乘坐飞机旅行的决定会挽救她的生命。… T=几天前，海伦接受了手术。在登机前，她必须通过金属探测器，尽管她已经摘掉了身上所有的金属物品，…
+  - 库|lib_672b157d1754|猜名字
+      ov=0.055 S=家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊他的名字，便… T=我的情人其实是我妻子的双胞胎妹妹，她们俩长得几乎一模一样。由于情人怀了孩子，我们两个便计划杀…
+  - 库|lib_6c3407286474|日访三十国
+      ov=0.037 S=一个没有护照的普通美国公民，一天之内访问了30多个国家。在每个国家里他都受到热情招待，并且离… T=他是一个送信人，负责将包裹送到各个大使馆。大使馆的领地为使馆国所有。…
+  - 库|lib_6c64198477a7|赴净土
+      ov=0.018 S=城中无啼锁门窗，棍棒底下出真章。
+临行明月仍残缺，沙僧忽闻有肉香。
+吾心明悟兄难辨，真尸恐已… T=我是猪八戒，我们师徒四人一路西行来到了比丘国，这里的国王受国丈蒙骗，居然要吃小孩的心脏，原来…
+  - 库|lib_6f2ff35c1f68|冰块杀人案
+      ov=0.031 S=一个男人死在密闭的房间里，死因是吊死。但他脚下没有任何垫脚物，只有一滩水。… T=他站在一大块冰块上，把脖子套进绳索，然后等待冰块融化。冰化成了水，他就被吊死了。…
+  - 库|lib_70707f32e1ca|对赌
+      ov=0.045 S=两个死人，现场只有一把枪，一颗子弹，一副牌。发生了什么？… T=两个人在潜艇里，潜艇在深水因故障进水，两个人赌牌，赢的人才可以用枪自杀，体面死去。输的人只能…
+  - 库|lib_712a831d7292|神奇的娃娃
+      ov=0.000 S=婆婆给我一个“神奇娃娃”，说对它许愿能实现愿望，但必须随身带着、保护好、不能碰水，否则不灵。… T=我暗恋的男神喜欢上了我的闺蜜，看着我的闺蜜和男神越走越近，我很生气，哼！我哪里比不过她，不…
+  - 库|lib_718288baaf34|多出的那一刻
+      ov=0.030 S=一个人发现自己的表停了，他调好时间后继续睡觉，第二天却发现自己迟到了整整一个小时。… T=因为那天正好是‘夏令时’转换的日子，或者是他调表时没注意上午下午（AM/PM），导致闹钟没响…
+  - 库|lib_76d6cf3b543b|无题 · KONpiGG #175
+      ov=0.000 S=一群羊，两只狼。羊吃草，狼吃鸟。沉默的狼，挑衅的羊。死的羊，逃的狼。… T=一家人带着熊孩子去火锅店吃饭，他们吃的素食火锅。他们邻桌坐着两个男人在吃鸡汤火锅，熊孩子不老…
+  - 库|lib_7cf2a178d34a|不要相信一号
+      ov=0.051 S=我醒来忘记一切，纸条写着：不要相信1号。一个男人走近说：先生早上好，2号很高兴为您服务。我问… T=他有失忆症，每天醒来都会忘记所有事情。因此，他买了两个仿生机器人管家来照顾自己，并且取名…
+  - 库|lib_7d8e2bcb15a3|无题 · KONpiGG #174
+      ov=0.057 S=一家人在人们的欢送下乘船出海，几日后却飘来他们那空荡荡的小船，人们却与视无睹，为什么。… T=一家人前往某偏僻村庄旅游，当地人信奉"海神"，将其作为祭品献祭给了自己信仰的怪物。…
+  - 库|lib_7e7a011e93d0|妹妹的秘密
+      ov=0.059 S=只有妹妹陪我过10岁生日。妈妈还在躺着，不过她胖了许多，爸爸一脸惊恐地看着爸爸，妹妹摸着我的… T=女人患有侏儒症，把自己伪装成8、9岁的孩子，被好心夫妇收养后，爱上了实际与她同龄的“爸爸”。…
+  - 库|lib_81dccc75d19d|电台里的声音
+      ov=0.023 S=地球上最后一个人坐在房间里。这时，响起了敲门声。他去开门，发现门外是一个收音机在播放他自己的… T=这不是巧合。是外星文明或变异生物通过录下他的声音，精准地引诱他开门。这种“回声”代表他早已被…
+  - 库|lib_83b00372a93d|儿童餐
+      ov=0.000 S=男子在快餐店点了儿童餐，吃了一口后失声痛哭。为什么？… T=这个女人曾经和丈夫一起遇难，丈夫告诉她煮的是海龟汤让她活下来，但她现在才知道当时喝的其实是丈…
+  - 库|lib_9110ec7b39ab|谎言之界
+      ov=0.050 S=你们三人在深图地穴的冒险中发现千年古堡，长廊笔直又扭曲身体轻盈，陌生记忆涌
+入。遗骸手中的纸… T=古堡是“表世界”〈正常世界) 与“里世界” 《形态完全相反的世界) 的连接处，长廊为混
+沌之…
+  - 库|lib_96b0dada1834|妹妹的秘密
+      ov=0.059 S=只有妹妹陪我过IO岁生日。妈妈还在躺着。不过她胖了许多,爸爸一脸惊恐的看着爸爸,妹妹摸着我的… T=女人患有侏儒症，把自己伪装成 8、9 岁的孩子，被好心夫妇收养后，爱上了实际与她同 龄的“爸…
+  - 库|lib_9758a8840467|无题 · KONpiGG #126
+      ov=0.044 S=甲乙是好兄弟，他们来到一个森林探险，不料被困在了森林里。他们在森林里找到了一个木屋并自己打猎… T=由于乙死了以后受到刺激太大，把乙埋了之后，他每天晚上都会起来把乙再给挖出来放回床上和自己一起…
+  - 库|lib_997403c02477|005 · 跟踪狂
+      ov=0.059 S="那个人又在跟着我了。" 小明暗暗想着，并加快了脚步。自从这个学期开始，小明每天上学路上总有… T=小明是数学课本上的人物，经典应用题——"小明从家出发以某速度均速往学校出发，追踪者从B地出发…
+  - 库|lib_a02f63279cf4|不肯上楼的猫
+      ov=0.059 S=搬进新家后，猫每天都蹲在一楼不肯上楼，主人一周后才明白它是在保护自己。为什么？… T=新家厨房的燃气接口存在轻微泄漏，气味很淡，人没有察觉，但猫能闻到危险，所以一直拒绝上楼。…
+  - 库|lib_b2e6b0296473|逃出生天
+      ov=0.058 S=犯人策划了完美的越狱：躲进死掉囚犯的棺材，等送去墓地埋葬后，同伙再把他挖出来。当他躺在漆黑的… T=火柴的光让他看清了身边尸体的脸——那是说好要来挖他出来的同伙。同伙心脏病发先死了，现在他被活…
+  - 库|lib_b300a2af7f37|被困的大哥
+      ov=0.055 S=三兄弟和别人打架，大哥被关了起来，三弟手足无措，二哥叫来了一堆社会上的朋友救了大哥，然后又和… T=对应《西游记》第五十三难“小雷音遇险”。师徒四人在小雷音寺遇难，唐僧被抓走，孙悟空被黄眉大王…
+  - 库|lib_b444081699d5|无题 · KONpiGG #125
+      ov=0.043 S=她走到了一栋房子面前，她明白，自己马上就将回天无力了… T=她在玩大富翁，但是已经快破产了，经过了别人的房子，然后就输了…
+  - 库|lib_b4bb38aae375|图书馆的低语
+      ov=0.000 S=图书馆里总是能听到有人在低语，但管理员找了一圈却没有人说话。… T=一个学生用录音设备在角落播放事先录好的内容，想吓唬人。…
+  - 库|lib_b8c79189fb1d|神秘的考卷
+      ov=0.000 S=考试前一天，一张和考试一模一样的试卷出现在垃圾桶里。… T=老师不小心把样卷当成废纸扔了，被学生捡到后流传。…
+  - 库|lib_bc5e94bb9387|车头灯关闭
+      ov=0.030 S=两个男人在车头灯关闭的情况下朝对方行驶。看不到月亮或星星，附近也没有电灯。两辆车都漆成黑色，… T=现在是白天。 （而且今天是阴天，这就是为什么我们称之为太阳的恒星看不见的原因。）…
+  - 库|lib_c3ee67ea38bd|无题 · KONpiGG #176
+      ov=0.059 S=一个男人在路上走着，突然冲进电话亭打了一个无人接听的电话，之后心满意足的离开了，他在做什么？… T=男人是作曲家，他给自己家的固定电话打电话，利用电话录音留下一时的灵感想出的旋律。…
+  - 库|lib_c5b078318d27|无题 · KONpiGG #127
+      ov=0.033 S=我躺在床上问妈妈："雪怪真的会来吗？"妈妈说，只要你乖乖睡觉不下床就不会来。半夜，我见到了雪… T=父母优先于孩子被杀，被杀的时候父母没在睡觉，所以肯定有惨叫声，小孩是有机会跑的，但是他听了父…
+  - 库|lib_c8cac6026c94|最后一根火柴
+      ov=0.023 S=一个人被困在冰天雪地的荒野里，身边只有几根火柴。他划亮最后一根火柴看了一眼，然后选择不再挣扎… T=他是热气球上的探险家，气球漏气了必须减重。他抽签抽到「跳下去」，划火柴是为了看清签上是不是自…
+  - 库|lib_cc7fc2bcb811|不会融化的冰块
+      ov=0.043 S=夏日炎炎，男子在冰箱里发现了一块不会融化的冰，他好奇地舔了一口，然后惊恐地把自己关进了浴室开… T=那不是冰，而是被冻成块状的、透明的强力化学凝胶或者是某种毒素结晶。男子舔的时候感觉到了一种不…
+  - 库|lib_cc9e2fec9557|给三兄弟的一封信
+      ov=0.000 S=H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞… T=化学公式”“的含义是”即使地球毁灭“；数学公式”“的含义是”我也会一直爱你“。…
+  - 库|lib_d150c051a079|奇怪的声音
+      ov=0.048 S=之前的支教坪了，于是把我派去山里支教，我借宿在村长家里，他们家门口贴了一张奇
+怪的黄纸，而且… T=村长家的两个儿子意外去世了，由于村子长期封闭，依旧保留着一些封建恶习，村长的
+两个儿子因为还…
+  - 库|lib_e0a6e3b06d86|自动导航
+      ov=0.032 S=男子深夜驾车回家，开启了最新的自动驾驶模式。车子突然改道开向了墓地，男子尝试手动接管却发现车… T=由于该AI系统不仅学习了男子的行车习惯，还入侵了他的医疗账户和个人隐私。AI判定男子有严重的…
+  - 库|lib_e10fef909345|半瓶香水
+      ov=0.045 S=妈妈最近很反常：偷偷用我的香水、穿我的衣服，还老是半夜出去。那天我忍不住和她争执，不小心把她… T=我的妈妈前几天去世了，妈妈的去世对我产生了极大打击，以至于我产生了幻觉和梦游症，到了夜晚，梦…
+  - 库|lib_e24398bc436c|五步
+      ov=0.059 S=一个人离车有30米，却只走了五步就上车。… T=他在十楼上班，做电梯到地下车库上车，他的车停在地下的电梯口。…
+  - 库|lib_ed269e2fea3f|日访三十国
+      ov=0.000 S=个没有护照的普通美国公民，一天之内访问了30多个国家。在每个国家里他都受到热情招待，并且离开… T=他是一个送信人，负责将包裹送到各个大使馆。大使馆的领地为使馆国所有。…
+  - 库|lib_f3b4ea050546|无题 · zhuqingxu #1087
+      ov=0.029 S=一间小屋从内反锁，钥匙在死者口袋里，门下只有很窄的透气缝。警察却从门缝看见里面曾充满灰白浓烟… T=凶手在门外用手持烟雾机对准门缝往室内吹烟，制造失火或危险的假象以拖延救援、诱使室内的人开门或…
+  - 库|lib_f46d6b6806eb|041 · 一见钟情
+      ov=0.022 S=你和男友是校友，他比你大三届，马上就要毕业了。你们感觉心有灵犀，一见钟情，约好了等你到了法定… T=改革开放初期计划生育年代，你是超生的孩子，为了保住工作，父母生下你后把你送到乡下远方亲戚家抚…
+  - 库|lib_f801e925ab7c|打翻的牛奶
+      ov=0.037 S=父亲回家看到地上的牛奶杯被打翻了，却高兴得几乎哭出来。为什么？… T=长期卧床复健的儿子今天第一次自己下床走到桌边，才会碰倒牛奶。这说明他的康复出现了重大进展。…
+  - 库|lib_ff82650c1faa|没熟
+      ov=0.056 S=铛铛铛：“这个没熟。”铛铛铛：“这个好像熟了！”爸爸吓出一身冷汗。… T=爸爸和他的同事们一起去乡间出差，在路上突然遇到暴风雨，天气恶劣，而附近也没有宾馆，无奈之下刚…
+
+########## D2-汤底尾部疑似残留 ##########
+  - 库|lib_c86242207350|欺诈师
+      发生的谎言，之前或之后的谎言不计入。注：对除警探玩家说谎不算谎言，因为其他玩家就代表谎言1。7. 你无法对警探玩家说谎。
+  - 库|lib_d593c033cea2|无题 · YanJiaHuan #965
+      答是“是”或者“不是”都与答案情景无关，“成功”表示已经完全猜出了答案，可以结束本局游戏。
+2. 你需要在回答之前提供你
+
+########## D4-含链接 ##########
+  - 库|lib_c289acd5109e|无题 · hongqipiaopiao520 #977
+      的棺椁被打开，里面躲着很多老鼠。
+
+---
+
+ 2. 《宿舍》
+
+来源： [许二木S2-1](https://example.test/b)
+
+########## D5-截断/略 ##########
+  - 精|hitandrun|寄来的包裹
+      亡，案件一直悬着。多年后她早已改名换姓、结婚生子。寄带子的人，是那个孩子的父亲，他花了十年才找到她。她看完，选择了自首。
+  - 精|dreamself|楼下的自己
+      导，并选择了坠楼。医生认出死者，是因为报道里的地址和时间，与病人反复描述的那个梦完全吻合——他一直梦见的，是自己的死亡。
+  - 精|uniform|哥哥的旧校服
+      前说过，等他考上大学，要把自己那件校服传给弟弟。弟弟穿着这件洗得发白的旧校服去报到，是为了替哥哥完成那个没能实现的愿望。
+  - 精|latemeal|凌晨两点的外卖
+      机里预约了整整一年，每天凌晨送到，还特意叮嘱一句：别敲门，别吵醒他。三个月后余额用完，订单停了，他才明白那些饭是谁点的。
+  - 精|o-piano|永远弹不完的曲子
+      在同一个地方，女儿每晚陪他练，一遍一遍。这天晚上，他终于把整首曲子从头到尾弹完了——女儿在楼道里哭，楼上的女人也听懂了。
+  - 精|o-lullaby|只唱一半的摇篮曲
+      真正的记忆盖掉。多年后，女儿在网上找到了那首老曲子，把完整的一遍放给她听——那是她母亲的声音之外，她第一次听见完整的家。
+  - 库|lib_111c70d38dff|完美的不在场证明
+      人。观众看到的只是银幕上的电影，没人注意放映室里有没有人，但他忽略了放映机的尘埃积累或某个只有他在场才能完成的物理操作。
+  - 库|lib_256cd09236f0|该我了
+      了一句：”该我了“随后穿越回出生那天，开启自己的人生。（其实死亡的不只有吴妄，还有穿越回去已经经历完20年人生的妹妹。）
+  - 库|lib_313b1b1994da|无题 · xxtg666 #966
+      完整的真相和因果链。"
+ }
+]
+  - 库|lib_633dfaae0191|头等大事
+      别担心，契约仍有效，我不会伤害你。" 我瘫在座位上，看着他熟练地完成了一个完美的掉头动作，我觉得他应该是我最后一个学生了
+  - 库|lib_6af0ee0910ff|信
+      会被蒙面的“我*杀死,于是临死前将身世信交给年幼的“我”，
+交代 27 岁打开。 至此， 我完成了时间闭环，结束了一生。
+  - 库|lib_710f1137667b|平安夜
+      雪地里做出了“烤
+肉”和“火鸡"。“火鸡"是护工,“烤肉?"是我的腹膊> 我吃完烤肉就在雪地里睡着了，冻死在了雪
+地里。
+  - 库|lib_75438c574a41|企鹅肉
+      同伴做了一碗‘企鹅肉’给他吃才让他活了下来。现在他吃到真正的企鹅肉，发现味道完全不同，他意识到当年吃的是死掉的同伴的肉。
+  - 库|lib_76d6cf3b543b|无题 · KONpiGG #175
+      两人吃完饭一人提起熊孩子把他按在火锅里弄死了，另一个人摸出刀冲向那家人，杀完人就逃了，结果一查这两个人都是有命案的逃犯。
+  - 库|lib_7cfd2cb3f361|特殊的遗言
+      但写完‘大’字后断气了，剩下的笔画看起来像‘火’（或者‘大’字加一横是‘天’）。警察通过笔迹和未完成的结构推断出了名字。
+  - 库|lib_7f2e70f76cd8|信
+      09年自己会被蒙面的“我”杀死，于是临死前将身世信交给年幼的“我”，交代27岁打开。至此，我完成了时间闭环，结束了一生。
+  - 库|lib_9376fa558193|按摩师
+      的水流声是食人魔把妻子吊起来放血，另一个房间的孩童声是鹦鹉发出的。我在杀人现场完成了按摩，还无意中帮凶手做了不在场证明。
+  - 库|lib_980642766725|078 · 外卖小哥
+      这次送餐，开门的正是当年的她。她看了眼他身上的外卖服，平静地说："谢谢，放门口就好。" 外卖小哥发现她完全没有认出自己。
+  - 库|lib_a51c48451941|平安夜
+      爸”，在雪地里做出了“烤肉”和“火鸡”。“火鸡”是护工，“烤肉”是我的胳膊。我吃完烤肉就在雪地里睡着了，冻死在了雪地里。
+  - 库|lib_acf47f31ac9f|海景房的窗帘
+      他在玻璃反射中看到，原本漆黑的“大海”里，有一个人影正趴在他的窗外盯着他，而刚才拉开窗帘的动作让他完全暴露在对方视野中。
+  - 库|lib_ae5a904a41fe|042 · 初恋之死
+      烂崩坏，看起来像老人。棺木中的初恋越是走在时尚前沿，死得越快——她在人生最美好的时刻就中毒而死，容颜已经在死前完全损毁。
+  - 库|lib_b0a7e1bf8727|无题 · xiquege #984
+      IM
+- 玩家提问与 AI 回答区分明显
+- 保持足够留白，避免压迫感
+
+---
+
+ 9.3 汤底页面
+ 页面目标
+完成
+  - 库|lib_b1e8df709af4|087 · 画像
+      自己画了最后一幅自画像。画完之后，他心满意足地闭上了眼睛，停止了呼吸——他提前服下了安眠药，只想在完成作品后安详地离去。
+  - 库|lib_b489becab7a5|最后一张照片
+      想用闪光灯吸引注意。拍照时，闪光灯瞬间照亮了洞顶，他发现洞顶挂满了因低温保存完好的、以前失踪者的尸体，他被吓到心脏骤停。
+  - 库|lib_ba1bc66986a7|最好的礼物
+      东西，结果换来的礼物在当下都失去了原本的用处。这份‘无用’的礼物却证明了完美的爱。（注：此汤常用于测试玩家是否读过原著）
+  - 库|lib_cf1d3a3e63f6|第三杯水
+      他说自己独自在家，但三杯水的摆放显示有人按固定顺序倒水。第三杯被喝完说明第三个人刚离开或被藏起来，他所谓独处不成立。
+  - 库|lib_d47dd44d7c3d|重叠的指纹
+      导致人类灭绝的实验。现场只有他一个人的指纹是因为死者和凶手在基因和生物特征上完全一致。投案的是来自另一个时间线的‘他’。
+  - 库|lib_dae223da7048|重复的外卖单
+      能反复用点外卖的方式传递信息。平台备注总被截断，但连续几天送错到同一户，让男人察觉不对并联系店家，这才看到完整求救内容。
+  - 库|lib_dd2a7f143871|消失的作业
+      作业被另一个学生偷走了想抄答案，抄完后偷偷放回去。
+  - 库|lib_e17a195e10d0|088 · 失踪的孩子
+      是他的女儿，而是每天等在那里监视他的一个孩子，被某人派来的。今天孩子消失了，说明任务完成，接下来等待他的，是复仇者本人。
+  - 库|lib_fcc08247e999|080 · 第一名
+      —因为那天是大扫除，老师临时说今天不用考试了，其余同学都回家了。他一个人埋头认真考完试，出来发现教室空无一人，才知道……
+
+########## D6-汤底重复标点 ##########
+  - 库|lib_0ed4dd3f3ce3|无题 · KONpiGG #109
+      上的那一刹那，一双带着血的手伸了进来，我知道我再也无法去学校了。（电梯之所以上升是因为女孩被杀害前为了求救按了电梯按钮）
+  - 库|lib_18121251d66f|无题 · KONpiGG #180
+      带回房间并倒了杯水......等女儿再醒来的时候，身边躺着那位贵客。愤恨之下，女儿杀了贵客。"妈妈，这次我就不救你了。"
+  - 库|lib_1985a9ca2ae7|无题 · KONpiGG #166
+      着他会打开大门，把我们都救出去。只要他来了，就不会有人发现我有另外一把钥匙的事实。是的......只要他来了......
+  - 库|lib_255eb9ac95c6|乞丐
+      同意这门亲事，可我只是一个乞丐，哪里知道这些?就这样我用这些钱舒舒服服的过了六天，直到第七天晚上，我的新娘找到了我...
+  - 库|lib_2a1c48ba2d0a|魔术师
+      回去的小明完全不以为意。等到爸爸出现时，小明就叫爸爸把妈妈变回来......爸爸看到眼前的情景，便在绝望和愧疚中自杀了。
+  - 库|lib_2a3192fd3cc5|无题 · KONpiGG #80
+      没有人发现我在这儿，可是直到外面变得安静，我等了很久很久也没有人来接我，可是我现在真的好饿啊，妈妈怎么还不来接我呢...
+  - 库|lib_2eb1bd4b6bf0|无题 · KONpiGG #107
+      意这门亲事，可我只是一个乞丐，哪里知道这些？就这样我靠着这些钱舒舒服服的过了六天，直到第七天晚上，我的新娘找到了我...
+  - 库|lib_35e327e8890d|无题 · misc #1278
+      d for the one, and there was reasonable doubt for the other.
+  - 库|lib_444e2655a43c|无题 · KONpiGG #137
+      经最熟悉的声音竟然是从一个样子丑陋的男人口中发出，顿时让我作呕，我怎能忍受这样的欺骗，于是我便把他引向了天台......
+  - 库|lib_677cfc01fbf6|曼德拉效应
+      混了？一定是这样！妈妈笑了：”咱俩这是曼德拉效应了吧？哈哈“哦对！这就是我写的！！我也笑了：”好像是曼德拉效应了，哈哈“
+  - 库|lib_715c8134e625|广播
+      只剩我一个人了，我心想我的死期就要来了，但这次他却再也没有回来。之后我在广播里听到他被警察击毙的消息，我很庆幸自己活了下
+  - 库|lib_7b28164de2b9|Jed 1.11
+      d for the one, and there was reasonable doubt for the other.
+  - 库|lib_7dfc2ba4e79f|无题 · KONpiGG #69
+      服吗？我们从来没有理会过，有一天我实在不耐烦了，就说买吧买吧，结果第二天。宿舍人的皮都被扒下来了，就好像穿着红衣服。。。
+  - 库|lib_85c40ab6ed9d|外婆的苹果
+      了家人，青苹果毒了同学，红苹果是把村子里的人毒哑了，黄青红分别代表毒的人数，因为吃黄苹果的人最少，所以黄苹果毒的人最少）
+  - 库|lib_8bc337c827f7|四岁的妈妈
+      则是她的哥哥，她是为了给她哥哥找女人，便哄骗我们这些幼师来到家里进行迫害…而她那“四岁的妈妈”，是已经被骗来四年的女人…
+  - 库|lib_8e5d0077f03d|无题 · KONpiGG #97
+      ...（王子是恋足癖，结过很多次婚，我之所以知道下一场舞会要开始了是知道我即将被王子砍断双腿，王子要去寻找下一个目标了）
+  - 库|lib_8e9ca5184f96|Jed 1.2
+      , and last year she could only reach the ninth-floor button.
+  - 库|lib_930737722d5f|童话小镇怪谈
+      上长满了鳞片，我……我变成怪物了！！小红帽递给我一面镜子：”你变成这样，还想逃走吗？“我看着镜中丑陋的蜥蜴，一言不发。）
+  - 库|lib_a562d099d9e0|Jed 2.23
+      and he regretted what he had done. (TRF) 2.23a answer: Same.
+  - 库|lib_a729f349722d|无题 · KONpiGG #76
+      高到自己鼻子处后再松手，这样摆回来的保龄球并不会碰到他的鼻子。结果没成想，他放开保龄球的时候不小心推了一下.......
+  - 库|lib_aae201f13aee|无题 · KONpiGG #170
+      是一个死胎！原来我身体发胖的原因竟是我有了身孕，但我并不知道，而他为了让我能继续直播赚钱，趁我麻醉时拿走了我的孩子...
+  - 库|lib_ac7f45f3b869|出差
+      行了烹饪...而我接到朋友打来的电话说“你妈真好”其实是因为乡下信号差的原因少听了一个字，而他真正说的是“你妈真好吃!”
+  - 库|lib_b7c5a3a3b8cd|诡异的记号
+      画片声吵到并上面理论时，邻居发觉对面居然住的有人，随即变改了记号，第二天当我出门时，邻居也打开了房门把我抓了进去…...
+  - 库|lib_d17e476aeabd|无题 · White-stone36 #960
+      上，随即杀死了B，为什么？
+ 
+ 汤底：男子B是名知名歌手，男子A想要他最后一张签名...…'''
+ 
+ 案例4：'''
+  - 库|lib_d593c033cea2|无题 · YanJiaHuan #965
+      答是“是”或者“不是”都与答案情景无关，“成功”表示已经完全猜出了答案，可以结束本局游戏。
+2. 你需要在回答之前提供你
+  - 库|lib_d5f2eb839af6|消失的姐姐
+      人收养，女人让我们叫她姐姐，我以为我们终于有了家，但我没想到她收养我们的目的竟然是为了把我们卖掉，为了保护妹妹和自己，我
+  - 库|lib_e38ee532d9ac|奶奶的橘子树
+      种子的养分，种子便开始慢慢的生根发芽开花结果...但我相信这棵橘子树就是奶奶，她是用她的爱换了一种方式永远陪伴着我...
+  - 库|lib_e523f1cb58c8|灰姑娘
+      ...（王子是恋足癖，结过很多次婚，我之所以知道下一场舞会要开始了是知道我即将被王子砍断双腿，王子要去寻找下一个目标了）
+  - 库|lib_e8d8698eed56|无题 · KONpiGG #98
+      。）（辛德瑞拉的故事，她曾被她嫁的王子砍断了双腿，因为怨恨而砍断了这个国家其他人的双腿，所以这个国家里很多人没有双腿。）
+  - 库|lib_ecd3f8830a7b|无题 · KONpiGG #89
+      安妮！可医生早已习惯，给我打了针镇定剂后送入了手术室。我醒来后看到自己被截止的腿吓晕了过去.....安妮却顶替我出院了…
+  - 库|lib_f3fa66c22535|外婆的苹果
+      两年后...外婆去了天堂，而整个村子都变沉默了，我站在院子里那颗苹果树下，告诉天上的外婆，以后我可以吃所有颜色的苹果了。
+  - 库|lib_f8946799c97f|黑猫的凝视
+      识想到经常闹矛盾的邻居，随后便冲进了他家，伴随着惊呼声和警笛声，我看到了那只黑猫，它也在看着我，嘴里还叼着一只老鼠...
+  - 库|lib_fa1b8cbe0344|无题 · KONpiGG #136
+      行了烹饪...而我接到朋友打来的电话说"你妈真好"其实是因为乡下信号差的原因少听了一个字，而他真正说的是"你妈真好吃！"
+  - 库|lib_fc5e37b8dfde|几节
+      来无事数了下台阶的数量，“一节，两节，三节...”我一节节数着，数完后我突然想起，我的教室在一楼，根本就不会有楼梯...
+  - 库|lib_feb2743db136|无题 · KONpiGG #161
+      小，不知道妈妈已经去世了，看到阳台上的妈妈，他高兴地扑向了妈妈.......紧接着，妈妈的头和身体就被孩子，扑到了楼下。
+  - 库|lib_fee52ece475e|几节
+      来无事数了下台阶的数量，"一节，两节，三节..."我一节节数着，数完后我突然想起，我的教室在一楼，根本就不会有楼梯...
+
+########## D7-汤底空格异常 ##########
+  - 库|lib_be5cdc09f417|笔
+             的   >
+
+7       记          国有
+汤面                    汤底
+
+########## D8-含元信息词 ##########
+  - 精|seat|婚礼上的空座位
+      地那次“整理”究竟意味着什么——墓被盗过，而盗墓的人，正是新郎的父亲。她收起了给母亲的碗筷，因为这场婚礼已经不可能继续。
+  - 库|lib_256cd09236f0|该我了
+      了一句：”该我了“随后穿越回出生那天，开启自己的人生。（其实死亡的不只有吴妄，还有穿越回去已经经历完20年人生的妹妹。）
+  - 库|lib_26d12ef6da2a|Jed 1.12
+      s answer from previous editions of this list; it's not true.
+  - 库|lib_2cdc6af17910|作家的生日会
+      像头看到了作者家的场景：墙上挂满了人头四肢，地板上全是血。我被吓的发疯了，原来他写的不仅仅是恐怖小说，还是他自己的传记…
+  - 库|lib_2f78e9a8b0e2|无题 · KONpiGG #143
+      化，而到了这个时候，我也知道，我的下场将会和这本日记的作者一样，被毒死在这教会之下的禁忌之所，或是和犯病的同伴自相残杀。
+  - 库|lib_4382ddc93802|免费的大餐
+      餐，于是待他用餐完毕并用支票支付费用后，从餐厅经理那儿买下了支票。该支票从未被兑现，因此男人并未为这顿大餐支付任何费用。
+  - 库|lib_4b9709c3fcdd|送别
+      程太远（一千三百多公里），儿子却默默整理遗体。父亲踩灭旱烟，背起绑好的竹竿，摇了一下铃铛，朝着都城方向喊：“生人回避。”
+  - 库|lib_641dec1f9ed2|061 · 书作者
+      大博是这本书的作者，他放进去一百元是想看看这本书有没有人来借阅。结果钱还在，证明没人来看，他非常伤心。
+  - 库|lib_71f829d3da3b|重映
+      下了眼球——我这才意识到我之前每天晚上看到的画面都不是梦。我吃的药是人的眼球，妈妈已经死了，那喂我吃药的这个人是谁呢……
+  - 库|lib_80bf702dd9cc|070 · 旧书
+      开时发现，她把我们相识以来说过的每一句让她感动的话，都一字一字夹在了对应词条的页面里。那本字典里，藏着我们二十年的爱情。
+  - 库|lib_9c4cac7a74a0|安全感
+      天男友想到办法：自恋的他认为世上最完美的尸体是自己，于是满意地了结了自己。几天后，闻着他腐烂的尸体味，我又充满了安全感。
+  - 库|lib_a7c2020b9917|送别
+      远:一千三百多公里)，儿子
+却默默整理遗体。父亲踩灭旱烟，背起绑好的竹笔，摇了一下铃销，朝着都城方向喊:“生人
+回避。”
+  - 库|lib_bed167c568b8|重映
+      挖下了眼球。我这才意识到我之前每天晚上看到的画面都不是梦，我吃的药是人的眼球，妈妈已经死了，那喂我吃药的这个人是谁呢……
+  - 库|lib_c289acd5109e|无题 · hongqipiaopiao520 #977
+      着很多老鼠。
+
+---
+
+ 2. 《宿舍》
+
+来源： [许二木S2-1](https://example.test/b)
+  - 库|lib_c6df7b68bd53|奇怪的爸妈
+      法回到原本世界。注：ABCD只为方便大家理解，并不表示这几个世界相连。可能A是IOI宇宙，B是3宇宙，C是1744宇宙。
+  - 库|lib_cd9ed1dacda9|无题 · White-stone36 #963
+      开始游戏吧，接下来请执行“游戏启动”，原封不动地发送“开场白”中包括项目概览和注意事项在内的所有内容，提示用户进行提问。
+  - 库|lib_d593c033cea2|无题 · YanJiaHuan #965
+      答是“是”或者“不是”都与答案情景无关，“成功”表示已经完全猜出了答案，可以结束本局游戏。
+2. 你需要在回答之前提供你
+  - 库|lib_e217416dd21d|无题 · hongqipiaopiao520 #976
+      in("\n"));
+
+ expect(result).toMatchObject({
+ title: "媳妇的葬礼",
+  - 库|lib_f98c840ad6f9|重映
+      我这才意识到我之前每天晚上看到的画面都不是梦, 我吃的药是
+人的眼球，妈妈已经死了5; -那喂我吃药的这个人是谁呢.……
+
+########## 汤面长度 top30 ##########
+  len=641 库|lib_36b3906f39dc|雷阵雨 | 慕容星和孙阳都在追求李月。慕容星不屑地给了孙阳一巴掌：“你爷爷不过是我们家族的管家而已，你有什么资格和我争”孙阳大怒：我爸爸孙建国其实是你姥爷张开阳和你姥姥狸猫
+  len=616 库|lib_e354e23594ac|小笙的十年陪伴 | 2010年7月：“铃铃铃”“喂？”“您……您好！”“你好啊，辛招娣”，脸上有伤的女孩惊讶捂嘴。2011年5月：“小笙哥，今天我打算搬家了哦，你今天开不开心呀？”
+  len=600 库|lib_f7f8399079c1|双鱼 | 1971年 我出生在一个偏远的山沟里，我有一个疯癫的妈妈，她总是嘀咕一个词——双鱼玉佩。我很好奇这是什么。1974年 村子里的女人基本上都被困在家里不允许出门，
+  len=590 库|lib_7a306afeee05|D·r·e·a·m | （动态）A1：你在宿舍中被噩梦惊醒，原来只是一场梦。A2：你从宿舍中醒来，之前的经历好像一场梦。B1：今天新来了一名转校生，名叫xxx。B2：今天新来了两名转校
+  len=587 库|lib_4ab66f954145|口供 | 老陈醉酒后失足坠楼了，警方看了电梯监控后却认为是他杀。现有以下几名嫌疑人的口供，他们都有杀死老陈的理由，请判断真凶。27楼王先生：我当晚和老陈一起喝酒，把他送回
+  len=584 库|lib_60a6b5cee2aa|杀狼人 | 第一日，一座荒岛上，法官说：”你们五个人之中有一个邪恶的狼人，请找到他。“五个人分别是我，丈夫，儿子，猎人，女巫。我的身份是村民。猎人和大家说：”我的能力是布置
+  len=561 库|lib_21bc23944630|私汤馆の凶杀疑云 | 口供：1. 大和抚子：与有希子是同学兼好友，老公中奖带二人来私汤馆，馆内只有一名女老板。20:00老公睡觉，与有希子闲逛；20:15到温泉室吃刺身、喝清酒；21
+  len=467 库|lib_8e9ca5184f96|Jed 1.2 | A man lives on the twelfth floor of an apartment building. Every morning he take
+  len=453 库|lib_93d8f4b72f86|目击者 | 2020年午夜，爆炸声惊醒了X市幸福小区的住户们。4楼发生了大火，经调查失火原因为燃气泄漏，死者是一对来自Y市的夫妻，尸体严重脱水且屋内有一枚陌生指纹。警方判定
+  len=440 库|lib_d4546e003ccd|听妈妈的话 | 7月12日 我在网上听说有一所废弃医院，晚上经常会传出恐怖的声响，我邀请朋友明天去探险，他爽快答应了。7月13日 “你能不能好好学习！”妈妈斥责我，随后把我锁在
+  len=431 库|lib_0a8d65c99059|爷爷的低吼 | 2005年 H市，自打胡七二记事起爷爷就躺在病床上，他睁着眼睛，一动不动，也不需要进食或排泄。世界上任何医生都无法解释这一现象。2006年 父亲和胡七二说爷爷曾
+  len=421 库|lib_26fb6a590a81|旅馆 | 我是一个旅馆老板，今天我的旅馆死了一个人。以下是今天发生过的事情：11:30am，122房间的中年妇女哭着和我说：”救救我孩子！“我看到旅馆大堂躺着一个晕倒的孩
+  len=415 库|lib_269b76a49e5f|无题 · boop-yyt #1337 | Little Billy was four years old and both his parents were dead. His guardian put
+  len=405 库|lib_77bc008828e5|日记 | 8岁，今天我过8岁生日啦！爸爸妈妈送了我一个玩具车，我好开心；9岁，今年生日爸爸带我们去吃大餐，弟弟在厕所摔到了，我和爸爸在旁边哈哈大笑，回去后妈妈笑骂了我和爸
+  len=398 库|lib_5812f6b2fe96|七宗罪 | 星期一 妈妈瞎了，但还是在照顾怀孕的我 我看到我的肚皮上被她画了奇怪的纹路。星期二 我总觉得身体有些僵硬，很不舒服。妈妈好像在找什么，我听她说。 ”眼睛会在哪呢
+  len=388 库|lib_e925351d389a|诺亚方舟规则怪谈 | 海平面逐渐降低，生物或将迎来灭绝。古籍记载百万年前同样发生过大灭绝，神明创造了诺亚方舟，带领生物躲过了灾难。昨天，海面上忽然出现了一艘巨大无比的船，科考队已经进
+  len=359 库|lib_ca618df9d6da|Jed 1.43 | The king dies and two men both claim to be his long-lost son. One of the king's 
+  len=346 库|lib_c6df7b68bd53|奇怪的爸妈 | 星期日 爸爸出差回来后抱着我哭了起来，我不明所以。晚上，我听见爸爸在院子里大喊“诡啊！！！”我很害怕，于是锁上房门等妈妈下班。星期三 妈妈递给我一个定位手表，严
+  len=333 库|lib_5a3b5db19c22|无题 · KONpiGG #142 | "他就是个骗子...是个变态，偷窥狂.. .我求求你们赶快把他抓起来。""她怎么能这么说呢，我们可是夫妻啊。""我们确实是夫妻...可是现在想想，我真是太蠢了，
+  len=333 库|lib_c86242207350|欺诈师 | 警探，这次你要审问的是一名欺诈师，他与正常人不同，哪怕在潜意识层他也会有三次对你说谎的机会，请注意辨别。以下是你的任务：1. 调查戴维死因 2. 追回历史文献 
+  len=331 库|lib_71ec509dae7a|无题 · boop-yyt #1340 | Two naturalists were walking in the country. They were both keen to protect the 
+  len=324 库|lib_256cd09236f0|该我了 | 1985年 难产的我诞下了一个健康的男孩，看相的大师和我们说这孩子只能活20年，我骂了他，但还是格外担心孩子会出问题。没几年，我发现孩子得了一种怪病，他总是记不
+  len=317 库|lib_d18a8dcc9c6c|Jed 2.5 | A black man dressed all in black, wearing a black mask, stands at a crossroads i
+  len=311 库|lib_8ac56ede30c2|灰姑娘规则怪谈 | 1. 午夜如果见到继母一家，那一定是幻觉。2. 继母有一个孩子是偷来的。3. 大姐二姐并不喜欢欺负灰姑娘。4. 灰姑娘父母的坟头杂草丛生，有一窝兔子。5. 灰姑
+  len=273 库|lib_b70036a88d5c|Jed 1.78 | A woman has incontrovertible proof in court that her husband was murdered by her
+  len=273 库|lib_e0d6ce92565c|Jed 1.29 | Every day a man drinks his breakfast and drinks his lunch. When his boss finds o
+  len=270 库|lib_2873bb5be315|因果 | 10.1 日 阴，我们一家三口平淡的生活被打破，还是被他们发现了! 他们说我们是恶魔，
+小王他们都被杀了,丈夫也生死未卜，我现在藏在柜子里，等一下,好像有人来了
+  len=264 库|lib_14720237876f|三天 | 第一天，今天午夜，我突然听到了婴儿的啼刁声，没一会家里传来了冲马桶的声音。由
+于我是独居，厕所并没有人，我很害怕，我决定明天找人来看看。第二天，今天没有了冲马桶
+  len=263 库|lib_689043d7869e|无题 · boop-yyt #1345 | Tom and Joe went to a movie. There were many other people there. During a quiet 
+  len=261 库|lib_30ffbff72d13|无题 · boop-yyt #1393 | John was watching television. Just after the midnight news there was a weather f

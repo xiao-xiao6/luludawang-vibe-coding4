@@ -134,7 +134,7 @@ emit(
 emit(
   path.join(SRC, "library.data.js"),
   `/* 自动生成，请勿手改 —— 由 tools/build_worker_data.js 产出
- * 来源：js/library.data.js（汤库层）
+ * 来源：data/library/library.data.js（汤库层母本）
  * 共 ${libSlim.length} 题。汤底（truth）只存在服务端，前端拿不到。
  */
 `,
@@ -181,7 +181,7 @@ emit(
  * 深海汤屋 · 汤库层（含水完整公开版）
  * ------------------------------------------------------------
  * 自动生成，请勿手改 —— 由 tools/build_worker_data.js 产出
- * 来源：js/library.data.js（同一份源，永不走样）
+ * 来源：data/library/library.data.js（汤库层母本，同一份源，永不走样；2026-09-25 清洗过污染/空格/重复）
  *
  * 共 ${libPublic.length} 题（有汤底 ${libPublic.filter((p) => p.hasTruth).length} / 仅汤面 ${libPublic.length - libPublic.filter((p) => p.hasTruth).length}）。
  * 【策略】本文件**含完整汤底（truth）**，明文开源：供单人模式本地判定，
@@ -192,7 +192,7 @@ emit(
   "SOUP_LIBRARY",
   libPublic,
   "\nvar SOUP_LIB_CATS = " + JSON.stringify(lib.SOUP_LIB_CATS || []) + ";\n" +
-  "var SOUP_LIB_TOTAL = " + (lib.SOUP_LIB_TOTAL || libPublic.length) + ";\n" +
+  "var SOUP_LIB_TOTAL = " + libPublic.length + ";\n" +
   "if (typeof module !== \"undefined\" && module.exports) {\n" +
   "  module.exports = { SOUP_LIBRARY: SOUP_LIBRARY, SOUP_LIB_CATS: SOUP_LIB_CATS, SOUP_LIB_TOTAL: SOUP_LIB_TOTAL };\n" +
   "}\n",

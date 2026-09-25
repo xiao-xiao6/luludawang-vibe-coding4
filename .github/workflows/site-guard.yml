@@ -56,9 +56,9 @@ jobs:
             /* 直接数真实数据，不再用正则去猜 JSON 的排版（曾因产物重排把空格写法漏掉而误报） */
             const n = lib.length;
             const t = lib.filter(function (p) { return p && typeof p.truth === "string" && p.truth.trim() && p.mode !== "surface"; }).length;
-            /* 阈值留余量：当前题库 988 题，瘦到 900 以下才算异常 */
-            if (n < 900) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
-            if (t < 900) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
+            /* 阈值留余量：2026-09-25 清洗（去污染/去OCR重复）后题库约 870 题，瘦到 800 以下才算异常 */
+            if (n < 800) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
+            if (t < 800) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
             console.log("✓ js/library.public.js 结构正常（" + n + " 条，含汤底 " + t + " 条，明文公开）");
           '
 

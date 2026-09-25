@@ -21,8 +21,8 @@ ok("含 hasTruth 标记", /hasTruth/.test(s));
 const n = (s.match(/\{"id":/g) || []).length;
 /* 宽容空白：产物可能被重排成 "hasTruth": true / "hasTruth":true 两种写法 */
 const t = (s.match(/"hasTruth"\s*:\s*true/g) || []).length;
-ok("题量 ≥ 900", n >= 900, n + " 条");
-ok("带汤底 ≥ 900", t >= 900, t + " 条");
+ok("题量 ≥ 800", n >= 800, n + " 条");
+ok("带汤底 ≥ 800", t >= 800, t + " 条");
 ok("不是 ES module（<script src> 可加载）", !/^\s*export\s/m.test(s));
 
 console.log("\n" + (fail === 0 ? "✅ 站点守卫三条全过" : "❌ 有失败") + "  " + fail + " failed\n");

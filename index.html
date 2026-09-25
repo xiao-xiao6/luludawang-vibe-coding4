@@ -31,6 +31,7 @@
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="assets/icon-192.png" />
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/NotoSerifSC-title.woff2" crossorigin />
+<link rel="stylesheet" href="https://fontsapi.zeoseven.com/66/main/result.css" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body data-scene="menu">
@@ -111,9 +112,9 @@
         <h2>欢迎来到深海汤屋</h2>
         <p class="intro-lead">汤面（谜面）已经备好，你只能向汤主提问。<br />汤主只会回答三种话：<b class="c-yes">是</b>、<b class="c-no">不是</b>、<b class="c-irr">与此无关</b>。</p>
         <ul class="rules">
-          <li><b>1.</b> 用提问一点点逼近真相，挖到的线索会留在右边的线索板。</li>
+          <li><b>1.</b> 用提问一点点逼近真相，右侧备忘录可以随手记下推理。</li>
           <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
-          <li><b>3.</b> 提问越少、提示用得越少，星级越高。汤底可以重熬，存档自动保存。</li>
+          <li><b>3.</b> 提问越少，星级越高。汤底可以重熬，存档自动保存。</li>
           <li><b>4.</b> 精品汤单独挑选打磨，每一道都有完整汤面和汤底，可直接开问。</li>
           <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗。</li>
           <li><b>6.</b> 嫌关键词太死板？点顶上的 <b>🤖 AI 汤主</b> 填上自己的模型 Key，汤主就换成大模型来听懂你的话——它读过汤面汤底，也绝不会把答案漏给你。</li>
@@ -146,15 +147,9 @@
         <button type="button" class="ai-link" id="btn-ai-bar">换成 AI 汤主</button>
       </p>
 
+      <!-- 第⑥条：线索 / 提示 / 探索度随机制一并下线，只留提问计数 -->
       <div class="stats">
         <div class="stat"><span class="stat-k">提问</span><b id="s-q">0</b></div>
-        <div class="stat"><span class="stat-k">线索</span><b id="s-clue">0/0</b></div>
-        <div class="stat"><span class="stat-k">提示</span><b id="s-hint">0</b></div>
-        <div class="stat wide">
-          <span class="stat-k">探索度</span>
-          <div class="bar"><i id="s-bar"></i></div>
-          <b id="s-pct">0%</b>
-        </div>
       </div>
 
       <div class="log" id="log" role="log" aria-live="polite" aria-label="与汤主的对话"></div>
@@ -162,14 +157,9 @@
       <div class="askbar">
         <input id="q-input" class="input" type="text" placeholder="向汤主提问，例如：他认识死者吗？" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
         <button type="button" class="btn primary" id="btn-ask">提问</button>
-        <button type="button" class="btn ghost" id="btn-hint">要提示</button>
-        <button type="button" class="btn ghost" id="btn-ai-quick" title="让 AI 汤主替你补一句方向">🤖 问问 AI</button>
         <button type="button" class="btn ghost" id="btn-guess">我要猜汤底</button>
-      </div>
-
-      <!-- 密码看汤底（权区）：独立一条，不跟提问 / 猜底挤在同一行 -->
-      <div class="unlock-bar">
-        <button type="button" class="btn unlock-btn" id="btn-unlock">🔑 密码看汤底（权区）</button>
+        <!-- 第③条：「权」——水墨印章按钮，紧跟在「我要猜汤底」右边，尺寸与左右按钮一致 -->
+        <button type="button" class="btn quan-btn" id="btn-unlock" title="密码看汤底（权区）——只有噜噜大王知晓"><span class="quan-glyph">权</span></button>
       </div>
     </div>
 
@@ -221,7 +211,7 @@
 
       <div id="room-entry">
         <div class="room-head"><h2>🏠 多人汤屋</h2></div>
-        <p class="intro-lead">和好友用同一个房号进同一间汤屋：一起提问、一起挖线索、一起猜汤底。</p>
+        <p class="intro-lead">和好友用同一个房号进同一间汤屋：一起提问、一起推理、一起猜汤底。</p>
         <div class="room-entry-grid">
           <div class="room-card">
             <h3>建一间新汤屋</h3>
@@ -279,7 +269,7 @@
             </div>
             <div class="rand-actions">
               <button type="button" class="btn ghost" id="btn-room-choose">选一锅（房主）</button>
-              <button type="button" class="btn ghost" id="btn-room-rand">随机一题（房主）</button>
+              <button type="button" class="btn ghost" id="btn-room-rand">随机一锅（房主）</button>
               <button type="button" class="btn ghost" id="btn-room-next">下一锅（房主）</button>
               <button type="button" class="btn ghost" id="btn-room-ai">AI 汤主设置（房主）</button>
             </div>
@@ -298,33 +288,24 @@
           <input id="room-q-input" class="input" type="text" placeholder="没轮到你也可以先写好问题，轮到再发送" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
           <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
+          <!-- 第③条：多人房里「权」紧贴在「我要猜汤底」正右方 -->
+          <button type="button" class="btn quan-btn" id="btn-room-unlock" title="密码看汤底（权区）——只有噜噜大王知晓"><span class="quan-glyph">权</span></button>
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
-        </div>
-
-        <!-- 密码看汤底（权区）：多人房里也独立一条，不跟提问 / 猜底并肩 -->
-        <div class="unlock-bar">
-          <button type="button" class="btn unlock-btn" id="btn-room-unlock">🔑 密码看汤底（权区）</button>
         </div>
       </div>
 
   </section>
 
-  <aside class="col-clue" id="col-clue" aria-label="线索板">
-    <div class="panel" id="clue-panel">
-      <div class="panel-head">
-        <h2>线索板</h2>
-        <span class="badge" id="clue-badge">0/0</span>
+  <!-- 第⑥条：线索板与「汤主的话」已下线；第⑪条：单人时右栏换成备忘录。
+       尺寸与位置沿用原右栏；进多人房时由 JS 把「房间聊天」挂进来并藏起备忘录。 -->
+  <aside class="col-clue" id="col-clue" aria-label="备忘录与聊天">
+    <div class="room-chat memo-box hidden" id="solo-memo">
+      <div class="rc-head">
+        <span class="rc-title" id="btn-solo-memo-toggle" aria-expanded="true">📓 备忘录＆线索整理处</span>
+        <span class="rc-hint">只存在你自己的浏览器里</span>
       </div>
-      <div class="clue-list" id="clue-list">
-        <p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>
-      </div>
-    </div>
-    <!-- 汤主的话：单人局 / 汤库 / 随机模式都固定留在右栏「线索板」下面；
-         只有进多人房时才由 JS 挪进房间状态行（#room-tip-slot），
-         给右下角的房间聊天框腾位置。 -->
-    <div class="panel tip-card" id="tip-card">
-      <div class="panel-head"><h2>汤主的话</h2></div>
-      <p class="tip" id="tip-text">挑一道汤打开，汤主就会开始回答你的问题。</p>
+      <textarea class="memo-area" id="solo-memo-text" spellcheck="false"
+        placeholder="把自己的推理、灵感、待验证的方向都写在这里。&#10;自动保存在本地，刷新也不会丢。"></textarea>
     </div>
   </aside>
 

@@ -1739,6 +1739,144 @@ body.room-mode .qa-log {
   body.room-mode .qa-log { touch-action: none; }
 }
 
+/* ---------- 第⑤条：PC 端问答记录彻底锁死，只能自己循环滚 ----------
+ * overflow:hidden 拦掉滚轮 / 触控板 / 拖动 / 键盘翻页，
+ * 但 JS 给 scrollTop 赋值依然有效 —— 「电影片尾」循环保留。
+ * 触屏 / 窄屏不走这里：那里左栏在页面最上面，锁了会把整页手势堵死。 */
+@media (pointer: fine) and (min-width: 861px) {
+  .qa-log {
+    overflow: hidden;
+    overscroll-behavior: none;
+    scroll-behavior: auto;
+    touch-action: none;
+    scrollbar-width: none;
+  }
+  .qa-log::-webkit-scrollbar { width: 0; height: 0; display: none; }
+}
+
+/* ---------- 第③条：「权」——水墨印章按钮（单人 / 多人共用） ----------
+ * 尺寸靠 .askbar 的 flex 拉伸与左右按钮齐高，不另撑行高。
+ * 旧的「独立一条」已经下线，.unlock-bar / .quan-frame 一律不再占位。 */
+.unlock-bar { display: none; }
+.quan-frame { display: none; }
+.quan-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "寒蝉团圆体 Round", "Noto Serif SC", var(--serif);
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1.25;
+  padding: 9px 15px;
+  min-width: 46px;
+  color: #f3e8ff;
+  letter-spacing: 0;
+  border: 1px solid rgba(196, 150, 240, .58);
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 90% at 22% 18%, rgba(160, 110, 210, .38), transparent 62%),
+    radial-gradient(110% 120% at 84% 88%, rgba(38, 16, 62, .92), transparent 60%),
+    linear-gradient(158deg, #241333 0%, #120a1b 46%, #2a1640 100%);
+  box-shadow:
+    0 0 0 2px rgba(14, 8, 20, .62),
+    0 0 0 3.5px rgba(196, 150, 240, .30),
+    0 0 0 6px rgba(120, 70, 180, .10),
+    0 0 18px rgba(140, 90, 200, .25),
+    0 6px 18px rgba(0, 0, 0, .45);
+  text-shadow: 0 0 12px rgba(215, 175, 255, .75), 0 1px 0 rgba(0, 0, 0, .8);
+}
+/* 墨在字后面慢慢晕开 */
+.quan-btn::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(48% 42% at 30% 34%, rgba(18, 6, 30, .88), transparent 70%),
+    radial-gradient(40% 46% at 70% 68%, rgba(120, 70, 180, .42), transparent 72%),
+    radial-gradient(30% 26% at 58% 26%, rgba(246, 232, 255, .18), transparent 70%);
+  filter: blur(1.6px);
+  opacity: .72;
+  animation: quanInk 7s ease-in-out infinite;
+}
+/* 笔锋扫过：比通用 .btn::after 更亮更窄的一道白光 */
+.quan-btn::after {
+  background: linear-gradient(112deg, transparent 38%, rgba(246, 232, 255, .52) 50%, transparent 62%);
+}
+/* 第③条：字抬到墨晕 / 笔锋两层之上 */
+.quan-glyph { position: relative; z-index: 2; pointer-events: none; }
+.quan-btn:hover {
+  color: #fff6ff;
+  border-color: rgba(226, 186, 255, .8);
+  box-shadow:
+    0 0 0 2px rgba(14, 8, 20, .7),
+    0 0 0 3.5px rgba(226, 186, 255, .48),
+    0 0 0 7px rgba(140, 80, 210, .16),
+    0 0 26px rgba(170, 110, 235, .5),
+    0 0 54px rgba(120, 60, 190, .28),
+    0 8px 22px rgba(0, 0, 0, .55);
+  text-shadow: 0 0 16px rgba(240, 205, 255, .95), 0 0 34px rgba(170, 110, 235, .6);
+}
+.quan-btn:focus-visible { outline: 2px solid var(--auth); outline-offset: 3px; }
+@keyframes quanInk {
+  0%, 100% { opacity: .6; transform: scale(1) rotate(0deg); }
+  35%      { opacity: .95; transform: scale(1.10) rotate(6deg); }
+  70%      { opacity: .7; transform: scale(.96) rotate(-5deg); }
+}
+
+/* ---------- 第⑦条：「汤主的话」独立框已下线（文案并入阶段提示） ---------- */
+.tip-card, .room-tip-slot { display: none; }
+
+/* ---------- 第⑥条：线索板整体下线 ---------- */
+#clue-panel, .clue-list, .room-clue-item { display: none; }
+
+/* ---------- 第⑪条：单人右栏「备忘录＆线索整理处」 ----------
+ * 尺寸与位置完全沿用 .room-chat（同一个框，只改了名字与内容区）。 */
+.memo-box { z-index: 20; }
+.memo-area {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 300px;
+  margin: 0;
+  padding: 11px 12px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: rgba(12, 9, 7, .55);
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.85;
+  resize: none;
+  outline: none;
+}
+.memo-area::placeholder { color: var(--dim-2); line-height: 1.9; }
+.memo-area:focus { border-top-color: var(--broth); box-shadow: 0 0 0 3px rgba(226, 164, 79, .1) inset; }
+.memo-box.collapsed .memo-area { display: none; }
+@media (min-width: 1181px) {
+  body.solo-memo-mode .col-clue {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 14px;
+    min-height: 0;
+  }
+  body.solo-memo-mode .col-clue .memo-box {
+    position: static;
+    right: auto;
+    bottom: auto;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  body.solo-memo-mode .col-clue .memo-box:not(.collapsed) {
+    height: clamp(360px, calc(100vh - 150px), 940px);
+  }
+}
+
 .room-pz-title { font-family: var(--serif); font-size: 15px; color: var(--broth-2); margin-bottom: 6px; }.room-pz-surface { margin: 0 0 8px; font-size: 13px; line-height: 1.9; color: var(--ink); }
 .room-pz-meta { margin: 0; font-size: 11.5px; color: var(--dim-2); letter-spacing: .06em; }
 
@@ -1880,6 +2018,9 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
   #room-q-input, #q-input, #guess-input, #rguess-input { font-size: 16px; }
   .room-player { flex-wrap: wrap; }
   .rp-kick { min-height: 36px; }
+/* 第⑨条：转让房主按钮 —— 与请离同款小胶囊，颜色走金汤色区分 */
+.rp-transfer { min-height: 36px; }
+.rp-transfer:hover { opacity: 1; background: rgba(226, 164, 79, .14); border-color: var(--broth-dim); }
   .room-code-wrap { flex-wrap: wrap; }
   .room-library { max-height: min(46dvh, 420px); }
   .room-qa-sheet { max-height: min(50dvh, 420px); }
@@ -1934,7 +2075,12 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
     height: auto;
     max-height: none;
   }
-  body.room-mode .col-clue .room-chat:not(.collapsed) { height: var(--room-chat-h); }
+  /* 第⑥条：线索板下线后，聊天框是右栏唯一住户 ——
+     上拉到与左栏问答记录顶部齐平，下延伸到接近屏幕底部。 */
+  body.room-mode .col-clue .room-chat:not(.collapsed) {
+    flex: 1 1 auto;
+    height: clamp(360px, calc(100vh - 150px), 940px);
+  }
   body.room-mode .col-clue .room-chat .rc-log {
     flex: 1 1 auto;
     height: auto;

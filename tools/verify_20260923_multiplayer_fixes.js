@@ -86,7 +86,7 @@ ok("UI 禁止手动滚动", /blockManualScroll/.test(ui));
 ok("CSS 有 room-mode 下禁止选择/触摸", /body\.room-mode \.qa-log/.test(css) && /user-select:\s*none/.test(css));
 
 console.log("\n[收尾] Service Worker 缓存版本升级");
-ok("sw.js 版本号为 v11", /deepsea-soup-v11/.test(sw));
+ok("sw.js 缓存版本号 ≥ v11", /deepsea-soup-v(1[1-9]|[2-9]\d|[1-9]\d{2,})/.test(sw));
 
 console.log("\n" + (fail === 0 ? "✅ 全部通过" : "❌ 有失败") + "  " + pass + " passed / " + fail + " failed\n");
 process.exit(fail === 0 ? 0 : 1);
