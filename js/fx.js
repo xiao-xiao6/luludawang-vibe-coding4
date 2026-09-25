@@ -330,6 +330,193 @@
     el.style.opacity = String(Math.min(f, 1) * 0.55);
   }
 
+  /* ---------------- 庆祝前景层（2026-09-25） ----------------
+   * 揭底弹窗 .modal-wrap 自带 backdrop-filter: blur + 深色遮罩，
+   * 而氛围 canvas 在 z-index 3、躲在遮罩底下 —— 礼炮 / 烟花被遮罩
+   * 连图带亮一起糊掉（主人反馈「特效都是糊的」的根因）。
+   * 现在庆祝粒子画到独立的 #fx-front 前景 canvas（z-index 120，
+   * 盖过弹窗），叠加发光 + 拖尾光条 + 彩纸，不再受背景模糊影响。 */
+  var FRONT = { canvas: null, ctx: null, parts: [], raf: 0, last: 0, w: 0, h: 0, dpr: 1 };
+  var CELE_COLORS = ["#ffd166", "#ffe9c4", "#68cf9a", "#ff8f6e", "#8fd3ff", "#ff6e9e", "#f6cf90", "#fff3d6"];
+
+  function frontResize() {
+    var c = FRONT.canvas;
+    if (!c) return;
+    var w = root.innerWidth || doc.documentElement.clientWidth || 800;
+    var h = root.innerHeight || doc.documentElement.clientHeight || 600;
+    var dpr = clamp(root.devicePixelRatio || 1, 1, 2);
+    FRONT.w = w; FRONT.h = h; FRONT.dpr = dpr;
+    c.width = Math.floor(w * dpr);
+    c.height = Math.floor(h * dpr);
+    FRONT.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function frontEnsure() {
+    if (FRONT.canvas) return true;
+    if (!doc.createElement("canvas").getContext) return false;
+    var c = doc.createElement("canvas");
+    c.id = "fx-front";
+    c.setAttribute("aria-hidden", "true");
+    c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;z-index:120;pointer-events:none;display:block;";
+    (doc.body || doc.documentElement).appendChild(c);
+    var ctx = c.getContext("2d");
+    if (!ctx) return false;
+    FRONT.canvas = c;
+    FRONT.ctx = ctx;
+    frontResize();
+    root.addEventListener("resize", frontResize);
+    return true;
+  }
+
+  function frontKick() {
+    if (FRONT.raf || !FRONT.ctx) return;
+    FRONT.last = 0;
+    FRONT.raf = root.requestAnimationFrame(frontFrame);
+  }
+
+  function frontBoom(x, y, opt) {
+    opt = opt || {};
+    var n = opt.count || 80;
+    var colors = opt.colors || CELE_COLORS;
+    var pow = opt.power || 280;
+    for (var i = 0; i < n; i++) {
+      var a = (i / n) * Math.PI * 2 + rand(-0.09, 0.09);
+      var s = pow * rand(0.35, 1.05);
+      FRONT.parts.push({
+        kind: "spark", x: x, y: y, px: x, py: y,
+        vx: Math.cos(a) * s, vy: Math.sin(a) * s,
+        r: rand(1.8, 3.8), life: rand(0.9, 1.8), max: 1.8,
+        g: 150, drag: 1.15,
+        color: colors[Math.floor(Math.random() * colors.length)], hi: "#fffbe8"
+      });
+    }
+    /* 炸完再补一把白色小星屑，让烟花有「余爆」的层次 */
+    for (var j = 0; j < (n / 3) | 0; j++) {
+      var a2 = rand(0, Math.PI * 2);
+      var s2 = pow * rand(0.1, 0.55);
+      FRONT.parts.push({
+        kind: "spark", x: x, y: y, px: x, py: y,
+        vx: Math.cos(a2) * s2, vy: Math.sin(a2) * s2,
+        r: rand(0.8, 1.6), life: rand(0.35, 0.8), max: 0.8,
+        g: 60, drag: 2.2, color: "#fff7e0", hi: "#ffffff"
+      });
+    }
+    if (STATE.enabled && root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("pop");
+  }
+
+  function frontFrame(ts) {
+    var ctx = FRONT.ctx;
+    if (!ctx) { FRONT.raf = 0; return; }
+    if (!FRONT.last) FRONT.last = ts;
+    var dt = Math.min((ts - FRONT.last) / 1000, 0.05);
+    FRONT.last = ts;
+    ctx.clearRect(0, 0, FRONT.w, FRONT.h);
+    var parts = FRONT.parts;
+    FRONT.parts = [];
+    ctx.globalCompositeOperation = "lighter";
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i];
+      p.life -= dt;
+      if (p.life <= 0) {
+        if (p.kind === "rocket") frontBoom(p.x, p.y, p.opt);
+        continue;
+      }
+      if (p.kind === "rocket") {
+        /* 升空弹：匀速直线，寿命到点炸开 */
+        p.px = p.x; p.py = p.y;
+        p.x += p.vx * dt; p.y += p.vy * dt;
+        ctx.globalAlpha = 0.95;
+        ctx.strokeStyle = "#ffd9a0";
+        ctx.lineWidth = 2.2;
+        ctx.lineCap = "round";
+        ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+        ctx.fillStyle = "#fff3d6";
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2.2, 0, 6.283); ctx.fill();
+        FRONT.parts.push(p);
+        continue;
+      }
+      p.vy += (p.g == null ? 340 : p.g) * dt;
+      var k = 1 - (p.drag || 0.6) * dt;
+      if (k < 0) k = 0;
+      p.vx *= k; p.vy *= k;
+      p.px = p.x; p.py = p.y;
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      var kk = clamp(p.life / p.max, 0, 1);
+      if (p.kind === "confetti") {
+        p.rot += p.spin * dt;
+        ctx.globalAlpha = Math.min(1, kk * 2);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w2, -p.h2, p.w2 * 2, p.h2 * 2 * Math.abs(Math.cos(p.rot * 0.7)) + 1);
+        ctx.restore();
+        FRONT.parts.push(p);
+        continue;
+      }
+      /* 火花：头尾拖一条光条 + 亮芯，叠加发光在深色遮罩上特别跳 */
+      ctx.globalAlpha = Math.min(1, kk * 1.7) * 0.9;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = p.r * 0.95;
+      ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+      ctx.globalAlpha = Math.min(1, kk * 2);
+      ctx.fillStyle = p.hi || "#fff";
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * 0.55, 0, 6.283); ctx.fill();
+      FRONT.parts.push(p);
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+    if (FRONT.parts.length) {
+      FRONT.raf = root.requestAnimationFrame(frontFrame);
+    } else {
+      FRONT.raf = 0;
+      ctx.clearRect(0, 0, FRONT.w, FRONT.h);
+    }
+  }
+
+  /* 礼炮齐射：朝 ang 方向喷一大束火花 + 一把彩纸 */
+  function frontSalvo(x, y, ang) {
+    var colors = CELE_COLORS;
+    for (var i = 0; i < 58; i++) {
+      var a = ang + rand(-0.3, 0.3);
+      var sp = rand(520, 1180);
+      FRONT.parts.push({
+        kind: "spark", x: x + rand(-8, 8), y: y + rand(-6, 6), px: x, py: y,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+        r: rand(1.8, 3.8), life: rand(0.8, 1.6), max: 1.6,
+        g: 430, drag: 0.5,
+        color: colors[Math.floor(Math.random() * colors.length)], hi: "#ffffff"
+      });
+    }
+    for (var j = 0; j < 26; j++) {
+      var a2 = ang + rand(-0.44, 0.44);
+      var sp2 = rand(360, 920);
+      FRONT.parts.push({
+        kind: "confetti", x: x, y: y,
+        vx: Math.cos(a2) * sp2, vy: Math.sin(a2) * sp2,
+        w2: rand(2, 4), h2: rand(3.5, 7), rot: rand(0, 6.28), spin: rand(-9, 9),
+        life: rand(1.1, 2.2), max: 2.2, g: 520, drag: 0.35,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+    frontKick();
+  }
+
+  /* 烟花升空弹：从屏幕底边射到 (tx,ty) 后炸开 */
+  function frontRocket(tx, ty) {
+    var sx = clamp(tx + rand(-46, 46), 10, FRONT.w - 10);
+    var sy = FRONT.h - 8;
+    var dur = clamp(Math.abs(ty - sy) / 950, 0.5, 1.05);
+    FRONT.parts.push({
+      kind: "rocket", x: sx, y: sy, px: sx, py: sy,
+      vx: (tx - sx) / dur, vy: (ty - sy) / dur,
+      life: dur, max: dur, color: "#ffd9a0",
+      opt: { count: 70 + Math.floor(rand(0, 40)), power: rand(230, 340) }
+    });
+    frontKick();
+  }
+
   /* ---------------- 主循环 ---------------- */
 
   function frame(ts) {
@@ -437,6 +624,9 @@
         STATE.sparks.length = 0;
         STATE.crows.length = 0;
         applyFlash();
+        /* 前景庆祝层一并清场 */
+        FRONT.parts.length = 0;
+        if (FRONT.ctx) FRONT.ctx.clearRect(0, 0, FRONT.w, FRONT.h);
       } else {
         api.resume();
       }
@@ -486,47 +676,63 @@
       setTimeout(function () { STATE.sceneCfg = old; seedDrops(); }, (sec || 4) * 1000);
     },
 
-    /* 第⑦条：说破汤底的庆祝 —— 左下 / 右下礼炮朝中间喷，
-     * 屏幕上方连放几发烟花，配套爆响与号角音效。 */
+    /* 第⑦条（2026-09-25 重做）：说破汤底的庆祝 —— 全部画在前景层上，
+     * 盖过揭底弹窗的模糊遮罩；礼炮 4 轮齐射 ×2 门，烟花 9 发升空爆，
+     * 配套爆响与号角音效。 */
     celebrate: function () {
       if (REDUCE || !STATE.enabled) return;
-      var w = STATE.w, h = STATE.h;
-      var COLORS = ["#e2a44f", "#f6cf90", "#ffe9c4", "#68cf9a", "#ff8f6e", "#8fd3ff", "#ff6e9e"];
-      function salvo(x, y, ang, spread, n, power, lifeLo, lifeHi) {
-        if (!STATE.enabled) return;
-        for (var i = 0; i < n; i++) {
-          var a = ang + rand(-spread, spread);
-          var sp = rand(0.5, 1.3) * power;
-          STATE.sparks.push({
-            x: x + rand(-10, 10), y: y + rand(-8, 8),
-            vx: Math.cos(a) * sp,
-            vy: Math.sin(a) * sp,
-            r: rand(1.4, 3.6),
-            life: rand(lifeLo, lifeHi), max: lifeHi,
-            color: COLORS[Math.floor(Math.random() * COLORS.length)]
-          });
-        }
-        if (STATE.sparks.length > 900) STATE.sparks.splice(0, STATE.sparks.length - 900);
-      }
-      /* 礼炮：左下角朝右上、右下角朝左上，各三轮齐射 */
-      var cannons = [[w * 0.05, h - 8, -1.05], [w * 0.95, h - 8, -2.09]];
-      cannons.forEach(function (c) {
-        for (var k = 0; k < 3; k++) {
+      if (!frontEnsure()) return;
+      var w = FRONT.w, h = FRONT.h;
+      /* 礼炮：左下角朝右上、右下角朝左上，各 4 轮齐射，两门错开半拍 */
+      var cannons = [[w * 0.04, h - 6, -1.02], [w * 0.96, h - 6, -2.12]];
+      cannons.forEach(function (c, ci) {
+        for (var k = 0; k < 4; k++) {
           (function (x, y, ang, delay) {
-            setTimeout(function () { salvo(x, y, ang, 0.26, 26, rand(640, 900), 0.9, 1.7); }, delay);
-          })(c[0], c[1], c[2], k * 280);
+            setTimeout(function () {
+              if (!STATE.enabled) return;
+              frontSalvo(x, y, ang);
+            }, delay);
+          })(c[0], c[1], c[2], k * 260 + ci * 130);
         }
       });
-      /* 烟花：上半屏随机位置炸 5 发 */
-      for (var f = 0; f < 5; f++) {
+      /* 烟花：上半屏连放 9 发升空弹，每发炸完自带余爆星屑 */
+      for (var f = 0; f < 9; f++) {
         (function (delay) {
           setTimeout(function () {
-            salvo(rand(w * 0.14, w * 0.86), rand(h * 0.1, h * 0.4), 0, Math.PI, 36, rand(190, 320), 0.7, 1.4);
-            if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("pop");
+            if (!STATE.enabled) return;
+            frontRocket(rand(w * 0.12, w * 0.88), rand(h * 0.08, h * 0.42));
           }, delay);
-        })(420 + f * 360);
+        })(280 + f * 340);
       }
       if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("fanfare");
+    },
+
+    /* 前景层粒子爆发：给单人说破 / 结算用，不受弹窗遮罩模糊影响 */
+    burstFront: function (x, y, opt) {
+      if (REDUCE || !STATE.enabled) return;
+      if (!frontEnsure()) return;
+      opt = opt || {};
+      var n = opt.count || 60;
+      var colors = opt.colors || CELE_COLORS;
+      var pow = opt.power || 1;
+      for (var i = 0; i < n; i++) {
+        var a = rand(0, Math.PI * 2);
+        var sp = rand(70, 420) * pow;
+        FRONT.parts.push({
+          kind: "spark", x: x, y: y, px: x, py: y,
+          vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - rand(20, 140) * pow,
+          r: rand(1.6, 3.6), life: rand(0.7, 1.5), max: 1.5,
+          g: 300, drag: 0.8,
+          color: colors[Math.floor(Math.random() * colors.length)], hi: "#fffbe8"
+        });
+      }
+      frontKick();
+    },
+
+    burstFrontAt: function (el, opt) {
+      if (!el || !el.getBoundingClientRect) return;
+      var r = el.getBoundingClientRect();
+      api.burstFront(r.left + r.width / 2, r.top + r.height / 2, opt);
     },
 
     stats: function () {

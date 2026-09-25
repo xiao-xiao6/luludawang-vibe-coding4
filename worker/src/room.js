@@ -87,7 +87,7 @@ function aiErrorNote(e) {
 
 /* 模型不守格式时带上一句更强的重申再要一次；也接受明文判定 */
 const RETRY_HINT =
-  "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头。严禁输出思考过程、分析、举例或任何理由，也不要提到汤底。";
+  "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头。如果玩家一次问了好几个小问题，先给一个最贴切的总体判定词，再用短句逐一简短回答；禁止复述问题（「玩家问…」「你问的是…」这类句式不行）。严禁输出思考过程、分析、举例或任何理由，也不要提到汤底。";
 
 function json(data, status, cors) {
   return new Response(JSON.stringify(data), {
@@ -455,8 +455,11 @@ export class Room {
       }
       /* 思考链硬过滤：带分析痕迹的整段丢弃（不保留第一句，防「根据汤底…」开头句泄漏） */
       if (REASON_TAIL.test(reply)) reply = "";
-      if (reply && (reply.match(/[。！？]/g) || []).length >= 3) {
-        var mF3 = reply.match(/^[^。！？；]{0,28}/);
+      /* 复述型空答拦截：把「玩家问…」「你问的是…」这类转述句丢掉，
+         只留干净的判定词（主人反馈的复合提问翻车现场，与前端 guardAnswer 同口径） */
+      if (reply && /^(玩家|他(想|要)?问|你(这)?(是在)?问|问的是|这(个)?问题|问题里)/.test(reply)) reply = "";
+      if (reply && (reply.match(/[。！？]/g) || []).length >= 4) {
+        var mF3 = reply.match(/^[^。！？；]{0,40}/);
         reply = mF3 ? mF3[0].replace(/\s+$/, "") : "";
       }
       var lwFinal = LEAD_OF2[verdict];

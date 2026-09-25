@@ -534,6 +534,8 @@
     var sig = qaOnly.length + "|" + (qaOnly.length ? qaOnly[qaOnly.length - 1].at : 0);
     if (box.__sig === sig) { ensureQaScroll(); return; }
     box.__sig = sig;
+    /* 重建前记住看到哪了：新内容到了不该把玩家正读的位置拍回顶部 */
+    var keepTop = box.scrollTop;
     if (!qaOnly.length) {
       box.innerHTML = '<p class="empty">还没有人提问。</p>';
       return;
@@ -554,35 +556,42 @@
       }
       return "";
     }).join("");
+    box.scrollTop = keepTop;
     /* 有新内容：清掉「已经滚到底」的记号，让慢速滚动重新接管 */
     box.__atBottom = false;
     ensureQaScroll();
   }
 
   /* ------------------------------------------------------------
-   * 左栏「电影片尾」式自动慢速滚动（2026-09-25 重写）
+   * 左栏「电影片尾」式自动慢速滚动（2026-09-25 第二次彻查重写）
    * ------------------------------------------------------------
    * 规则（主人指定）：
-   *   - 电脑端与手机端都要自动慢滚：向下逐条展示，滚到底停一下，
-   *     再回顶部继续循环；
-   *   - 电脑端禁止手动拖动（滚轮 / 拖动 / 键盘全部拦掉）；
-   *   - 手机端允许手动滑翻，但手一碰，自动滚动先让位 4 秒再接管；
-   *   - 内容比容器短时不滚，静止显示。
-   * 实现要点：
-   *   - 按 dt 计速（24px/s），60Hz / 120Hz 屏一个速度；
-   *   - 心跳看门狗：万一某帧抛异常把循环弄死，下一次 render 会自动重启，
-   *     不会再出现「整栏卡死不动」；
-   *   - 重建问答记录 DOM 不再被聊天消息触发（旧 sig 混入 chatSeq，
-   *     别人每发一句聊天就把滚动拍回顶部）。
+   *   - 双端都自动慢滚：向下逐条展示，滚到底停一下，再回顶部继续循环；
+   *   - 双端也都允许手动翻（滚轮 / 触屏 / 滚动条 / 键盘）：
+   *     手一碰，自动滚动先让位 4 秒，再从玩家停下的位置接着滚。
+   *
+   * PC 端卡死的真正根因（本次 CDP 实测定位）：
+   *   桌面浏览器的 scrollTop 会被取整——24px/秒 ÷ 60帧 = 每帧 0.4px，
+   *   「el.scrollTop = el.scrollTop + 0.4」在取整浏览器里被四舍五入吞掉，
+   *   读回来永远是原值，滚动位置原地踏步；移动端浏览器支持小数滚动偏移，
+   *   所以「手机好好的、电脑一动不动」。上一版还顺手用 overflow:hidden +
+   *   preventDefault 把 PC 手动滚动也锁死了，两头都不动。
+   * 本次修法：
+   *   - 浮点累加器 qaPos：小数部分攒在 JS 里，scrollTop 只接受赋值，
+   *     取整浏览器约 42ms 走 1px，小数浏览器连续平滑，两端都成立；
+   *   - 每帧比对实际位置，差超过 1.5px（玩家翻了 / DOM 重建）就顺势跟随，
+   *     不再跟用户抢方向盘；
+   *   - 彻底移除桌面端的手动滚动封锁与 overflow:hidden。
    */
 
   var QA_SPEED = 24;          /* px / 秒 */
-  var QA_HOLD_MS = 4000;      /* 移动端手动滑动后的让位时长 */
+  var QA_HOLD_MS = 4000;      /* 手动滑动后自动滚动的让位时长 */
   var qaRaf = 0;
   var qaPaused = 0;           /* 到底后停顿的截止时间戳 */
-  var qaUserHold = 0;         /* 移动端手动接管：自动滚动暂停到此时刻 */
+  var qaUserHold = 0;         /* 手动接管：自动滚动暂停到此时刻 */
   var qaLastBeat = 0;         /* 循环心跳：看门狗用它判断循环是否假死 */
   var qaLastTs = 0;
+  var qaPos = 0;              /* 浮点滚动累加器（根因修复的核心） */
 
   function qaScrollWanted() {
     /* 双端都自动滚：房间模式或单人对局屏可见即可（不再排除触屏 / 窄屏） */
@@ -594,7 +603,7 @@
   function ensureQaScroll() {
     var box = $("#qa-log");
     if (!box) return;
-    blockManualScroll(box);
+    watchManualScroll(box);
     /* 看门狗：循环自称在跑却 3 秒没心跳 → 判死，重启 */
     if (qaRaf && Date.now() - qaLastBeat > 3000) {
       cancelAnimationFrame(qaRaf);
@@ -613,24 +622,35 @@
         if (over <= 4) {
           /* 内容不够长：不动，也不花帧 */
           if (el.scrollTop !== 0) el.scrollTop = 0;
+          qaPos = 0;
           qaRaf = 0;
           return;
         }
         var t = Date.now();
         if (t < qaUserHold || (qaPaused && t < qaPaused)) {
+          /* 玩家正在翻 / 到底停顿中：跟随实际位置，松手不抢方向盘 */
+          qaPos = el.scrollTop;
           qaRaf = requestAnimationFrame(step);
           return;
         }
         qaPaused = 0;
-        el.scrollTop = el.scrollTop + QA_SPEED * dt;
-        /* 到底了：停 1.6s，再回顶部继续 —— 给玩家时间看完最后一条 */
-        if (el.scrollTop >= over - 1) {
+        /* 位置对不上号（玩家翻了 / DOM 重建 / 外部归零）：先跟随再继续 */
+        if (Math.abs(el.scrollTop - qaPos) > 1.5) qaPos = el.scrollTop;
+        qaPos += QA_SPEED * dt;
+        if (qaPos >= over) {
+          /* 到底了：停 1.6s，再回顶部继续 —— 给玩家时间看完最后一条 */
+          qaPos = over;
           el.scrollTop = over;
           qaPaused = t + 1600;
           setTimeout(function () {
             var e2 = $("#qa-log");
-            if (e2 && qaScrollWanted() && Date.now() >= qaUserHold) e2.scrollTop = 0;
+            if (e2 && qaScrollWanted() && Date.now() >= qaUserHold) {
+              e2.scrollTop = 0;
+              qaPos = 0;
+            }
           }, 1600);
+        } else {
+          el.scrollTop = qaPos;
         }
         qaRaf = requestAnimationFrame(step);
       } catch (e) {
@@ -645,39 +665,22 @@
     if (qaRaf) { cancelAnimationFrame(qaRaf); qaRaf = 0; }
     qaPaused = 0;
     qaUserHold = 0;
+    qaPos = 0;
   }
 
-  function isCoarsePointer() {
-    try {
-      return !!(window.matchMedia && window.matchMedia("(pointer: coarse), (max-width: 860px)").matches);
-    } catch (e) { return false; }
-  }
-
-  /* 手动滚动策略：
-     - 桌面（fine pointer / 宽屏）：彻底锁死手动滚动，只留自动循环；
-     - 触屏 / 窄屏：允许手指翻，但 touchstart / wheel 会把自动滚动按住 4 秒。 */
-  function blockManualScroll(el) {
+  /* 手动滚动交互（2026-09-25 彻查后改版）：
+     双端一律允许滚轮 / 触屏 / 滚动条 / 键盘翻页，不再 preventDefault 拦人；
+     手一碰就把自动滚动按住 QA_HOLD_MS 毫秒，让位结束后从当前位置继续。 */
+  function watchManualScroll(el) {
     if (!el || el.__block) return;
-    if (isCoarsePointer()) {
-      el.__block = true;
-      ["touchstart", "wheel"].forEach(function (t) {
-        el.addEventListener(t, function () {
-          qaUserHold = Date.now() + QA_HOLD_MS;
-        }, { passive: true });
-      });
-      return;
-    }
     el.__block = true;
-    ["wheel", "touchmove", "mousedown", "pointerdown"].forEach(function (t) {
-      el.addEventListener(t, function (ev) {
-        if (ev.target && ev.target.closest && ev.target.closest("input,textarea,select,button,a")) return;
-        ev.preventDefault();
-      }, { passive: false });
+    function hold() { qaUserHold = Date.now() + QA_HOLD_MS; }
+    ["wheel", "touchstart", "mousedown"].forEach(function (t) {
+      el.addEventListener(t, hold, { passive: true });
     });
     el.addEventListener("keydown", function (ev) {
-      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].indexOf(ev.key) !== -1) ev.preventDefault();
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].indexOf(ev.key) !== -1) hold();
     });
-    el.addEventListener("selectstart", function (ev) { ev.preventDefault(); });
   }
 
   /* ---------------- 实时对话流（多⑤）：中区看当下 ----------------
@@ -901,7 +904,7 @@
     var qaBox = $("#qa-log");
     if (qaBox && !qaBox.__noManual) {
       qaBox.__noManual = true;
-      blockManualScroll(qaBox);
+      watchManualScroll(qaBox);
     }
     wireResume();
   }
@@ -925,12 +928,59 @@
   /* app.js 的 toast 若先加载，直接借它的实现 */
   root.SoupToastBridge = function (fn) { if (typeof fn === "function") root.SoupAppToast = fn; };
 
+  /* ---------------- 通用二级确认面板（2026-09-25 防误触） ----------------
+   * 撤回准备 / 请离 / 放弃这类「一动就影响全桌或别人」的操作，
+   * 点一下必须先弹「确认 / 取消」面板，点确认才真正发请求。 */
+  function askConfirm(opts, onYes) {
+    var old = document.getElementById("confirm-wrap");
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    var host = document.createElement("div");
+    host.className = "modal-wrap confirm-wrap";
+    host.id = "confirm-wrap";
+    host.innerHTML =
+      '<div class="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="cf-title">' +
+      '<h3 id="cf-title">' + esc(opts.title) + "</h3>" +
+      '<p class="modal-sub">' + (opts.desc || "") + "</p>" +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="cf-no">取消</button>' +
+      '<button type="button" class="btn ' + (opts.danger ? "danger" : "primary") + '" id="cf-yes">' + esc(opts.yes || "确认") + "</button>" +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    function close() {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    }
+    host.querySelector("#cf-no").addEventListener("click", close);
+    host.querySelector("#cf-yes").addEventListener("click", function () { close(); onYes(); });
+    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
+  }
+
   function doReady() {
     var mine = null;
     var s = R.snap;
     if (s) (s.players || []).forEach(function (p) { if (p.uid === myUid(s)) mine = p; });
+    var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
+    var withdraw = !!(s && s.phase === "playing" && inThisPot);
+    /* 防误触：撤回 = 整桌掀回大堂、提问顺序重排，必须二级确认 */
+    if (withdraw) {
+      askConfirm({
+        title: "确认撤回、回大堂？",
+        desc: "你正在本锅提问队列里，撤回会<b>把整桌掀回大堂</b>：全员要重新准备，提问顺序也会重新排队（提问进度保留，但可能有人多问、有人少问）。不想掀桌就点「取消」。",
+        yes: "确认撤回（回大堂）",
+        danger: true
+      }, readyGo);
+      return;
+    }
+    readyGo();
+  }
+
+  function readyGo() {
+    var mine = null;
+    var s = R.snap;
+    if (s) (s.players || []).forEach(function (p) { if (p.uid === myUid(s)) mine = p; });
     /* 第④条修复：playing 阶段只有「本锅首发」撤回才会整桌掀回大堂；
-       中途加入 / 退出重进的人（不在 potUids 里）点按钮 = 准备排进本锅队尾，
+       中途加入 / 退出重进的人（不在 potUids 里）点按钮 = 准备并排进本锅队尾，
        必须发 ready:true —— 旧代码在 playing 一律发 false，
        才会出现「点加入本锅反而退出队列」的死循环 bug。 */
     var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
@@ -1569,6 +1619,16 @@
   var voteTick = 0;
 
   function doGiveup() {
+    /* 防误触（2026-09-25）：发起投票会全房弹窗打断所有人，先二级确认 */
+    askConfirm({
+      title: "放弃这一锅？",
+      desc: "点确认会向全房发起「放弃看汤底」投票：同意人数满「人数 − 1」就直接揭开本锅汤底、这锅结束；没通过则继续熬。",
+      yes: "发起投票",
+      danger: true
+    }, giveupGo);
+  }
+
+  function giveupGo() {
     act("giveup", {}).then(function (r) {
       R.toast("🏳️ 已发起「放弃看汤底」投票，全房 60 秒内表态");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
@@ -1678,8 +1738,19 @@
     });
   }
 
-  /* 房主请离死座位（多②） */
+  /* 房主请离玩家 / 清死座位（多②）：防误触，先弹二级确认 */
   function doKick(uid) {
+    var s = R.snap || {};
+    var target = (s.players || []).filter(function (p) { return p.uid === uid; })[0];
+    askConfirm({
+      title: "请离 " + (target && target.nickname ? target.nickname : "#" + uid) + "？",
+      desc: "TA 会立刻被移出房间、座位空出来；想再玩只能重新用房号进。确认不是手滑再点。",
+      yes: "确认请离",
+      danger: true
+    }, function () { kickGo(uid); });
+  }
+
+  function kickGo(uid) {
     act("kick", { uid: uid }).then(function () {
       R.toast("已请离，座位空出来了");
       startWatch();
@@ -1871,9 +1942,9 @@
     inRoom: function () { return R.inRoom; },
     ensureQaScroll: ensureQaScroll,
     stopQaScroll: stopQaScroll,
-    blockQaScroll: function () {
+    watchQaScroll: function () {
       var box = $("#qa-log");
-      if (box) blockManualScroll(box);
+      if (box) watchManualScroll(box);
     },
     doUnlock: doUnlock,
     doGiveupSolo: doGiveupSolo,
