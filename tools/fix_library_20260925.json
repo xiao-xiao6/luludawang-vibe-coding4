@@ -1,0 +1,390 @@
+{
+ "deleted": [
+  {
+   "id": "lib_313b1b1994da",
+   "why": "汤面=「给玩家看的谜题描述。」(导入模板残留)",
+   "title": "无题 · xxtg666 #966"
+  },
+  {
+   "id": "lib_b1e9c85a7d03",
+   "why": "汤底混入 Python 代码",
+   "title": "无题 · wzk1015 #964"
+  },
+  {
+   "id": "lib_c289acd5109e",
+   "why": "汤底混入「来源：[许二木S2-1](链接)」等多题拼接",
+   "title": "无题 · hongqipiaopiao520 #977"
+  },
+  {
+   "id": "lib_cd9ed1dacda9",
+   "why": "汤底混入「让我们开始游戏吧…发送开场白」AI 设定",
+   "title": "无题 · White-stone36 #963"
+  },
+  {
+   "id": "lib_d593c033cea2",
+   "why": "汤面混入玩法说明/对AI的指令文本",
+   "title": "无题 · YanJiaHuan #965"
+  },
+  {
+   "id": "lib_e217416dd21d",
+   "why": "汤面混入 JS 测试代码 expect(...)",
+   "title": "无题 · hongqipiaopiao520 #976"
+  },
+  {
+   "id": "lib_ff0a78a2fd41",
+   "why": "汤底混入 JSON 测试代码",
+   "title": "无题 · misc #1240"
+  }
+ ],
+ "space_fixed": [
+  {
+   "id": "lib_007dafa7c9bf",
+   "title": "第七条怪谈"
+  },
+  {
+   "id": "lib_0a8d65c99059",
+   "title": "爷爷的低吼"
+  },
+  {
+   "id": "lib_1245207e575c",
+   "title": "村中诡事"
+  },
+  {
+   "id": "lib_1455577f47af",
+   "title": "房间里的黑点"
+  },
+  {
+   "id": "lib_181239094689",
+   "title": "石头，剪刀，布"
+  },
+  {
+   "id": "lib_1bf936bf0361",
+   "title": "无题 · KONpiGG #141"
+  },
+  {
+   "id": "lib_1e0c1f87a2b9",
+   "title": "柜中的孩子"
+  },
+  {
+   "id": "lib_20800650c989",
+   "title": "白雪公主规则怪谈"
+  },
+  {
+   "id": "lib_2299ca62945f",
+   "title": "声音"
+  },
+  {
+   "id": "lib_256cd09236f0",
+   "title": "该我了"
+  },
+  {
+   "id": "lib_27629b68d5cf",
+   "title": "织梦者》《新世界"
+  },
+  {
+   "id": "lib_2834c40aee07",
+   "title": "家庭公式"
+  },
+  {
+   "id": "lib_2873bb5be315",
+   "title": "因果"
+  },
+  {
+   "id": "lib_2bfce712eedb",
+   "title": "生日快乐"
+  },
+  {
+   "id": "lib_30c815b194ce",
+   "title": "因果"
+  },
+  {
+   "id": "lib_31d54f73bfbf",
+   "title": "盲人"
+  },
+  {
+   "id": "lib_335a2a7a493a",
+   "title": "房间里的黑点"
+  },
+  {
+   "id": "lib_36b3906f39dc",
+   "title": "雷阵雨"
+  },
+  {
+   "id": "lib_36bccb50c358",
+   "title": "无题 · KONpiGG #87"
+  },
+  {
+   "id": "lib_410b5ac434f2",
+   "title": "墓碑上的文字"
+  },
+  {
+   "id": "lib_4166968fc81c",
+   "title": "祭日"
+  },
+  {
+   "id": "lib_453bf5f75173",
+   "title": "催眠"
+  },
+  {
+   "id": "lib_49c651e6beb1",
+   "title": "人生倍速演算"
+  },
+  {
+   "id": "lib_4ab66f954145",
+   "title": "口供"
+  },
+  {
+   "id": "lib_4d80ceead607",
+   "title": "老农"
+  },
+  {
+   "id": "lib_5812f6b2fe96",
+   "title": "七宗罪"
+  },
+  {
+   "id": "lib_614ee93f352b",
+   "title": "444寝室"
+  },
+  {
+   "id": "lib_633dfaae0191",
+   "title": "头等大事"
+  },
+  {
+   "id": "lib_64cc4c2a51b6",
+   "title": "无题 · KONpiGG #91"
+  },
+  {
+   "id": "lib_6af0ee0910ff",
+   "title": "信"
+  },
+  {
+   "id": "lib_6f1a91a082e8",
+   "title": "未完待续"
+  },
+  {
+   "id": "lib_6ff3742a28e2",
+   "title": "白雪公主规则怪谈"
+  },
+  {
+   "id": "lib_710f1137667b",
+   "title": "平安夜"
+  },
+  {
+   "id": "lib_71f829d3da3b",
+   "title": "重映"
+  },
+  {
+   "id": "lib_7445ad740cb8",
+   "title": "双缝干涉实验"
+  },
+  {
+   "id": "lib_783c025b1ad0",
+   "title": "吹蜡烛"
+  },
+  {
+   "id": "lib_78cb976e598c",
+   "title": "手滑"
+  },
+  {
+   "id": "lib_7ba2fe196fb5",
+   "title": "未完待续"
+  },
+  {
+   "id": "lib_82eb6489ade9",
+   "title": "主持人手册"
+  },
+  {
+   "id": "lib_83dc56309332",
+   "title": "双颖干涉实验"
+  },
+  {
+   "id": "lib_87e6eab394d9",
+   "title": "和爸爸的遗言"
+  },
+  {
+   "id": "lib_8e5d0077f03d",
+   "title": "无题 · KONpiGG #97"
+  },
+  {
+   "id": "lib_8e8e435314df",
+   "title": "石头，剪刀， 布"
+  },
+  {
+   "id": "lib_904329fe6d6d",
+   "title": "咒"
+  },
+  {
+   "id": "lib_9110ec7b39ab",
+   "title": "谎言之界"
+  },
+  {
+   "id": "lib_93d8f4b72f86",
+   "title": "目击者"
+  },
+  {
+   "id": "lib_93edc973cbfe",
+   "title": "织梦者"
+  },
+  {
+   "id": "lib_96b0dada1834",
+   "title": "妹妹的秘密"
+  },
+  {
+   "id": "lib_9849093afcb2",
+   "title": "巨人"
+  },
+  {
+   "id": "lib_a20a19439677",
+   "title": "生罚通知单"
+  },
+  {
+   "id": "lib_a3cb839a138b",
+   "title": "无题 · KONpiGG #156"
+  },
+  {
+   "id": "lib_a8729117a936",
+   "title": "赴净土"
+  },
+  {
+   "id": "lib_a8c01bd11872",
+   "title": "噩梦重现"
+  },
+  {
+   "id": "lib_abd814242616",
+   "title": "倒计时: 7 天"
+  },
+  {
+   "id": "lib_acfe4ab75d5e",
+   "title": "一盘排骨"
+  },
+  {
+   "id": "lib_ad7366ba2b30",
+   "title": "声音"
+  },
+  {
+   "id": "lib_ae4828193420",
+   "title": "怀孕"
+  },
+  {
+   "id": "lib_b9fdcd724950",
+   "title": "圣诞礼物"
+  },
+  {
+   "id": "lib_ba0a80d94a62",
+   "title": "红衣"
+  },
+  {
+   "id": "lib_bafb21fa5402",
+   "title": "倒计时：7天"
+  },
+  {
+   "id": "lib_be5cdc09f417",
+   "title": "笔"
+  },
+  {
+   "id": "lib_bf6dc1df19ca",
+   "title": "姥姥的葬礼"
+  },
+  {
+   "id": "lib_c1684f23086e",
+   "title": "辟梦重现"
+  },
+  {
+   "id": "lib_c23857b4f49d",
+   "title": "别过来"
+  },
+  {
+   "id": "lib_c3dc8a18292b",
+   "title": "人生倍速演算"
+  },
+  {
+   "id": "lib_c461111b43f5",
+   "title": "侠客"
+  },
+  {
+   "id": "lib_c6df7b68bd53",
+   "title": "奇怪的爸妈"
+  },
+  {
+   "id": "lib_c86242207350",
+   "title": "欺诈师"
+  },
+  {
+   "id": "lib_ca6d37850951",
+   "title": "444 究室"
+  },
+  {
+   "id": "lib_cb48ce3aeb75",
+   "title": "村中诡事"
+  },
+  {
+   "id": "lib_cb4c1c8363f6",
+   "title": "牧场"
+  },
+  {
+   "id": "lib_d4546e003ccd",
+   "title": "听妈妈的话"
+  },
+  {
+   "id": "lib_d7bbd5509593",
+   "title": "猜拳"
+  },
+  {
+   "id": "lib_daedaedd8573",
+   "title": "无题 · KONpiGG #155"
+  },
+  {
+   "id": "lib_dda5ae1293bc",
+   "title": "爸爸的遗言"
+  },
+  {
+   "id": "lib_df06f36358ec",
+   "title": "别过来"
+  },
+  {
+   "id": "lib_e6c0007af520",
+   "title": "无题 · KONpiGG #144"
+  },
+  {
+   "id": "lib_e925351d389a",
+   "title": "诺亚方舟规则怪谈"
+  },
+  {
+   "id": "lib_ea01667538b7",
+   "title": "宿舍"
+  },
+  {
+   "id": "lib_f164e08939b3",
+   "title": "五兄弟"
+  },
+  {
+   "id": "lib_f22cbcd4bcf0",
+   "title": "圣诞老人"
+  },
+  {
+   "id": "lib_f7f8399079c1",
+   "title": "双鱼"
+  },
+  {
+   "id": "lib_f96e1a0884ee",
+   "title": "巨人"
+  },
+  {
+   "id": "lib_f98c840ad6f9",
+   "title": "重映"
+  }
+ ],
+ "tail_fixed": [],
+ "dedup_removed": [
+  {
+   "id": "lib_360b03abc069",
+   "keep": "lib_2834c40aee07",
+   "title": "家庭公式"
+  },
+  {
+   "id": "lib_ca6c5df5e1d3",
+   "keep": "lib_aea0dcf7d165",
+   "title": "宿舍规则怪谈"
+  }
+ ]
+}

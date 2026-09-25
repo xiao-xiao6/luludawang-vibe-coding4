@@ -28,6 +28,37 @@
   var VERDICT_TEXT = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
   var LEAD_TEXT = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
 
+  /* ---- 第⑫条：判定词去重 ----
+   * 展示时判定词已被提前做成带特效的标签，这里把正文开头重复的那一遍剥掉。
+   * AI 提示词一个字不改，纯渲染层处理；只剥独立开头的判定词+标点，
+   * 「是不是……」这种连着的句子不会被误伤。 */
+  var QA_BOUND = /^[\s。.!！?？~～、，,：:;；\-—…]/;
+  var QA_WORDS = ["不是", "并非", "非也", "不对", "否", "部分正确", "部分", "有些", "一半", "接近", "差不多", "擦边", "与此无关", "不相关", "没关系", "无关", "跑题", "题外", "超出范围", "是的", "是"];
+  function qaStrip(label, text) {
+    var t = String(text == null ? "" : text).replace(/^\s+/, "");
+    var box = t.match(/^【\s*([^】]{1,10})\s*】\s*/);
+    if (box) t = t.slice(box[0].length);
+    var cands = [];
+    var L = String(label == null ? "" : label).replace(/[。.!！]+$/, "").trim();
+    if (L) cands.push(L);
+    cands = cands.concat(QA_WORDS, ["推理", "汤主"]);
+    for (var i = 0; i < cands.length; i++) {
+      var c = cands[i];
+      if (!c || t.indexOf(c) !== 0) continue;
+      var after = t.slice(c.length);
+      if (after && !QA_BOUND.test(after)) continue;   /* 连着下一个词：不剥 */
+      return after.replace(/^[\s。.!！?？~～、，,：:;；\-—…]+/, "");
+    }
+    return t;
+  }
+
+  /* ---- 第⑩条：展示编号一律用 seat（从上往下数第几个就是 #几），uid 只做内部身份 ---- */
+  function seatOf(s, uid) {
+    var ps = (s && s.players) || [];
+    for (var i = 0; i < ps.length; i++) { if (ps[i].uid === uid) return ps[i].seat || (i + 1); }
+    return uid;
+  }
+
   var R = {
     inRoom: false,
     snap: null,
@@ -36,7 +67,7 @@
     askBusy: false,
     chatSeen: 0,
     chatOpen: true,    /* 默认展开在右下角；点标题才收起 */
-    timerTimer: 0,      /* 顺序提问 60s 倒计时的 setInterval 句柄 */
+    timerTimer: 0,      /* 顺序提问 90s 倒计时的 setInterval 句柄 */
     seenTurn: "",       /* 已经提醒过的轮次，避免每次轮询都再响一次 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
@@ -86,6 +117,19 @@
     } catch (e) { return false; }
   }
 
+  /* 第⑪条：单人局右栏备忘录的显隐 —— 进多人房就藏起来让位给聊天框；
+     只在单人对局屏（screen-game 可见）时挂出来。 */
+  function syncMemoVisibility() {
+    var memo = document.getElementById("solo-memo");
+    if (!memo) return;
+    var live = $("#room-live");
+    var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
+    var game = document.getElementById("screen-game");
+    var wantMemo = !inLive && !!(game && !game.classList.contains("hidden"));
+    memo.classList.toggle("hidden", !wantMemo);
+    document.body.classList.toggle("solo-memo-mode", wantMemo);
+  }
+
   /* 聊天框只在「正在房间内」时出现；建房页、单人界面、汤库、随机模式一律藏起来。
      宽屏进房 → 归位到右栏线索板下面（固定尺寸竖排栈）；
      其余情况 → 回到 body，由 CSS 钉在屏幕右下角。 */
@@ -100,6 +144,7 @@
     wrap.classList.toggle("hidden", !inLive);
     if (!inLive && R.chatOpen) toggleChat(false);
     syncTipPlacement();
+    syncMemoVisibility();
   }
 
   /* 窗口跨越断点时，聊天框在「右栏内」与「右下角悬浮」之间换位 */
@@ -259,17 +304,20 @@
     var box = $("#room-players");
     if (box) {
       box.innerHTML = (s.players || []).map(function (p) {
+        /* 第⑩条：展示编号用 seat（从上往下数第几个），uid 只当内部身份 */
+        var seat = p.seat || p.uid;
         var tags = [];
-        if (p.isHost) tags.push('<span class="room-tag host">房主 #1</span>');
+        if (p.isHost) tags.push('<span class="room-tag host">房主</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
         if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">' + (mine && p.uid === mine.uid ? "该你问" : "该他问") + "</span>");
-        /* 房主可请离任意在座玩家；离线超过 1 分钟的单独标成死座位 */
+        /* 房主可请离 / 转让任意在座玩家；离线超过 1 分钟的单独标成死座位 */
         if (isHostMe && !p.isHost) {
           tags.push('<button type="button" class="btn ghost rp-kick" data-kick="' + p.uid + '">' +
             (p.seatRemovable ? "请离死座位" : "请离") + "</button>");
+          tags.push('<button type="button" class="btn ghost rp-transfer" data-transfer="' + p.uid + '">转让房主</button>');
         }
         return '<div class="room-player' + (p.online ? "" : " off") + (mine && p.uid === mine.uid ? " self" : "") + '">' +
-          '<span class="rp-uid">#' + p.uid + "</span>" +
+          '<span class="rp-uid">#' + seat + "</span>" +
           '<span class="rp-name">' + esc(p.nickname) + "</span>" +
           '<span class="rp-state ' + (p.ready ? "ready" : "wait") + '">' + (p.ready ? "已准备" : "未准备") + "</span>" +
           (p.online ? "" : '<span class="rp-off">离线</span>') +
@@ -295,7 +343,7 @@
           '<div class="room-pz-title">' + esc(s.puzzle.dispTitle || s.puzzle.title) + "</div>" +
           '<p class="room-pz-surface">' + esc(s.puzzle.surface || "") + "</p>" +
           (pzCats ? '<div class="pz-cats">' + pzCats + "</div>" : "") +
-          '<p class="room-pz-meta">线索 ' + (s.clueTotal || 0) + " 条 · 火候 " + (s.puzzle.difficulty || "-") + "</p>";
+          '<p class="room-pz-meta">火候 ' + (s.puzzle.difficulty || "-") + "</p>";
       } else {
         pz.innerHTML = '<p class="empty">房主还没选汤。</p>';
       }
@@ -306,7 +354,7 @@
     if (tb) {
       if (s.phase === "playing" && s.turnUid) {
         var who = (s.players || []).filter(function (p) { return p.uid === s.turnUid; })[0];
-        tb.textContent = "轮到 #" + s.turnUid + " " + (who ? who.nickname : "");
+        tb.textContent = "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + " " + (who ? who.nickname : "");
       } else if (s.phase === "revealed") {
         tb.textContent = "本锅已揭底";
       } else {
@@ -314,41 +362,11 @@
       }
     }
 
-    /* 本锅头部 60s 倒计时：playing 才显示，全桌可见，只展示不改时长 */
+    /* 本锅头部 90s 倒计时：playing 才显示，全桌可见，只展示不改时长 */
     paintTurnTimer(s);
 
-    /* 线索板（共享）：渲染到全局右栏 #clue-list / #clue-badge */
-    var cl = $("#clue-list");
-    var revealed = s.revealed || [];
-    var rClues = s.revealedClues || [];
-    var total = s.clueTotal || 0;
-    var cc = $("#clue-badge");
-    if (cc) cc.textContent = revealed.length + "/" + total;
-    if (cl) {
-      if (!s.puzzleId) {
-        cl.innerHTML = '<p class="empty">房主还没选汤。</p>';
-      } else if (!rClues.length) {
-        cl.innerHTML = '<p class="empty">还没有挖到线索。<br />轮到你时多问「是 / 不是」都能答的问题。</p>';
-      } else {
-        cl.innerHTML = rClues.map(function (c) {
-          return '<div class="room-clue-item ' + esc(c.type || "irr") + '">' +
-            '<span class="rc-n">线索 ' + c.n + "</span>" +
-            '<span class="rc-t">' + esc(LEAD_TEXT[c.type] || "") + "</span>" +
-            '<span class="rc-x">' + esc(c.text) + "</span></div>";
-        }).join("");
-      }
-    }
-
-    /* 汤主的话（右栏下框）：按阶段给一句提示 */
-    var tipEl = $("#tip-text");
-    if (tipEl) {
-      if (s.phase === "lobby") tipEl.textContent = s.puzzleId ? "汤已备好，全员点「我准备好了」就开锅。" : "等房主选一锅汤。";
-      else if (s.phase === "playing") {
-        var isMyTurn = s.turnUid === myUid(s);
-        tipEl.textContent = isMyTurn ? "轮到你了，问一句「是 / 不是」能答的问题。" : "队友正在提问，你可以顺着问答记录想推理。";
-      }
-      else if (s.phase === "revealed") tipEl.textContent = "汤底已揭晓。房主可以点「下一锅」。";
-    }
+    /* 第⑥条：线索板已整体下线；第⑦条：「汤主的话」不再独立成框，
+     文案全部并入上方阶段提示 #room-phase（见 phaseText）。 */
 
     /* 问答记录（共享）：渲染到全局左栏 #qa-log / #qa-count */
     renderQa(s);
@@ -403,12 +421,16 @@
     var rb = $("#btn-room-ready");
     if (rb) {
       var mineReady = mine && mine.ready;
-      var inThisPot = !!(mine && (s.order || []).indexOf(mine.uid) !== -1);
+      var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
       rb.classList.toggle("on", !!mineReady);
       if (s.phase === "playing" && inThisPot) {
         rb.textContent = "撤回准备（回大堂）";
         rb.disabled = false;
-      } else if (s.phase === "playing" || s.phase === "revealed") {
+      } else if (s.phase === "playing") {
+        /* 第⑧条：中途进来的人点一下就直接排进本锅队尾，不打断别人 */
+        rb.textContent = (mine && mine.ready) ? "已排进本锅（等轮到你）" : "加入本锅提问";
+        rb.disabled = false;
+      } else if (s.phase === "revealed") {
         rb.textContent = mineReady ? "已为下一锅准备" : "为下一锅准备";
         rb.disabled = false;
       } else {
@@ -474,13 +496,14 @@
   function phaseText(s, mine) {
     if (s.phase === "lobby") {
       var ready = (s.players || []).filter(function (p) { return p.ready; }).length;
-      if (!s.puzzleId) return "房主还没选汤。选好后大家点「我准备好了」。";
-      return "已准备 " + ready + "/" + (s.players || []).length + "，全员准备后自动开局。";
+      if (!s.puzzleId) return "等房主选一锅汤。选好后大家点「我准备好了」。";
+      return "汤已备好，已准备 " + ready + "/" + (s.players || []).length + "，全员准备后自动开锅。";
     }
     if (s.phase === "playing") {
       var who = (s.players || []).filter(function (p) { return p.uid === s.turnUid; })[0];
       var you = s.turnUid === myUid(s);
-      return (you ? "轮到你提问了。" : "轮到 #" + s.turnUid + (who ? " " + who.nickname : "") + " 提问。") +
+      /* 第⑦条：原「汤主的话」文案已合并进这里 */
+      return (you ? "轮到你提问了，问一句「是 / 不是」能答的问题。" : "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + (who ? " " + who.nickname : "") + " 提问，你可以顺着问答记录想推理。") +
         "嫌慢可以随时猜汤底。";
     }
     if (s.phase === "revealed") {
@@ -498,32 +521,30 @@
     var asks = log.filter(function (x) { return x.kind === "ask"; });
     if (badge) badge.textContent = asks.length + " 问";
     if (!box) return;
+    /* 第④条：问答记录只留真正的「问 / 答 / 推理」，
+       离开 / 撤回 / 超时 / 转让这类系统事件全部只进「实时对话」 */
+    var qaOnly = log.filter(function (x) { return x.kind === "ask" || x.kind === "guess"; });
     /* 只在新内容真的到了才重建 DOM，避免每 1.5s 无意义重排 */
-    var sig = log.length + "|" + (log.length ? log[log.length - 1].at : 0) + "|" + (s.chatSeq || 0);
+    var sig = qaOnly.length + "|" + (qaOnly.length ? qaOnly[qaOnly.length - 1].at : 0) + "|" + (s.chatSeq || 0);
     if (box.__sig === sig) { ensureQaScroll(); return; }
     box.__sig = sig;
-    if (!log.length) {
+    if (!qaOnly.length) {
       box.innerHTML = '<p class="empty">还没有人提问。</p>';
       return;
     }
-    box.innerHTML = log.map(function (x) {
+    box.innerHTML = qaOnly.map(function (x) {
       if (x.kind === "ask") {
+        var lead1 = LEAD_TEXT[x.verdict] || "答";
         return '<div class="qa-item ' + esc(x.verdict || "") + '">' +
           '<div class="qa-q"><span class="qa-k">' + esc(x.nickname || ("#" + x.uid)) + "</span>" + esc(x.question) + "</div>" +
-          '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
+          '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(lead1) + "</span>" + esc(qaStrip(lead1, x.reply)) + "</div>" +
           "</div>";
       }
       if (x.kind === "guess") {
         return '<div class="qa-item guess ' + esc(x.level) + '">' +
           '<div class="qa-q"><span class="qa-k">推理</span>' + esc(x.nickname || ("#" + x.uid)) + "：" + esc(x.text) + "</div>" +
-          '<div class="qa-a"><span class="qa-k">汤主</span>' + esc(x.reply || "") + "</div>" +
+          '<div class="qa-a"><span class="qa-k">汤主</span>' + esc(qaStrip("", x.reply)) + "</div>" +
           "</div>";
-      }
-      if (x.kind === "timeout") {
-        return '<div class="qa-item timeout"><div class="qa-a">#' + x.uid + " 超时，已跳过</div></div>";
-      }
-      if (x.kind === "sys") {
-        return '<div class="qa-item sys"><div class="qa-a">' + esc(x.text) + "</div></div>";
       }
       return "";
     }).join("");
@@ -619,7 +640,8 @@
     var box = $("#room-feed");
     if (!box) return;
     var log = (s.qaLog || []).filter(function (x) {
-      return x.kind === "ask" || x.kind === "guess" || x.kind === "sys";
+      /* 第④条：实时对话才是系统事件与超时的家，这里 ask/guess/sys/timeout 全要 */
+      return x.kind === "ask" || x.kind === "guess" || x.kind === "sys" || x.kind === "timeout";
     });
     var cnt = $("#room-feed-count");
     if (cnt) cnt.textContent = (s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length + " 问";
@@ -640,14 +662,18 @@
           '<span class="fb-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
           '<span class="fb-q">' + esc(x.question) + "</span>" +
           '<span class="fb-stamp ' + esc(x.verdict) + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" +
-          '<span class="fb-a">' + esc(x.reply || "") + "</span></div>";
+          '<span class="fb-a">' + esc(qaStrip(LEAD_TEXT[x.verdict] || "答", x.reply)) + "</span></div>";
       }
       if (x.kind === "guess") {
         return '<div class="feed-row guess">' +
           '<span class="fb-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
           '<span class="fb-q">推理：' + esc(x.text) + "</span>" +
           '<span class="fb-stamp ' + esc(x.level) + '">' + esc(x.level === "solved" ? "说破" : "判") + "</span>" +
-          '<span class="fb-a">' + esc(x.reply || "") + "</span></div>";
+          '<span class="fb-a">' + esc(qaStrip(x.level === "solved" ? "说破" : "", x.reply)) + "</span></div>";
+      }
+      if (x.kind === "timeout") {
+        return '<div class="feed-row timeout sys"><span class="fb-a">' +
+          esc(x.reply || ((x.nickname || ("#" + x.uid)) + " 超时，已跳过")) + "</span></div>";
       }
       return '<div class="feed-row sys"><span class="fb-a">' + esc(x.text) + "</span></div>";
     }).join("") +
@@ -750,7 +776,7 @@
     if (!el) return;
     if (R.timerTimer) { clearInterval(R.timerTimer); R.timerTimer = 0; }
     var show = !!(s && s.phase === "playing" && s.turnDeadline);
-    if (!show) { el.classList.add("hidden"); el.textContent = "⏳ 60s"; return; }
+    if (!show) { el.classList.add("hidden"); el.textContent = "⏳ 90s"; return; }
     el.classList.remove("hidden");
     var tick = function () {
       var left = Math.ceil(((s.turnDeadline || 0) - Date.now()) / 1000);
@@ -962,18 +988,17 @@
     } else {
       body.innerHTML = log.map(function (x) {
         if (x.kind === "ask") {
+          var lead2 = LEAD_TEXT[x.verdict] || "答";
           return '<div class="qa-item ' + esc(x.verdict || "") + '">' +
             '<div class="qa-q"><span class="qa-k">' + esc(x.nickname || ("#" + x.uid)) + "</span>" + esc(x.question) + "</div>" +
-            '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(LEAD_TEXT[x.verdict] || "答") + "</span>" + esc(x.reply) + "</div>" +
+            '<div class="qa-a"><span class="qa-k verdict ' + esc(x.verdict || "") + '">' + esc(lead2) + "</span>" + esc(qaStrip(lead2, x.reply)) + "</div>" +
             "</div>";
         }
         if (x.kind === "guess") {
           return '<div class="qa-item guess ' + esc(x.level) + '">' +
             '<div class="qa-q"><span class="qa-k">推理</span>' + esc(x.nickname || ("#" + x.uid)) + "：" + esc(x.text) + "</div>" +
-            '<div class="qa-a"><span class="qa-k">汤主</span>' + esc(x.reply || "") + "</div></div>";
+            '<div class="qa-a"><span class="qa-k">汤主</span>' + esc(qaStrip("", x.reply)) + "</div></div>";
         }
-        if (x.kind === "timeout") return '<div class="qa-item timeout"><div class="qa-a">#' + x.uid + " 超时，已跳过</div></div>";
-        if (x.kind === "sys") return '<div class="qa-item sys"><div class="qa-a">' + esc(x.text) + "</div></div>";
         return "";
       }).join("");
     }
@@ -1292,7 +1317,7 @@
     var btn = $("#btn-room-rand");
     if (btn) btn.disabled = true;
     act("choose", { puzzleId: pick.id }).then(function () {
-      R.toast("随机一题：" + (pick.dispTitle || pick.title || "无题"));
+      R.toast("随机一锅：" + (pick.dispTitle || pick.title || "无题"));
     }).catch(function (e) {
       R.toast("随机选汤失败：" + e.message);
     }).then(function () {
@@ -1415,6 +1440,31 @@
     host.querySelector("#unlock-cancel").addEventListener("click", close);
     input.addEventListener("keydown", function (ev) { if (ev.key === "Enter") submit(); });
     setTimeout(function () { input.focus(); }, 30);
+  }
+
+  /* 第⑨条：房主转让。两段式确认，防手滑点错人 */
+  var pendingTransfer = "";
+  function doTransfer(uid) {
+    var s = R.snap || {};
+    var target = (s.players || []).filter(function (p) { return p.uid === uid; })[0];
+    if (!target) return;
+    var key = String(uid);
+    if (pendingTransfer !== key) {
+      pendingTransfer = key;
+      R.toast("再点一次「转让房主」，把房主交给 " + target.nickname);
+      setTimeout(function () { if (pendingTransfer === key) pendingTransfer = ""; }, 4000);
+      return;
+    }
+    pendingTransfer = "";
+    act("transfer", { uid: uid }).then(function () {
+      R.toast("房主已转让给 " + target.nickname);
+      startWatch();
+    }).catch(function (e) {
+      var m = e.message;
+      if (m === "ONLY_HOST") R.toast("只有房主能转让");
+      else if (m === "ALREADY_HOST") R.toast("TA 已经是房主了");
+      else R.toast("转让失败：" + m);
+    });
   }
 
   /* 房主请离死座位（多②） */
@@ -1556,9 +1606,10 @@
     /* 玩家列表里的「请离死座位」是动态生成的，用事件委托接 */
     var pb = $("#room-players");
     if (pb) pb.addEventListener("click", function (ev) {
-      var b = ev.target.closest ? ev.target.closest("[data-kick]") : null;
+      var b = ev.target.closest ? ev.target.closest("[data-kick],[data-transfer]") : null;
       if (!b) return;
       ev.preventDefault();
+      if (b.hasAttribute("data-transfer")) { doTransfer(Number(b.getAttribute("data-transfer"))); return; }
       doKick(Number(b.getAttribute("data-kick")));
     });
 

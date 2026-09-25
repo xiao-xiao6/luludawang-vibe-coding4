@@ -5,11 +5,11 @@
 **海龟汤推理小馆 · 一问一答熬出真相**
 
 一个可单人离线玩、也可多人联机的「海龟汤（汤面猜汤底）」推理小游戏。
-100 道手工打磨的精品汤 + 988 道全网汤面大全，配 AI 汤主、程序化氛围音乐、雨夜特效，以及 Cloudflare Durable Objects 房间。
+100 道手工打磨的精品汤 + 872 道全网汤面大全，配 AI 汤主、程序化氛围音乐、雨夜特效，以及 Cloudflare Durable Objects 房间。
 
 [![纯静态](https://img.shields.io/badge/构建-零依赖-success)](#技术栈)
 [![PWA](https://img.shields.io/badge/PWA-可离线安装-blue)](#pwa-与离线)
-[![题库](https://img.shields.io/badge/题库-100_精品_%2B_988_汤库-orange)](#两套题库)
+[![题库](https://img.shields.io/badge/题库-100_精品_%2B_872_汤库-orange)](#两套题库)
 [![联机](https://img.shields.io/badge/联机-Cloudflare_Workers-informational)](#多人房间)
 
 **[在线试玩](https://xiao-xiao6.github.io/luludawang-vibe-coding4/)**
@@ -96,7 +96,7 @@
 
 | | 精品层 | 汤库 |
 |---|---|---|
-| 数量 | 100 道 | 988 道，全部带汤底 |
+| 数量 | 100 道 | 872 道，全部带汤底 |
 | 玩法 | 关键词汤主即可开问 | 建议打开 AI 汤主 |
 | 位置 | `js/data.js` + `js/data-more.js` | `js/library.public.js` |
 
@@ -139,7 +139,7 @@
 | 图形 | Canvas 2D 雨幕 / 闪电 / 粒子 |
 | 音频 | Web Audio API 实时合成，无音频文件 |
 | 存储 | `localStorage` |
-| 离线 | Service Worker（缓存名 `deepsea-soup-v11`）+ Web App Manifest |
+| 离线 | Service Worker（缓存名 `deepsea-soup-v12`）+ Web App Manifest |
 | 联机 | Cloudflare Workers + Durable Objects + SQLite |
 
 脚本顺序：`data.js` → `library.public.js` → `engine.js` → `ai.js` → `audio.js` → `fx.js` → `net.js` → `room-ui.js` → `app.js`。精品题后 80 道在 `data-more.js`，首屏后再并入。
@@ -156,7 +156,7 @@
 ├── manifest.webmanifest
 ├── js/
 │   ├── data.js / data-more.js    # 精品 100
-│   ├── library.public.js         # 汤库 988（含汤底，勿手改）
+│   ├── library.public.js         # 汤库 872（含汤底，勿手改；2026-09-25 清洗过污染/空格/重复）
 │   ├── engine.js                 # 单人判定
 │   ├── ai.js                     # 浏览器侧 AI 汤主
 │   ├── audio.js / fx.js

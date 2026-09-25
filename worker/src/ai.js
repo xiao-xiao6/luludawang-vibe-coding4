@@ -7,6 +7,10 @@
 
 const LEAD_OF = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
 
+/* 思考链出口硬过滤：命中这些痕迹说明模型把内部分析吐出来了，整段丢弃，绝不展示给玩家。
+   与前端 js/ai.js 的 REASON_TAIL 保持同一口径。 */
+export const REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示)|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说)/;
+
 function listText(arr, cap) {
   var a = (arr || []).slice(0, cap || 40);
   return a.length ? a.join(" / ") : "（无）";
@@ -51,7 +55,9 @@ export function buildSystemPrompt(puzzle) {
     "8. 认领了线索时，verdict 必须和那一条的判定完全一致，reply 用你自己的话重说，不要照抄原话。",
     "9. 只输出一个 JSON 对象，不要代码块、不要多余文字：",
     '   {"verdict":"yes","reply":"是。他确实在那天去过海边。","clue":3}',
-    "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。"
+    "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。",
+    "10. 玩家只能看到汤面，所以他是基于汤面进行猜测的。例如玩家说「他喝的不是海龟汤」，是在问汤面里他喝的是不是海龟汤——即使汤底里他曾经喝过别的汤，你也应该判定汤面里那碗。",
+    "11. 思考、分析、逐条排除、「让我想想」这类内部草稿，无论出现在 JSON 内外、任何字段里，都绝对禁止输出；输出前必须全部删干净，只留最终判定和一句短答。"
   ].join("\n");
 }
 
@@ -108,7 +114,7 @@ const JUDGE_SYS = [
   "【铁律】",
   "1. 只输出一个 JSON 对象，不要代码块、不要多余文字。",
   "2. level 只能是 solved / close / vague / no。",
-  "3. note 不超过 40 字，绝不能把汤底原文写出来。"
+  "3. note 不超过 40 字，绝不能把汤底原文写出来，也不要解释你是怎么判断的。"
 ].join("\n");
 
 export function buildJudgeSystem(puzzle) {
@@ -220,8 +226,15 @@ export function looseAnswer(text) {
     else if (t.indexOf("是的") !== -1) verdict = "yes";
   }
   if (!verdict) return null;
-  var rest = t.replace(/^(是的?|不是|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "").replace(/\s+/g, " ").trim();
-  return { verdict: verdict, reply: rest.slice(0, 110), clue: 0 };
+  /* 判定词之前的整段思考直接扔掉，之后也只取第一短句；带分析痕迹则只回标准短句 */
+  var lw = LEAD_OF[verdict] || "";
+  var vi = lw ? t.indexOf(lw) : -1;
+  if (vi > 0) t = t.slice(vi);
+  var rest = t.replace(/^(是的?|不是的?|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "").replace(/\s+/g, " ").trim();
+  var mF = rest.match(/^[^。！？；]{0,28}/);
+  rest = (mF ? mF[0] : "").replace(/\s+$/, "");
+  if (!rest || REASON_TAIL.test(rest)) return { verdict: verdict, reply: lw + "。", clue: 0 };
+  return { verdict: verdict, reply: lw + "。" + rest, clue: 0 };
 }
 
 /* 猜底判定的明文兜底：从整句里认 solved / close / vague，认不出就按 no 处理。 */

@@ -194,7 +194,7 @@
 
   /* 库层没有预设线索：只有 AI 汤主能对战 */
   function setAskEnabled(on) {
-    ["#q-input", "#btn-ask", "#btn-hint", "#btn-ai-quick", "#btn-guess"].forEach(function (s) {
+    ["#q-input", "#btn-ask", "#btn-guess"].forEach(function (s) {
       var el = $(s);
       if (el) el.disabled = !on;
     });
@@ -532,32 +532,36 @@
     /* 单人局也挂上自动慢滚，和多人房同一套：不能手动滑，滚到底自己回顶 */
     if (root.SoupRoom && root.SoupRoom.ensureQaScroll) root.SoupRoom.ensureQaScroll();
     var s = state;
-    if (isLib(p)) {
-      /* 库层没有预设线索板：只统计提问数与提示数 */
-      set("#s-q", s.qCount);
-      set("#s-clue", "—");
-      set("#s-hint", s.hintsUsed);
-      set("#s-pct", "—");
-      var lb = $("#s-bar");
-      if (lb) lb.style.width = "0%";
-      var lbd = $("#clue-badge");
-      if (lbd) lbd.textContent = "—";
-      return;
-    }
+    /* 第⑥条：线索 / 提示 / 探索度统计已全部下线，只留提问计数 */
     set("#s-q", s.qCount);
-    set("#s-clue", s.revealed.length + "/" + p.clues.length);
-    set("#s-hint", s.hintsUsed);
-    var pct = E.exploration(p, s.revealed.length);
-    set("#s-pct", pct + "%");
-    var bar = $("#s-bar");
-    if (bar) bar.style.width = pct + "%";
-    var badge = $("#clue-badge");
-    if (badge) badge.textContent = s.revealed.length + "/" + p.clues.length;
   }
 
   function set(sel, val) {
     var el = $(sel);
     if (el) el.textContent = val;
+  }
+
+  /* ---- 第⑫条：判定词去重（与 room-ui.js 的 qaStrip 同一口径） ----
+   * 带特效的判定标签已经提在行首，正文开头重复的那一遍判定词在渲染前剥掉；
+   * 只剥独立开头的判定词+标点，不改动注入给 AI 的任何提示词。 */
+  var QA_BOUND = /^[\s。.!！?？~～、，,：:;；\-—…]/;
+  var QA_WORDS = ["不是", "并非", "非也", "不对", "否", "部分正确", "部分", "有些", "一半", "接近", "差不多", "擦边", "与此无关", "不相关", "没关系", "无关", "跑题", "题外", "超出范围", "是的", "是"];
+  function qaStrip(label, text) {
+    var t = String(text == null ? "" : text).replace(/^\s+/, "");
+    var box = t.match(/^【\s*([^】]{1,10})\s*】\s*/);
+    if (box) t = t.slice(box[0].length);
+    var cands = [];
+    var L = String(label == null ? "" : label).replace(/[。.!！]+$/, "").trim();
+    if (L) cands.push(L);
+    cands = cands.concat(QA_WORDS, ["推理", "汤主"]);
+    for (var i = 0; i < cands.length; i++) {
+      var c = cands[i];
+      if (!c || t.indexOf(c) !== 0) continue;
+      var after = t.slice(c.length);
+      if (after && !QA_BOUND.test(after)) continue;
+      return after.replace(/^[\s。.!！?？~～、，,：:;；\-—…]+/, "");
+    }
+    return t;
   }
 
   function addLine(side, tone, html, meta) {
@@ -613,6 +617,9 @@
       gs.style.opacity = "1";
       gs.style.visibility = "visible";
       setScene("game");
+      /* 第⑪条：进单人对局后刷新右栏备忘录显隐
+         （leaveRoomScreen 时 screen-game 还没显示，那个时机太早） */
+      if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
 
       if (lib) {
         /* 库层：标题用 dispTitle（永远非空），来源代替大类标签 */
@@ -683,11 +690,8 @@
     });
   }
 
-  function renderTip(text) {
-    var el = $("#tip-text");
-    if (el) el.textContent = text;
-    var card = $("#tip-card");
-    if (card) card.classList.remove("hidden");
+  function renderTip() {
+    /* 第⑦条：「汤主的话」独立框已下线，文案并入对话流与状态提示；保留空壳防旧调用 */
   }
 
   function renderClues() {
@@ -794,12 +798,12 @@
 
   /* 关键词汤主的原始答话：没配 AI 时走这里，AI 掉线时也回退到这里 */
   function renderKeywordAnswer(res, alreadyBooked) {
+    /* 第⑥条：线索板下线——clue / again 只按判定上屏，不再入账弹提示 */
     if (res.kind === "clue") {
       var tone = res.verdict;
       var line = addLine("host", tone,
         (res.flavor ? esc(res.flavor) + "<br />" : "") +
-        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "线索") + "</b> " + esc(res.reply),
-        "线索 " + (res.index + 1) + " +1");
+        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "答") + "</b> " + esc(qaStrip(VERDICT_TEXT[tone], res.reply)));
       sfx(tone === "partial" ? "partial" : tone);
       if (FX && line) {
         FX.burstAt(line, {
@@ -809,12 +813,8 @@
               : ["#e8c45c", "#ffe9c4", "#e2a44f"]
         });
       }
-      if (!alreadyBooked) {
-        renderClues();
-        toast("挖到新线索：" + (E.stripLead(res.clue.text).slice(0, 14)) + "…");
-      }
     } else if (res.kind === "again") {
-      addLine("host", "sys", esc("这条线索你已经挖到过了：") + esc(res.reply));
+      addLine("host", "sys", esc("这个问题刚才问过啦：") + esc(qaStrip("", res.reply)));
     } else if (res.kind === "meta") {
       addLine("host", "sys", esc(res.reply));
       sfx("irr");
@@ -825,7 +825,7 @@
     } else {
       var l2 = addLine("host", "irr",
         (res.flavor ? esc(res.flavor) + "<br />" : "") +
-        '<b class="verdict irr">与此无关</b> ' + esc(E.stripLead(res.reply)));
+        '<b class="verdict irr">与此无关</b> ' + esc(qaStrip("与此无关", E.stripLead(res.reply))));
       sfx("irr");
       if (FX && l2) FX.burstAt(l2, { count: 8, power: 0.5, colors: ["#8b8177", "#6f6459"] });
     }
@@ -916,16 +916,9 @@
          导致左栏一直不动，直到猜底/换汤等别的动作才把攒下的问答一股脑吐出来。 */
       renderQaLog();
       var tone = out.verdict;
-      var got = claimClue(p, out.clue);
-      /* 模型没认领（clue=0）、且判定与关键词一致时，用关键词结果保底入账 */
-      if (!got && out.clue === 0 && res.kind === "clue" && tone === res.verdict && state.revealed.indexOf(res.index) === -1) {
-        pushReveal(res);
-        renderClues();
-        renderStats();
-        toast("挖到新线索：" + E.stripLead(res.clue.text).slice(0, 14) + "…");
-      }
+      /* 第⑥条：线索入账与弹.toast 已全部下线，这里只上屏判定 */
       var el = addLine("host", tone,
-        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "线索") + "</b> " + esc(E.stripLead(out.reply)),
+        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "答") + "</b> " + esc(qaStrip(VERDICT_TEXT[tone], E.stripLead(out.reply))),
         "AI · " + esc(out.model || ""));
       sfx(tone === "partial" ? "partial" : tone);
       if (FX && el) {
@@ -1150,20 +1143,36 @@
     if (barLink) barLink.addEventListener("click", openAiModal);
 
     var quick = $("#btn-ai-quick");
-    if (quick) quick.addEventListener("click", askAiHint);
+    void quick;   /* 第⑥条：「问问 AI」已随提示机制下线 */
   }
 
-  function useHint() {
-    var p = E.getPuzzle(state.pid);
-    if (!p || state.done) return;
-    if (isLib(p)) { toast("汤库这一锅没有预设提示，问问 AI 汤主吧"); return; }
-    if (state.hintsUsed >= p.hints.length) { toast("提示已经全给你了，接下来靠自己啦"); return; }
-    var text = p.hints[state.hintsUsed];
-    state.hintsUsed++;
-    addLine("host", "hint", "<b>提示 " + state.hintsUsed + "</b> · " + esc(text), "提示 -1 星");
-    renderStats();
-    saveSession();
-    sfx("hint");
+  /* 第⑥条：线索与提示机制已整体下线，useHint 只留空壳防旧调用 */
+  function useHint() { /* no-op */ }
+
+  /* 第⑪条：单人右栏备忘录——尺寸/位置完全沿用房间聊天框，只是换了个名字。
+     内容存在 localStorage，刷新不丢；进多人房时由 room-ui 藏起来让位给聊天框。 */
+  function initSoloMemo() {
+    var box = $("#solo-memo");
+    var ta = $("#solo-memo-text");
+    if (!box || !ta) return;
+    var KEY = "soup.memo.v1";
+    try {
+      var saved = localStorage.getItem(KEY);
+      if (saved) ta.value = saved;
+    } catch (e) { /* 隐私模式 */ }
+    var tm = 0;
+    ta.addEventListener("input", function () {
+      clearTimeout(tm);
+      tm = setTimeout(function () {
+        try { localStorage.setItem(KEY, ta.value); } catch (e) { /* 忽略 */ }
+      }, 400);
+    });
+    var tg = $("#btn-solo-memo-toggle");
+    if (tg) tg.addEventListener("click", function () {
+      var open = !box.classList.contains("collapsed");
+      box.classList.toggle("collapsed", open);
+      tg.setAttribute("aria-expanded", open ? "false" : "true");
+    });
   }
 
   /* ---------------- 猜汤底 ---------------- */
@@ -1242,7 +1251,7 @@
         state.history.push({ q: "【推理】" + text, a: out.note });
         renderQaLog();   /* 单①：推理入账后同样立刻刷新左栏 */
         if (out.level === "solved") {
-          var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(out.note), "AI 判定");
+          var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(qaStrip("对了", out.note)), "AI 判定");
           sfx("win");
           if (FX) {
             if (ln) FX.burstAt(ln, { count: 40, power: 1.3, colors: ["#e2a44f", "#f6cf90", "#68cf9a", "#ffe9c4"] });
@@ -1250,7 +1259,7 @@
           }
           setTimeout(function () { finish(); }, 520);
         } else {
-          addLine("host", out.level === "close" ? "partial" : "irr", esc(out.note), "AI 判定");
+          addLine("host", out.level === "close" ? "partial" : "irr", esc(qaStrip(out.level === "close" ? "部分正确" : "", out.note)), "AI 判定");
           sfx(out.level === "close" ? "partial" : "lose");
           renderStats();
         }
@@ -1306,7 +1315,7 @@
     }
 
     set("#end-stars", new Array(st + 1).join("★") + new Array(4 - st).join("☆"));
-    set("#end-note", "提问 " + state.qCount + " 次 · 提示 " + state.hintsUsed + " 次 —— " + E.starNote(st));
+    set("#end-note", "提问 " + state.qCount + " 次 · " + E.starNote(st));
 
     /* 汤底：库层的汤底只在服务端，凭「已揭晓的房号」取；精品层仍走本地。
        取不到（掉线 / 未揭晓）就老实说不显示，绝不瞎编。 */
@@ -1832,8 +1841,8 @@
       if (ev.key === "Enter" && !ev.isComposing) { ev.preventDefault(); submitQuestion(); }
     });
 
-    var hintBtn = $("#btn-hint");
-    if (hintBtn) hintBtn.addEventListener("click", useHint);
+    /* 第⑥条：提示 / 问问 AI 已下线；第⑪条：右栏换成单人备忘录 */
+    initSoloMemo();
 
     bindAiModal();
 

@@ -26,6 +26,7 @@ import {
   pickJson,
   looseAnswer,
   looseJudge,
+  REASON_TAIL,
   callModel,
   isLocalOnlyUrl,
   LOCAL_URL_HINT,
@@ -85,7 +86,7 @@ function aiErrorNote(e) {
 
 /* 模型不守格式时带上一句更强的重申再要一次；也接受明文判定 */
 const RETRY_HINT =
-  "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头。";
+  "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头。严禁输出思考过程、分析、举例或任何理由，也不要提到汤底。";
 
 function json(data, status, cors) {
   return new Response(JSON.stringify(data), {
@@ -104,6 +105,8 @@ export class Room {
     this.state = null;
     /* 写盘刻度：只有状态真的变了才落盘 */
     this._dirty = false;
+    /* DO Alarm 兜底：记住已预约的触发时刻，避免每次请求都重写 alarm */
+    this._alarmKey = undefined;
   }
 
   /* ---------------- 持久化 ---------------- */
@@ -138,6 +141,7 @@ export class Room {
       hostUid: 1,
       nextUid: 1,
       order: [],                   /* 开局后随机固定的提问顺序（uid 数组） */
+      potUids: [],                 /* 本锅开局阵容：区分首发与中途加入（第⑧条） */
       turnIdx: 0,
       turnDeadline: 0,
       puzzleId: null,
@@ -170,7 +174,7 @@ export class Room {
     if (!nick) return { error: "NICKNAME_REQUIRED" };
     if (nick.length > NICK_MAX) return { error: "NICKNAME_TOO_LONG" };
 
-    /* 同一 internalId 重复进房 → 视为重连，不重复占位 */
+    /* 建房 / 重进：同一 internalId 重复进房 → 视为重连，不重复占位 */
     const exist = s.players.filter((p) => p.internalId === id)[0];
     if (exist) {
       exist.online = true;
@@ -204,8 +208,19 @@ export class Room {
       lastSeen: now()
     };
     s.players.push(p);
+    /* 第⑩条：座位从上往下按 uid 稳定排序，重排后席位号 = 数组下标 + 1 */
+    s.players.sort((a, b) => a.uid - b.uid);
     this.bump();
     return { player: p };
+  }
+
+  /* 系统事件（第④条）：离开 / 接管房主 / 请离 / 撤回准备 / 加入队列
+     这类与汤无关的文案一律 feed:true，只上「实时对话」，不污染问答记录 */
+  sysEvent(text, extra) {
+    const s = this.state;
+    s.qaLog.push(Object.assign({ kind: "sys", feed: true, text: text, at: now() }, extra || {}));
+    if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
+    this.bump();
   }
 
   /* 把一个人从房间里拿掉，并修正轮次。返回被请离的人。 */
@@ -215,6 +230,7 @@ export class Room {
     const wasTurn = s.order.length && s.order[s.turnIdx] === target.uid;
     s.players = s.players.filter((x) => x.uid !== target.uid);
     s.order = s.order.filter((u) => u !== target.uid);
+    s.potUids = (s.potUids || []).filter((u) => u !== target.uid);
     if (s.guessCooldowns) delete s.guessCooldowns[target.uid];
     if (!s.order.length) {
       s.turnIdx = 0;
@@ -240,14 +256,9 @@ export class Room {
     if (target.isHost) return { error: "CANNOT_KICK_HOST" };
     const idle = now() - (target.lastSeen || 0) >= DEAD_SEAT_MS;
     this.removePlayer(s, target.uid);
-    s.qaLog.push({
-      kind: "sys",
-      text: idle
-        ? target.nickname + " 的座位被房主收回了（离线太久）。"
-        : target.nickname + " 被房主请离了房间。",
-      at: now()
-    });
-    this.bump();
+    this.sysEvent(idle
+      ? target.nickname + " 的座位被房主收回了（离线太久）。"
+      : target.nickname + " 被房主请离了房间。");
     return { ok: true, uid: target.uid };
   }
 
@@ -282,11 +293,10 @@ export class Room {
       const next = s.players.slice().sort((a, b) => a.uid - b.uid)[0];
       s.players.forEach((x) => { x.isHost = x.uid === next.uid; });
       s.hostUid = next.uid;
-      s.qaLog.push({ kind: "sys", text: "房主离开了，#" + next.uid + " " + next.nickname + " 接过房主。", at: now() });
+      this.sysEvent("房主离开了，#" + next.uid + " " + next.nickname + " 接过房主。");
     } else {
-      s.qaLog.push({ kind: "sys", text: p.nickname + " 离开了房间。", at: now() });
+      this.sysEvent(p.nickname + " 离开了房间。");
     }
-    this.bump();
     return { ok: true };
   }
 
@@ -421,7 +431,28 @@ export class Room {
       else if (["yes","no","partial","irr"].indexOf(rawV) !== -1) verdict = rawV;
       /* reply 兜底：模型没给 reply 时按判定给一句标准话，绝不上屏 undefined */
       var reply = String(j.reply || j.text || "").slice(0, 120).trim();
-      if (!reply) reply = { yes: "是。", no: "不是。", partial: "部分正确。", irr: "与此无关。" }[verdict];
+      /* 思考链出口硬过滤：带分析痕迹的整段丢弃，只保留判定词开头的第一短句，绝不把推理原文上屏 */
+      var LEAD_OF2 = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
+      /* 开头判定词与 verdict 冲突时以开头为准（与前端 guardAnswer 同口径），先剥掉开头 */
+      var mLead = reply.match(/^(与此无关|部分正确|不是|是)([。！？：；、\s]|$)/);
+      if (mLead) {
+        var vk = { "与此无关": "irr", "部分正确": "partial", "不是": "no", "是": "yes" }[mLead[1]];
+        if (vk) verdict = vk;
+        reply = reply.slice(mLead[1].length).replace(/^[。！？：；、\s]+/, "");
+      } else {
+        var lw0 = LEAD_OF2[verdict];
+        var rvi = reply.indexOf(lw0);
+        if (rvi > 0) reply = reply.slice(rvi + lw0.length).replace(/^[。！？：；、\s]+/, "");
+      }
+      /* 思考链硬过滤：带分析痕迹的整段丢弃（不保留第一句，防「根据汤底…」开头句泄漏） */
+      if (REASON_TAIL.test(reply)) reply = "";
+      if (reply && (reply.match(/[。！？]/g) || []).length >= 3) {
+        var mF3 = reply.match(/^[^。！？；]{0,28}/);
+        reply = mF3 ? mF3[0].replace(/\s+$/, "") : "";
+      }
+      var lwFinal = LEAD_OF2[verdict];
+      if (!reply) reply = lwFinal + "。";
+      else reply = lwFinal + "。" + reply.slice(0, 60);
       let clueNo = Number(j.clue) || 0;
       if (clueNo < 0 || clueNo > (puzzle.clues || []).length) clueNo = 0;
       return { verdict, reply, clue: clueNo };
@@ -452,7 +483,13 @@ export class Room {
       else if (/^vague|^模糊|^太短/.test(rawL)) level = "vague";
       else if (["solved","close","vague","no"].indexOf(rawL) !== -1) level = rawL;
       var note = String(j.note || j.reply || "").slice(0, 120).trim();
-      if (!note) note = { solved: "说破了。", close: "已经很近了。", vague: "再讲清楚一点。", no: "方向还不对。" }[level];
+      /* 短评同样过思考链硬过滤：带分析痕迹整段丢弃，多句只留第一短句，全脏回标准话术 */
+      if (note && REASON_TAIL.test(note)) note = "";
+      if (note && (note.match(/[。！？]/g) || []).length >= 3) {
+        var mFn = note.match(/^[^。！？；]{0,40}/);
+        note = mFn ? mFn[0].replace(/\s+$/, "") : "";
+      }
+      if (!note || REASON_TAIL.test(note)) note = { solved: "说破了。", close: "已经很近了。", vague: "再讲清楚一点。", no: "方向还不对。" }[level];
       return { level, note };
     } catch (e) {
       return { error: aiErrorCode(e), note: aiErrorNote(e) };
@@ -466,20 +503,42 @@ export class Room {
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
 
-    /* 已开局后点「取消准备」→ 整桌掀回大堂，全员重新准备（公平不坑人） */
+    /* 开局阵容里的人（potUids）点「取消准备」→ 整桌掀回大堂（保留原规则）；
+       中途加入的人（第⑧条）退出只把自己移出队列，不打断任何人、不掀桌。 */
     if (s.phase === "playing" && !ready) {
-      s.phase = "lobby";
-      s.order = [];
-      s.turnIdx = 0;
-      s.turnDeadline = 0;
-      s.qaLog.push({ kind: "sys", text: p.nickname + " 撤回了准备，本锅回到大堂。", at: now() });
-      s.players.forEach((x) => { x.ready = false; });
+      if (!s.potUids || s.potUids.indexOf(p.uid) !== -1) {
+        s.phase = "lobby";
+        s.order = [];
+        s.turnIdx = 0;
+        s.turnDeadline = 0;
+        s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 撤回了准备，本锅回到大堂。", at: now() });
+        s.players.forEach((x) => { x.ready = false; });
+        this.bump();
+        return { ok: true, phase: s.phase };
+      }
+      const wasTurn = s.order.length > 0 && s.order[s.turnIdx] === p.uid;
+      p.ready = false;
+      s.order = s.order.filter((u) => u !== p.uid);
+      if (s.turnIdx >= s.order.length) s.turnIdx = 0;
+      if (wasTurn && s.order.length) s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
+      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 退出了本锅的提问队列。", at: now() });
+      this.bump();
       return { ok: true, phase: s.phase };
     }
 
-    /* 一锅打到一半、或已经揭底时进来的人：不能插进正在进行的这锅，
-       但可以先准备，等这锅结束（或房主开下一锅）时直接算进下一锅。 */
-    if (s.phase !== "lobby") {
+    /* 中途加入（第⑧条）：这锅正在打时点「准备」，直接排进当前轮询队列的队尾，
+       从下一轮起轮到 TA —— 不打断任何人、不掀桌、不清问答记录与进度。
+       已经揭底时仍按「为下一锅准备」处理。 */
+    if (s.phase === "playing") {
+      if (!ready) { p.ready = false; this.bump(); return { ok: true, phase: s.phase, queued: false }; }
+      p.ready = true;
+      if (!s.order.length) { s.order = [p.uid]; s.turnIdx = 0; }
+      else if (s.order.indexOf(p.uid) === -1) s.order.push(p.uid);
+      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 加入了本锅的提问队列，稍后就会轮到 TA。", at: now() });
+      this.bump();
+      return { ok: true, phase: s.phase, queued: true };
+    }
+    if (s.phase === "revealed") {
       if (!ready) { p.ready = false; this.bump(); return { ok: true, phase: s.phase, queued: false }; }
       p.ready = true;
       this.bump();
@@ -492,6 +551,7 @@ export class Room {
     if (allReady && s.puzzleId) {
       /* 系统随机固定顺序，开局（规格 #6） */
       s.order = shuffle(s.players.map((x) => x.uid));
+      s.potUids = s.order.slice();
       s.turnIdx = 0;
       s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
       s.phase = "playing";
@@ -518,29 +578,11 @@ export class Room {
     return { ok: true, phase: s.phase };
   }
 
-  /* ---------------- 提示通道（仅单人，规格 #14：多人房无提示） ---------------- */
+  /* ---------------- 提示通道（第⑥条：线索 / 提示机制整体下线） ----------------
+   * 只保留路由兜底，防旧客户端或缓存页面打到这个 action 时报「未知动作」。 */
 
-  async hint({ internalId }) {
-    const s = this.state;
-    if (!s.solo) return { error: "NO_HINT_MULTI" };
-    const puzzle = getPuzzle(s.puzzleId);
-    if (!puzzle) return { error: "NO_PUZZLE" };
-    const clues = puzzle.clues || [];
-    /* 按顺序给更深的一条，跳过已挖到的 */
-    let pick = null;
-    for (let i = 0; i < clues.length; i++) {
-      if (s.revealed.indexOf(i) === -1) { pick = i; break; }
-    }
-    if (pick === null) return { error: "NO_MORE_CLUES" };
-    s.revealed.push(pick);
-    s.hintsUsed = (s.hintsUsed || 0) + 1;
-    this.bump();
-    const c = clues[pick];
-    return {
-      ok: true,
-      clue: { n: pick + 1, type: c.type, text: String(c.text || "") },
-      hintsUsed: s.hintsUsed
-    };
+  async hint() {
+    return { error: "HINT_REMOVED", note: "线索与提示机制已下线，全靠提问熬真相。" };
   }
 
   /* ---------------- 提问通道（每 60s 超时跳过，规格 #7） ---------------- */
@@ -554,6 +596,9 @@ export class Room {
     if (!p) return { error: "NOT_IN_ROOM" };
     const cur = s.order[s.turnIdx];
     if (p.uid !== cur) return { error: "NOT_YOUR_TURN", turnUid: cur };
+    /* 轮到自己还能开口 = 人确实在场：把「等待队列」里的人顺手转成已准备，
+       免得中途加入的人明明在答，却被下一锅判成未准备。 */
+    if (!p.ready) { p.ready = true; this.bump(); }
 
     /* 飞行锁（多①）：AI 正在想上一句时，后面所有重复请求一律拒掉。
        前端按钮已经禁用了，这一层是防脚本/防手滑的硬保险：
@@ -568,7 +613,6 @@ export class Room {
 
     let verdict = "irr";
     let reply = "与此无关。";
-    let clueNo = 0;
     let viaAi = false;
 
     if (puzzle) {
@@ -588,8 +632,6 @@ export class Room {
           }
           verdict = ai.verdict;
           reply = ai.reply;
-          clueNo = ai.clue;
-          if (clueNo > 0 && s.revealed.indexOf(clueNo - 1) === -1) s.revealed.push(clueNo - 1);
           viaAi = true;
         } finally {
           s.askInFlightUntil = 0;
@@ -603,12 +645,6 @@ export class Room {
         const res = engineAsk(puzzle, raw, s.revealed);
         verdict = res.kind === "empty" ? "irr" : (res.verdict || "irr");
         reply = (res.flavor ? res.flavor + " " : "") + String(res.reply || "与此无关。");
-        if (res.kind === "clue" && typeof res.index === "number") {
-          clueNo = res.index + 1;
-          if (s.revealed.indexOf(res.index) === -1) s.revealed.push(res.index);
-        } else if (res.kind === "again" && typeof res.index === "number") {
-          clueNo = res.index + 1;
-        }
       }
     }
 
@@ -619,7 +655,6 @@ export class Room {
       question: raw,
       verdict,
       reply,
-      clue: clueNo,
       viaAi,
       at: now()
     };
@@ -638,18 +673,58 @@ export class Room {
     this.bump();
   }
 
+  /* 兜底闹钟（第①条）：全桌都切后台、一个轮询都没有时，
+     单靠 sweepTurn 的被动触发是推不动的，得让 DO 自己在到点时醒来。 */
+  async syncAlarm() {
+    const s = this.state;
+    const want = (s && s.phase === "playing" && s.puzzleId && !s.solo && s.turnDeadline) ? s.turnDeadline : 0;
+    if (this._alarmKey === want) return;
+    this._alarmKey = want;
+    try {
+      if (want) await this.ctx.storage.setAlarm(want);
+      else await this.ctx.storage.deleteAlarm();
+    } catch (e) {
+      this._alarmKey = undefined;
+    }
+  }
+
+  async alarm() {
+    try {
+      await this.load();
+      if (!this.state) return;
+      this._alarmKey = 0;
+      this.sweepTurn();
+      await this.syncAlarm();
+      if (this._dirty) await this.save();
+    } catch (e) { /* 闹钟失败不影响下一轮轮询里的清扫 */ }
+  }
+
+  /* 超时清扫：一次可以连跳多人（上一位刚好被跳过、而新的一位也已超期时），
+     但每一跳都是完整的 90s 重新计时，所以最多只可能跳一次；循环只做兵底。 */
   sweepTurn() {
     const s = this.state;
-    /* 没选汤 / 没在玩的局，不 sweep，否则空房间也会每 60s 弹「超时跳过」 */
-    if (s.phase === "playing" && s.puzzleId && s.turnDeadline && now() > s.turnDeadline) {
+    /* 没选汤 / 没在玩的局，不 sweep，否则空房间也会每 90s 弹「超时跳过」 */
+    if (!s || s.phase !== "playing" || !s.puzzleId || !s.turnDeadline) return;
+    if (s.solo || !s.order || !s.order.length) return;
+    let guard = 0;
+    while (now() > s.turnDeadline && guard++ < 8) {
+      const uid = s.order[s.turnIdx];
+      const who = s.players.filter((x) => x.uid === uid)[0];
+      const nick = who ? who.nickname : "";
+      /* 第④条：超时是「与汤无关」的系统事件，不混进问答记录，
+         改成 feed:true 只进「实时对话」 */
       s.qaLog.push({
         kind: "timeout",
-        uid: s.order[s.turnIdx],
-        nickname: "",
+        feed: true,
+        uid: uid,
+        nickname: nick,
         at: now(),
-        reply: "超时，跳过"
+        reply: (nick ? nick : "#" + uid) + " 超时，已跳过"
       });
+      if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
       this.advanceTurn();
+      /* 单人房 / 队列为空：advanceTurn 会把 deadline 归零，循环自然退出 */
+      if (!s.turnDeadline) break;
     }
   }
 
@@ -747,14 +822,39 @@ export class Room {
     /* 这锅还在打时已经点过准备的人，下一锅直接算准备好；其余人重新准备。
        全员都准备好了就直接开下一锅，不用再干等。 */
     const queued = s.players.filter((x) => x.ready).map((x) => x.uid);
+    s.potUids = [];
     if (queued.length && queued.length === s.players.length && s.puzzleId) {
       s.order = shuffle(queued.slice());
+      s.potUids = s.order.slice();
       s.turnIdx = 0;
       s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
       s.phase = "playing";
     }
     this.bump();
     return { ok: true, phase: s.phase };
+  }
+
+  /* ---------------- 房主转让（第⑨条） ----------------
+   * 只有现任房主能转；转完立刻落一条系统消息，全桌在实时对话里看得见。 */
+  async transferHost({ internalId, uid }) {
+    const s = this.state;
+    if (!s) return { error: "NO_ROOM" };
+    const me = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!me || !me.isHost) return { error: "ONLY_HOST" };
+    const target = s.players.filter((x) => x.uid === Number(uid))[0];
+    if (!target) return { error: "NO_SUCH_PLAYER" };
+    if (target.uid === me.uid) return { error: "ALREADY_HOST" };
+    s.players.forEach((x) => { x.isHost = x.uid === target.uid; });
+    s.hostUid = target.uid;
+    s.qaLog.push({
+      kind: "sys",
+      feed: true,
+      text: me.nickname + " 把房主交给了 " + target.nickname + "。",
+      at: now()
+    });
+    if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
+    this.bump();
+    return { ok: true, hostUid: target.uid };
   }
 
   /* ---------------- 快照 & 路由 ---------------- */
@@ -775,23 +875,28 @@ export class Room {
       roomCode: s.roomCode,
       solo: !!s.solo,
       youUid: you ? you.uid : 0,
+      /* 第⑩条：席位号同步下发（= players 排序后的下标 + 1） */
+      youSeat: you ? (s.players.indexOf(you) + 1) : 0,
       phase: s.phase,
       hostUid: s.hostUid,
       order: s.order,
+      /* 前端按它区分「首发可掀桌 / 中途加入只退自己」（第⑧条） */
+      potUids: s.potUids || s.order || [],
       turnIdx: s.turnIdx,
       turnUid: s.order.length ? s.order[s.turnIdx] : null,
+      turnSeat: (function () {
+        if (!s.order.length) return 0;
+        const u = s.order[s.turnIdx];
+        const i = s.players.findIndex((x) => x.uid === u);
+        return i >= 0 ? i + 1 : 0;
+      })(),
       turnDeadline: s.turnDeadline,
       puzzleId: s.puzzleId,
       puzzle: s.puzzleId ? publicPuzzle(s.puzzleId) : null,
       revealed: s.revealed.slice(),
       /* 已解锁线索的文字：这些内容早已在问答里念给全场，不算泄露；
          未解锁的线索依旧只在服务端（规格 #12 汤底不下发） */
-      revealedClues: s.revealed.map((i) => {
-        const full = s.puzzleId ? getPuzzle(s.puzzleId) : null;
-        const c = full && full.clues ? full.clues[i] : null;
-        return { n: i + 1, type: c ? c.type : "irr", text: c ? String(c.text || "") : "" };
-      }),
-      clueTotal: s.puzzleId && getPuzzle(s.puzzleId) ? getPuzzle(s.puzzleId).clues.length : 0,
+      /* 第⑥条：线索 / 提示机制已整体下线，不再下发 revealedClues / clueTotal */
       /* 只下发「我自己」的冷却，别人的冷却不共享、也不泄露 */
       myGuessCooldownUntil: you && s.guessCooldowns ? (s.guessCooldowns[you.uid] || 0) : 0,
       lastGuess: s.lastGuess,
@@ -814,8 +919,11 @@ export class Room {
       qaLog: s.qaLog.slice(-QA_MAX),
       chatLog: (s.chatLog || []).slice(-CHAT_MAX),
       chatSeq: s.chatSeq || 0,
-      players: s.players.map((p) => ({
+      players: s.players.map((p, i) => ({
         uid: p.uid,
+        /* 席位号（第⑩条）：只看「从上往下数第几个」，退出重进 / 换昵称都会重排，
+           uid 仍是内部唯一身份，不参与展示 */
+        seat: i + 1,
         nickname: p.nickname,
         isHost: p.isHost,
         ready: p.ready,
@@ -858,6 +966,12 @@ export class Room {
      * 只有真的有人提问 / 说话 / 状态变了，才回全量快照。
      */
     if (action === "state") {
+      /* 【卡在 0s 的根治点】超时清扫必须排在增量快路径「之前」。
+         旧顺序里，全桌挂机时 rev 永远不变，每个轮询都在 snapshot() 之前
+         就 return { unchanged:true }，sweepTurn() 一次都跑不到，
+         于是前端倒计时归零却永远等不到跳过。清扫真推进了轮次就会 bump，
+         下面的 since 比对自然失败，本次自动回全量快照。 */
+      this.sweepTurn();
       const since = Number(url.searchParams.get("since"));
       if (isFinite(since) && since > 0 && since === (this.state.rev || 0)) {
         /* 快路径也必须刷心跳：否则「一直没动作」的玩家会被误判离线。
@@ -865,12 +979,16 @@ export class Room {
         const me = meId ? this.state.players.filter((p) => p.internalId === meId)[0] : null;
         if (me) { me.online = true; me.lastSeen = now(); }
         this.state.updatedAt = now();
+        /* 只刷心跳时也要把闹钟对齐：否则上一条请求中途报错会留下过时的 alarm */
+        await this.syncAlarm();
+        this.state.updatedAt = now();
         /* 兜底：若上一请求有未落盘的变更（中途抛错），这里顺手补写，避免丢失 */
         if (this._dirty) await this.save();
         return json({ exists: true, unchanged: true, rev: since }, 200, this.cors());
       }
       const out0 = this.snapshot(meId);
       this.state.updatedAt = now();
+      await this.syncAlarm();
       if (this._dirty) await this.save();
       return json(out0, 200, this.cors());
     }
@@ -895,6 +1013,10 @@ export class Room {
         break;
       case "kick":
         out = await this.kick(body);
+        if (!out.error) out = this.snapshot(meId);
+        break;
+      case "transfer":
+        out = await this.transferHost(body);
         if (!out.error) out = this.snapshot(meId);
         break;
       case "leave":
@@ -934,6 +1056,7 @@ export class Room {
     }
 
     this.state.updatedAt = now();
+    await this.syncAlarm();
     /* 不脏不写：轮询和纯读动作不再反复把整个 state 写回存储 */
     if (this._dirty) await this.save();
     return json(out, out && out.error ? 400 : 200, this.cors());

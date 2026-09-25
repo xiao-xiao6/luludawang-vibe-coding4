@@ -1,0 +1,849 @@
+{
+ "tail_fixed": [
+  {
+   "id": "lib_07daf49f9167",
+   "title": "漂流瓶",
+   "cut": "．友情提醒：他是本地人！平时会伪装成导游！一定要找到他！！我说的不是杨娟！"
+  }
+ ],
+ "mispair_deleted": [
+  {
+   "id": "lib_712a831d7292",
+   "why": "汤面(神奇娃娃许愿规则)与汤底(暗恋闺蜜)完全对不上",
+   "title": "神奇的娃娃"
+  },
+  {
+   "id": "lib_83b00372a93d",
+   "why": "汤面(儿童餐痛哭)配的是海龟汤本传的错底，人物场景全不接",
+   "title": "儿童餐"
+  }
+ ],
+ "dup_removed": [
+  {
+   "removed_id": "lib_9ac3220c1845",
+   "removed_title": "气球",
+   "kept_id": "lib_0015920e33d8",
+   "kept_title": "气球",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_cb4c1c8363f6",
+   "removed_title": "牧场",
+   "kept_id": "lib_044e0af074d4",
+   "kept_title": "牧场",
+   "sim": 0.987
+  },
+  {
+   "removed_id": "lib_05ee4cafe666",
+   "removed_title": "047 · 洋娃娃",
+   "kept_id": "lib_0cf00682e3ce",
+   "kept_title": "无题 · KONpiGG #135",
+   "sim": 0.95
+  },
+  {
+   "removed_id": "lib_b7eb296b1ca1",
+   "removed_title": "蔡罪",
+   "kept_id": "lib_087b4e1374f3",
+   "kept_title": "替罪",
+   "sim": 0.964
+  },
+  {
+   "removed_id": "lib_6039bef49d95",
+   "removed_title": "出租房",
+   "kept_id": "lib_090fb2fb97fe",
+   "kept_title": "出租房",
+   "sim": 0.972
+  },
+  {
+   "removed_id": "lib_f3d383d9df0e",
+   "removed_title": "无题 · boop-yyt #1368",
+   "kept_id": "lib_097336e53d3b",
+   "kept_title": "无题 · boop-yyt #1371",
+   "sim": 0.93
+  },
+  {
+   "removed_id": "lib_0adc47714500",
+   "removed_title": "笔仙",
+   "kept_id": "lib_cb5ea96c19db",
+   "kept_title": "笔仙",
+   "sim": 0.987
+  },
+  {
+   "removed_id": "lib_1078e9b7b092",
+   "removed_title": "笔仙",
+   "kept_id": "lib_cb5ea96c19db",
+   "kept_title": "笔仙",
+   "sim": 0.987
+  },
+  {
+   "removed_id": "lib_1564a01d6f10",
+   "removed_title": "他不喜欢",
+   "kept_id": "lib_0dd4d36c0b32",
+   "kept_title": "他不喜欢",
+   "sim": 0.985
+  },
+  {
+   "removed_id": "lib_9849093afcb2",
+   "removed_title": "巨人",
+   "kept_id": "lib_0e181ff97371",
+   "kept_title": "巨人",
+   "sim": 0.987
+  },
+  {
+   "removed_id": "lib_f96e1a0884ee",
+   "removed_title": "巨人",
+   "kept_id": "lib_0e181ff97371",
+   "kept_title": "巨人",
+   "sim": 0.981
+  },
+  {
+   "removed_id": "lib_4bb30df46863",
+   "removed_title": "电梯",
+   "kept_id": "lib_0ed4dd3f3ce3",
+   "kept_title": "无题 · KONpiGG #109",
+   "sim": 0.964
+  },
+  {
+   "removed_id": "lib_9110ec7b39ab",
+   "removed_title": "谎言之界",
+   "kept_id": "lib_0fdefd44364d",
+   "kept_title": "谎言之界",
+   "sim": 0.99
+  },
+  {
+   "removed_id": "lib_85230f2e1e6f",
+   "removed_title": "生意",
+   "kept_id": "lib_11fd153e6e81",
+   "kept_title": "无题 · KONpiGG #178",
+   "sim": 0.947
+  },
+  {
+   "removed_id": "lib_cb48ce3aeb75",
+   "removed_title": "村中诡事",
+   "kept_id": "lib_1245207e575c",
+   "kept_title": "村中诡事",
+   "sim": 0.994
+  },
+  {
+   "removed_id": "lib_46737dacf7e0",
+   "removed_title": "071 · 尬蛋",
+   "kept_id": "lib_1294ed2c0162",
+   "kept_title": "054 · 日记 **汤面（日记形式）：** - 2019年2月，女儿不去上学了，我劝不动她。 - 2019年6月，女儿每天盯着电视和电脑看，我怕她眼睛弄坏了",
+   "sim": 0.98
+  },
+  {
+   "removed_id": "lib_904329fe6d6d",
+   "removed_title": "咒",
+   "kept_id": "lib_13d675ba20b0",
+   "kept_title": "咒",
+   "sim": 0.977
+  },
+  {
+   "removed_id": "lib_141214013a8c",
+   "removed_title": "021 · 夜半敲门",
+   "kept_id": "lib_35815405359b",
+   "kept_title": "无题 · KONpiGG #85",
+   "sim": 0.928
+  },
+  {
+   "removed_id": "lib_1455577f47af",
+   "removed_title": "房间里的黑点",
+   "kept_id": "lib_335a2a7a493a",
+   "kept_title": "房间里的黑点",
+   "sim": 0.978
+  },
+  {
+   "removed_id": "lib_14720237876f",
+   "removed_title": "三天",
+   "kept_id": "lib_9ad5cefd5842",
+   "kept_title": "三天",
+   "sim": 0.976
+  },
+  {
+   "removed_id": "lib_16c34d2a101f",
+   "removed_title": "无题 · KONpiGG #67",
+   "kept_id": "lib_776b70302820",
+   "kept_title": "024 · 关灯",
+   "sim": 0.862
+  },
+  {
+   "removed_id": "lib_d881a0a0c762",
+   "removed_title": "关灯之后",
+   "kept_id": "lib_776b70302820",
+   "kept_title": "024 · 关灯",
+   "sim": 0.933
+  },
+  {
+   "removed_id": "lib_16c80a13e181",
+   "removed_title": "Jed 2.20",
+   "kept_id": "lib_dd5eeb87f7de",
+   "kept_title": "无题 · boop-yyt #1386",
+   "sim": 0.906
+  },
+  {
+   "removed_id": "lib_8e8e435314df",
+   "removed_title": "石头，剪刀， 布",
+   "kept_id": "lib_181239094689",
+   "kept_title": "石头，剪刀，布",
+   "sim": 0.974
+  },
+  {
+   "removed_id": "lib_187c567b5841",
+   "removed_title": "梦里的红衣",
+   "kept_id": "lib_ba0a80d94a62",
+   "kept_title": "红衣",
+   "sim": 0.985
+  },
+  {
+   "removed_id": "lib_f3c2517bfe74",
+   "removed_title": "阳台上的女孩",
+   "kept_id": "lib_18af72eb5ce0",
+   "kept_title": "阳台上的女孩",
+   "sim": 0.902
+  },
+  {
+   "removed_id": "lib_18d2a42fe41a",
+   "removed_title": "妹妹的秘密",
+   "kept_id": "lib_7e7a011e93d0",
+   "kept_title": "妹妹的秘密",
+   "sim": 0.991
+  },
+  {
+   "removed_id": "lib_96b0dada1834",
+   "removed_title": "妹妹的秘密",
+   "kept_id": "lib_7e7a011e93d0",
+   "kept_title": "妹妹的秘密",
+   "sim": 0.944
+  },
+  {
+   "removed_id": "lib_1e0c1f87a2b9",
+   "removed_title": "柜中的孩子",
+   "kept_id": "lib_70ef60c67d01",
+   "kept_title": "柜中的孩子",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_1e8b212d6a6b",
+   "removed_title": "影子",
+   "kept_id": "lib_d5ad6e7a2851",
+   "kept_title": "影子",
+   "sim": 0.982
+  },
+  {
+   "removed_id": "lib_1ef11bbc1923",
+   "removed_title": "莱恩小镇规则怪谈",
+   "kept_id": "lib_92b0c890dfd5",
+   "kept_title": "莱恩小镇规则怪谈",
+   "sim": 0.988
+  },
+  {
+   "removed_id": "lib_20800650c989",
+   "removed_title": "白雪公主规则怪谈",
+   "kept_id": "lib_6ff3742a28e2",
+   "kept_title": "白雪公主规则怪谈",
+   "sim": 0.99
+  },
+  {
+   "removed_id": "lib_7bec134fc445",
+   "removed_title": "无题 · misc #1347",
+   "kept_id": "lib_21b65cf5f303",
+   "kept_title": "无题 · boop-yyt #1395",
+   "sim": 0.943
+  },
+  {
+   "removed_id": "lib_23126408e906",
+   "removed_title": "赴净土",
+   "kept_id": "lib_a8729117a936",
+   "kept_title": "赴净土",
+   "sim": 0.956
+  },
+  {
+   "removed_id": "lib_6c64198477a7",
+   "removed_title": "赴净土",
+   "kept_id": "lib_a8729117a936",
+   "kept_title": "赴净土",
+   "sim": 0.903
+  },
+  {
+   "removed_id": "lib_df7e08372ffa",
+   "removed_title": "露营",
+   "kept_id": "lib_253e61d68de3",
+   "kept_title": "露营",
+   "sim": 0.961
+  },
+  {
+   "removed_id": "lib_d6803ffbacff",
+   "removed_title": "Who is liar",
+   "kept_id": "lib_26a8f6aeae4e",
+   "kept_title": "Whoisliar",
+   "sim": 0.986
+  },
+  {
+   "removed_id": "lib_93edc973cbfe",
+   "removed_title": "织梦者",
+   "kept_id": "lib_27629b68d5cf",
+   "kept_title": "织梦者》《新世界",
+   "sim": 0.989
+  },
+  {
+   "removed_id": "lib_2873bb5be315",
+   "removed_title": "因果",
+   "kept_id": "lib_30c815b194ce",
+   "kept_title": "因果",
+   "sim": 0.991
+  },
+  {
+   "removed_id": "lib_d598836d8b62",
+   "removed_title": "井",
+   "kept_id": "lib_2962d63847c2",
+   "kept_title": "井",
+   "sim": 0.939
+  },
+  {
+   "removed_id": "lib_ee55e3c73f10",
+   "removed_title": "学院规则怪谈",
+   "kept_id": "lib_2a1ddcd0a374",
+   "kept_title": "学院规则怪谈",
+   "sim": 0.977
+  },
+  {
+   "removed_id": "lib_5b033f2334ad",
+   "removed_title": "无题 · boop-yyt #1394",
+   "kept_id": "lib_2d7a2f4d5b9f",
+   "kept_title": "无题 · boop-yyt #1346",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_d150c051a079",
+   "removed_title": "奇怪的声音",
+   "kept_id": "lib_2f71811bc48b",
+   "kept_title": "奇怪的声音",
+   "sim": 0.974
+  },
+  {
+   "removed_id": "lib_f6f317bb36ea",
+   "removed_title": "你的名字",
+   "kept_id": "lib_2f8b63661d46",
+   "kept_title": "你的名字",
+   "sim": 0.986
+  },
+  {
+   "removed_id": "lib_ad555550da64",
+   "removed_title": "无题 · boop-yyt #1341",
+   "kept_id": "lib_30ffbff72d13",
+   "kept_title": "无题 · boop-yyt #1393",
+   "sim": 0.998
+  },
+  {
+   "removed_id": "lib_311fd18aae90",
+   "removed_title": "046 · 红色高跟鞋",
+   "kept_id": "lib_ccc003a29e20",
+   "kept_title": "红色高跟鞋",
+   "sim": 0.984
+  },
+  {
+   "removed_id": "lib_f9b44ec880f2",
+   "removed_title": "红高跟的高度",
+   "kept_id": "lib_ccc003a29e20",
+   "kept_title": "红色高跟鞋",
+   "sim": 0.949
+  },
+  {
+   "removed_id": "lib_3162bdeaaea3",
+   "removed_title": "无题 · boop-yyt #1280",
+   "kept_id": "lib_319333fbaf07",
+   "kept_title": "Jed 1.6",
+   "sim": 0.896
+  },
+  {
+   "removed_id": "lib_aaef84435260",
+   "removed_title": "无题 · misc #1273",
+   "kept_id": "lib_319333fbaf07",
+   "kept_title": "Jed 1.6",
+   "sim": 0.922
+  },
+  {
+   "removed_id": "lib_31d54f73bfbf",
+   "removed_title": "盲人",
+   "kept_id": "lib_8105d49c45d8",
+   "kept_title": "盲人",
+   "sim": 0.926
+  },
+  {
+   "removed_id": "lib_b9fdcd724950",
+   "removed_title": "圣诞礼物",
+   "kept_id": "lib_36075b693701",
+   "kept_title": "圣诞礼物",
+   "sim": 0.969
+  },
+  {
+   "removed_id": "lib_cf76064afbb3",
+   "removed_title": "无题 · KONpiGG #112",
+   "kept_id": "lib_37c884ffabac",
+   "kept_title": "好孩子",
+   "sim": 0.974
+  },
+  {
+   "removed_id": "lib_f164e08939b3",
+   "removed_title": "五兄弟",
+   "kept_id": "lib_39840ef75734",
+   "kept_title": "五兄弟",
+   "sim": 0.97
+  },
+  {
+   "removed_id": "lib_f581f7d53be5",
+   "removed_title": "发夹",
+   "kept_id": "lib_40985bc7685d",
+   "kept_title": "发夹",
+   "sim": 0.967
+  },
+  {
+   "removed_id": "lib_4195efaab01e",
+   "removed_title": "无题 · boop-yyt #1299",
+   "kept_id": "lib_b560a80af76b",
+   "kept_title": "无题 · boop-yyt #1288",
+   "sim": 0.932
+  },
+  {
+   "removed_id": "lib_c40eba2b5ea1",
+   "removed_title": "Jed 1.32",
+   "kept_id": "lib_42f2bc82bc2f",
+   "kept_title": "无题 · boop-yyt #1352",
+   "sim": 0.943
+  },
+  {
+   "removed_id": "lib_43902112a903",
+   "removed_title": "病好啦",
+   "kept_id": "lib_87ceda50072d",
+   "kept_title": "016 · 跳火车",
+   "sim": 0.965
+  },
+  {
+   "removed_id": "lib_ee3cd8f8fce0",
+   "removed_title": "看病",
+   "kept_id": "lib_87ceda50072d",
+   "kept_title": "016 · 跳火车",
+   "sim": 0.941
+  },
+  {
+   "removed_id": "lib_f3a67510b7c7",
+   "removed_title": "重见光明",
+   "kept_id": "lib_87ceda50072d",
+   "kept_title": "016 · 跳火车",
+   "sim": 0.977
+  },
+  {
+   "removed_id": "lib_fbde9d409a5c",
+   "removed_title": "女明星",
+   "kept_id": "lib_490411e18e06",
+   "kept_title": "女明星",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_c3dc8a18292b",
+   "removed_title": "人生倍速演算",
+   "kept_id": "lib_49c651e6beb1",
+   "kept_title": "人生倍速演算",
+   "sim": 0.967
+  },
+  {
+   "removed_id": "lib_a7c2020b9917",
+   "removed_title": "送别",
+   "kept_id": "lib_4b9709c3fcdd",
+   "kept_title": "送别",
+   "sim": 0.978
+  },
+  {
+   "removed_id": "lib_4d80ceead607",
+   "removed_title": "老农",
+   "kept_id": "lib_73b6519f54ca",
+   "kept_title": "老农",
+   "sim": 0.928
+  },
+  {
+   "removed_id": "lib_e0f5ce7433b1",
+   "removed_title": "最完美的作品",
+   "kept_id": "lib_56bc27c7e7be",
+   "kept_title": "最完美的作品",
+   "sim": 0.984
+  },
+  {
+   "removed_id": "lib_57c970bf7a82",
+   "removed_title": "无题 · boop-yyt #1367",
+   "kept_id": "lib_6a2910380309",
+   "kept_title": "无题 · boop-yyt #1370",
+   "sim": 0.927
+  },
+  {
+   "removed_id": "lib_bb9b8da83f0b",
+   "removed_title": "无题 · boop-yyt #1361",
+   "kept_id": "lib_6a2910380309",
+   "kept_title": "无题 · boop-yyt #1370",
+   "sim": 0.785
+  },
+  {
+   "removed_id": "lib_d54c7f270c6d",
+   "removed_title": "无题 · boop-yyt #1351",
+   "kept_id": "lib_6a2910380309",
+   "kept_title": "无题 · boop-yyt #1370",
+   "sim": 0.854
+  },
+  {
+   "removed_id": "lib_5891f567cfaf",
+   "removed_title": "阿吉的画",
+   "kept_id": "lib_f67071b7a71a",
+   "kept_title": "阿吉的画",
+   "sim": 0.992
+  },
+  {
+   "removed_id": "lib_a8fb92054c63",
+   "removed_title": "贝尔公主",
+   "kept_id": "lib_5a6993b42523",
+   "kept_title": "无题 · KONpiGG #99",
+   "sim": 0.931
+  },
+  {
+   "removed_id": "lib_ca6d37850951",
+   "removed_title": "444 究室",
+   "kept_id": "lib_614ee93f352b",
+   "kept_title": "444寝室",
+   "sim": 0.97
+  },
+  {
+   "removed_id": "lib_f5273f493997",
+   "removed_title": "Jed 1.64",
+   "kept_id": "lib_641c88779ab8",
+   "kept_title": "无题 · boop-yyt #1365",
+   "sim": 0.952
+  },
+  {
+   "removed_id": "lib_a0a04ac21e6e",
+   "removed_title": "猜名字",
+   "kept_id": "lib_672b157d1754",
+   "kept_title": "猜名字",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_c750c42858e6",
+   "removed_title": "猜名字",
+   "kept_id": "lib_672b157d1754",
+   "kept_title": "猜名字",
+   "sim": 0.989
+  },
+  {
+   "removed_id": "lib_d6feec941be6",
+   "removed_title": "曼德拉效应",
+   "kept_id": "lib_677cfc01fbf6",
+   "kept_title": "曼德拉效应",
+   "sim": 0.985
+  },
+  {
+   "removed_id": "lib_68bfda3c2562",
+   "removed_title": "二十",
+   "kept_id": "lib_e013f625c0a9",
+   "kept_title": "二十",
+   "sim": 0.966
+  },
+  {
+   "removed_id": "lib_eae6cfcd0c64",
+   "removed_title": "唱戏的女人",
+   "kept_id": "lib_697d6e67511a",
+   "kept_title": "唱戏的女人",
+   "sim": 0.988
+  },
+  {
+   "removed_id": "lib_6af0ee0910ff",
+   "removed_title": "信",
+   "kept_id": "lib_7f2e70f76cd8",
+   "kept_title": "信",
+   "sim": 0.976
+  },
+  {
+   "removed_id": "lib_f3efbb92481e",
+   "removed_title": "Jed 1.50",
+   "kept_id": "lib_6bf8c1505a1e",
+   "kept_title": "无题 · boop-yyt #1359",
+   "sim": 0.933
+  },
+  {
+   "removed_id": "lib_ed269e2fea3f",
+   "removed_title": "日访三十国",
+   "kept_id": "lib_6c3407286474",
+   "kept_title": "日访三十国",
+   "sim": 0.99
+  },
+  {
+   "removed_id": "lib_e9aaa48c7116",
+   "removed_title": "无题 · boop-yyt #1311",
+   "kept_id": "lib_6c4c07d9075a",
+   "kept_title": "无题 · boop-yyt #1307",
+   "sim": 0.927
+  },
+  {
+   "removed_id": "lib_6f1a91a082e8",
+   "removed_title": "未完待续",
+   "kept_id": "lib_7ba2fe196fb5",
+   "kept_title": "未完待续",
+   "sim": 0.974
+  },
+  {
+   "removed_id": "lib_c23857b4f49d",
+   "removed_title": "别过来",
+   "kept_id": "lib_6f860967a6c4",
+   "kept_title": "别过来",
+   "sim": 0.965
+  },
+  {
+   "removed_id": "lib_df06f36358ec",
+   "removed_title": "别过来",
+   "kept_id": "lib_6f860967a6c4",
+   "kept_title": "别过来",
+   "sim": 0.986
+  },
+  {
+   "removed_id": "lib_710f1137667b",
+   "removed_title": "平安夜",
+   "kept_id": "lib_a51c48451941",
+   "kept_title": "平安夜",
+   "sim": 0.969
+  },
+  {
+   "removed_id": "lib_bed167c568b8",
+   "removed_title": "重映",
+   "kept_id": "lib_71f829d3da3b",
+   "kept_title": "重映",
+   "sim": 0.992
+  },
+  {
+   "removed_id": "lib_f98c840ad6f9",
+   "removed_title": "重映",
+   "kept_id": "lib_71f829d3da3b",
+   "kept_title": "重映",
+   "sim": 0.975
+  },
+  {
+   "removed_id": "lib_83dc56309332",
+   "removed_title": "双颖干涉实验",
+   "kept_id": "lib_7445ad740cb8",
+   "kept_title": "双缝干涉实验",
+   "sim": 0.992
+  },
+  {
+   "removed_id": "lib_783c025b1ad0",
+   "removed_title": "吹蜡烛",
+   "kept_id": "lib_c9a312d8972e",
+   "kept_title": "吹蜡烛",
+   "sim": 0.982
+  },
+  {
+   "removed_id": "lib_7fff05e093fb",
+   "removed_title": "Jed 1.3",
+   "kept_id": "lib_d9078a59e095",
+   "kept_title": "无题 · misc #1274",
+   "sim": 0.93
+  },
+  {
+   "removed_id": "lib_ad9cefce00b1",
+   "removed_title": "无题 · boop-yyt #1279",
+   "kept_id": "lib_d9078a59e095",
+   "kept_title": "无题 · misc #1274",
+   "sim": 0.907
+  },
+  {
+   "removed_id": "lib_9d4ea0fc6e75",
+   "removed_title": "和爸爸",
+   "kept_id": "lib_85449b5c08f4",
+   "kept_title": "爸爸",
+   "sim": 0.942
+  },
+  {
+   "removed_id": "lib_e02a56aaf17a",
+   "removed_title": "无题 · misc #1333",
+   "kept_id": "lib_8651060c9948",
+   "kept_title": "无题 · boop-yyt #1389",
+   "sim": 0.9
+  },
+  {
+   "removed_id": "lib_c9f8373199de",
+   "removed_title": "墓碑上的文字",
+   "kept_id": "lib_86ba85ac49fd",
+   "kept_title": "墓碑上的文字",
+   "sim": 0.98
+  },
+  {
+   "removed_id": "lib_87e6eab394d9",
+   "removed_title": "和爸爸的遗言",
+   "kept_id": "lib_dda5ae1293bc",
+   "kept_title": "爸爸的遗言",
+   "sim": 0.985
+  },
+  {
+   "removed_id": "lib_c2fac9ec1da0",
+   "removed_title": "16 层公寓",
+   "kept_id": "lib_8e063958d2ef",
+   "kept_title": "16层公寓",
+   "sim": 0.985
+  },
+  {
+   "removed_id": "lib_fd0d5c769d00",
+   "removed_title": "Jed 2.19",
+   "kept_id": "lib_8e2c5a35d64c",
+   "kept_title": "无题 · boop-yyt #1329",
+   "sim": 0.909
+  },
+  {
+   "removed_id": "lib_a11ad91a65e2",
+   "removed_title": "秘密",
+   "kept_id": "lib_8e3ab9e40712",
+   "kept_title": "秘密",
+   "sim": 0.973
+  },
+  {
+   "removed_id": "lib_9d53af0920d3",
+   "removed_title": "Jed 1.8",
+   "kept_id": "lib_92a9fba5867b",
+   "kept_title": "无题 · misc #1275",
+   "sim": 0.941
+  },
+  {
+   "removed_id": "lib_a20a19439677",
+   "removed_title": "生罚通知单",
+   "kept_id": "lib_92f774e3d02c",
+   "kept_title": "惩罚通知单",
+   "sim": 0.976
+  },
+  {
+   "removed_id": "lib_ef419c30b721",
+   "removed_title": "惩罚通知单",
+   "kept_id": "lib_92f774e3d02c",
+   "kept_title": "惩罚通知单",
+   "sim": 0.992
+  },
+  {
+   "removed_id": "lib_c0de07ba2bbc",
+   "removed_title": "童话小镇怪谈",
+   "kept_id": "lib_930737722d5f",
+   "kept_title": "童话小镇怪谈",
+   "sim": 0.996
+  },
+  {
+   "removed_id": "lib_be5cdc09f417",
+   "removed_title": "笔",
+   "kept_id": "lib_9ae72b8251da",
+   "kept_title": "笔",
+   "sim": 0.969
+  },
+  {
+   "removed_id": "lib_9b977e96c4fb",
+   "removed_title": "无题 · misc #1323",
+   "kept_id": "lib_fb77315aaeee",
+   "kept_title": "无题 · boop-yyt #1382",
+   "sim": 0.919
+  },
+  {
+   "removed_id": "lib_afcadcf41f05",
+   "removed_title": "Jed 2.10",
+   "kept_id": "lib_fb77315aaeee",
+   "kept_title": "无题 · boop-yyt #1382",
+   "sim": 0.915
+  },
+  {
+   "removed_id": "lib_9fd7e78448bb",
+   "removed_title": "无题 · KONpiGG #95",
+   "kept_id": "lib_f2c502f50643",
+   "kept_title": "无题 · KONpiGG #68",
+   "sim": 0.975
+  },
+  {
+   "removed_id": "lib_a22d1ae4da67",
+   "removed_title": "美人鱼",
+   "kept_id": "lib_c3fe6268a938",
+   "kept_title": "美人鱼",
+   "sim": 0.969
+  },
+  {
+   "removed_id": "lib_c1684f23086e",
+   "removed_title": "辟梦重现",
+   "kept_id": "lib_a8c01bd11872",
+   "kept_title": "噩梦重现",
+   "sim": 0.968
+  },
+  {
+   "removed_id": "lib_a979d7820985",
+   "removed_title": "姥姥的磊礼",
+   "kept_id": "lib_bf6dc1df19ca",
+   "kept_title": "姥姥的葬礼",
+   "sim": 0.99
+  },
+  {
+   "removed_id": "lib_abd814242616",
+   "removed_title": "倒计时: 7 天",
+   "kept_id": "lib_bafb21fa5402",
+   "kept_title": "倒计时：7天",
+   "sim": 0.986
+  },
+  {
+   "removed_id": "lib_be804a9d30c9",
+   "removed_title": "保姆",
+   "kept_id": "lib_abf8e8b26ae2",
+   "kept_title": "保姆",
+   "sim": 0.99
+  },
+  {
+   "removed_id": "lib_f22cbcd4bcf0",
+   "removed_title": "圣诞老人",
+   "kept_id": "lib_b92193139356",
+   "kept_title": "圣诞老人",
+   "sim": 0.984
+  },
+  {
+   "removed_id": "lib_c461111b43f5",
+   "removed_title": "侠客",
+   "kept_id": "lib_f69651939ba4",
+   "kept_title": "侠客",
+   "sim": 0.954
+  },
+  {
+   "removed_id": "lib_d4356e3192b7",
+   "removed_title": "Jed 1.37",
+   "kept_id": "lib_ee8eecd3c58d",
+   "kept_title": "无题 · boop-yyt #1356",
+   "sim": 0.931
+  },
+  {
+   "removed_id": "lib_d56eedd0c69d",
+   "removed_title": "无题 · misc #1293",
+   "kept_id": "lib_ee8eecd3c58d",
+   "kept_title": "无题 · boop-yyt #1356",
+   "sim": 0.917
+  },
+  {
+   "removed_id": "lib_d55a409e3e25",
+   "removed_title": "Jed 1.92",
+   "kept_id": "lib_e12f6b533563",
+   "kept_title": "无题 · boop-yyt #1374",
+   "sim": 0.937
+  },
+  {
+   "removed_id": "lib_feea318deaaf",
+   "removed_title": "火车",
+   "kept_id": "lib_d78b09244b6c",
+   "kept_title": "火车",
+   "sim": 0.976
+  },
+  {
+   "removed_id": "lib_f5f56eaefb41",
+   "removed_title": "新人",
+   "kept_id": "lib_e0be4da42458",
+   "kept_title": "新人",
+   "sim": 0.929
+  },
+  {
+   "removed_id": "lib_ffbd1451be58",
+   "removed_title": "宿舍",
+   "kept_id": "lib_ea01667538b7",
+   "kept_title": "宿舍",
+   "sim": 0.942
+  }
+ ]
+}

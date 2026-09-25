@@ -33,7 +33,7 @@ ok("前端有「测试连接」按钮", /id="rai-test"/.test(ui));
 ok("测试调用走 ai-test", /act\("ai-test"/.test(ui));
 
 console.log("\n[P0] Bug 5 · 超时跳过轰炸");
-ok("sweepTurn 要求 puzzleId", /s\.phase === "playing" && s\.puzzleId && s\.turnDeadline/.test(room));
+ok("sweepTurn 要求 puzzleId（提前返回式）", /s\.phase !== "playing" \|\| !s\.puzzleId \|\| !s\.turnDeadline/.test(room));
 ok("setReady 开局要求 puzzleId", /if \(allReady && s\.puzzleId\)/.test(room));
 
 console.log("\n[P1] Bug 2 · 在线离线");
@@ -63,7 +63,7 @@ ok("布局三列", /grid-template-columns: 300px minmax\(0, 1fr\) 302px/.test(cs
 ok("左栏问答记录存在", /class="col-qa"/.test(html));
 ok("右栏线索板存在", /class="col-clue"/.test(html));
 ok("已删除 room-mode 藏右栏规则", !/body\.room-mode \.col-clue\s*\{\s*display:\s*none/.test(css));
-ok("render 指向全局 #clue-list", /\$\("#clue-list"\)/.test(ui));
+ok("第⑥条：room-ui 不再渲染线索板", !/clue-list/.test(ui));
 ok("renderQa 指向全局 #qa-log", /var box = \$\("#qa-log"\)/.test(ui));
 ok("不再引用已删除的 room-qa-log", !/\$\("#room-qa-log"\)/.test(ui));
 ok("不再保留 room-clues 旧类", !/class="room-clues"/.test(html));

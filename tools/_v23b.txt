@@ -1,0 +1,69 @@
+
+[单①] 单人模式提问/推理后左栏立即刷新
+  ✓ AI 提问后调用 renderQaLog
+  ✓ AI 推理后调用 renderQaLog
+
+[新①] 右下角常驻聊天框
+  ✓ HTML 有 #room-chat 容器
+  ✓ HTML 有 #room-chat-log / #room-chat-input / #btn-room-chat-send
+  ✓ CSS 有 .room-chat 固定右下角
+  ✓ CSS 有折叠态 .room-chat.collapsed
+  ✓ UI 有 renderChat 渲染
+  ✓ UI 有 doChat 发送
+  ✓ UI 有 toggleChat 折叠
+  ✓ 服务端有 say 分支
+  ✓ 服务端 say 有幂等 clientId 去重
+  ✓ 服务端 say 有 TOO_FAST 频控
+  ✓ 快照下发 chatLog / chatSeq
+
+[新②] 增量轮询（since/rev）
+  ✓ net.js 带 since 参数
+  ✓ net.js 处理 unchanged
+  ✓ worker index 透传 since
+  ✓ DO 快路径返回 unchanged
+  ✓ DO 快路径也刷 lastSeen
+  ✓ DO 只在脏时落盘
+
+[多①] AI 飞行锁与全桌「思考中」
+  ✓ 服务端有 ASK_LOCK_MS
+  ✓ ask 检查 askInFlightUntil 并返回 AI_BUSY
+  ✓ ask 设置 pendingAI
+  ✓ ask 完成后清 pendingAI
+  ✓ 快照下发 pendingAI
+  ✓ HTML 有 #room-pending 横幅
+  ✓ CSS 有 .room-pending
+  ✓ UI 渲染 pendingAI 横幅
+  ✓ UI 提问后立刻锁按钮
+  ✓ UI 处理 AI_BUSY 文案
+
+[多②] 死座位与请离
+  ✓ 服务端有 DEAD_SEAT_MS
+  ✓ 快照下发 seatRemovable
+  ✓ kick 拒绝房主
+  ✓ kick 区分死座位与普通请离
+  ✓ UI 渲染请离按钮
+  ✓ UI 有 doKick
+
+[多③] 问答记录二级面板
+  ✓ HTML 有 #btn-room-qa
+  ✓ UI 有 openQaPanel
+  ✓ CSS 有 .room-qa-sheet
+
+[多④] AI 网关/WAF 拦截提示
+  ✓ 服务端识别 GATEWAY_BLOCKED
+  ✓ 服务端导出 GATEWAY_BLOCKED_HINT
+  ✓ UI 有 AI_GATEWAY_BLOCKED 文案
+
+[多⑤] 实时对话流与电影式左栏滚动
+  ✓ HTML 有 #room-feed
+  ✓ CSS 有 .room-feed
+  ✓ UI 有 renderFeed
+  ✓ UI 有 ensureQaScroll / stopQaScroll
+  ✓ UI 禁止手动滚动
+  ✓ CSS 有 room-mode 下禁止选择/触摸
+
+[收尾] Service Worker 缓存版本升级
+  ✗ sw.js 版本号为 v11
+
+❌ 有失败  47 passed / 1 failed
+

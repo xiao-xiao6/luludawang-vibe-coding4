@@ -26,6 +26,9 @@
   var LEAD_OF = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
   var LEVELS = ["solved", "close", "no"];
 
+  /* 思考链出口硬过滤：命中这些痕迹说明模型把内部分析吐出来了，整条打回重试，绝不展示给玩家 */
+  var REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示)|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说)/;
+
   /* 服务商预设：除 Anthropic 外都走 OpenAI 兼容的 /chat/completions */
   var PROVIDERS = [
     { id: "deepseek", label: "DeepSeek", kind: "openai", baseUrl: "https://api.deepseek.com/v1", model: "deepseek-chat", note: "国内直连、便宜，浏览器可直连" },
@@ -205,7 +208,9 @@
       "8. 认领了线索时，verdict 必须和那一条的判定完全一致，reply 用你自己的话重说，不要照抄原话。",
       "9. 只输出一个 JSON 对象，不要代码块、不要多余文字：",
       '   {"verdict":"yes","reply":"是。他确实在那天去过海边。","clue":3}',
-      "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。"
+      "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。",
+      "10. 玩家只能看到汤面，所以他是基于汤面进行猜测的。例如玩家说「他喝的不是海龟汤」，是在问汤面里他喝的是不是海龟汤——即使汤底里他曾经喝过别的汤，你也应该判定汤面里那碗。",
+      "11. 思考、分析、逐条排除、「让我想想」这类内部草稿，无论出现在 JSON 内外、任何字段里，都绝对禁止输出；输出前必须全部删干净，只留最终判定和一句短答。"
     ].join("\n");
   }
 
@@ -253,7 +258,7 @@
       "- 摸到关键但还缺一层 → close",
       "- 方向不对 → no",
       "",
-      "给玩家的短评不超过 40 字，不要补充玩家没说到的真相细节，不要剧透。",
+      "给玩家的短评不超过 40 字，不要补充玩家没说到的真相细节，不要剧透，不要解释你是怎么判断的。",
       '只输出 JSON：{"level":"close","note":"你已经摸到关键了，再想想他是怎么活下来的。"}',
       "level 只能是 solved / close / no。"
     ].join("\n");
@@ -308,8 +313,9 @@
     if (reply.length > 160) return { ok: false, reason: "too-long" };
     var lk = leadKey(reply);
     if (!lk) {
-      /* 判定词没放开头：自动补一个标准开头，而不是整句丢弃 */
-      reply = ((LEAD_OF[v] || "与此无关") + "。" + reply).slice(0, 158);
+      /* 判定词没放开头：多半是模型先吐了一段思考。只取开头第一句，其余丢弃，由出口硬过滤兜底 */
+      var mFirst0 = reply.match(/^[^。！？；]{0,28}/);
+      reply = ((LEAD_OF[v] || "与此无关") + "。" + (mFirst0 ? mFirst0[0] : "")).slice(0, 158);
     } else if (lk !== v) {
       /* 开头的判定词是模型的明确表态，以它为准 */
       v = lk;
@@ -331,6 +337,8 @@
     }
 
     if (truthOverlap(puzzle, reply)) return { ok: false, reason: "spoiler-truth" };
+    /* 出口硬过滤：带思考链痕迹、或连说三句以上的，整条打回重试 */
+    if (REASON_TAIL.test(reply) || (reply.match(/[。！？]/g) || []).length >= 3) return { ok: false, reason: "reason-dump" };
     return { ok: true, verdict: v, reply: reply, clue: ci };
   }
 
@@ -342,6 +350,7 @@
     if (!note) return { ok: false, reason: "empty" };
     if (note.length > 120) note = note.slice(0, 118) + "…";
     if (truthOverlap(puzzle, note)) return { ok: false, reason: "spoiler-truth" };
+    if (REASON_TAIL.test(note) || (note.match(/[。！？]/g) || []).length >= 3) return { ok: false, reason: "reason-dump" };
     return { ok: true, level: level, note: note };
   }
 
@@ -443,8 +452,13 @@
        不再因为「没把判定词放句首」就把整句判死 */
     var fv = fuzzyVerdict(plain);
     if (!fv) return null;
-    var rest = plain.replace(/^(是的?|不是|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "");
-    return { verdict: fv, reply: ((LEAD_OF[fv] || "") + "。" + rest).slice(0, 158), clue: 0 };
+    /* 判定词之前的整段思考直接扔掉，之后也只取第一句——绝不把分析原文拼回给玩家 */
+    var lw = LEAD_OF[fv];
+    var vi = lw ? plain.indexOf(lw) : -1;
+    if (vi > 0) plain = plain.slice(vi);
+    var rest = plain.replace(/^(是的?|不是的?|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "");
+    var mFirst = rest.match(/^[^。！？；]{0,28}/);
+    return { verdict: fv, reply: ((LEAD_OF[fv] || "") + "。" + (mFirst ? mFirst[0] : rest)).slice(0, 158), clue: 0 };
   }
 
   function parseGuess(raw) {
@@ -508,7 +522,8 @@
         "lead-mismatch": "判定词和前三字对不上",
         "clue-range": "认领了不存在的线索",
         "clue-type": "线索判定非法",
-        "spoiler-truth": "回答里带了汤底原文"
+        "spoiler-truth": "回答里带了汤底原文",
+        "reason-dump": "回答里带了思考过程，已打回重来"
       };
       return "回答没通过把关（" + (map[why] || why) + "）";
     }
@@ -646,7 +661,7 @@
   /* ---------------- 对外接口 ---------------- */
 
   /* 模型偶尔不守规矩：格式错或没过把关时，带上更硬的提醒再要一次 */
-  var RETRY_HINT = "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头，后面最多补一句不超过 28 字的提示。";
+  var RETRY_HINT = "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头，后面最多补一句不超过 28 字的提示。严禁输出思考过程、分析、举例或任何理由，也不要提到汤底。";
 
   function tryTwice(run) {
     return run(false).catch(function (err) {

@@ -1,0 +1,737 @@
+{
+ "actions": {
+  "restored": [
+   {
+    "id": "lib_05ee4cafe666",
+    "keep": "lib_0cf00682e3ce",
+    "bsim": 0.45,
+    "title": "047 · 洋娃娃",
+    "kept": "无题 · KONpiGG #135"
+   },
+   {
+    "id": "lib_0adc47714500",
+    "keep": "lib_cb5ea96c19db",
+    "bsim": 0.51,
+    "title": "笔仙",
+    "kept": "笔仙"
+   },
+   {
+    "id": "lib_4bb30df46863",
+    "keep": "lib_0ed4dd3f3ce3",
+    "bsim": 0.55,
+    "title": "电梯",
+    "kept": "无题 · KONpiGG #109"
+   },
+   {
+    "id": "lib_16c34d2a101f",
+    "keep": "lib_776b70302820",
+    "bsim": 0.47,
+    "title": "无题 · KONpiGG #67",
+    "kept": "024 · 关灯"
+   },
+   {
+    "id": "lib_16c80a13e181",
+    "keep": "lib_dd5eeb87f7de",
+    "bsim": 0.48,
+    "title": "Jed 2.20",
+    "kept": "无题 · boop-yyt #1386"
+   },
+   {
+    "id": "lib_4195efaab01e",
+    "keep": "lib_b560a80af76b",
+    "bsim": 0.3,
+    "title": "无题 · boop-yyt #1299",
+    "kept": "无题 · boop-yyt #1288"
+   },
+   {
+    "id": "lib_ee3cd8f8fce0",
+    "keep": "lib_87ceda50072d",
+    "bsim": 0.35,
+    "title": "看病",
+    "kept": "016 · 跳火车"
+   },
+   {
+    "id": "lib_f3a67510b7c7",
+    "keep": "lib_87ceda50072d",
+    "bsim": 0.35,
+    "title": "重见光明",
+    "kept": "016 · 跳火车"
+   },
+   {
+    "id": "lib_57c970bf7a82",
+    "keep": "lib_6a2910380309",
+    "bsim": 0.44,
+    "title": "无题 · boop-yyt #1367",
+    "kept": "无题 · boop-yyt #1370"
+   },
+   {
+    "id": "lib_bb9b8da83f0b",
+    "keep": "lib_6a2910380309",
+    "bsim": 0.21,
+    "title": "无题 · boop-yyt #1361",
+    "kept": "无题 · boop-yyt #1370"
+   },
+   {
+    "id": "lib_d54c7f270c6d",
+    "keep": "lib_6a2910380309",
+    "bsim": 0.39,
+    "title": "无题 · boop-yyt #1351",
+    "kept": "无题 · boop-yyt #1370"
+   },
+   {
+    "id": "lib_a8fb92054c63",
+    "keep": "lib_5a6993b42523",
+    "bsim": 0.58,
+    "title": "贝尔公主",
+    "kept": "无题 · KONpiGG #99"
+   },
+   {
+    "id": "lib_a0a04ac21e6e",
+    "keep": "lib_672b157d1754",
+    "bsim": 0.48,
+    "title": "猜名字",
+    "kept": "猜名字"
+   },
+   {
+    "id": "lib_c750c42858e6",
+    "keep": "lib_672b157d1754",
+    "bsim": 0.48,
+    "title": "猜名字",
+    "kept": "猜名字"
+   }
+  ],
+  "replaced": [
+   {
+    "id": "lib_f3d383d9df0e",
+    "kill": "lib_097336e53d3b",
+    "bsim": 0.19,
+    "restored": "无题 · boop-yyt #1368",
+    "killed": "无题 · boop-yyt #1371"
+   }
+  ],
+  "confirmed": [
+   {
+    "id": "lib_9ac3220c1845",
+    "keep": "lib_0015920e33d8",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_cb4c1c8363f6",
+    "keep": "lib_044e0af074d4",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_b7eb296b1ca1",
+    "keep": "lib_087b4e1374f3",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_6039bef49d95",
+    "keep": "lib_090fb2fb97fe",
+    "bsim": 0.93,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1078e9b7b092",
+    "keep": "lib_cb5ea96c19db",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1564a01d6f10",
+    "keep": "lib_0dd4d36c0b32",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9849093afcb2",
+    "keep": "lib_0e181ff97371",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f96e1a0884ee",
+    "keep": "lib_0e181ff97371",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9110ec7b39ab",
+    "keep": "lib_0fdefd44364d",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_85230f2e1e6f",
+    "keep": "lib_11fd153e6e81",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_cb48ce3aeb75",
+    "keep": "lib_1245207e575c",
+    "bsim": 0.93,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_46737dacf7e0",
+    "keep": "lib_1294ed2c0162",
+    "bsim": 0.88,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_904329fe6d6d",
+    "keep": "lib_13d675ba20b0",
+    "bsim": 0.95,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_141214013a8c",
+    "keep": "lib_35815405359b",
+    "bsim": 0.88,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1455577f47af",
+    "keep": "lib_335a2a7a493a",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_14720237876f",
+    "keep": "lib_9ad5cefd5842",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d881a0a0c762",
+    "keep": "lib_776b70302820",
+    "bsim": 0.74,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_8e8e435314df",
+    "keep": "lib_181239094689",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_187c567b5841",
+    "keep": "lib_ba0a80d94a62",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f3c2517bfe74",
+    "keep": "lib_18af72eb5ce0",
+    "bsim": 0.78,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_18d2a42fe41a",
+    "keep": "lib_7e7a011e93d0",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_96b0dada1834",
+    "keep": "lib_7e7a011e93d0",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1e0c1f87a2b9",
+    "keep": "lib_70ef60c67d01",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1e8b212d6a6b",
+    "keep": "lib_d5ad6e7a2851",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_1ef11bbc1923",
+    "keep": "lib_92b0c890dfd5",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_20800650c989",
+    "keep": "lib_6ff3742a28e2",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_7bec134fc445",
+    "keep": "lib_21b65cf5f303",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_23126408e906",
+    "keep": "lib_a8729117a936",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_6c64198477a7",
+    "keep": "lib_a8729117a936",
+    "bsim": 0.94,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_df7e08372ffa",
+    "keep": "lib_253e61d68de3",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d6803ffbacff",
+    "keep": "lib_26a8f6aeae4e",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_93edc973cbfe",
+    "keep": "lib_27629b68d5cf",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_2873bb5be315",
+    "keep": "lib_30c815b194ce",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d598836d8b62",
+    "keep": "lib_2962d63847c2",
+    "bsim": 0.94,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ee55e3c73f10",
+    "keep": "lib_2a1ddcd0a374",
+    "bsim": 0.93,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_5b033f2334ad",
+    "keep": "lib_2d7a2f4d5b9f",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d150c051a079",
+    "keep": "lib_2f71811bc48b",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f6f317bb36ea",
+    "keep": "lib_2f8b63661d46",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ad555550da64",
+    "keep": "lib_30ffbff72d13",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_311fd18aae90",
+    "keep": "lib_ccc003a29e20",
+    "bsim": 0.66,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f9b44ec880f2",
+    "keep": "lib_ccc003a29e20",
+    "bsim": 0.66,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_3162bdeaaea3",
+    "keep": "lib_319333fbaf07",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_aaef84435260",
+    "keep": "lib_319333fbaf07",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_31d54f73bfbf",
+    "keep": "lib_8105d49c45d8",
+    "bsim": 0.93,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_b9fdcd724950",
+    "keep": "lib_36075b693701",
+    "bsim": 0.96,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_cf76064afbb3",
+    "keep": "lib_37c884ffabac",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f164e08939b3",
+    "keep": "lib_39840ef75734",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f581f7d53be5",
+    "keep": "lib_40985bc7685d",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c40eba2b5ea1",
+    "keep": "lib_42f2bc82bc2f",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_43902112a903",
+    "keep": "lib_87ceda50072d",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_fbde9d409a5c",
+    "keep": "lib_490411e18e06",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c3dc8a18292b",
+    "keep": "lib_49c651e6beb1",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_a7c2020b9917",
+    "keep": "lib_4b9709c3fcdd",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_4d80ceead607",
+    "keep": "lib_73b6519f54ca",
+    "bsim": 0.91,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_e0f5ce7433b1",
+    "keep": "lib_56bc27c7e7be",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_5891f567cfaf",
+    "keep": "lib_f67071b7a71a",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ca6d37850951",
+    "keep": "lib_614ee93f352b",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f5273f493997",
+    "keep": "lib_641c88779ab8",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d6feec941be6",
+    "keep": "lib_677cfc01fbf6",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_68bfda3c2562",
+    "keep": "lib_e013f625c0a9",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_eae6cfcd0c64",
+    "keep": "lib_697d6e67511a",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_6af0ee0910ff",
+    "keep": "lib_7f2e70f76cd8",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f3efbb92481e",
+    "keep": "lib_6bf8c1505a1e",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ed269e2fea3f",
+    "keep": "lib_6c3407286474",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_e9aaa48c7116",
+    "keep": "lib_6c4c07d9075a",
+    "bsim": 0.19,
+    "why": "removed-is-meta"
+   },
+   {
+    "id": "lib_6f1a91a082e8",
+    "keep": "lib_7ba2fe196fb5",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c23857b4f49d",
+    "keep": "lib_6f860967a6c4",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_df06f36358ec",
+    "keep": "lib_6f860967a6c4",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_710f1137667b",
+    "keep": "lib_a51c48451941",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_bed167c568b8",
+    "keep": "lib_71f829d3da3b",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f98c840ad6f9",
+    "keep": "lib_71f829d3da3b",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_83dc56309332",
+    "keep": "lib_7445ad740cb8",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_783c025b1ad0",
+    "keep": "lib_c9a312d8972e",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_7fff05e093fb",
+    "keep": "lib_d9078a59e095",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ad9cefce00b1",
+    "keep": "lib_d9078a59e095",
+    "bsim": 0.66,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9d4ea0fc6e75",
+    "keep": "lib_85449b5c08f4",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_e02a56aaf17a",
+    "keep": "lib_8651060c9948",
+    "bsim": 0.74,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c9f8373199de",
+    "keep": "lib_86ba85ac49fd",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_87e6eab394d9",
+    "keep": "lib_dda5ae1293bc",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c2fac9ec1da0",
+    "keep": "lib_8e063958d2ef",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_fd0d5c769d00",
+    "keep": "lib_8e2c5a35d64c",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_a11ad91a65e2",
+    "keep": "lib_8e3ab9e40712",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9d53af0920d3",
+    "keep": "lib_92a9fba5867b",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_a20a19439677",
+    "keep": "lib_92f774e3d02c",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ef419c30b721",
+    "keep": "lib_92f774e3d02c",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c0de07ba2bbc",
+    "keep": "lib_930737722d5f",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_be5cdc09f417",
+    "keep": "lib_9ae72b8251da",
+    "bsim": 0.91,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9b977e96c4fb",
+    "keep": "lib_fb77315aaeee",
+    "bsim": 0.71,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_afcadcf41f05",
+    "keep": "lib_fb77315aaeee",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_9fd7e78448bb",
+    "keep": "lib_f2c502f50643",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_a22d1ae4da67",
+    "keep": "lib_c3fe6268a938",
+    "bsim": 0.95,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c1684f23086e",
+    "keep": "lib_a8c01bd11872",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_a979d7820985",
+    "keep": "lib_bf6dc1df19ca",
+    "bsim": 0.98,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_abd814242616",
+    "keep": "lib_bafb21fa5402",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_be804a9d30c9",
+    "keep": "lib_abf8e8b26ae2",
+    "bsim": 0.97,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f22cbcd4bcf0",
+    "keep": "lib_b92193139356",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_c461111b43f5",
+    "keep": "lib_f69651939ba4",
+    "bsim": 0.93,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d4356e3192b7",
+    "keep": "lib_ee8eecd3c58d",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d56eedd0c69d",
+    "keep": "lib_ee8eecd3c58d",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_d55a409e3e25",
+    "keep": "lib_e12f6b533563",
+    "bsim": 0.74,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_feea318deaaf",
+    "keep": "lib_d78b09244b6c",
+    "bsim": 1.0,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_f5f56eaefb41",
+    "keep": "lib_e0be4da42458",
+    "bsim": 0.99,
+    "why": "true-dup"
+   },
+   {
+    "id": "lib_ffbd1451be58",
+    "keep": "lib_ea01667538b7",
+    "bsim": 0.97,
+    "why": "true-dup"
+   }
+  ],
+  "skipped": []
+ },
+ "drop_meta_kept": [
+  "lib_097336e53d3b"
+ ]
+}
