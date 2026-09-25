@@ -287,10 +287,11 @@
         <div class="askbar">
           <input id="room-q-input" class="input" type="text" placeholder="没轮到你也可以先写好问题，轮到再发送" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
           <button type="button" class="btn primary" id="btn-room-ask">提问</button>
-          <button type="button" class="btn ghost" id="btn-room-guess">我要猜汤底</button>
+          <button type="button" class="btn ghost" id="btn-room-guess" title="你猜的内容与汤主判定只有你自己看得见，不进问答记录与实时对话">我要猜汤底</button>
           <!-- 第⑥条（重做）：旧「权」密码按钮下线，换成红色「放弃」——发起全房投票看汤底 -->
           <button type="button" class="btn giveup-btn" id="btn-room-giveup" title="卡住了？发起全房投票，同意满「人数-1」就直接上汤底"><span class="giveup-glyph">放弃</span></button>
           <button type="button" class="btn ghost" id="btn-room-qa" title="随时翻阅本锅的全部问答">📋 问答记录</button>
+          <button type="button" class="btn ghost" id="btn-room-notebook" title="你猜过什么、汤主怎么判，只有你自己看得见">🤫 猜底手账</button>
         </div>
       </div>
 

@@ -49,6 +49,7 @@ const QA_MAX = 200;              /* 问答日志上限 */
 const CHAT_MAX = 200;            /* 聊天日志上限 */
 const CHAT_LEN = 120;            /* 单条聊天字数上限 */
 const CHAT_GAP_MS = 600;         /* 同一人两条聊天最小间隔，防刷屏 */
+const GUESS_LOG_MAX = 60;        /* 每人私有猜底手账的条数上限（只有猜的人自己看得到） */
 
 function now() { return Date.now(); }
 
@@ -150,6 +151,12 @@ export class Room {
       qaLog: [],
       guessCooldowns: {},          /* uid → 冷却到期时间戳：每人独立，互不影响 */
       lastGuess: null,
+      /* ---- 多人「私有猜底」大改（2026-09-25）----
+         猜底内容与汤主判定只回给猜的人；谁何时猜、猜了什么、判了什么，
+         全桌一概不知。只有猜对（solved）那一刻，才由汤主在聊天里报喜。 */
+      solveOrder: [],              /* 猜对汤底的先后名单 [{uid, nickname, at}] = 最终排行榜 */
+      guessLog: [],                /* 私有猜底手账（条目带 uid，快照只把「我自己的」发给我） */
+      allSolved: false,            /* 本锅是否以「全员说破」方式结束 */
       ai: null,                    /* 房主配置的 AI（key 只在服务端，规格 #11） */
       pendingAI: null,             /* 汤主正在熬的那一句（全桌可见的「思考中」） */
       chatLog: [],                 /* 房间聊天 */
@@ -207,6 +214,7 @@ export class Room {
       nickname: nick,
       isHost: !!isHost || uid === s.hostUid,
       ready: false,
+      solved: false,               /* 多人：本锅是否已猜对汤底（下一锅重置） */
       online: true,
       lastSeen: now()
     };
@@ -268,6 +276,8 @@ export class Room {
     this.sysEvent(idle
       ? target.nickname + " 的座位被房主收回了（离线太久）。"
       : target.nickname + " 被房主请离了房间。");
+    /* 同离开：请离死座位也可能让剩下的人凑齐「全员说破」 */
+    if (s.phase === "playing") this.maybeFinishPot(s);
     return { ok: true, uid: target.uid };
   }
 
@@ -306,6 +316,8 @@ export class Room {
     } else {
       this.sysEvent(p.nickname + " 离开了房间。");
     }
+    /* 退场的人不再阻塞终局：若留下的人已全部说破，本锅当场结束 */
+    if (s.phase === "playing") this.maybeFinishPot(s);
     return { ok: true };
   }
 
@@ -518,12 +530,15 @@ export class Room {
     /* 开局阵容里的人（potUids）点「取消准备」→ 整桌掀回大堂（保留原规则）；
        中途加入的人（第⑧条）退出只把自己移出队列，不打断任何人、不掀桌。 */
     if (s.phase === "playing" && !ready) {
+      /* 多人：已经猜对汤底的人不许掀桌 / 退队——TA 已转入旁观，本锅由剩下的人打完 */
+      if (p.solved) { this.bump(); return { ok: true, phase: s.phase, solved: true }; }
       if (!s.potUids || s.potUids.indexOf(p.uid) !== -1) {
         s.phase = "lobby";
         s.order = [];
         s.turnIdx = 0;
         s.turnDeadline = 0;
         s.vote = null;
+        this.resetPotSolve(s);
         s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 撤回了准备，本锅回到大堂。", at: now() });
         s.players.forEach((x) => { x.ready = false; });
         this.bump();
@@ -568,6 +583,7 @@ export class Room {
       s.turnIdx = 0;
       s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
       s.phase = "playing";
+      this.resetPotSolve(s);
     }
     this.bump();
     return { ok: true, phase: s.phase };
@@ -596,6 +612,8 @@ export class Room {
     if (s.phase !== "playing") return { error: "NOT_PLAYING" };
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
+    /* 多人：已说破的人不得发起放弃 —— 不能再替还没猜出的人提前剧透 */
+    if (!s.solo && p.solved) return { error: "SOLVED_NO_GIVEUP", note: "你已说破本锅，剩下的人自己熬；不用替大家发起放弃。" };
     this.sweepVote();
     if (s.vote) {
       /* 已有投票在跑：发起者没变就当续票入口，别人点则提示先投票 */
@@ -840,13 +858,20 @@ export class Room {
     }
   }
 
-  /* ---------------- 猜底通道（规格 #8） ---------------- */
+  /* ---------------- 猜底通道（多人：全程私密，2026-09-25 大改） ----------------
+   * 猜底内容与汤主判定只回给猜的人：
+   *   - 不进共享 qaLog（别人看不到 TA 何时猜、猜了什么、判了什么色）；
+   *   - 条目带 uid，snapshot 只把「我自己的」猜底合并回我的视角问答流；
+   *   - 冷却本来就是每人独立（myGuessCooldownUntil 只发自己的）。
+   * 单人（solo）维持旧行为：判对 = 直接揭本锅汤底。
+   */
 
   async guess({ internalId, text }) {
     const s = this.state;
     if (s.phase !== "playing") return { error: "NOT_PLAYING" };
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
+    if (!s.solo && p.solved) return { error: "ALREADY_SOLVED", note: "你已说破本锅汤底，接下来安静看其他人熬～" };
     /* 冷却只算在猜的人身上，别人不受影响 */
     if (!s.guessCooldowns) s.guessCooldowns = {};
     const until = s.guessCooldowns[p.uid] || 0;
@@ -880,6 +905,7 @@ export class Room {
 
     const item = {
       kind: "guess",
+      priv: true,
       uid: p.uid,
       nickname: p.nickname,
       text: raw,
@@ -888,15 +914,37 @@ export class Room {
       viaAi,
       at: now()
     };
-    s.qaLog.push(item);
-    if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
-    s.lastGuess = { uid: p.uid, nickname: p.nickname, level, note, at: item.at };
+
+    if (s.solo) {
+      /* 单人：房间只有 TA 一个人，走旧通道（判对 = 立刻揭底结算） */
+      delete item.priv;
+      s.qaLog.push(item);
+      if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
+      s.lastGuess = { uid: p.uid, nickname: p.nickname, level, note, at: item.at };
+      this.settleGuess(level, s, puzzle, p);
+      this.bump();
+      return { ok: true, item, level, note };
+    }
+
+    /* 多人：进私有猜底手账，绝不上共享问答流 */
+    if (!s.guessLog) s.guessLog = [];
+    s.guessLog.push(item);
+    if (s.guessLog.length > 600) s.guessLog = s.guessLog.slice(-600);
     this.settleGuess(level, s, puzzle, p);
     this.bump();
-    return { ok: true, item, level, note };
+    const out = { ok: true, item, level, note, private: true };
+    if (level === "solved" && puzzle) {
+      out.solved = true;
+      out.rank = (s.solveOrder || []).length;
+      out.participants = this.potMembers(s).length;
+      /* 汤底只发给刚刚猜对的这个人（别人连 TA 猜对了都要晚一步才在聊天里知道） */
+      out.truth = puzzle.truth || "";
+      out.snapshot = this.snapshot(internalId);
+    }
+    return out;
   }
 
-  /* 结算：🔴/🟡 只给猜的人设冷却，🟢 揭汤底结束本锅 */
+  /* 结算：🔴/🟡 只给猜的人设冷却；🟢 单人=揭底，多人=说破者退场旁观，全员说破才揭底 */
   settleGuess(level, s, puzzle, player) {
     if (!s.guessCooldowns) s.guessCooldowns = {};
     if (level === "no" || level === "vague") {
@@ -904,9 +952,94 @@ export class Room {
     } else if (level === "close") {
       s.guessCooldowns[player.uid] = now() + COOLDOWN_CLOSE_MS;
     } else if (level === "solved") {
-      /* 第⑦条：猜对走统一揭底入口（与投票放弃同一条通道） */
-      this.reveal(s, player, "说破");
+      if (s.solo) { this.reveal(s, player, "说破"); return; }
+      this.markSolved(s, player);
+      this.maybeFinishPot(s);
     }
+  }
+
+  /* 本锅参与名单（实时算）：首发阵容 ∪ 此刻还在队列里的人 ∪ 已说破的人；
+     中途退出房间 / 退出队列的人不再等待 TA（第⑧条口径）。 */
+  potMembers(s) {
+    const set = [];
+    const add = (u) => {
+      if (u && set.indexOf(u) === -1 && s.players.some((x) => x.uid === u)) set.push(u);
+    };
+    (s.potUids || []).forEach(add);
+    (s.order || []).forEach(add);
+    (s.solveOrder || []).forEach((o) => add(o.uid));
+    return set;
+  }
+
+  /* 开新锅 / 掀回大堂：说破名单、私有手账、全员标志全部归零 */
+  resetPotSolve(s) {
+    s.solveOrder = [];
+    s.guessLog = [];
+    s.allSolved = false;
+    s.players.forEach((x) => { x.solved = false; });
+    this.bump();
+  }
+
+  /* 说破一人：记名 → 退出轮询队列（当轮即刻交棒） → 汤主在聊天里报喜 */
+  markSolved(s, player) {
+    if (!s.solveOrder) s.solveOrder = [];
+    player.solved = true;
+    s.solveOrder.push({ uid: player.uid, nickname: player.nickname, at: now() });
+    const rank = s.solveOrder.length;
+    const wasTurn = s.order[s.turnIdx] === player.uid;
+    const oi = s.order.indexOf(player.uid);
+    if (oi !== -1) s.order.splice(oi, 1);
+    if (!s.order.length) {
+      s.turnIdx = 0;
+      s.turnDeadline = 0;
+    } else {
+      if (oi !== -1 && oi < s.turnIdx) s.turnIdx -= 1;
+      if (s.turnIdx >= s.order.length) s.turnIdx = 0;
+      if (wasTurn) s.turnDeadline = now() + TURN_TIMEOUT_MS;
+    }
+    if (s.guessCooldowns) delete s.guessCooldowns[player.uid];
+    this.congratsChat(s, player, rank, this.potMembers(s).length);
+    this.bump();
+  }
+
+  /* 汤主报喜：进房间聊天（前端用炫彩特效框渲染），只报人名与名次，绝不带汤底 */
+  congratsChat(s, player, rank, total) {
+    if (!s.chatLog) s.chatLog = [];
+    s.chatSeq = (s.chatSeq || 0) + 1;
+    const rest = Math.max(0, total - rank);
+    const tail = rest > 0
+      ? "TA 已退出一问一答，转入旁观；本锅还剩 " + rest + " 人，全员说破才揭底。"
+      : "全员都说破，本锅圆满，马上统一揭底！";
+    s.chatLog.push({
+      kind: "chat",
+      type: "congrats",
+      uid: 0,
+      nickname: "汤主",
+      text: "恭喜 #" + player.uid + " " + player.nickname + " 第 " + rank + " 个猜对了本锅汤底！" + tail,
+      solverUid: player.uid,
+      solverNick: player.nickname,
+      rank,
+      total,
+      at: now(),
+      seq: s.chatSeq
+    });
+    if (s.chatLog.length > CHAT_MAX) s.chatLog = s.chatLog.slice(-CHAT_MAX);
+  }
+
+  /* 全员说破 → 统一揭底 + 排行榜（与猜对走同一条 revealed 通道） */
+  maybeFinishPot(s) {
+    const ids = this.potMembers(s);
+    if (!ids.length) return false;
+    const all = ids.every((u) => {
+      const pl = s.players.filter((x) => x.uid === u)[0];
+      return !!(pl && pl.solved);
+    });
+    if (!all) return false;
+    s.allSolved = true;
+    const first = s.players.filter((x) => x.uid === s.solveOrder[0].uid)[0] || null;
+    this.reveal(s, first, "全员说破");
+    this.bump();
+    return true;
   }
 
   /* 下一锅：房间不散，全员重新准备（规格 #15） */
@@ -931,6 +1064,11 @@ export class Room {
     s.vote = null;
     s.giveUp = false;
     s.revealHow = "";
+    /* 新锅：说破名单 / 私有猜底手账 / 全员标志全部清零，人人重新来过 */
+    s.solveOrder = [];
+    s.guessLog = [];
+    s.allSolved = false;
+    s.players.forEach((x) => { x.solved = false; });
     /* 这锅还在打时已经点过准备的人，下一锅直接算准备好；其余人重新准备。
        全员都准备好了就直接开下一锅，不用再干等。 */
     const queued = s.players.filter((x) => x.ready).map((x) => x.uid);
@@ -1012,7 +1150,9 @@ export class Room {
       /* 第⑥条：线索 / 提示机制已整体下线，不再下发 revealedClues / clueTotal */
       /* 只下发「我自己」的冷却，别人的冷却不共享、也不泄露 */
       myGuessCooldownUntil: you && s.guessCooldowns ? (s.guessCooldowns[you.uid] || 0) : 0,
-      lastGuess: s.lastGuess,
+      /* 私有猜底大改：lastGuess 只留单人模式；多人房不再全桌广播，
+         否则等于把「谁/何时/猜了什么/判什么色」泄露给全桌 */
+      lastGuess: s.solo ? s.lastGuess : null,
       /* 「汤主正在思考」：全桌可见，谁问的都一样，不在场的人也知道进度 */
       pendingAI: s.pendingAI ? {
         uid: s.pendingAI.uid,
@@ -1028,6 +1168,22 @@ export class Room {
         : null,
       winnerUid: s.winnerUid || 0,
       winnerNick: s.winnerNick || "",
+      /* ---- 多人私有猜底（2026-09-25）----
+         solveOrder / potCount：谁第几个说破是公开战绩（聊天里汤主已报喜）；
+         myGuessLog：只把「我自己」的猜底手账发给我；
+         myTruth：还在对局中但已说破的人，凭它恢复个人汤底弹窗（刷新不丢）。 */
+      solveOrder: (s.solveOrder || []).map(function (o, i) {
+        return { uid: o.uid, nickname: o.nickname, rank: i + 1, at: o.at };
+      }),
+      potCount: s.solo ? (s.players || []).length : this.potMembers(s).length,
+      allSolved: !!s.allSolved,
+      mySolved: !!(you && you.solved),
+      myRank: (function () {
+        if (!you) return 0;
+        const i = (s.solveOrder || []).findIndex((o) => o.uid === you.uid);
+        return i >= 0 ? i + 1 : 0;
+      })(),
+      myGuessLog: (s.guessLog || []).filter((x) => you && x.uid === you.uid).slice(-30),
       /* 第⑥条：放弃投票状态（含「我投过什么」，前端投票卡据此回显） */
       giveUp: !!s.giveUp,
       revealHow: s.revealHow || "",
@@ -1047,7 +1203,10 @@ export class Room {
         };
       })(),
       stars: s.stars || 0,
-      qaLog: s.qaLog.slice(-QA_MAX),
+      /* 防御性过滤：万一旧房间还残留猜底条目，也只发给猜的人自己 */
+      qaLog: s.qaLog.filter(function (x) {
+        return !x.priv || (you && x.uid === you.uid);
+      }).slice(-QA_MAX),
       chatLog: (s.chatLog || []).slice(-CHAT_MAX),
       chatSeq: s.chatSeq || 0,
       players: s.players.map((p, i) => ({
@@ -1058,6 +1217,7 @@ export class Room {
         nickname: p.nickname,
         isHost: p.isHost,
         ready: p.ready,
+        solved: !!p.solved,        /* 多人：本锅已说破（旁观中） */
         online: p.online && now() - (p.lastSeen || 0) < ONLINE_MS,
         /* 房主面板据此点亮「请离死座位」按钮 */
         seatRemovable: !p.isHost && now() - (p.lastSeen || 0) >= DEAD_SEAT_MS
@@ -1068,6 +1228,12 @@ export class Room {
     if (s.phase === "revealed" && s.puzzleId) {
       const full = getPuzzle(s.puzzleId);
       out.truth = full ? full.truth : "";
+    }
+    /* 多人：已说破但本锅未终局的人 —— 单独给他一份汤底，
+       用于刷新 / 重进后恢复个人汤底弹窗（只发给本人，不碰别人的快照） */
+    if (!s.solo && s.phase === "playing" && you && you.solved && s.puzzleId) {
+      const full = getPuzzle(s.puzzleId);
+      out.myTruth = full ? full.truth || "" : "";
     }
     return out;
   }
