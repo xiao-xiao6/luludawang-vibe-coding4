@@ -1,0 +1,383 @@
+#1 size=6 ['E3', 'E4', 'E5'] keep=lib_73c238975974
+   K: 一个人死在了沙漠里，身边有半根火柴。
+   D: 沙漠里躺着他、一些行李、一盒火柴和半根火柴。
+   D: 一名男子死在沙漠中，全身赤裸，手里攥着半根火柴。周围没有任何足迹。
+   D: 一个人在沙漠中死了，手里握着半根火柴。
+   D: 在沙漠里躺着他和一些行李还有一盒火柴跟一根半根的火柴。
+   D: 有一个人在沙漠中头朝下死去，不远处散落着几个行李箱，这个人手里紧紧抓着半根火柴。
+#2 size=6 ['E3', 'E4'] keep=lib_59bdeb4b044e
+   K: 一名男子搭火车到邻近的城镇去看病，当天是最后的疗程，男子已经痊愈。当他满心欢喜地搭上火车要回
+   D: 男人坐火车去邻镇看病，治好回程过隧道跳车自杀。为什么？
+   D: 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳
+   D: 一个人坐火车去临镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳
+   D: 男子坐火车去邻镇治眼病，治好了回程时经过隧道，跳车自杀。
+   D: 一个人坐火车去邻镇看病，看完之后病全好了。回来的路上火车经过一个隧道，这个人就跳
+#3 size=3 ['E3'] keep=lib_056db100d29a
+   K: 一个盲人在和朋友们一起过生日，朋友们一起给他唱生日歌，唱完生日歌之后盲人把他的朋友们都杀了
+   D: 我生日时邀请朋友们到家里聚会，吹完蜡烛后，我把他们都杀了。
+   D: 一个人过生日，邀请他所有的好朋友来参加。吹完蜡烛的时候，这个人把他所有的好朋友都
+#4 size=3 ['E4', 'E5'] keep=lib_458903b2c4d5
+   K: 男子在河边钓鱼，钓起了一团杂乱的长发，他立刻跳下河淹死了自己。
+   D: 有个男子跟女友去河边散步，女友突然掉进河里，男子跳入水中去找，但没有找到，伤心离
+   D: 男子和女友河边散步，女友落水，男子下水寻找未果，伤心离去。多年后故地重游，得知此
+#5 size=3 ['E3', 'E4'] keep=lib_ae470c4660ec
+   K: 我搬进便宜的新房，常听到像老鼠爬的声音却睡得香。后来房东谈了女友，声音没了，但诡异的安静让我
+   D: 我搬进了一个新房子，房间里经常有老鼠爬的声音，但毕竟便宜，我也睡得很香。后来房东
+   D: 我搬进了一个新房子，房间里经常有类似于老鼠爬的声音，但毕竟便宜，我也睡的很香，没
+#6 size=3 ['E3en'] keep=lib_09c0825b5def
+   K: A woman opens an envelope and dyes. What happe
+   D: A woman opens an envelope and dyes. How 
+   D: A woman opens an envelope and dyes.
+#7 size=3 ['E3en'] keep=lib_0a6d1163d6f9
+   K: A man lies dead next to a feather. What happen
+   D: A man lies dead next to a feather. How c
+   D: A man lies dead next to a feather.
+#8 size=3 ['E3en'] keep=lib_0c44293fd6f1
+   K: If he'd turned on the light, he'd have lived.
+   D: If he'd turned on the light, he'd have l
+   D: If he'd turned on the light, he'd have l
+#9 size=3 ['E3en'] keep=lib_0e134ac04a78
+   K: Two people are playing cards. One looks around
+   D: Two people are playing cards. One looks 
+   D: Two people are playing cards. One looks 
+#10 size=3 ['E3en'] keep=lib_0f05c1b4b831
+   K: A man dies in his own home. What happened?
+   D: A man dies of thirst in his own home. Wh
+   D: A man dies in his own home. How could th
+#11 size=3 ['E4'] keep=lib_aac5e74f3bff
+   K: 男人独自住在山顶的小屋里，深夜突然听到急促的敲门声。他迷迷糊糊跑去开门，门外却空无一人。没过
+   D: 一个人住在山顶的小屋里，半夜听见有敲门的，他打开门却没有人，于是去睡了。等了一会
+   D: 一个人住在山顶的小屋里，半夜听见有敲门声音，但是他打开门却没有人，于是去睡了。第
+#12 size=3 ['E3', 'E4'] keep=lib_1f572e970b04
+   K: 六岁那年外公葬礼，我和姐姐玩捉迷藏，我对妈妈说了一句话把她吓昏过去，我说了什么？
+   D: 六岁时爷爷去世，我去祭奠并和姐姐玩捉迷藏。我对妈妈说了一句话把她吓晕。我说了什么
+   D: 我六岁那年，外公去世，我和亲人一起去祭奠，和姐姐玩捉迷藏，然后我对母亲说了句话把
+#13 size=3 ['E3', 'E4'] keep=lib_3fad9c3ff17b
+   K: 周围一片黑暗，有个声音说：我们来玩海龟汤吧，我会回答是或不是。我问：这是真实世界吗？声音说：
+   D: 我是一名技术高超的催眠师，能让被催眠者分不清梦境与现实。周一，我在跟小珊玩笔仙游
+   D: 我是一名催眠师，一旦被催眠，你将分不清梦与现实，这也让我在行业内声名大噪。星期一
+#14 size=3 ['E3', 'E4'] keep=lib_ca43702db709
+   K: 我醒来瞥了眼镜子里的时钟又躺下，结果永远睡过去。
+   D: 一名男子从梦中醒来，通过镜子看了眼时钟，然后又躺下继续睡，再也没有醒来。
+   D: 我从梦中醒来，看了一眼镜子中的时钟，继续躺下，但是却永远地睡了过去。
+#15 size=3 ['E3'] keep=lib_5a05b2e5001a
+   K: 小美和网友小明约好见面，三分钟后小美却大声尖叫。
+   D: 小美和网友小明约好见面，过了三分钟后小美却大声惊叫起来!
+   D: 小美和网友小明约好见面，几分钟后小美却大声惊叫起来！
+#16 size=3 ['E3', 'E4'] keep=lib_3f1125b7c0cd
+   K: 我杀了人，被警察带走时看到门口黑猫一直盯着我，我知道我错了。
+   D: 我杀了人，警察带我走时看到门口那只黑猫一直盯着我，我知道自己错了。
+   D: 我杀了人，当警察带走我的时候，我看到了门口的黑猫，它一直在盯着我，这一刻我知道我
+#17 size=3 ['E4', 'E5'] keep=lib_fbf3ed58597b
+   K: 女孩独自在家，只有爱犬陪伴。半夜她听到奇怪水滴声，害怕的她把手伸到床边，爱犬舔了舔她的手。第
+   D: 一个女孩独居，陪伴她的只有爱犬。半夜醒来，她听到一下一下的水滴声，非常害怕。于是
+   D: 独居女孩半夜听到水滴声，害怕地让爱犬舔手安慰自己，可第二天一醒来，发现狗死了。
+#18 size=3 ['E3en'] keep=lib_5351805ac486
+   K: A car without a driver moves; a man dies. How 
+   D: A car without a driver moves; a man dies
+   D: A car without a driver moves; a man dies
+#19 size=3 ['E3', 'E4'] keep=lib_63cb507c431d
+   K: 我躺床上看直播，刷到一个漆黑直播间，画面越来越亮，我看见天花板，然后我死了。
+   D: 我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然
+   D: 我在床上躺着看直播，刷到了一个漆黑的直播间，直播间里越来越亮，我看到了天花板，然
+#20 size=3 ['E4'] keep=lib_668d61fd84da
+   K: 乡间小路上，五名男子一同前行。突然开始下雨，五人中的四人加快了步伐，然而第五人一点也不着急。
+   D: 在一条乡村路上，五个人走在一起，天突然开始下雨。五个人中有四个人加快了脚步，第五
+   D: 五个人走在路上，下雨了，四个人加快脚步，一个人不急。最终五人同时到达目的地，四人
+#21 size=3 ['E3'] keep=lib_672b157d1754
+   K: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊他的名字，便
+   D: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛
+并
+   D: 家里闹鬼了，我和爱人找来一位大师帮忙解决。大师说他有怨气，你们在屋里摆满白烛并喊
+#22 size=3 ['E4'] keep=lib_d1fc971bd1d5
+   K: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮。马戏团只需要一个侏儒，马戏团的侏儒当然是越矮越好
+   D: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮。马戏团只需要一个侏儒，越矮越好，于是
+   D: 马戏团里有两个侏儒，瞎子侏儒比另一个侏儒矮，马戏团只需要一个侏儒，马戏团里的侏儒
+#23 size=3 ['E3', 'E4'] keep=lib_7695fa789e5e
+   K: 男人离车30米，只走五步上车。为什么？
+   D: 一个人离车有30米，却只走了五步就上车。
+   D: 一个人离他的车有30米，但是他只走了五步就上车了，这是为什么?
+#24 size=3 ['E3en'] keep=lib_7e39ee741246
+   K: An ordinary woman walks on water. What happene
+   D: An ordinary woman walks on water. How co
+   D: An ordinary woman walks on water. (_Math
+#25 size=3 ['E3', 'E4'] keep=lib_9654d2967355
+   K: 哥哥好后悔，如果那天自己吃了冰淇淋，弟弟就不会死了。
+   D: 哥哥很后悔：如果那天自己吃了冰淇淋，弟弟就不会死。
+   D: 哥哥好后悔，如果那天自己吃了冰淇凌，弟弟就不会死了。
+#26 size=3 ['E3', 'E4'] keep=lib_d9a053630dee
+   K: 我是一名大学生，在异地上学。这一天爸爸妈妈给我打电话说他们想我了，让我找个时间回趟家。于是我
+   D: 我是一名大学生，在异地上学。爸妈打电话说想我了，让我五一回家。我到家后给爸爸打电
+   D: 我是一名大学生，在异地上学。爸爸妈妈给我打电话说想我了，让我找时间回家。我趁五一
+#27 size=3 ['E3', 'E4'] keep=lib_edb83d6c5d1b
+   K: 女明星领养了一个女儿，从女儿很小开始就时不时让她戴一顶帽子。某天带她去医院，女儿知道真相后自
+   D: 从小妈妈喜欢给女儿戴不合适的帽子，一天她带女儿去医院，女儿痛哭了。
+   D: 女明星养了一个女儿，从小时不时给女儿戴一顶帽子。有一天她带女儿去医院，女儿在医院
+#28 size=3 ['E3en'] keep=lib_ca411d1cf9c1
+   K: An avid birdwatcher sees an unexpected bird. S
+   D: An avid birdwatcher sees an unexpected b
+   D: An avid birdwatcher sees an unexpected b
+#29 size=2 ['E3'] keep=lib_0269e650b41f
+   K: 男人醒来只看到一双鞋就自杀了，为什么？
+   D: 男人醒来后只看到一双鞋，然后就自杀了，为什么?
+#30 size=2 ['E4'] keep=lib_028f0dfe1fbe
+   K: 小强养了一只很忠诚的狗，今天他牵着狗上街，然后小强死了。为什么？
+   D: 小强养了一只忠诚的狗，有一天他牵着狗上街，结果小强死了。
+#31 size=2 ['E3en'] keep=lib_048dc4d7aeb0
+   K: A woman lies dead in the street near a car.
+   D: A woman lies dead in the street near a c
+#32 size=2 ['E3en'] keep=lib_05d55826327b
+   K: There is blood on the ceiling of my bedroom.
+   D: There is blood on the ceiling of my bedr
+#33 size=2 ['E3'] keep=lib_086c4a778b97
+   K: 我低下头许愿，愿望实现了，我却哭了。
+   D: 我低下头许愿，愿望实现了，我却吕了。
+#34 size=2 ['E4'] keep=lib_e10fef909345
+   K: 妈妈最近很反常：偷偷用我的香水、穿我的衣服，还老是半夜出去。那天我忍不住和她争执，不小心把她
+   D: 我的妈妈最近有些反常，不但偷偷用我的香水穿我的衣服，还老是半夜出去。那天我实在忍
+#35 size=2 ['E3en'] keep=lib_0b330f52e242
+   K: A man tries to buy poison to kill his wife. Th
+   D: A man tries to buy poison to kill his wi
+#36 size=2 ['E4'] keep=lib_0cf00682e3ce
+   K: 一场意外后，妻子便开始把自己关在房间里，不肯出来。那天我突然听到她在嚎啕大哭，我急忙冲进房间
+   D: 一场意外后，妻子便把自己关在房间里不肯出来。那天我突然听到她在嚎啕大哭，急忙冲进
+#37 size=2 ['E4'] keep=lib_3e4770e9b0e5
+   K: 父母都不理我，但我还是很爱他们。
+   D: 我的父母都不理我，但我还是很爱他们。
+#38 size=2 ['E3'] keep=lib_d3c52f26b4cd
+   K: 灯塔看守人半夜把灯关掉，导致海上多艘船相撞沉没，他自责自杀。
+   D: 守灯人半夜起来喝水，随手把灯关了，又回去睡觉了。第二天，他自杀了。
+#39 size=2 ['E4'] keep=lib_4bb30df46863
+   K: 我走进电梯准备上学，随着电梯上升，我知道我再也无法去学校了。
+   D: 我走进电梯准备去上学，随着电梯的上升，我知道，我再也无法去学校了。
+#40 size=2 ['E3en'] keep=lib_0fa0dac82fb7
+   K: A man urinates and dies.
+   D: A man urinates and dies. How could this 
+#41 size=2 ['E4'] keep=lib_12eb6f8b848a
+   K: 一个生活贫困的孤独老人，被发现死在家中，好像是在吃晚饭时死的。他的尸体残缺不全，尸体周围场景
+   D: 生活拮据的孤寡老人杰克，被发现死在家中，生前好像正在吃饭，尸体被发现时已经残缺不
+#42 size=2 ['E3'] keep=lib_146ba5100f1f
+   K: 小明在图书馆看书，在一本书里翻到了100块钱，但是他却哭了，问为什么小明哭了
+   D: 小明在图书馆看书，在一本书里翻到了100块钱，但是他却哭了。
+#43 size=2 ['E3'] keep=lib_28930e0caf4c
+   K: 姐姐给我选了件小红裙，我穿去上学，然后有人死了。
+   D: 姐姐为我选了一件小红裙，我穿着去上学了，然后有人死了。
+#44 size=2 ['E5'] keep=lib_bb9cfe3405ab
+   K: 一名男子到餐厅点了一碗汤，因为觉得汤里的肉吃起来很特别，所以询问了店家这是用了什么肉。店家告
+   D: 一名男子走进餐厅，点了一碗海龟汤，喝了一口非常惊讶地问服务员："这是真的海龟汤吗
+#45 size=2 ['E3'] keep=lib_19aa8e7c225d
+   K: 艺术家买了《雨中的女郎》。朋友来欣赏后失踪。次日艺术家在画室闻到淡淡味道，发现《雨中的女郎》
+   D: 艺术家买了一幅画叫做《雨中的女郎》，一天他的朋友来到他家欣赏。次日，艺术家来到画
+#46 size=2 ['E3'] keep=lib_e019fdc98552
+   K: 手机不见了，找到时我吓了一跳。
+   D: 我的手机不见了，当我找到它时，我吓了一跳。
+#47 size=2 ['E3en'] keep=lib_1fe018f884c7
+   K: A man is lying drowned in a dead forest. What 
+   D: A man is lying drowned in a dead forest.
+#48 size=2 ['E4'] keep=lib_408d0bacc2de
+   K: 我发现床头柜上多了一杯蜂蜜水和一块巧克力蛋糕，原本的娃娃却不见了。我知道男友再也回不来了。
+   D: 我发现床头柜上放着一杯蜂蜜水和一块巧克力蛋糕，原本放在床头柜的娃娃却消失不见了。
+#49 size=2 ['E4'] keep=lib_2299ca62945f
+   K: “滋滋喻喻喻呼呼呼龙隆隆味呈叶咱啊啊啊嘲嘲咕噜咕噜滋滋”
+   D: ”滋滋嗡嗡嗡呼呼呼轰隆隆哒哒哒咔嚓啊啊啊嘣嘣咕噜咕噜滋滋“
+#50 size=2 ['E3en'] keep=lib_234328857d6d
+   K: A woman is murdered in front of hundreds of pe
+   D: A woman is murdered in front of hundreds
+#51 size=2 ['E3'] keep=lib_fb44b3fabcd5
+   K: 我正在街上努力工作，突然一个疯疯癫癫的女人向我扑来，爸爸赶紧把我抱回了家，但随后那个女人又跟
+   D: 我正在街上努力工作，突然一个疯疯癫癫的女人向我扑来，爸爸赶紧把我抱回了家，但随后
+#52 size=2 ['E4'] keep=lib_255999f4f6ba
+   K: 晚上我在寝室洗了个头，室友突然昏倒，而我随后死了。为什么？
+   D: 晚上，我在寝室洗了个头，结果我和室友都死了。
+#53 size=2 ['E3'] keep=lib_255eb9ac95c6
+   K: 我是乞丐，醒来发现碗里多了样东西，饱餐了一顿，但第七天我死了。
+   D: 我是个乞丐，醒来发现碗里多了样东西，为此我饱餐了一顿，但是在第七天时，我却死了。
+#54 size=2 ['E3'] keep=lib_f715e86356f5
+   K: 我洗完澡说了一句话，家人得知真相后都崩溃了。
+   D: 那天我洗完澡后，说了一句话，家人们听见后都崩溃了。
+#55 size=2 ['E3'] keep=lib_29a799606726
+   K: 最近保姆总是偷懒，家里乱糟糟的。我去客厅跟爸爸告状，爸爸却说：我们家没请保姆。我回卧室质问保
+   D: 新来的保姆总是偷懒，家里乱糟糟的，我跑去客厅跟父亲告状，父亲都说：”我们家没请保
+#56 size=2 ['E4'] keep=lib_4a68dd74f870
+   K: 第一天小熊没了，第二天洋娃娃没了，第三天小木偶没了，最后全都不见了，只看到蝴蝶结在发光。我很
+   D: 第一天小熊没有啦！第二天洋娃娃没有啦！第三天小木偶没有啦！最后一天全都不见啦！只
+#57 size=2 ['E3'] keep=lib_2e587d7b6540
+   K: 寒假补作业到开学当天才补完。我一大早趁妈妈没起床去学校报到，到了学校我却疯了。
+   D: 这两天为了补寒假作业把我搞得晕头转向，还好在开学那天补完了。今天一早，还没等妈妈
+#58 size=2 ['E3'] keep=lib_acfe4ab75d5e
+   K: 生日那天爸爸端上一盘排骨并说了一句话，我痛哭。
+   D: 生日那天爸爸端上来一盘排骨，并对我说了一句话，说完我痛哭了起来。
+#59 size=2 ['E3'] keep=lib_2fb427a16795
+   K: 男孩女孩是邻居，女孩生日时男孩送她一个旧八音盒，不久后女孩搬家。
+   D: 男孩和女孩从小是邻居，女孩过生日时，男孩送给她一个旧的八音盒，不久后女孩搬家了。
+#60 size=2 ['E3'] keep=lib_314cc038dce2
+   K: 一位老人每周去图书馆借书，但每次借书前都会翻到第30页。
+   D: 一位老人，每周都会去图书馆借书，但是每次借书前都会翻到第30页，这是为什么?
+#61 size=2 ['E3en'] keep=lib_357a5c287302
+   K: Two people are dead in a car, which is locked 
+   D: Two people are dead in a car, which is l
+#62 size=2 ['E3en'] keep=lib_35e327e8890d
+   K: Two brothers are involved in a murder. Though 
+   D: Two brothers are involved in a murder. T
+#63 size=2 ['E4'] keep=lib_afa727cde8c6
+   K: 你独自住在郊外，附近只有一户邻居，是一对养牛的夫妻。你们两家之间隔着一片草坪。有一天深夜，你
+   D: 你住在乡下，邻居是一对养牛的夫妻。某天深夜，你听到外面传来奇怪的「牛吃草」声音，
+#64 size=2 ['E3en'] keep=lib_3c59d8568b7f
+   K: A flash of light, a man dies. Why?
+   D: A flash of light, a man dies. How could 
+#65 size=2 ['E3'] keep=lib_3e4d2da2c331
+   K: 开始的时候男朋友他很爱我，但后来他开始欺负我了，他死了。
+   D: 我以前有个很爱我的男朋友，但他后来开始欺负我，最后他死了。
+#66 size=2 ['E3'] keep=lib_410b5ac434f2
+   K: 2988年，我和爸媽一起去星際旅行。回來時卻出了意外。爸媽立馬打算要二胎。五十年後，兒孫滿堂
+   D: 我和爸妈一起去旅行，回来时却出了意外，爸妈立马打算要二胎。五十年后，儿孙满堂，爸
+#67 size=2 ['E3'] keep=lib_9f6caf094103
+   K: 儿子去世一周年祭日上，我杀死了三个来悼念他的人。
+   D: 在儿子去世一周年的祭日上，我杀死了三个来悼念他的人。
+#68 size=2 ['E4'] keep=lib_41e02e0f8c85
+   K: 晚上我去公厕，看见男厕门口站着一个人，身后有影子，手里还拿着什么。我很快冷静。第二天警察问我
+   D: 一天我去公共厕所，那时已是晚上，我看见男厕所门口站着一个人，后面是他的影子，手里
+#69 size=2 ['E3en'] keep=lib_4a0f40ddff23
+   K: Bruce wins the race, but he gets no trophy. Wh
+   D: Bruce wins the race, but he gets no trop
+#70 size=2 ['E3'] keep=lib_4aa8059ec3e8
+   K: 迷路女孩找到空屋休息，却因墙上画像“盯着她”而睡不着。清晨醒来发现异样，恐惧逃离。
+   D: 迷路的女孩找到了间空屋子，她很疲惫但她睡不着。第二天清晨，累得睡着的她醒过来，发
+#71 size=2 ['E4'] keep=lib_4b27b323a07a
+   K: 婆婆给我一瓶药水，我失去了最爱的男生。
+   D: 婆婆给了我一瓶药水，我失去了最爱的男生。
+#72 size=2 [] keep=lib_4cea3fb48eaf
+   K: Beulah died in the Appalachians, while Craig d
+   D: Beulah died in the Appalachians, while C
+#73 size=2 [] keep=lib_4fa7348b73fc
+   K: A black leader dies in Africa. What happened?
+   D: A black leader dies in Africa. How could
+#74 size=2 ['E3'] keep=lib_eb29b057824f
+   K: 男生喜欢女生好久了，他成绩非常不好，女生说只要两人能进同一所大学，就答应做他女朋友，后来他做
+   D: 女孩和男孩提了一个条件，只要男孩做到就做他的女朋友，后来男孩做到了，女孩却疯了。
+#75 size=2 ['E4'] keep=lib_70707f32e1ca
+   K: 两个死人，现场只有一把枪，一颗子弹，一副牌。发生了什么？
+   D: 两个死人，一把枪，一副牌。发生了什么事？
+#76 size=2 ['E3en'] keep=lib_57ae1306e87a
+   K: Charlie died when the music stopped. What happ
+   D: Charlie died when the music stopped. How
+#77 size=2 ['E4'] keep=lib_7cf2a178d34a
+   K: 我醒来忘记一切，纸条写着：不要相信1号。一个男人走近说：先生早上好，2号很高兴为您服务。我问
+   D: 我睡醒了，我又忘记了一切，手里捏着的纸条上写着几个字:不要相信1号。一个男人走近
+#78 size=2 ['E4'] keep=lib_a8fb92054c63
+   K: 我是贝尔公主，父王给我盛大婚礼，可婚礼上我却看不清王子的脸……
+   D: 我是贝尔公主，父王给我准备了盛大的婚礼，可婚礼上我却看不清王子的脸...
+#79 size=2 ['E3en'] keep=lib_5b31bb7c711b
+   K: A pile of sawdust, no net, a man dies. What ha
+   D: A pile of sawdust, no net, a man dies. H
+#80 size=2 ['E3'] keep=lib_9d61a5b2df8d
+   K: 一个人打开饮料，看见瓶盖上写着「再来一瓶」，他崩溃了。
+   D: 小明打开瓶盖，里面写着再来一瓶，他崩溃的哭了
+#81 size=2 ['E3en'] keep=lib_667e4d272252
+   K: A man pushes a car up to a hotel and tells the
+   D: A man pushes a car up to a hotel and tel
+#82 size=2 ['E3en'] keep=lib_6c4c07d9075a
+   K: A rope breaks. A bell rings. A man dies. What 
+   D: A rope breaks. A bell rings. A man dies.
+#83 size=2 ['E4'] keep=lib_6db4d37cfcbb
+   K: HO+SiOz+FesOs+CO:一0 人 〈x2+y2-1 ) 3一
+   D: H₂O+SiO₂+Fe₃O₄+CO₂→∅，x2+y2−13=x2y3+∞
+#84 size=2 ['E5'] keep=lib_715c8134e625
+   K: 我听到广播里的新闻后，先是庆幸而后痛哭起来。
+   D: 听到广播新闻后，我先庆幸随后痛哭。
+#85 size=2 ['E3en'] keep=lib_72b08b0f2494
+   K: A man shoots himself, and dies. What happened?
+   D: A man shoots himself, and dies. How coul
+#86 size=2 ['E4'] keep=lib_749507623b5d
+   K: 美人鱼与人类王子相爱来到王子的国家，不久后却传来王子死讯。
+   D: 美人鱼与人类王子相爱并一起来到了王子的国家，可不久后却传来了王子的死讯。
+#87 size=2 ['E3en'] keep=lib_75185e4de274
+   K: A man marries twenty women in his village but 
+   D: A man marries twenty women in his villag
+#88 size=2 ['E4'] keep=lib_776b70302820
+   K: 小明半夜起来喝水，顺手把灯关上继续睡觉，醒了之后他就自杀了，为什么？
+   D: 小明半夜起来喝水，然后把灯关上继续睡觉，醒了之后他就自杀了，问小明为什么自杀
+#89 size=2 ['E3'] keep=lib_a471bef44be6
+   K: 一位富豪给心爱的妻子打了一通电话，于是妻子就死了。
+   D: 一位富豪给她心爱的妻子打了一通电话，于是妻子就死了。
+#90 size=2 ['E3'] keep=lib_7893be6075d9
+   K: 我一回家就立刻替死去的妹妹写遗书：写下‘我想死’的心情就行。
+   D: 我一回家就立刻替死去的妹妹写遗书，对我来说，替她写遗书是很简单的，只要写下我想死
+#91 size=2 ['E4'] keep=lib_86e357eccfad
+   K: 我有两个哥哥，三兄弟从小睡一张床。二哥病死后不久，我把大哥也杀了。
+   D: 我有两个哥哥，我们三兄弟自小就睡在一张床上。后来有一天二哥因为生病死了，不久后我
+#92 size=2 ['E4'] keep=lib_c56c62db40b5
+   K: 离午夜还有五分钟，男子上车逐个猜对乘客年龄。问到婆婆时她说：不是，再过五分钟我才69。男子脸
+   D: 离午夜还有五分钟，一个男子上了列车。男子的神情很奇怪，他看了看车上的几个人，然后
+#93 size=2 ['E3'] keep=lib_8c299267f7de
+   K: 小红胆子很小，室友经常一起恶作剧吓她。某天早上，一位室友被尖叫声惊醒，睁眼后却说不出话来：她
+   D: 清晨，我被室友的尖叫声吵醒，睁开眼后，我却说不出话来。
+#94 size=2 [] keep=lib_7e5accb69163
+   K: A man is lying dead face down in the desert we
+   D: Silly variant: same problem statement, w
+#95 size=2 ['E4'] keep=lib_7e7c1efe43d9
+   K: 有母女三人，母亲死了，姐妹俩去参加葬礼。妹妹在葬礼上遇见了一个很帅的男子，并对他一见倾心。但
+   D: 姐妹俩参加母亲的葬礼，妹妹遇到了一个心动的男子，但葬礼后再也找不到他了。一个月后
+#96 size=2 ['E4'] keep=lib_803df945c53e
+   K: 当救护车赶到食物中毒的那户人家时，见到的是一幅地狱般的景象。所有人连站都站不起来，脸上全无血
+   D: 当我们开着救护车赶到食物中毒的那户人家时，所有的人连站都站不起来，脸上全无血色。
+#97 size=2 ['E4'] keep=lib_9303cd77d99f
+   K: 一个人从屋里出来招了辆出租车，然后再也回不到这间屋子。
+   D: 一个人从一间屋子里出来，伸手招了辆出租车，然后他再也没能回来这间屋子，请问这是为
+#98 size=2 ['E4'] keep=lib_84ee71111870
+   K: 杰克坐上出租车，要求司机赶快把他送到目的地。不久后他被枪杀了。
+   D: 杰克上了一辆出租车，让司机快点把他送到目的地。不久之后，他被枪杀了。
+#99 size=2 ['E3'] keep=lib_85c40ab6ed9d
+   K: 6岁外婆说别吃黄苹果；13岁别吃青苹果；18岁别吃红苹果。20岁外婆去世，我祈愿：以后所有苹
+   D: 6岁时外婆告诉我不要吃黄苹果。13岁时，外婆告诉我不要吃青苹果。18岁时外婆告诉
+#100 size=2 ['E4'] keep=lib_acebe5e38366
+   K: 男子精神正常，但却在船上挥起刀，将许多人的手一一砍断。为什么？
+   D: 男子精神正常，却在船上挥起刀，将许多人的手一一砍断。
+#101 size=2 ['E3'] keep=lib_e523f1cb58c8
+   K: 我叫辛德瑞拉，丑陋可怜却嫁给王子。王子对我说一句话，我知道下一场舞会又要开始了。
+   D: 我叫辛德瑞拉，可怜又丑陋的我却嫁给了王子，那天王子对我说了句话，我知道下一场舞会
+#102 size=2 ['E3'] keep=lib_faa800c4c34d
+   K: 女主爱在网上分享近况。某天收到一条留言被吓得夺门而出。也许她不该逃，第二天警方发现了尸体。
+   D: 女主很喜欢在网上分享自己的近况，有一天她收到一则留言，被吓到的女主夺门而出。或许
+#103 size=2 ['E4'] keep=lib_c12cc7f868a8
+   K: 女孩半夜听见天花板滴水声，摸床边狗舔手才安心睡。第二天发现狗被吊死在天花板，滴的是狗血。
+   D: 女孩深夜听见洗手间有滴水声，她不敢起床，把手伸到床下，感觉到爱犬在舔她的手，于是
+#104 size=2 ['E4'] keep=lib_d7016f1d33ac
+   K: 一天，游手好闲的阿星在大街上游荡。正巧碰上一所小学放学，他在拥挤的人流中不幸被无良小学生倒，
+   D: 一天，游手好闲的阿星在大街上游荡，被一个小学生不小心撞倒，小学生不仅没道歉还出言
+#105 size=2 ['E3en'] keep=lib_95482535a7ae
+   K: Two men are found dead outside of an igloo.
+   D: Two men are found dead outside of an igl
+#106 size=2 ['E4'] keep=lib_b7c5a3a3b8cd
+   K: 留学回家发现门旁被写了“X”，擦掉后又出现。夜里邻居家动画片声很吵，我去理论。次日门上X变成
+   D: 留学回家的我一次出门时，发现家门旁写了个"X"，我没有在意索性就擦掉了，可当天回
+#107 size=2 ['E4'] keep=lib_9adc0b280b75
+   K: 你的朋友D约你作为伴郎参加他的婚礼。在婚礼前几天，你接到一通来电："您好，是'永远的十八岁'
+   D: 你的朋友D约你作为伴郎参加他的婚礼，但就在婚礼前几天，你接到了警察的电话，问你是
+#108 size=2 ['E4'] keep=lib_ab7525f53ba2
+   K: 我是医生，一天有人把一本相册放在我面前，我知道他们发现了我所有秘密。
+   D: 我是一名医生，一天一个人拿着一本相册放在我面前，我知道他们发现了我所有的秘密。
+#109 size=2 ['E3'] keep=lib_ac7f45f3b869
+   K: 我出差很久，回到家之后突然全身发凉，知道我完了
+   D: 我去乡下出差，朋友给我打电话说"你妈真好…"，第二天回到家后我崩溃了。
+#110 size=2 ['E4'] keep=lib_bcda5d38f4bf
+   K: 一名男子A请另一名男子B在纸上签上名字，随即杀死了B，为什么？
+   D: 一个男人走进一家餐馆，向服务员要了一杯凉水。然而服务员没有给他，并突然掏出一把枪
+#111 size=2 ['E3'] keep=lib_ff82650c1faa
+   K: 铛铛铛：“这个没熟。”铛铛铛：“这个好像熟了！”爸爸吓出一身冷汗。
+   D: 铛铛铛，"这个没熟"，铛铛铛，"这个好像熟了！"，突然，我的爸爸被吓出一身冷汗。
+#112 size=2 ['E3'] keep=lib_cb03c5556b09
+   K: 幼儿园小朋友数数总说“1，2，3，7”，我纠正她，她说是妈妈教的。我去家访后，也对她说“1，
+   D: 幼儿园的一个小朋友数数总是说"1，2，3，7"，总是漏掉中间的"4，5，6"。可
+#113 size=2 ['E3'] keep=lib_d8b7c8088ed4
+   K: 妈妈很爱我，但一场大雨后把我关进伸手不见五指的小黑屋。再次见到她时她已面目全非，我知道我们会
+   D: 我的妈妈很爱我，可自从下过一场大雨之后，她就把我关进了一个伸手不见五指的小黑屋，
+#114 size=2 ['E3'] keep=lib_ea9919efc255
+   K: 一名作家在截稿日“开天窗”，编辑们却非常感谢他。
+   D: 一名作家，在截稿日开了天窗，但是编辑们都非常感谢他，请问这是为什么?
+#115 size=2 ['E3en'] keep=lib_ef983ce23926
+   K: He was killed by breakfast. How could this be
+   D: He was killed by breakfast. What happene
+#116 size=2 ['E3'] keep=lib_fc5e37b8dfde
+   K: “一节，两节，三节……”数完后我疯了。
+   D: "一节，两节，三节…"数完后我疯掉了。
