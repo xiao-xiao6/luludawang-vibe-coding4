@@ -247,11 +247,15 @@ B.ev("document.getElementById('btn-room-guess').click()")
 B.ev("""var t=document.getElementById('rguess-input'); if(t) t.value='乙悟了 SOLVED';
 var s=document.getElementById('rguess-submit'); if(s) s.click();""")
 ok("B 弹个人说破弹窗", wait_for(B, "!!document.querySelector('.me-solved-wrap .ms-truth')", "B 个人弹窗", 20))
+ok("B 弹窗里战况三小格齐了（个人/全桌/用时）", B.ev("document.querySelectorAll('.me-solved .ms-stats .gs').length") == 3,
+   B.ev("Array.prototype.map.call(document.querySelectorAll('.me-solved .ms-stats .gs'),function(e){return e.textContent}).join('|')"))
 snap(B, "01_b_personal_solved")
 msB = str(B.ev("document.querySelector('.me-solved') ? document.querySelector('.me-solved').textContent : ''"))
 ok("B 弹窗写明「第 1 个」", "第 1 个" in msB, msB[:100])
 time.sleep(3)
 ok("A 收到汤主报喜炫彩框", wait_for(A, "!!document.querySelector('.chat-item.congrats .cg-frame')", "A 报喜框", 15))
+ok("报喜框里也带战况三小格", A.ev("document.querySelectorAll('.chat-item.congrats .cg-stats .gs').length") == 3,
+   A.ev("var c=document.querySelector('.chat-item.congrats .cg-stats'); c?c.textContent:''"))
 snap(A, "02_a_congrats_and_spectator")
 cg = str(A.ev("document.querySelector('.chat-item.congrats .cg-text') ? document.querySelector('.chat-item.congrats .cg-text').textContent : ''"))
 ok("报喜含「乙乙」+「第 1 个」", ("乙乙" in cg and "第 1 个" in cg), cg[:140])
@@ -272,6 +276,8 @@ time.sleep(2.5)   # 等本锅已全员（B 那边可能已先弹全员揭底，B
 B.ev("var b=document.getElementById('ms-ok'); if(b) b.click();")
 A.ev("var b=document.getElementById('ms-ok'); if(b) b.click();")
 ok("A 统一揭底 + 排行榜出现", wait_for(A, "!!document.querySelector('.reveal-final .rank-board')", "A 排行榜", 15))
+ok("排行榜每人一行三格", A.ev("var r=document.querySelectorAll('.rank-board .rk').length; r>0 && r*3==document.querySelectorAll('.rank-board .rk-stats .gs').length"),
+   A.ev("(document.querySelector('.rank-board')||{}).textContent"))
 snap(A, "03_a_final_reveal_ranking")
 rkA = str(A.ev("Array.prototype.map.call(document.querySelectorAll('.rk-name'),function(e){return e.textContent;}).join('>')"))
 ok("A 排行榜顺序 乙甲", rkA == "乙乙>甲甲", rkA)

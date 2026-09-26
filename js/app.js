@@ -14,6 +14,14 @@
   var $ = function (s, el) { return (el || document).querySelector(s); };
   var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
 
+  /* 图标助手（js/icons.js，2026-09-26 去 emoji）：顶栏按钮等一律用同风格线性 SVG */
+  function ic(name, cls) {
+    return (typeof root.SoupIcon === "function") ? root.SoupIcon(name, cls) : "";
+  }
+  function icRaw(name) {
+    return (root.SoupIcon && root.SoupIcon.raw) ? root.SoupIcon.raw(name) : "";
+  }
+
   /* 汤库题不在 PUZZLES 里：给查题函数包一层（引擎语义不变，PUZZLES 仍优先） */
   var ENGINE_getPuzzle = E.getPuzzle;
   E.getPuzzle = function (id) {
@@ -339,22 +347,22 @@
   function paintMusic() {
     var bm = $("#btn-music");
     if (bm) {
-      bm.textContent = state.music ? "🎵 音乐" : "🎵 静音";
+      bm.innerHTML = ic("music") + (state.music ? " 音乐" : " 静音");
       bm.setAttribute("aria-pressed", state.music ? "true" : "false");
     }
     var bp = $("#btn-play");
     if (bp) {
-      bp.textContent = state.playing ? "⏸ 暂停" : "▶ 播放";
+      bp.innerHTML = (state.playing ? icRaw("pause") : icRaw("play")) + (state.playing ? " 暂停" : " 播放");
       bp.setAttribute("aria-pressed", state.playing ? "true" : "false");
     }
     var dp = $("#dock-play");
     if (dp) {
-      dp.textContent = state.playing ? "⏸" : "▶";
+      dp.innerHTML = state.playing ? icRaw("pause") : icRaw("play");
       dp.setAttribute("aria-pressed", state.playing ? "true" : "false");
     }
     var dm = $("#dock-mute");
     if (dm) {
-      dm.textContent = state.music ? "🔊" : "🔇";
+      dm.innerHTML = state.music ? icRaw("volume") : icRaw("mute");
       dm.setAttribute("aria-pressed", state.music ? "true" : "false");
     }
     var v = $("#vol");
@@ -385,7 +393,7 @@
   function paintFx() {
     var bf = $("#btn-fx");
     if (!bf) return;
-    bf.textContent = state.fx ? "✨ 特效" : "✨ 特效关";
+    bf.innerHTML = ic("spark") + (state.fx ? " 特效" : " 特效关");
     bf.setAttribute("aria-pressed", state.fx ? "true" : "false");
   }
 
@@ -474,7 +482,7 @@
   /* ============================================================
    * 左侧「问答记录」区
    * ------------------------------------------------------------
-   * 原「汤单」列表已整体迁入 📚 汤库（screen-library）。
+   * 原「汤单」列表已整体迁入汤库（screen-library）。
    * 左侧现在只做一件事：把本局的问答历史滚动展示出来。
    * 数据源就是 state.history（{q, a} 数组），与 #log 同源同序。
    * ============================================================ */
@@ -664,7 +672,7 @@
             : "（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
           renderTip(aiOn()
             ? "AI 汤主已经读过这一锅的汤面汤底，用你自己的话问就好。"
-            : "这一锅要 AI 汤主才能问——点上方 🤖 AI 汤主 配好模型。");
+            : "这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型。");
         }
       } else {
         setAskEnabled(true);
@@ -739,7 +747,7 @@
 
     /* 汤库层没有关键词汤主：必须走 AI，否则不给问 */
     if (isLib(p) && !aiOn()) {
-      toast("汤库这一锅要 AI 汤主才能问——点上方 🤖 AI 汤主 配好模型");
+      toast("汤库这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型");
       return;
     }
 
@@ -857,7 +865,7 @@
     txt.className = note && tone ? tone : "";
     if (link) link.textContent = on ? "调整 AI 设置" : "换成 AI 汤主";
     if (btn) {
-      btn.textContent = on ? "🤖 AI 汤主 · 开" : "🤖 AI 汤主";
+      btn.innerHTML = ic("robot") + (on ? " AI 汤主 · 开" : " AI 汤主");
       btn.setAttribute("aria-pressed", on ? "true" : "false");
     }
   }
@@ -960,7 +968,7 @@
   function askAiHint() {
     var p = E.getPuzzle(state.pid);
     if (!p || state.done) return;
-    if (!aiOn()) { toast("先点上方的 🤖 AI 汤主 配好模型，才能问它"); openAiModal(); return; }
+    if (!aiOn()) { toast("先点上方的 AI 汤主配好模型，才能问它"); openAiModal(); return; }
     /* 提示记账只留一处：先走题库提示，再补一句 AI 方向，避免两套逻辑漂移 */
     var before = state.hintsUsed;
     useHint();
@@ -1225,7 +1233,7 @@
 
     /* 库层没有预设答案词，只能让 AI 汤主来判定 */
     if (isLib(p) && !aiOn()) {
-      fb.textContent = "汤库这一锅没有预设答案词，得先配好 🤖 AI 汤主。";
+      fb.textContent = "汤库这一锅没有预设答案词，得先配好 AI 汤主。";
       fb.className = "guess-feedback no";
       return;
     }
@@ -1634,7 +1642,7 @@
           '" aria-label="' + esc(p.dispTitle) + '，难度' + p.difficulty + '">' +
           /* 绿勾：点一下把这个汤标成「已熬出汤底」/ 再点取消；不影响进汤 */
           '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
-          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? "✓" : "") + "</span>" +
+          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? ic("check") : "") + "</span>" +
           '<div class="pz-title">' + esc(p.dispTitle) + "</div>" +
           '<div class="pz-meta"><span class="pz-diff" aria-hidden="true">' + libDiffDots(p.difficulty) + "</span>" +
           "<span>" + esc(libShortSrc(p.src)) + "</span>" +
@@ -1653,7 +1661,7 @@
           var id = ck.getAttribute("data-check");
           var on = toggleSolved(id);
           ck.classList.toggle("on", on);
-          ck.textContent = on ? "✓" : "";
+          ck.innerHTML = on ? ic("check") : "";
           ck.setAttribute("aria-checked", on ? "true" : "false");
           var card = ck.closest ? ck.closest(".pz-card") : null;
           if (card) card.classList.toggle("solved", on);
@@ -1727,7 +1735,7 @@
     var libBtn = $("#btn-library");
     if (libBtn) libBtn.addEventListener("click", openLibrary);
 
-    /* 中区问答记录：清空本局记录（汤库入口由顶栏 📚 汤库 统一提供） */
+    /* 中区问答记录：清空本局记录（汤库入口由顶栏「汤库」统一提供） */
     var qaClear = $("#btn-qa-clear");
     if (qaClear) qaClear.addEventListener("click", function () {
       state.history = [];
@@ -1784,7 +1792,7 @@
     var snd = $("#btn-sound");
     if (snd) {
       var paintSnd = function () {
-        snd.textContent = state.sound ? "🔊 音效" : "🔇 静音";
+        snd.innerHTML = (state.sound ? ic("volume") : ic("mute")) + (state.sound ? " 音效" : " 静音");
         snd.setAttribute("aria-pressed", state.sound ? "true" : "false");
       };
       paintSnd();

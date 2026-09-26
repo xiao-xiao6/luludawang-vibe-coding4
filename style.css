@@ -2431,3 +2431,86 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 .rk-none { background: rgba(12, 9, 7, .42); }
 .rk-none .rk-medal { filter: grayscale(1); opacity: .6; }
 .rk-none .rk-name { color: var(--dim-2); }
+
+/* ============================================================
+ * 2026-09-26 改版：① 说破战况三格（报喜框 / 个人弹窗 / 排行榜）
+ *              ② emoji 全面换成同风格线性 SVG 图标（js/icons.js）
+ * ============================================================ */
+
+/* ---------- 图标基座：1.1em 随字号缩放，颜色跟随 currentColor ---------- */
+.ic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.18em;
+}
+.ic svg { width: 100%; height: 100%; display: block; }
+/* 裸 SVG 的装饰位：品牌锅、大锅摆件、圆形播放键、金冠、双铃、四角星、奖牌 */
+.brand-ico, .pot, .dock-btn, .ms-crown, .cg-bell, .rb-spark, .wt-spark, .rk-medal, .pz-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand-ico svg, .pot svg, .dock-btn svg, .ms-crown svg,
+.cg-bell svg, .rb-spark svg, .wt-spark svg, .pz-check svg { width: 1em; height: 1em; display: block; }
+.rk-medal svg { width: 1.3em; height: 1.3em; display: block; }
+.room-tag { display: inline-flex; align-items: center; gap: 4px; }
+.room-tag svg { width: .95em; height: .95em; }
+
+/* 判定圆点（替代 🔴🟡🟢⚪） */
+.dot-g { color: var(--yes); }
+.dot-y { color: var(--part); }
+.dot-r { color: var(--no); }
+.dot-w { color: var(--irr); }
+
+/* 奖牌配色（替代 🥇🥈🥉🎖️；m0 = 未说破的灰碗） */
+.rk-medal.m1 { color: #ffd166; filter: drop-shadow(0 0 8px rgba(255, 209, 102, .55)); }
+.rk-medal.m2 { color: #d2d6de; filter: drop-shadow(0 0 8px rgba(210, 214, 222, .4)); }
+.rk-medal.m3 { color: #cd7f32; filter: drop-shadow(0 0 8px rgba(205, 127, 50, .45)); }
+.rk-medal.m4 { color: #b9a484; }
+
+/* ---------- 战况三小格：个人提问 / 全桌提问 / 用时 ---------- */
+.guess-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 10px 0 2px;
+}
+.guess-stats .gs {
+  flex: 1 1 88px;
+  max-width: 132px;
+  min-width: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 6px 8px 5px;
+  border: 1px solid rgba(226, 164, 79, .32);
+  border-radius: 10px;
+  background: linear-gradient(165deg, rgba(226, 164, 79, .1), rgba(12, 9, 7, .5));
+}
+.guess-stats .gs i {
+  font-style: normal;
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  color: var(--dim-2);
+}
+.guess-stats .gs b {
+  font-size: 14px;
+  color: var(--broth-2);
+  font-variant-numeric: tabular-nums;
+}
+/* 报喜框里的三格：聊天框很窄，整体收一号 */
+.chat-item.congrats .guess-stats { gap: 6px; margin: 7px 0 2px; }
+.chat-item.congrats .gs { flex: 1 1 60px; min-width: 58px; max-width: none; padding: 5px 6px 4px; }
+.chat-item.congrats .gs i { font-size: 10px; letter-spacing: .02em; }
+.chat-item.congrats .gs b { font-size: 12.5px; }
+/* 排行榜行里的三格：换到人名下一行，均分排满 */
+.rk { flex-wrap: wrap; }
+.rk-stats { flex: 1 1 100%; margin: 7px 0 0; }
+.rk-stats .gs { flex: 1 1 0; max-width: none; min-width: 0; padding: 5px 6px 4px; }
+.rk-stats .gs i { font-size: 10px; letter-spacing: .04em; }
+.rk-stats .gs b { font-size: 12.5px; }
