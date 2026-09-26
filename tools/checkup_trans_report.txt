@@ -1,0 +1,65 @@
+﻿鑻辨枃绱㈠紩: 0
+琛ュ榻? 0 鎬诲: 788
+
+===== 缈昏瘧瑙勫垯闂姹囨€?=====
+  R5_NUM_LOST            18
+  R2_META_IN_SURFACE     16
+  R1_UNDERTRANSLATE      15
+  R9_KANA_RATIO          7
+宸插啓 tools/checkup_trans_issues.json锛屽叡 56
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_2bb52cc974d9 | surface 闀垮害姣?0.23锛堜腑24/鍘?05锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_7d6e8d25e49b | truth 闀垮害姣?0.24锛堜腑46/鍘?91锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_59d5609804b0 | truth 闀垮害姣?0.24锛堜腑31/鍘?27锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_48503817c899 | surface 闀垮害姣?0.23锛堜腑75/鍘?26锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_731ffe3153a9 | surface 闀垮害姣?0.23锛堜腑17/鍘?4锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_5267d633ce14 | surface 闀垮害姣?0.24锛堜腑55/鍘?34锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_5267d633ce14 | truth 闀垮害姣?0.24锛堜腑44/鍘?81锛?
+ R5_NUM_LOST [鑻辫瘧涓璢 lib_5267d633ce14 | 缂烘暟瀛?10,3,7锛堝叡3涓級
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_114690a86241 | truth 闀垮害姣?0.23锛堜腑70/鍘?98锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_253ddea858ec | truth 闀垮害姣?0.19锛堜腑122/鍘?36锛?
+ R5_NUM_LOST [鑻辫瘧涓璢 lib_9ad66f4c93fe | 缂烘暟瀛?000,1,10,100,20,5锛堝叡7涓級
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_9b794e04cf52 | truth 闀垮害姣?0.12锛堜腑92/鍘?46锛?
+ R5_NUM_LOST [鑻辫瘧涓璢 lib_fd4502763aab | 缂烘暟瀛?0,0.5,1940锛堝叡3涓級
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_009423753be8 | truth 闀垮害姣?0.23锛堜腑42/鍘?82锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_693d02301ecf | surface 闀垮害姣?0.25锛堜腑25/鍘?01锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_24cf9bd7965c | truth 闀垮害姣?0.24锛堜腑15/鍘?2锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_1605736a782b | truth 闀垮害姣?0.23锛堜腑52/鍘?30锛?
+ R1_UNDERTRANSLATE [鑻辫瘧涓璢 lib_f2f031e20b9e | truth 闀垮害姣?0.23锛堜腑44/鍘?92锛?
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_80d533bed0b0 | 缂烘暟瀛?1,1000,2锛堝叡4涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_49e649be452b | 缂烘暟瀛?1,2,3,5锛堝叡6涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_b3e0c395299d | 缂烘暟瀛?20,4,5,锛?锛掞紙鍏?涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_7219593c0848 | 缂烘暟瀛?锛?锛?锛?锛旓紙鍏?涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_ae8d31cd76a1 | 缂烘暟瀛?1,3,4锛堝叡3涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_247a5da9ccb8 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_f30b578b106e | 缂烘暟瀛?1,2,20,25,5,锛掞紙鍏?涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_04f69b44bd8e | 缂烘暟瀛?10,2,3锛堝叡3涓級
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_90019f9e0732 | 缂烘暟瀛?100,20,30,锛?锛旓紙鍏?涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_1b8d3d9b2518 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_7b7e59065807 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_c523f2698204 | 姹ら潰鍚簮绔欒瘽鏈€孊S棰樸€?
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_625339855804 | surface 鍋囧悕鍗犳瘮 7.9%
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_625339855804 | truth 鍋囧悕鍗犳瘮 9.5%
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_35e374a0500b | 缂烘暟瀛?锛?锛掞紬锛旓紤,锛擄紙鍏?涓級
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_35e374a0500b | truth 鍋囧悕鍗犳瘮 3.0%
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_dc1830048523 | 缂烘暟瀛?锛戯紪,锛擄紮锛堝叡3涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_dc1830048523 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_066b7dedef80 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_92294fdcf566 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_086053fa989c | 缂烘暟瀛?100,50,锛掞紙鍏?涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_65c3747dc4cb | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_65c3747dc4cb | surface 鍋囧悕鍗犳瘮 4.6%
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_c3953b7027ec | 缂烘暟瀛?1,4,50锛堝叡4涓級
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_c3953b7027ec | truth 鍋囧悕鍗犳瘮 5.0%
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_89d554a18a6b | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_38d7b35b4671 | 姹ら潰鍚簮绔欒瘽鏈€孊S棰樸€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_a72e6741b9be | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_a7eea5d563b0 | 姹ら潰鍚簮绔欒瘽鏈€孊S棰樸€?
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_a7eea5d563b0 | truth 鍋囧悕鍗犳瘮 3.2%
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_84b36d48082d | 缂烘暟瀛?锛?锛戯紣锛?锛掞紣,锛?锛栵紙鍏?涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_fd7b08ee78c9 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_88b2abdae709 | 缂烘暟瀛?1,2,3锛堝叡3涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_88b2abdae709 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?
+ R5_NUM_LOST [鏃ヨ瘧涓璢 lib_16dfc330f802 | 缂烘暟瀛?1,30锛堝叡3涓級
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_16dfc330f802 | 姹ら潰鍚簮绔欒瘽鏈€孊S棰樸€?
+ R9_KANA_RATIO [鏃ヨ瘧涓璢 lib_2ee8dbec8a06 | truth 鍋囧悕鍗犳瘮 4.5%
+ R2_META_IN_SURFACE [鏃ヨ瘧涓璢 lib_ff7f074e1147 | 姹ら潰鍚簮绔欒瘽鏈€屸€汇€?

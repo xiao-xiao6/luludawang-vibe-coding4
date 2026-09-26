@@ -1,0 +1,560 @@
+[
+ {
+  "id": "lib_2bb52cc974d9",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中24/原105）"
+ },
+ {
+  "id": "lib_7d6e8d25e49b",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中46/原191）"
+ },
+ {
+  "id": "lib_59d5609804b0",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中31/原127）"
+ },
+ {
+  "id": "lib_48503817c899",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中75/原326）"
+ },
+ {
+  "id": "lib_731ffe3153a9",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中17/原74）"
+ },
+ {
+  "id": "lib_114690a86241",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中70/原298）"
+ },
+ {
+  "id": "lib_253ddea858ec",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.19（中122/原636）"
+ },
+ {
+  "id": "lib_9ad66f4c93fe",
+  "tag": "英译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 000,1,10,100,20,5（共7个）"
+ },
+ {
+  "id": "lib_9b794e04cf52",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.12（中92/原746）"
+ },
+ {
+  "id": "lib_fd4502763aab",
+  "tag": "英译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 0,0.5,1940（共3个）"
+ },
+ {
+  "id": "lib_009423753be8",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中42/原182）"
+ },
+ {
+  "id": "lib_693d02301ecf",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.25（中25/原101）"
+ },
+ {
+  "id": "lib_24cf9bd7965c",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中15/原62）"
+ },
+ {
+  "id": "lib_1605736a782b",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中52/原230）"
+ },
+ {
+  "id": "lib_f2f031e20b9e",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中44/原192）"
+ },
+ {
+  "id": "lib_80d533bed0b0",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,1000,2（共4个）"
+ },
+ {
+  "id": "lib_49e649be452b",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,2,3,5（共6个）"
+ },
+ {
+  "id": "lib_b3e0c395299d",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 20,4,5,１,２（共7个）"
+ },
+ {
+  "id": "lib_7219593c0848",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 １,２,３,４（共4个）"
+ },
+ {
+  "id": "lib_ae8d31cd76a1",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,3,4（共3个）"
+ },
+ {
+  "id": "lib_f30b578b106e",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,2,20,25,5,２（共6个）"
+ },
+ {
+  "id": "lib_04f69b44bd8e",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 10,2,3（共3个）"
+ },
+ {
+  "id": "lib_90019f9e0732",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 100,18298,18299,20,30,１（共7个）"
+ },
+ {
+  "id": "lib_c523f2698204",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 10,100,3,30,１（共5个）"
+ },
+ {
+  "id": "lib_625339855804",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "surface 假名占比 8.2%"
+ },
+ {
+  "id": "lib_625339855804",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "truth 假名占比 12.6%"
+ },
+ {
+  "id": "lib_35e374a0500b",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 ２,２７４１,３（共3个）"
+ },
+ {
+  "id": "lib_35e374a0500b",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "truth 假名占比 3.0%"
+ },
+ {
+  "id": "lib_dc1830048523",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 30,１６,３９（共3个）"
+ },
+ {
+  "id": "lib_066b7dedef80",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,30（共3个）"
+ },
+ {
+  "id": "lib_92294fdcf566",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 0,00,1,10,3,7（共6个）"
+ },
+ {
+  "id": "lib_086053fa989c",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 100,50,２（共3个）"
+ },
+ {
+  "id": "lib_65c3747dc4cb",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,2,9（共4个）"
+ },
+ {
+  "id": "lib_c3953b7027ec",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,4,50（共4个）"
+ },
+ {
+  "id": "lib_c3953b7027ec",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "truth 假名占比 5.0%"
+ },
+ {
+  "id": "lib_89d554a18a6b",
+  "tag": "日译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.13（中22/原175）"
+ },
+ {
+  "id": "lib_a7eea5d563b0",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,30（共3个）"
+ },
+ {
+  "id": "lib_a7eea5d563b0",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "truth 假名占比 3.2%"
+ },
+ {
+  "id": "lib_84b36d48082d",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 １,１００,２０,５,６（共8个）"
+ },
+ {
+  "id": "lib_88b2abdae709",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,2,3（共3个）"
+ },
+ {
+  "id": "lib_16dfc330f802",
+  "tag": "日译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.03（中136/原5000）"
+ },
+ {
+  "id": "lib_16dfc330f802",
+  "tag": "日译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1,3,30（共3个）"
+ },
+ {
+  "id": "lib_2ee8dbec8a06",
+  "tag": "日译中",
+  "rule": "R9_KANA_RATIO",
+  "detail": "truth 假名占比 4.5%"
+ },
+ {
+  "id": "lib_ff7f074e1147",
+  "tag": "日译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.24（中78/原328）"
+ },
+ {
+  "id": "lib_0c44293fd6f1",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中131/原554）"
+ },
+ {
+  "id": "lib_0e134ac04a78",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中46/原191）"
+ },
+ {
+  "id": "lib_0fa0dac82fb7",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.12（中99/原857）"
+ },
+ {
+  "id": "lib_1f34e7036b8b",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.22（中54/原251）"
+ },
+ {
+  "id": "lib_21b65cf5f303",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中42/原184）"
+ },
+ {
+  "id": "lib_234328857d6d",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中49/原217）"
+ },
+ {
+  "id": "lib_269b76a49e5f",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.18（中75/原415）"
+ },
+ {
+  "id": "lib_26bcca939ecf",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中41/原175）"
+ },
+ {
+  "id": "lib_26bcca939ecf",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中116/原480）"
+ },
+ {
+  "id": "lib_26d12ef6da2a",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.23（中54/原233）"
+ },
+ {
+  "id": "lib_26d12ef6da2a",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.18（中94/原530）"
+ },
+ {
+  "id": "lib_2c0ba09a2695",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.21（中21/原101）"
+ },
+ {
+  "id": "lib_2d7a2f4d5b9f",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中68/原294）"
+ },
+ {
+  "id": "lib_33a8157609fc",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.19（中18/原94）"
+ },
+ {
+  "id": "lib_357a5c287302",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.21（中23/原107）"
+ },
+ {
+  "id": "lib_36a9685bff7a",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中89/原374）"
+ },
+ {
+  "id": "lib_39fb5cec5a60",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.17（中77/原450）"
+ },
+ {
+  "id": "lib_3ec7a7147508",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.24（中134/原549）"
+ },
+ {
+  "id": "lib_43e1934bbc83",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中106/原461）"
+ },
+ {
+  "id": "lib_48818f1558f0",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中65/原282）"
+ },
+ {
+  "id": "lib_5351805ac486",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.22（中80/原368）"
+ },
+ {
+  "id": "lib_635d3bbeb251",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.11（中47/原441）"
+ },
+ {
+  "id": "lib_65fe14d66cba",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.20（中50/原246）"
+ },
+ {
+  "id": "lib_6a2910380309",
+  "tag": "英译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 1.31,1.59,1.70,1.75（共4个）"
+ },
+ {
+  "id": "lib_6bf8c1505a1e",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.17（中25/原146）"
+ },
+ {
+  "id": "lib_6bf8c1505a1e",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.21（中106/原515）"
+ },
+ {
+  "id": "lib_71ec509dae7a",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.22（中73/原331）"
+ },
+ {
+  "id": "lib_8651060c9948",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.13（中82/原621）"
+ },
+ {
+  "id": "lib_8ad076c37f47",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.08（中28/原368）"
+ },
+ {
+  "id": "lib_8c78c11c3fa1",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.06（中39/原669）"
+ },
+ {
+  "id": "lib_94e0759a4aae",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.24（中45/原184）"
+ },
+ {
+  "id": "lib_95482535a7ae",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.22（中74/原329）"
+ },
+ {
+  "id": "lib_9ab11870482d",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.22（中38/原170）"
+ },
+ {
+  "id": "lib_a039666c7124",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.11（中32/原282）"
+ },
+ {
+  "id": "lib_a562d099d9e0",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.17（中28/原160）"
+ },
+ {
+  "id": "lib_a562d099d9e0",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.11（中71/原624）"
+ },
+ {
+  "id": "lib_bf0a44412d29",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.21（中53/原255）"
+ },
+ {
+  "id": "lib_bf0a44412d29",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.18（中19/原105）"
+ },
+ {
+  "id": "lib_c026a4977b0e",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.21（中54/原256）"
+ },
+ {
+  "id": "lib_c026a4977b0e",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.17（中77/原448）"
+ },
+ {
+  "id": "lib_ca618df9d6da",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.16（中58/原359）"
+ },
+ {
+  "id": "lib_d18a8dcc9c6c",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.05（中12/原248）"
+ },
+ {
+  "id": "lib_d9078a59e095",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.12（中74/原617）"
+ },
+ {
+  "id": "lib_e0d6ce92565c",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "surface 长度比 0.25（中66/原267）"
+ },
+ {
+  "id": "lib_e0d6ce92565c",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.23（中69/原294）"
+ },
+ {
+  "id": "lib_fb77315aaeee",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.10（中71/原702）"
+ },
+ {
+  "id": "lib_fbb763606133",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.17（中101/原597）"
+ },
+ {
+  "id": "lib_fbb763606133",
+  "tag": "英译中",
+  "rule": "R5_NUM_LOST",
+  "detail": "缺数字 5,88,9（共3个）"
+ },
+ {
+  "id": "lib_16c80a13e181",
+  "tag": "英译中",
+  "rule": "R1_UNDERTRANSLATE",
+  "detail": "truth 长度比 0.06（中60/原1067）"
+ }
+]
