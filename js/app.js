@@ -1754,7 +1754,7 @@
       renderLibrary();
     });
 
-    /* 搜索防抖 200ms：1361 条逐键全量过滤会卡手 */
+    /* 搜索防抖 200ms：1521 条逐键全量过滤会卡手 */
     var libSearch = $("#lib-search");
     if (libSearch) {
       var libTimer = null;

@@ -1,0 +1,173 @@
+========================================================================
+### ranking.html  len=70421
+  /mondai/show/N 命中: 0
+  "mondai" 命中: 219
+  排名/榜单关键词: ランキング=6 ランキング一覧=0
+  收藏关键词: ブクマ=0 お気に入り=0
+  相关 href 去重后 46 条:
+     https://late-late.jp/ranking
+     /mondai/lobby
+     /mondai
+     /ranking?type=good
+     /ranking?type=user
+     /mondai/good_comment/21766
+     /mondai/good_comment/21806
+     /mondai/good_comment/21776
+     /mondai/good_comment/21789
+     /mondai/good_comment/21768
+     /mondai/good_comment/21799
+     /mondai/good_comment/21787
+     /mondai/good_comment/21785
+     /mondai/good_comment/21784
+     /mondai/good_comment/21805
+     /mondai/good_comment/21812
+     /mondai/good_comment/21771
+     /mondai/good_comment/21782
+     /mondai/good_comment/21775
+     /mondai/good_comment/21780
+     /mondai/good_comment/21767
+     /mondai/good_comment/21781
+     /mondai/good_comment/21793
+     /mondai/good_comment/21783
+     /mondai/good_comment/21772
+     /mondai/good_comment/21816
+     /mondai/good_comment/21790
+     /mondai/good_comment/21810
+     /mondai/good_comment/21777
+     /mondai/good_comment/21807
+     /mondai/good_comment/21798
+     /mondai/good_comment/21811
+     /mondai/good_comment/21791
+     /mondai/good_comment/21814
+     /mondai/good_comment/21773
+     /mondai/good_comment/21774
+     /mondai/good_comment/21765
+     /mondai/good_comment/21801
+     /mondai/good_comment/21819
+     /mondai/good_comment/21769
+  疑似条目 class: border mb-30 ranking-tabs | rank-item | rank-main | rank-center text-big3 | rank-count | rank-mondai | rank-meta | rank-user | rank-breakdown
+  --- 上下文 "ranking" @968 ---
+     5891a29f596344082ecf095bd5317892ab">
+ 
+ 
+ 
+ 
+ 
+ 
+ 月間Goodランキング 2026年9月 | らてらて 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+ 
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iScroll/5.1.3/iscroll.
+
+========================================================================
+### solved.html  len=58182
+  /mondai/show/N 命中: 16
+  "mondai" 命中: 54
+  排名/榜单关键词: ランキング=0 ランキング一覧=0
+  收藏关键词: ブクマ=11 お気に入り=0
+  相关 href 去重后 47 条:
+     https://late-late.jp/mondai/solved
+     /mondai/lobby
+     /mondai
+     /ranking?type=good
+     /mondai/collections
+     /mondai/search
+     /tag/tag_search
+     /mondai/show/21821
+     /mondai/show/21829
+     /mondai/show/21828
+     /mondai/good_comment/21828
+     /mondai/show/21827
+     /mondai/good_comment/21827
+     /mondai/show/21826
+     /mondai/show/21814
+     /mondai/good_comment/21814
+     /mondai/show/21822
+     /mondai/show/21809
+     /mondai/good_comment/21809
+     /mondai/show/21802
+     /mondai/good_comment/21802
+     /mondai/show/21787
+     /mondai/good_comment/21787
+     /mondai/bookmark_comment/21787
+     /mondai/show/21819
+     /mondai/good_comment/21819
+     /mondai/show/21806
+     /mondai/good_comment/21806
+     /mondai/bookmark_comment/21806
+     /mondai/show/21811
+     /mondai/good_comment/21811
+     /mondai/bookmark_comment/21811
+     /mondai/show/21820
+     /mondai/good_comment/21820
+     /mondai/show/21818
+     /mondai/show/21816
+     /mondai/good_comment/21816
+     /mondai/bookmark_comment/21816
+     https://late-late.jp/mondai/solved/page:2
+     /mondai/solved/page:2
+  疑似条目 class: mondai-search-page | border-list relative b b-solved | border-list relative b | b-title | b-rank
+  --- 上下文 "ranking" @25118 ---
+     box" alt=""/> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+未解決問題
+ 
+ 
+ 
+
+解決済み
+
+ 
+ 
+ 
+問題集
+ 
+ 
+ 
+ 
+検索する
+ 
+ 
+ 
+ 
+タグ一覧
+ 
+ 
+ 
+ 
+ネタ被りチェック検索
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+
+/* ===========================================================================
+ 問題一覧 ／ 二列レイアウト（納品版）
+
+ ■ 考え方
+ 1) 広い画面では1行に2問。余っていた右半分をもう1問ぶんに使うので、
+ 1画面に入る問題数が約2倍になり、縦にも伸びない。
+ 2) カードは高さ固定（92px）の3段構成。題名は1行で省略。
+ 左右・上下の丈が必ず揃うので、目を落とすだけで問題

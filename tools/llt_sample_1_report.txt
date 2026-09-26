@@ -1,0 +1,210 @@
+=== 文件: llt_sample_1.html, 99952 chars ===
+kw "耳たぶ": 35
+kw "解答": 0
+kw "解説": 3
+kw "かいとう": 0
+kw "答え": 0
+kw "正解": 6
+kw "かいせつ": 0
+kw "回答": 4
+pat "__NEXT_DATA__": 0
+pat "window.__": 13
+pat "application/ld+json": 1
+pat "data-mondai": 2
+pat "data-problem": 0
+pat "data-answer": 0
+pat "items:": 3
+pat ""mondai"": 0
+
+=== 上下文: 耳たぶ ===
+--- @1021 ---
+-token" content="fd80b792138a9a89d38bd8785f895848daacdfa771cc84f335b0384fa82eefe2"> <meta name='twitter:card' content='summary_large_image' /> <meta name='twitter:site' content='@suiheinet' /> <meta property='og:url' content='https://late-late.jp/mondai/show/1' /> <meta property='og:title' content='耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』' /> <meta property='og:description' content='問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。...' /> <meta property='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","nam
+--- @1099 ---
+fe2"> <meta name='twitter:card' content='summary_large_image' /> <meta name='twitter:site' content='@suiheinet' /> <meta property='og:url' content='https://late-late.jp/mondai/show/1' /> <meta property='og:title' content='耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』' /> <meta property='og:description' content='問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。...' /> <meta property='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といった
+--- @1116 ---
+'twitter:card' content='summary_large_image' /> <meta name='twitter:site' content='@suiheinet' /> <meta property='og:url' content='https://late-late.jp/mondai/show/1' /> <meta property='og:title' content='耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』' /> <meta property='og:description' content='問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。...' /> <meta property='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶
+--- @1127 ---
+rd' content='summary_large_image' /> <meta name='twitter:site' content='@suiheinet' /> <meta property='og:url' content='https://late-late.jp/mondai/show/1' /> <meta property='og:title' content='耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』' /> <meta property='og:description' content='問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。...' /> <meta property='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうこと
+--- @1293 ---
+roperty='og:title' content='耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』' /> <meta property='og:description' content='問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。...' /> <meta property='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店
+--- @1525 ---
+ty='og:image' content='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <met
+--- @1542 ---
+tent='https://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="descripti
+--- @1553 ---
+://late-late.jp/mondai/ogp/1' /> <title>耳たぶのスープ - ウミガメのスープ出題サイト『らてらて』</title><link rel='canonical' href='https://late-late.jp/mondai/show/1' /> <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="description" content
+--- @1702 ---
+pt type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="description" content="問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。..." /> <meta name="keywords" content=
+--- @1759 ---
+ma.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。","inLanguage":"ja","answerCount":1,"author":{"@type":"Person","name":"耳たぶ犬"},"acceptedAnswer":{"@type":"Answer","text":"カメオが初めに耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="description" content="問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。..." /> <meta name="keywords" content="ウミガメのスープ,ウミガメ,スープ,水平思考,推理ゲーム" /> <meta http-equiv="conte
+--- @2058 ---
+に耳たぶのスープを食べた時、あまりの不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="description" content="問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。..." /> <meta name="keywords" content="ウミガメのスープ,ウミガメ,スープ,水平思考,推理ゲーム" /> <meta http-equiv="content-script-type" content="text/javascript" /> <meta http-equiv="content-style-type" content="text/css" /> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css"> <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/s
+--- @2075 ---
+の不味さにカメオは一口食べるだけで店を出て行ってしまった。 そのことを悔しく思ったレストランのオーナーは必至で腕を磨いた。 店の評判も良くなったころ、カメオは冷やかしもかねて久しぶりにレストランに赴いた。 その時に飲んだスープは以前のものとは全く違う、美味しい味になっていたのだった。","url":"https:\/\/late-late.jp\/mondai\/show\/1"},"dateCreated":"2018-05-19T00:20:16+09:00"}}</script> <meta name="description" content="問題「耳たぶのスープ」の詳細ページです。耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「まずい」といったが、二口目には「うますぎる」と大絶賛した。 どういうことだろう。..." /> <meta name="keywords" content="ウミガメのスープ,ウミガメ,スープ,水平思考,推理ゲーム" /> <meta http-equiv="content-script-type" content="text/javascript" /> <meta http-equiv="content-style-type" content="text/css" /> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/drawer/3.1.0/css/drawer.min.css"> <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-
+
+=== react-body: 未找到 ===
+
+=== react-head @54174 ===
+class="react-head p-5 mb-10">この問題が良かったら評価しよう 
+ 
+ 
+ ブクマ 22 
+ 良質 
+ トリック 2 
+ 物語 1 
+ 納得 4 
+ 
+ ログイン すると、その場で評価できます。 
+
+ 
+ 
+ 
+(function () {
+ if (!window.jQuery || window.__reactWidgetBound) { return; }
+ window.__reactWidgetBound = true;
+ var $ = window.jQuery;
+
+ //保存POST。comment を渡さなければ評価の付与/取消だけを行い、既存コメントには触れない。
+ function postReaction($btn, remove, comment) {
+ var $w = $btn.closest('.react-widget');
+ var kind = $btn.attr('data-kind');
+ var url, data;
+ if (kind === 'good') {
+ url = $w.attr('data-good-url');
+ data = { 'data[Good][genre]': $btn.attr('data-genre'), 'data[Good][flg]': remove ? 2 : 1 };
+ } else {
+ url = $w.attr('data-book-url');
+ data = { 'data[Bookmark][flg]': remove ? 'delete' : 'save' };
+ }
+ if (comment !== null && comment !== undefined) {
+ data[kind === 'good' ? 'data[Good][comment]' : 'data[Bookmark][comment]'] = comment;
+ }
+ return $.ajax({ type: 'POST', url: url, data: data });
+ }
+
+ //票数の表示を増減（先行評価は票に出ないので触らない）
+ function bumpCount($btn, diff) {
+ if ($btn.closest('.react-widget').attr('data-early') === '1') { return; }
+ var $cnt = $btn.find('.react-cnt');
+ var n = ($cnt.length ? (parseInt($cnt.text(), 10) || 0) : 0) + diff;
+ if ($cnt.length) {
+ if (n > 0) { $cnt.text(n); } else { $cnt.remove(); }
+ } else if (n > 0) {
+ $btn.append(" " + n + " ");
+ }
+ }
+
+ function setOn($btn, on) {
+ $btn.attr('data-on', on ? '1' : '0').toggleClass('is-on', !!on);
+ if ($btn.attr('data-kind') === 'book') {
+ $btn.find('.react-lab').text(on ? 'ブクマ済み' : 'ブクマ');
+ }
+ }
+
+ function openPanel($btn, just
+
+=== related-mondai @81538 ===
+class="related-mondai frame-white p-10">
+ 同じタグの問題 神の手を持つ悪魔 勢いよく、しぶきあげて。 誤解 荒らされた部屋 あっちへ行け 重大な忘れ物 この問題を好きな人はこんな問題も 意地悪な看板 【ウミガメ風クロスワード】空白のままで 小休止の3　水はたくさん飲みましたか？ 新聞一面の大事件 ﾋｪｯ 新ラテシン　ナポリタンが食べたいのです 
+ 
+.self-promo-card{margin:20px 6px;}
+.self-promo-card .self-promo-head{font-size:13px;color:#888;margin:0 0 6px;padding-left:8px;border-left:4px solid #a0171a;}
+.self-promo-card .self-promo-name{font-size:16px;font-weight:bold;text-decoration:none;}
+.self-promo-card .self-promo-desc{display:block;font-size:13px;margin-top:4px;}
+ 
+ 
+ 管理人のほかのサイト 
+ DEBONO 
+ 1人でウミガメのスープをプレイできるサイト。出題者がいなくても遊べます。 
+ 
+ 
+$(function(){
+ var $wrap = $('.situmon-wrap.replay-mode');
+ var $controls = $('#js-replay-controls');
+ if ($wrap.length && $controls.length) {
+ var $items = $wrap.find('.js-tl-item'); // 質問+ヒントがDOM=時系列順に並ぶ
+ var $next = $('#js-replay-next');
+ var shown = 0;
+ function refresh(){
+ if (shown >= $items.length) { $controls.hide(); return; }
+ var $it = $items.eq(shown);
+ var label = '質問を一つずつ開いていく';
+ if ($it.hasClass('js-tl-hint')) { label = 'ヒントを見る'; }
+ else if ($it.hasClass('js-tl-fa')) { label = '正解の質問を見る'; }
+ $next.text(label);
+ }
+ refresh();
+ $next.on('click', function(){
+ if (shown < $items.length) {
+ var $revealed = $items.eq(shown);
+ $revealed.addClass('replay-shown');
+ $controls.insertAfter($revealed)
+
+=== opgauge-box @93788 ===
+class="opgauge-box" style="max-width:520px;margin:20px auto;padding:12px 14px;border:1px solid #ccc;border-radius:8px;background:rgba(255,255,255,0.04);text-align:left;">
+ 
+ サーバー代・維持費・開発費 
+ 70% 
+ 
+ 
+ 
+ 
+ 
+ みんなで遊び場を支えていけたら嬉しいです。 
+ 
+ 
+ .cross-promo-portal{display:flex;align-items:center;gap:12px;max-width:480px;margin:15px auto;padding:10px 12px;background-color:#15202b;border:1px solid #6f6a57;border-radius:10px;text-align:left;}
+ .cross-promo-portal:hover{opacity:0.85;}
+ .cross-promo-portal img{width:120px;height:auto;border-radius:6px;flex-shrink:0;}
+ #fw a.cross-promo-portal{text-decoration:none;color:#F3F4F4;}
+ #fw .cross-promo-portal .cross-promo-portal-name{display:block;font-weight:bold;color:#F3EBA2;}
+ .cross-promo-portal .cross-promo-portal-desc{display:block;font-size:12px;color:#ccc;margin-top:4px;}
+ #fw .cross-promo-portal .cross-promo-portal-cta{display:block;font-size:14px;font-weight:bold;color:#F3EBA2;text-decoration:underline;margin-top:4px;}
+ 
+ 
+ 
+ UESUGIBOX 
+ 上杉が運営する謎解き・ことば遊びサイトのポートフォリオ 
+ つくったもの一覧 
+ 
+ 
+ プレミアム会員になる 
+ 広告非表示・プレミアムバッジ・名前色設定・分析ページの詳細表示など、らてらてをもっと快適に楽しめます。 Supported by ウセグイ <
+
+=== hukidasi-box @80313 ===
+class="hukidasi-box share-cta p-10">
+ この問題は面白かったですか？シェアしてみんなに広めよう！ Xでシェアする 
+ 
+ 
+.related-mondai{margin:20px 6px;}
+.related-mondai .related-list li.related-col{background:rgba(160,23,26,.06);}
+.related-mondai .related-col-by{margin-left:6px;font-size:0.8rem;opacity:.85;}
+.related-mondai .related-block{margin-bottom:14px;}
+.related-mondai .related-head{font-size:15px;font-weight:bold;margin:0 0 8px;padding-left:8px;border-left:4px solid #a0171a;}
+.related-mondai ul.related-list{list-style:none;margin:0;padding:0;}
+.related-mondai ul.related-list li{margin:0 0 4px;padding:6px 10px;background:rgba(0,0,0,.03);border-radius:4px;}
+.related-mondai ul.related-list li a{text-decoration:none;}
+.related-mondai ul.related-list li:hover{background:rgba(160,23,26,.08);}
+ 
+ 
+ 同じタグの問題 神の手を持つ悪魔 勢いよく、しぶきあげて。 誤解 荒らされた部屋 あっちへ行け 重大な忘れ物 この問題を好きな人はこんな問題も 意地悪な看板 【ウミガメ風クロスワード】空白のままで 小休止の3　水はたくさん飲みましたか？ 新聞一面の大事件 ﾋｪｯ 新ラテシン　ナポリタンが食べたいのです 
+ 
+.self-promo-card{margin:20px 6px;}
+.self-promo-card .self-promo-head{font-size:13px;color:#888;margin:0 0 6px;padding-left:8px;border-left:4px solid #a0171a;}
+.self-promo-card .self-promo-name{font-size:16px;font-weight:bold;text-decoration:none;}
+.self-promo-card .self-promo-desc{display:block;font-size:13px;margin-top:4px;}
+ 
+ 
+ <div
+
+=== 内联 <script> 体积排行 ===
+len=  19161 |  | (function(){'use strict';function aa(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}}var ba=typeof Object.defineProperties=="fu
+len=   7808 |  |  (function () { if (!window.jQuery || window.__reactWidgetBound) { return; } window.__reactWidgetBound = true; var $ = window.jQuery; //保存POST。comment を渡さなければ評価
+len=   6358 | type="text/javascript" |  <!-- $(function(){ //アンカー $("#anchorBOX").css({ opacity:"0.9", position:"fixed", display:"none", zIndex:"3" }); $(".anchor").mouseover(function(){ var popupanc
+len=   5277 |  |  /* Step2: 参加者の質問投稿をページ遷移なしのAJAXに。成功後はタイムライン領域だけを取り直して差し替える。 出題者ページ（一括回答フォームが領域をまたぐ）や、時系列マージ表示中は安全のためフルリロードにフォールバックする。 */ (function () { if (!window.jQuery || w
+len=   3067 | type="text/javascript" |  <!-- window.onload = () => { const adspace = document.querySelector("#adspace"); if (adspace && adspace.clientHeight === 0) { // ダイアログを表示 $('#caution').show();
+len=   2611 |  |  /* 設定トグルのAJAX化（ページ遷移なし）。影響のある変更は、切り替え前に「何が起きるか」を説明して確認する。 JSが無い/失敗したときは、通常のPOST送信（従来どおりページ遷移）にフォールバックする。 */ (function () { if (!window.jQuery || window.__setti
+len=   1587 | type="text/javascript" |  $(function(){ var $wrap = $('.situmon-wrap.replay-mode'); var $controls = $('#js-replay-controls'); if ($wrap.length && $controls.length) { var $items = $wrap.
+len=    873 | type="text/javascript" |  <!-- $(function() { //タグ編集 $("#edit-tag button").click(function() { $("#edit-tag").load("/tag/edit_tag/1 #edit-tag"); return false; }); }); // --> //AdobeFonts
+len=    579 | type="application/ld+json" | {"@context":"https:\/\/schema.org","@type":"QAPage","mainEntity":{"@type":"Question","name":"耳たぶのスープ","text":"耳たぶレストランには「耳たぶのスープ」というメニューがある。 これを注文したカメオは、一口食べて「ま
+len=    429 |  | (function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); ifra

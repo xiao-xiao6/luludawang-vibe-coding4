@@ -1,0 +1,1637 @@
+{
+ "summary": {
+  "collected": 233,
+  "inner_dup_pairs": 0,
+  "inner_dup_drop": 0,
+  "dup_vs_ingested_hard": 5,
+  "dup_vs_ingested_soft": 53,
+  "fresh_candidates": 175
+ },
+ "hard_dup": [
+  {
+   "id": 32,
+   "title": "A glass of water",
+   "dice": 0.962,
+   "with_id": "lib_319333fbaf07",
+   "with_title": "Jed 1.6"
+  },
+  {
+   "id": 177,
+   "title": "The birdwatcher",
+   "dice": 0.92,
+   "with_id": "lib_ca411d1cf9c1",
+   "with_title": "Jed 1.9"
+  },
+  {
+   "id": 253,
+   "title": "Death at Sea",
+   "dice": 0.939,
+   "with_id": "lib_d9078a59e095",
+   "with_title": ""
+  },
+  {
+   "id": 256,
+   "title": "Happy death",
+   "dice": 0.932,
+   "with_id": "lib_4cea3fb48eaf",
+   "with_title": ""
+  },
+  {
+   "id": 259,
+   "title": "Arson",
+   "dice": 0.946,
+   "with_id": "lib_26d12ef6da2a",
+   "with_title": "Jed 1.12"
+  }
+ ],
+ "soft_dup": [
+  {
+   "id": 1,
+   "title": "A match",
+   "dice": 0.59,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 5,
+   "title": "The accident",
+   "dice": 0.554,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 9,
+   "title": "Not now...!",
+   "dice": 0.57,
+   "with_id": "lib_a562d099d9e0",
+   "with_title": "Jed 2.23"
+  },
+  {
+   "id": 16,
+   "title": "Restless sleep",
+   "dice": 0.593,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 97,
+   "title": "Private space",
+   "dice": 0.618,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 137,
+   "title": "The village idiot",
+   "dice": 0.583,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 138,
+   "title": "Burning Island",
+   "dice": 0.603,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 139,
+   "title": "Ransom in the call-box",
+   "dice": 0.579,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 143,
+   "title": "Seat belts",
+   "dice": 0.577,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 146,
+   "title": "Don't open The Door",
+   "dice": 0.58,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 149,
+   "title": "A stranger in the car",
+   "dice": 0.581,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 155,
+   "title": "What an incredible sight!",
+   "dice": 0.553,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 166,
+   "title": "Exam",
+   "dice": 0.568,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 179,
+   "title": "The parrot",
+   "dice": 0.556,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 190,
+   "title": "An unexpected ending",
+   "dice": 0.557,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 192,
+   "title": "The Black Cat",
+   "dice": 0.594,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 203,
+   "title": "The countermove",
+   "dice": 0.561,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 204,
+   "title": "A cunning artist",
+   "dice": 0.568,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 205,
+   "title": "A train on the outskirts of Tokyo",
+   "dice": 0.568,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 207,
+   "title": "A well for corpses",
+   "dice": 0.591,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 208,
+   "title": "The parents disappeared",
+   "dice": 0.599,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 210,
+   "title": "The Arm of the Postal Service",
+   "dice": 0.56,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 213,
+   "title": "The daughter disappeared",
+   "dice": 0.592,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 222,
+   "title": "A cunning mother-in-law",
+   "dice": 0.552,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 223,
+   "title": "Sherlock found the killer",
+   "dice": 0.595,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 225,
+   "title": "A man with a ring",
+   "dice": 0.603,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 227,
+   "title": "A honeyman",
+   "dice": 0.555,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 229,
+   "title": "A funny vagrant",
+   "dice": 0.552,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 231,
+   "title": "The last will",
+   "dice": 0.55,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 235,
+   "title": "Sad Sally",
+   "dice": 0.56,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 252,
+   "title": "A secret room",
+   "dice": 0.623,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 260,
+   "title": "Stand to the end",
+   "dice": 0.554,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 269,
+   "title": "A pipe",
+   "dice": 0.569,
+   "with_id": "lib_ca618df9d6da",
+   "with_title": "Jed 1.43"
+  },
+  {
+   "id": 272,
+   "title": "Shouldn’t have looked out of the window",
+   "dice": 0.696,
+   "with_id": "lib_36a9685bff7a",
+   "with_title": ""
+  },
+  {
+   "id": 276,
+   "title": "Lock, Stock and Three Dead Men",
+   "dice": 0.571,
+   "with_id": "lib_0e134ac04a78",
+   "with_title": ""
+  },
+  {
+   "id": 284,
+   "title": "Levitation",
+   "dice": 0.617,
+   "with_id": "lib_6ddef2ee1c6d",
+   "with_title": ""
+  },
+  {
+   "id": 293,
+   "title": "The black bird",
+   "dice": 0.594,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 295,
+   "title": "A fantom",
+   "dice": 0.553,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 296,
+   "title": "The calm pirate",
+   "dice": 0.556,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 299,
+   "title": "The quick-witted woman",
+   "dice": 0.599,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 301,
+   "title": "Two parachutes",
+   "dice": 0.554,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 311,
+   "title": "On the reverse side...",
+   "dice": 0.569,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 315,
+   "title": "The murder in the car",
+   "dice": 0.563,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 343,
+   "title": "The Wheel Replacement",
+   "dice": 0.578,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 350,
+   "title": "Numismatist",
+   "dice": 0.55,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 357,
+   "title": "The cave",
+   "dice": 0.569,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 383,
+   "title": "Metal tube",
+   "dice": 0.555,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 385,
+   "title": "The Man in the Mask",
+   "dice": 0.622,
+   "with_id": "lib_16c80a13e181",
+   "with_title": "Jed 2.20"
+  },
+  {
+   "id": 388,
+   "title": "Pardoned",
+   "dice": 0.563,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 393,
+   "title": "The Choice",
+   "dice": 0.585,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 394,
+   "title": "The smuggling",
+   "dice": 0.593,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 417,
+   "title": "The trendsetter",
+   "dice": 0.617,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 472,
+   "title": "The Angry Cat",
+   "dice": 0.565,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  }
+ ],
+ "inner_pairs": [],
+ "inner_drop_ids": [],
+ "fresh": [
+  {
+   "id": 3,
+   "title": "The last taxi",
+   "dice": 0.516,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 4,
+   "title": "An open door",
+   "dice": 0.451,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 8,
+   "title": "The blackout",
+   "dice": 0.531,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 10,
+   "title": "Witness to a kidnapping",
+   "dice": 0.43,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 11,
+   "title": "An unsolved robbery",
+   "dice": 0.542,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 12,
+   "title": "Another two bite the dust",
+   "dice": 0.439,
+   "with_id": "lib_95482535a7ae",
+   "with_title": "Jed 2.17"
+  },
+  {
+   "id": 13,
+   "title": "Death under an umbrella",
+   "dice": 0.511,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 14,
+   "title": "Time to sleep",
+   "dice": 0.49,
+   "with_id": "lib_689043d7869e",
+   "with_title": ""
+  },
+  {
+   "id": 15,
+   "title": "Prison break",
+   "dice": 0.535,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 17,
+   "title": "Doctor, doctor",
+   "dice": 0.459,
+   "with_id": "lib_8651060c9948",
+   "with_title": ""
+  },
+  {
+   "id": 19,
+   "title": "Splish, splash!",
+   "dice": 0.482,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 21,
+   "title": "The albatross",
+   "dice": 0.449,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 22,
+   "title": "The smile",
+   "dice": 0.461,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 24,
+   "title": "Caught up",
+   "dice": 0.435,
+   "with_id": "lib_26bcca939ecf",
+   "with_title": "Jed 1.84"
+  },
+  {
+   "id": 25,
+   "title": "Sacred death",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 27,
+   "title": "That trip",
+   "dice": 0.519,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 28,
+   "title": "The Flat Tire",
+   "dice": 0.543,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 30,
+   "title": "More cats",
+   "dice": 0.471,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 31,
+   "title": "Rich couple",
+   "dice": 0.508,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 38,
+   "title": "The Hanged Man",
+   "dice": 0.541,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 42,
+   "title": "The Train",
+   "dice": 0.492,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 43,
+   "title": "The Chase",
+   "dice": 0.514,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 44,
+   "title": "Betrayal",
+   "dice": 0.492,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 47,
+   "title": "Fatal shot",
+   "dice": 0.43,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 49,
+   "title": "High price",
+   "dice": 0.459,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 90,
+   "title": "Bait",
+   "dice": 0.414,
+   "with_id": "lib_26bcca939ecf",
+   "with_title": "Jed 1.84"
+  },
+  {
+   "id": 92,
+   "title": "Dry",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 95,
+   "title": "The Flayer",
+   "dice": 0.482,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 96,
+   "title": "The Grand Master",
+   "dice": 0.514,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 99,
+   "title": "Hit his little finger",
+   "dice": 0.547,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 106,
+   "title": "The Locked Room",
+   "dice": 0.539,
+   "with_id": "lib_08a08b9bdd9c",
+   "with_title": ""
+  },
+  {
+   "id": 125,
+   "title": "Piece of Paper on the Cactus",
+   "dice": 0.481,
+   "with_id": "lib_667e4d272252",
+   "with_title": ""
+  },
+  {
+   "id": 126,
+   "title": "A woman shoe",
+   "dice": 0.462,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 127,
+   "title": "Healthy arm",
+   "dice": 0.386,
+   "with_id": "lib_2c0ba09a2695",
+   "with_title": ""
+  },
+  {
+   "id": 129,
+   "title": "Private conversation",
+   "dice": 0.492,
+   "with_id": "lib_71e368d13be5",
+   "with_title": ""
+  },
+  {
+   "id": 130,
+   "title": "Off With Their Beards!",
+   "dice": 0.421,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 131,
+   "title": "Suffering",
+   "dice": 0.425,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 132,
+   "title": "Want to print some cash?",
+   "dice": 0.506,
+   "with_id": "lib_2c0ba09a2695",
+   "with_title": ""
+  },
+  {
+   "id": 133,
+   "title": "Colorblind",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 134,
+   "title": "A murderer",
+   "dice": 0.509,
+   "with_id": "lib_4cea3fb48eaf",
+   "with_title": ""
+  },
+  {
+   "id": 135,
+   "title": "Chicken gun",
+   "dice": 0.395,
+   "with_id": "lib_4fa7348b73fc",
+   "with_title": ""
+  },
+  {
+   "id": 136,
+   "title": "Pear inside a bottle",
+   "dice": 0.358,
+   "with_id": "lib_357a5c287302",
+   "with_title": ""
+  },
+  {
+   "id": 140,
+   "title": "Similar devices",
+   "dice": 0.53,
+   "with_id": "lib_689043d7869e",
+   "with_title": ""
+  },
+  {
+   "id": 141,
+   "title": "First in the class",
+   "dice": 0.514,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 142,
+   "title": "How to outplay Nick Faldo?",
+   "dice": 0.518,
+   "with_id": "lib_ca618df9d6da",
+   "with_title": "Jed 1.43"
+  },
+  {
+   "id": 144,
+   "title": "Healthy people",
+   "dice": 0.469,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 145,
+   "title": "Greenland",
+   "dice": 0.407,
+   "with_id": "lib_234328857d6d",
+   "with_title": ""
+  },
+  {
+   "id": 147,
+   "title": "Died of fright",
+   "dice": 0.425,
+   "with_id": "lib_3ec7a7147508",
+   "with_title": ""
+  },
+  {
+   "id": 148,
+   "title": "The punch",
+   "dice": 0.473,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 150,
+   "title": "Rivalry",
+   "dice": 0.497,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 151,
+   "title": "Jumping from a 6th floor",
+   "dice": 0.432,
+   "with_id": "lib_a562d099d9e0",
+   "with_title": "Jed 2.23"
+  },
+  {
+   "id": 152,
+   "title": "A premature death",
+   "dice": 0.43,
+   "with_id": "lib_0f05c1b4b831",
+   "with_title": ""
+  },
+  {
+   "id": 153,
+   "title": "There's light",
+   "dice": 0.425,
+   "with_id": "lib_b5adb2443c5b",
+   "with_title": ""
+  },
+  {
+   "id": 154,
+   "title": "A lethal dinner",
+   "dice": 0.453,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 156,
+   "title": "Cry, baby, cry",
+   "dice": 0.419,
+   "with_id": "lib_357a5c287302",
+   "with_title": ""
+  },
+  {
+   "id": 157,
+   "title": "Sweet dreams",
+   "dice": 0.466,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 158,
+   "title": "Gone with the wind",
+   "dice": 0.493,
+   "with_id": "lib_fb77315aaeee",
+   "with_title": ""
+  },
+  {
+   "id": 159,
+   "title": "Salt",
+   "dice": 0.463,
+   "with_id": "lib_16c80a13e181",
+   "with_title": "Jed 2.20"
+  },
+  {
+   "id": 160,
+   "title": "Jump",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 161,
+   "title": "An uncommon man",
+   "dice": 0.466,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 162,
+   "title": "Taxi",
+   "dice": 0.533,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 163,
+   "title": "Hearing aid",
+   "dice": 0.538,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 164,
+   "title": "A murder outdoors",
+   "dice": 0.546,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 165,
+   "title": "No light",
+   "dice": 0.532,
+   "with_id": "lib_30ffbff72d13",
+   "with_title": ""
+  },
+  {
+   "id": 167,
+   "title": "A death in a museum",
+   "dice": 0.534,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 168,
+   "title": "Lost",
+   "dice": 0.508,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 169,
+   "title": "Lucky me",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 170,
+   "title": "I am here!",
+   "dice": 0.378,
+   "with_id": "lib_57c970bf7a82",
+   "with_title": ""
+  },
+  {
+   "id": 171,
+   "title": "It didn't seem that serious",
+   "dice": 0.439,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 172,
+   "title": "Try hard",
+   "dice": 0.4,
+   "with_id": "lib_0e134ac04a78",
+   "with_title": ""
+  },
+  {
+   "id": 173,
+   "title": "A fratricide",
+   "dice": 0.484,
+   "with_id": "lib_234328857d6d",
+   "with_title": ""
+  },
+  {
+   "id": 174,
+   "title": "Employee of the Month",
+   "dice": 0.487,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 175,
+   "title": "Unopened package",
+   "dice": 0.442,
+   "with_id": "lib_1fe018f884c7",
+   "with_title": ""
+  },
+  {
+   "id": 176,
+   "title": "Dressed to die",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 178,
+   "title": "The dancing dead",
+   "dice": 0.353,
+   "with_id": "lib_48818f1558f0",
+   "with_title": "Jed 1.16"
+  },
+  {
+   "id": 180,
+   "title": "Death at the wheel",
+   "dice": 0.52,
+   "with_id": "lib_26d12ef6da2a",
+   "with_title": "Jed 1.12"
+  },
+  {
+   "id": 181,
+   "title": "Fire!",
+   "dice": 0.421,
+   "with_id": "lib_8651060c9948",
+   "with_title": ""
+  },
+  {
+   "id": 182,
+   "title": "Death: delayed",
+   "dice": 0.406,
+   "with_id": "lib_d9078a59e095",
+   "with_title": ""
+  },
+  {
+   "id": 183,
+   "title": "Red high heels",
+   "dice": 0.404,
+   "with_id": "lib_8651060c9948",
+   "with_title": ""
+  },
+  {
+   "id": 184,
+   "title": "The best day of her life",
+   "dice": 0.455,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 185,
+   "title": "Jack and Judy are dead",
+   "dice": 0.438,
+   "with_id": "lib_0e134ac04a78",
+   "with_title": ""
+  },
+  {
+   "id": 186,
+   "title": "The lost treasure",
+   "dice": 0.43,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 187,
+   "title": "A mysterious call",
+   "dice": 0.426,
+   "with_id": "lib_8651060c9948",
+   "with_title": ""
+  },
+  {
+   "id": 188,
+   "title": "Starving to death",
+   "dice": 0.381,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 189,
+   "title": "A good plan",
+   "dice": 0.515,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 191,
+   "title": "Drowned",
+   "dice": 0.416,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 193,
+   "title": "Unsolved crime",
+   "dice": 0.506,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 194,
+   "title": "Deadly scissors",
+   "dice": 0.486,
+   "with_id": "lib_234328857d6d",
+   "with_title": ""
+  },
+  {
+   "id": 195,
+   "title": "The Library",
+   "dice": 0.435,
+   "with_id": "lib_8ad076c37f47",
+   "with_title": "Jed 1.85"
+  },
+  {
+   "id": 196,
+   "title": "The detective",
+   "dice": 0.503,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 197,
+   "title": "Oh my car!",
+   "dice": 0.419,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 201,
+   "title": "A favorite place",
+   "dice": 0.472,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 202,
+   "title": "A reward for coming late",
+   "dice": 0.547,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 209,
+   "title": "A sad story",
+   "dice": 0.473,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 211,
+   "title": "Green lipstick",
+   "dice": 0.342,
+   "with_id": "lib_94e0759a4aae",
+   "with_title": "Jed 1.56"
+  },
+  {
+   "id": 212,
+   "title": "The dangerous dinner",
+   "dice": 0.463,
+   "with_id": "lib_08a08b9bdd9c",
+   "with_title": ""
+  },
+  {
+   "id": 215,
+   "title": "(Un)luck",
+   "dice": 0.54,
+   "with_id": "lib_e0d6ce92565c",
+   "with_title": "Jed 1.29"
+  },
+  {
+   "id": 216,
+   "title": "Mysticism, and that’s it",
+   "dice": 0.523,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 217,
+   "title": "A weird bus stop",
+   "dice": 0.45,
+   "with_id": "lib_f19f1c8dd5e9",
+   "with_title": ""
+  },
+  {
+   "id": 220,
+   "title": "Woman’s reason",
+   "dice": 0.544,
+   "with_id": "lib_30ffbff72d13",
+   "with_title": ""
+  },
+  {
+   "id": 221,
+   "title": "Heaven born barrister",
+   "dice": 0.393,
+   "with_id": "lib_7e5accb69163",
+   "with_title": ""
+  },
+  {
+   "id": 226,
+   "title": "On a bus",
+   "dice": 0.48,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 232,
+   "title": "Savages also can be clever",
+   "dice": 0.452,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 233,
+   "title": "A flat tire",
+   "dice": 0.519,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 234,
+   "title": "Noseless death",
+   "dice": 0.446,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 236,
+   "title": "Feather",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 238,
+   "title": "The last wine",
+   "dice": 0.468,
+   "with_id": "lib_2d7a2f4d5b9f",
+   "with_title": ""
+  },
+  {
+   "id": 239,
+   "title": "Life-saving food",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 240,
+   "title": "Who am I?",
+   "dice": 0.53,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 241,
+   "title": "Time isn’t important",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 243,
+   "title": "The mysterious key",
+   "dice": 0.47,
+   "with_id": "lib_2c0ba09a2695",
+   "with_title": ""
+  },
+  {
+   "id": 245,
+   "title": "Enterprising businessmen",
+   "dice": 0.519,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 246,
+   "title": "A blessing in disguise...",
+   "dice": 0.532,
+   "with_id": "lib_e0d6ce92565c",
+   "with_title": "Jed 1.29"
+  },
+  {
+   "id": 247,
+   "title": "Dinner",
+   "dice": 0.492,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 248,
+   "title": "Radio silence",
+   "dice": 0.487,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 249,
+   "title": "A silk scarf",
+   "dice": 0.448,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 251,
+   "title": "Misread",
+   "dice": 0.406,
+   "with_id": "lib_8ad076c37f47",
+   "with_title": "Jed 1.85"
+  },
+  {
+   "id": 254,
+   "title": "Bowling ball",
+   "dice": 0.462,
+   "with_id": "lib_667e4d272252",
+   "with_title": ""
+  },
+  {
+   "id": 255,
+   "title": "The lady killed the lady",
+   "dice": 0.459,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 257,
+   "title": "A car without a driver",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 258,
+   "title": "The gift",
+   "dice": 0.484,
+   "with_id": "lib_8c78c11c3fa1",
+   "with_title": "Jed 1.57"
+  },
+  {
+   "id": 273,
+   "title": "A woman",
+   "dice": 0.478,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 275,
+   "title": "A double-cross",
+   "dice": 0.45,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 278,
+   "title": "Half a point",
+   "dice": 0.467,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 279,
+   "title": "A thief",
+   "dice": 0.529,
+   "with_id": "lib_0a6d1163d6f9",
+   "with_title": ""
+  },
+  {
+   "id": 280,
+   "title": "The Duck Family",
+   "dice": 0.525,
+   "with_id": "lib_ca618df9d6da",
+   "with_title": "Jed 1.43"
+  },
+  {
+   "id": 282,
+   "title": "Silence",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 283,
+   "title": "A fight",
+   "dice": 0.452,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 291,
+   "title": "Strikes in the stomach",
+   "dice": 0.511,
+   "with_id": "lib_52b79b7f332d",
+   "with_title": ""
+  },
+  {
+   "id": 292,
+   "title": "Smoker",
+   "dice": 0.471,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 294,
+   "title": "The collector woman",
+   "dice": 0.544,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 297,
+   "title": "The expensive fake",
+   "dice": 0.476,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 298,
+   "title": "The drinking party",
+   "dice": 0.489,
+   "with_id": "lib_bf0a44412d29",
+   "with_title": ""
+  },
+  {
+   "id": 300,
+   "title": "The moving dream",
+   "dice": 0.481,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 302,
+   "title": "The creepy game",
+   "dice": 0.46,
+   "with_id": "lib_7e5accb69163",
+   "with_title": ""
+  },
+  {
+   "id": 303,
+   "title": "Punishment",
+   "dice": 0.358,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 304,
+   "title": "The racer",
+   "dice": 0.512,
+   "with_id": "lib_aa939a5ceff4",
+   "with_title": ""
+  },
+  {
+   "id": 306,
+   "title": "Liar",
+   "dice": 0.47,
+   "with_id": "lib_f19f1c8dd5e9",
+   "with_title": ""
+  },
+  {
+   "id": 308,
+   "title": "The fateful meeting",
+   "dice": 0.49,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 309,
+   "title": "Don’t be late!",
+   "dice": 0.48,
+   "with_id": "lib_7e4a5a508741",
+   "with_title": ""
+  },
+  {
+   "id": 312,
+   "title": "Marmalade",
+   "dice": 0.331,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 313,
+   "title": "Pickpockets",
+   "dice": 0.528,
+   "with_id": "lib_689043d7869e",
+   "with_title": ""
+  },
+  {
+   "id": 320,
+   "title": "The Coal, Carrot and Scarf",
+   "dice": 0.539,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 321,
+   "title": "Adam and Eve",
+   "dice": 0.538,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 332,
+   "title": "The Terminal Taxi",
+   "dice": 0.46,
+   "with_id": "lib_08a08b9bdd9c",
+   "with_title": ""
+  },
+  {
+   "id": 333,
+   "title": "Hang up!",
+   "dice": 0.438,
+   "with_id": "lib_09c0825b5def",
+   "with_title": ""
+  },
+  {
+   "id": 336,
+   "title": "Light-handed",
+   "dice": 0.409,
+   "with_id": "lib_b560a80af76b",
+   "with_title": ""
+  },
+  {
+   "id": 342,
+   "title": "A deaf man",
+   "dice": 0.492,
+   "with_id": "lib_c026a4977b0e",
+   "with_title": "Jed 1.65"
+  },
+  {
+   "id": 345,
+   "title": "Not guilty?",
+   "dice": 0.524,
+   "with_id": "lib_e0d6ce92565c",
+   "with_title": "Jed 1.29"
+  },
+  {
+   "id": 347,
+   "title": "The mechanic",
+   "dice": 0.504,
+   "with_id": "lib_30ffbff72d13",
+   "with_title": ""
+  },
+  {
+   "id": 348,
+   "title": "Start the party!",
+   "dice": 0.47,
+   "with_id": "lib_a562d099d9e0",
+   "with_title": "Jed 2.23"
+  },
+  {
+   "id": 359,
+   "title": "Crash!",
+   "dice": 0.52,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 366,
+   "title": "Stop!",
+   "dice": 0.387,
+   "with_id": "lib_f19f1c8dd5e9",
+   "with_title": ""
+  },
+  {
+   "id": 369,
+   "title": "The last step",
+   "dice": 0.387,
+   "with_id": "lib_71ec509dae7a",
+   "with_title": ""
+  },
+  {
+   "id": 374,
+   "title": "Photo with Grandfather",
+   "dice": 0.492,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 375,
+   "title": "The Picture",
+   "dice": 0.427,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 380,
+   "title": "The king",
+   "dice": 0.378,
+   "with_id": "lib_5a4734fb2312",
+   "with_title": ""
+  },
+  {
+   "id": 381,
+   "title": "The Snore",
+   "dice": 0.442,
+   "with_id": "lib_94e0759a4aae",
+   "with_title": "Jed 1.56"
+  },
+  {
+   "id": 382,
+   "title": "Round Manhole",
+   "dice": 0.444,
+   "with_id": "lib_f3b012b87734",
+   "with_title": ""
+  },
+  {
+   "id": 386,
+   "title": "A Ballroom",
+   "dice": 0.538,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  },
+  {
+   "id": 387,
+   "title": "A Raw Egg",
+   "dice": 0.54,
+   "with_id": "lib_65fe14d66cba",
+   "with_title": "Jed 1.20"
+  },
+  {
+   "id": 389,
+   "title": "The Millionaire",
+   "dice": 0.536,
+   "with_id": "lib_8651060c9948",
+   "with_title": ""
+  },
+  {
+   "id": 390,
+   "title": "The motorway",
+   "dice": 0.517,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 391,
+   "title": "The Hay",
+   "dice": 0.454,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 392,
+   "title": "Friday",
+   "dice": 0.437,
+   "with_id": "lib_08a08b9bdd9c",
+   "with_title": ""
+  },
+  {
+   "id": 395,
+   "title": "The hairdresser",
+   "dice": 0.425,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 396,
+   "title": "The Age",
+   "dice": 0.416,
+   "with_id": "lib_57c970bf7a82",
+   "with_title": ""
+  },
+  {
+   "id": 400,
+   "title": "My Son",
+   "dice": 0.529,
+   "with_id": "lib_1f34e7036b8b",
+   "with_title": ""
+  },
+  {
+   "id": 406,
+   "title": "Heated Argument",
+   "dice": 0.543,
+   "with_id": "lib_269b76a49e5f",
+   "with_title": ""
+  },
+  {
+   "id": 413,
+   "title": "The Shooter",
+   "note": "过短未判",
+   "dice": null
+  },
+  {
+   "id": 460,
+   "title": "The full bucket",
+   "dice": 0.536,
+   "with_id": "lib_d18a8dcc9c6c",
+   "with_title": "Jed 2.5"
+  },
+  {
+   "id": 467,
+   "title": "Open the door!",
+   "dice": 0.506,
+   "with_id": "lib_a039666c7124",
+   "with_title": "Jed 1.18"
+  },
+  {
+   "id": 468,
+   "title": "Ludo and the cheese",
+   "dice": 0.48,
+   "with_id": "lib_7e4a5a508741",
+   "with_title": ""
+  },
+  {
+   "id": 473,
+   "title": "Binded",
+   "dice": 0.416,
+   "with_id": "lib_bf0a44412d29",
+   "with_title": ""
+  },
+  {
+   "id": 474,
+   "title": "The big accident",
+   "dice": 0.543,
+   "with_id": "lib_33459e0dc957",
+   "with_title": ""
+  }
+ ]
+}

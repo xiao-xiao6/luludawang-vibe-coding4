@@ -1,0 +1,20 @@
+=== sorted https://late-late.jp/mondai/solved/sort:good/direction:desc
+    code=200 len=64368
+    show ids: 16 | good_comment ids: 11 | collections: 0
+    ids: 21829, 21828, 21827, 21826, 21822, 21821, 21820, 21819, 21818, 21816, 21815, 21814, 21812, 21811, 21810, 21809
+    page 线索: page:2 page:3 page:4 page:1363
+    collections 样本: (none)
+
+=== collections https://late-late.jp/mondai/collections
+    code=200 len=38329
+    show ids: 0 | good_comment ids: 0 | collections: 1
+    ids: 
+    page 线索: (none)
+    collections 样本: /mondai/collections/order:size
+
+=== rank_good https://late-late.jp/ranking?type=good
+    code=200 len=75347
+    show ids: 0 | good_comment ids: 41 | collections: 0
+    ids: 21766, 21806, 21776, 21789, 21768, 21799, 21787, 21785, 21784, 21805, 21812, 21771, 21782, 21775, 21780, 21767, 21781, 21793, 21783, 21772, 21816, 21790, 21810, 21777, 21807, 21798, 21811, 21791, 21814, 21773, 21774, 21765, 21801, 21819, 21769, 21820, 21828, 21788, 21796, 21815
+    page 线索: (none)
+    collections 样本: (none)

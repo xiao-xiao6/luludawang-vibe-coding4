@@ -1,0 +1,118 @@
+词级匹配分档：{"D_净新增": 223, "A_高置信": 9, "C_待判": 1}
+（对照池＝已入库英译中 88 条英文原文）
+
+==============================================================================
+A_高置信（9 条）
+==============================================================================
+------------------------------------------------------------------------------
+YNG#32   《A glass of water》  T=1.00 A=0.97 S=0.96  ←→ lib_319333fbaf07《Jed 1.6》
+  YNG面: A man walks into a bar and asks for a drink. The bartender pulls out a gun and points it at him. The man says, "Thank you," and walks out. How come?
+  YNG底: The man has hiccups; the bartender scares them away by pulling a gun.
+------------------------------------------------------------------------------
+YNG#177  《The birdwatcher》  T=1.00 A=0.94 S=0.88  ←→ lib_ca411d1cf9c1《Jed 1.9》
+  YNG面: An avid birdwatcher sees an unexpected bird. Soon he’s dead. How come?
+  YNG底: He is a passenger in an airplane and sees the bird get sucked into an engine at 20,000 feet.
+------------------------------------------------------------------------------
+YNG#256  《Happy death》  T=1.00 A=0.92 S=0.91  ←→ lib_4cea3fb48eaf《》
+  YNG面: Beulah died in the Appalachians, while Craig died at sea. Everyone was much happier with Craig's death. How come?
+  YNG底: Beulah and Craig were hurricanes.
+------------------------------------------------------------------------------
+YNG#257  《A car without a driver》  T=1.00 A=0.99 S=0.91  ←→ lib_5351805ac486《》
+  YNG面: A car without a driver moves; a man dies. How come?
+  YNG底: The murderer sets the car on a slope above the hot dog stand where the victim works. He then wedges an ice block in the car to keep the brake pedal down, and puts the car
+------------------------------------------------------------------------------
+YNG#284  《Levitation》  T=0.91 A=0.74 S=0.62  ←→ lib_6ddef2ee1c6d《》
+  YNG面: A man is found hanging in an otherwise empty locked room with a puddle of water under his feet.
+  YNG底: He stood on a block of ice to hang himself.
+------------------------------------------------------------------------------
+YNG#253  《Death at Sea》  T=0.86 A=0.89 S=1.00  ←→ lib_d9078a59e095《》
+  YNG面: A man sitting on a park bench reads a newspaper article headlined "Death at Sea" and knows a murder has been committed.
+  YNG底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the sam
+------------------------------------------------------------------------------
+YNG#259  《Arson》  T=0.81 A=0.84 S=0.94  ←→ lib_26d12ef6da2a《Jed 1.12》
+  YNG面: A woman in France in 1959 is waiting in her room, with all the doors locked from the inside, for her husband to come home. When he arrives, the house has burned to the gr
+  YNG底: The hot sun reflected from the woman's large mirror (which may have been imperfectly flat and therefore focused the sunlight) and heated the lingerie she was wearing to t
+------------------------------------------------------------------------------
+YNG#181  《Fire!》  T=0.72 A=0.56 S=0.00  ←→ lib_1fe018f884c7《》
+  YNG面: Paul goes diving. How could he know he would be burnt to a crisp?
+  YNG底: He was scuba diving when a firefighting plane landed nearby and filled its tanks with water, sucking him in. He ran out of air while the plane was in flight; then the wat
+------------------------------------------------------------------------------
+YNG#236  《Feather》  T=0.70 A=0.71 S=0.83  ←→ lib_0a6d1163d6f9《》
+  YNG面: A man lies dead next to a feather. How did he die?
+  YNG底: The man was a sword swallower in a carnival side-show. While he was practicing, someone tickled his throat with the feather, causing him to gag.    Real fact: twenty-nine
+
+==============================================================================
+B_较可信（0 条）
+==============================================================================
+
+==============================================================================
+C_待判（1 条）
+==============================================================================
+------------------------------------------------------------------------------
+YNG#392  《Friday》  T=0.40 A=0.11 S=0.00  ←→ lib_4a0f40ddff23《》
+  YNG面: A cowboy rode into town on Friday, spent one night in town, and left on Friday. How do you account for this?
+  YNG底: His horse is named Friday.
+
+==============================================================================
+D_净新增（223 条）前 20 条
+==============================================================================
+YNG#1    《A match》 T=0.00
+   面: A naked man is lying dead in the middle of a desert with a match in his hand. What happened?    A man is found dead in a desert. He is naked, and lots
+   底: He was with several others in a hot air balloon crossing the desert. The balloon was punctured and they began to lose altitude. They tossed all their 
+YNG#3    《The last taxi》 T=0.07
+   面: Oscar was sitting reading his newspaper, when he heard a noise. When he realized what had happened, he bitterly regretted not having caught the taxi i
+   底: Oscar was broke. He was a miniature car models collector and, to solve his economic problems, he was going to sell his most valuable car. He had been 
+YNG#4    《An open door》 T=0.00
+   面: When Martin woke up that morning, he was surprised to see the door open. As soon as he crossed the threshold he got beheaded.
+   底: Martin was a canary that had been living in his cage for four months. Silvester - a cat - was waiting for his opportumity to catch Martin and eat him.
+YNG#5    《The accident》 T=0.10
+   面: A car driver causes an accident when he crashes into a bike, as he was making an unexpected turn at a crossroad. When the policemen arrive, another ma
+   底: The driver was receiving driving lessons and his instructor told him to make an incorrect turn at a crossroad, crashing into a bike. The policemen con
+YNG#8    《The blackout》 T=0.00
+   面: A woman - at work - is going downstairs, when suddenly there is a blackout. In that very moment she realizes that her husband is about to die.
+   底: The woman worked as an electrician at a hospital and she knew that the emergency generators were broken. He husband had had a car crash and he was at 
+YNG#9    《Not now...!》 T=0.06
+   面: A woman is at home, sad, and watching the street through her window. Soon after she jumps out of it. Just in that precise moment, she hears the teleph
+   底: After a nuclear catastrophe, the woman thought that she was the only person alive and decided to put an end to her life. When the telephone rang she r
+YNG#10   《Witness to a kidnapping》 T=0.14
+   面: A businessman witnesses a kidnapping. However, when he tells the police, they do not believe him.
+   底: After leaving the dentist, the witness was unable to speak properly, since he had numb mouth. The policemen thought that the man was drunk and did not
+YNG#11   《An unsolved robbery》 T=0.08
+   面: A guy goes into a drugstore and leaves shortly after with the money from the cash register. The drugstore owner calls the Police Station and, some tim
+   底: The guy was the drugstore owner's son. His car had been stolen and he had an important exam. He had been to the drugstore to ask his mother for some m
+YNG#12   《Another two bite the dust》 T=0.11
+   面: Two men are beating each other up and both of them suddenly fall to the floor.
+   底: The daughter of one of the boxers had been kidnapped and she would be killed if her father won the fight. At the end of the fight, the boxer's opponen
+YNG#13   《Death under an umbrella》 T=0.17
+   面: A couple find a man's corpse on the beach. The corpse is under an umbrella and has a knife on his back. There are no signs of violence and no traces o
+   底: The man, who had a tattoo of a knife on his back, died of a heart attack.
+YNG#14   《Time to sleep》 T=0.10
+   面: A woman is watching a movie. Suddenly she hears a lot of explosions and people screaming outside. Then there is silence. The woman turns off the TV an
+   底: It was New Year's Eve. The woman waited until everyone had finished celebrating and then went to bed.
+YNG#15   《Prison break》 T=0.00
+   面: Michael is in prison. One day, he has luch, goes to prison courtyard for a while and finally visits the library. At dusk, out of the reach of the secu
+   底: Michael worked as a guard in the prison.
+YNG#16   《Restless sleep》 T=0.13
+   面: Paul comes home tired. He goes to his room and turns off the light to sleep. After a while, feeling uneasy, he turns on the light and looks around. He
+   底: A thief was stealing from Paul's home. When Paul arrived home, the thief hid under the bed. The tension became too much and the thief suffered a sudde
+YNG#17   《Doctor, doctor》 T=0.05
+   面: A man goes to the doctor to get the results of some previous tests. The results do not show up any health issues. However, he commits suicide shortly 
+   底: The patient knew that his wife was cheating on him, but he only knew the lover's name. His wife swore to him that this lover did not exist. However wh
+YNG#19   《Splish, splash!》 T=0.12
+   面: Tim is sailing his boat when his watch falls overboard. He is a great diver. However, he does not manage to retrieve the watch.
+   底: Tim was sailing on the Dead Sea. Due to the high salt concentration, he couldn't dive deep enough to get his watch back.
+YNG#21   《The albatross》 T=0.17
+   面: A man goes into a restaurant, orders albatross, eats one bite, and kills himself. Why?
+   底: The man was in a ship that was wrecked on a desert island. When there was no food left, another passenger brought what he said was albatross but was r
+YNG#22   《The smile》 T=0.00
+   面: Eugene was watching his relatives and friends being killed, but he couldn’t wipe the smile  off his face.
+   底: Eugene worked as a clown in a circus. Once, animals escaped from  their enclosures during a performance, and everyone broke into a run. People  and me
+YNG#24   《Caught up》 T=0.00
+   面: Tony ran out of the building, carrying two bags. Another man ran after him, shouting and waving knives.
+   底: Tony was shopping in the store, he spent a lot of money, so the shop workers decided to give him a gift: a set of kitchen knives. Tony was in a hurry 
+YNG#25   《Sacred death》 T=0.06
+   面: When the priest stopped talking, Bobby died.
+   底: Bobby was a little hamster who had come to the church along with Tom, his 9-year-old owner. When the priest was speaking in front of the believers, th
+YNG#27   《That trip》 T=0.04
+   面: A man comes breathless out of a house, closes the door and goes quickly down stairs. Then he walks two blocks to get to another house, enters and brea
+   底: The man had just moved. He arrived to his new home with the last boxes and he breathed a sigh of relief because he had finished.
