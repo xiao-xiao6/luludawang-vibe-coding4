@@ -1,0 +1,194 @@
+[
+ {
+  "id": "lib_8881bdaa1e9c",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "「→应「/实“",
+    2
+   ],
+   [
+    "」→应」/实”",
+    2
+   ]
+  ]
+ },
+ {
+  "id": "lib_1dabb916a2e5",
+  "kind": "LEN_DIFF",
+  "detail": "长度 168 vs 167"
+ },
+ {
+  "id": "lib_cd2afc5141ee",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_4a0e08ad37e4",
+  "kind": "LEN_DIFF",
+  "detail": "长度 149 vs 148"
+ },
+ {
+  "id": "lib_de220b6ab214",
+  "kind": "LEN_DIFF",
+  "detail": "长度 161 vs 160"
+ },
+ {
+  "id": "lib_620721d022da",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ],
+   [
+    "『→应『/实‘",
+    1
+   ],
+   [
+    "』→应』/实’",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_9f4e8c03b7a8",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_728b7751e408",
+  "kind": "LEN_DIFF",
+  "detail": "长度 172 vs 171"
+ },
+ {
+  "id": "lib_6919e9fc658e",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    2
+   ]
+  ]
+ },
+ {
+  "id": "lib_f60a30ccd3d1",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "牠→应牠/实它",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_83409e731db0",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_004f2aa9adbc",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_3723ca1a97ac",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_9ad6ed7a90f5",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_ef639268a263",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_5204109490f1",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_524e0a51b2d9",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_3ca73e5241e2",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_bcf946761c93",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ },
+ {
+  "id": "lib_ef5e224a0d84",
+  "kind": "CHAR_DIFF",
+  "detail": [
+   [
+    "著→应著/实着",
+    1
+   ]
+  ]
+ }
+]

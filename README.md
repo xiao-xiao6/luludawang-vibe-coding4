@@ -5,11 +5,11 @@
 **海龟汤推理小馆 · 一问一答熬出真相**
 
 一个可单人离线玩、也可多人联机的「海龟汤（汤面猜汤底）」推理小游戏。
-100 道手工打磨的精品汤 + 1521 道全网汤面大全，配 AI 汤主、程序化氛围音乐、雨夜特效，以及 Cloudflare Durable Objects 房间。
+100 道手工打磨的精品汤 + 1480 道全网汤面大全，配 AI 汤主、程序化氛围音乐、雨夜特效，以及 Cloudflare Durable Objects 房间。
 
 [![纯静态](https://img.shields.io/badge/构建-零依赖-success)](#技术栈)
 [![PWA](https://img.shields.io/badge/PWA-可离线安装-blue)](#pwa-与离线)
-[![题库](https://img.shields.io/badge/题库-100_精品_%2B_1521_汤库-orange)](#两套题库)
+[![题库](https://img.shields.io/badge/题库-100_精品_%2B_1480_汤库-orange)](#两套题库)
 [![联机](https://img.shields.io/badge/联机-Cloudflare_Workers-informational)](#多人房间)
 
 **[在线试玩](https://xiao-xiao6.github.io/luludawang-vibe-coding4/)**
@@ -96,7 +96,7 @@
 
 | | 精品层 | 汤库 |
 |---|---|---|
-| 数量 | 100 道 | 1521 道，全部带汤底 |
+| 数量 | 100 道 | 1480 道，全部带汤底 |
 | 玩法 | 关键词汤主即可开问 | 建议打开 AI 汤主 |
 | 位置 | `js/data.js` + `js/data-more.js` | `js/library.public.js` |
 
@@ -156,7 +156,7 @@
 ├── manifest.webmanifest
 ├── js/
 │   ├── data.js / data-more.js    # 精品 100
-│   ├── library.public.js         # 汤库 1521（含汤底，勿手改；2026-09-25 去重/污染手术/繁译简/无题命名，2026-09-26 英译中并入，2026-09-27 日译中并入）
+│   ├── library.public.js         # 汤库 1480（含汤底，勿手改；2026-09-25 去重/污染手术/繁译简/无题命名，2026-09-26 英译中并入，2026-09-27 日译中并入 + 全库体检去重41/修污染翻译）
 │   ├── engine.js                 # 单人判定
 │   ├── ai.js                     # 浏览器侧 AI 汤主
 │   ├── audio.js / fx.js
@@ -220,7 +220,7 @@ GitHub Pages 站点本身随 `main` 分支发布，不经过 Wrangler。
 
 ## 已知限制
 
-- 英文题已全部译入中文（「英译中」307 道），日文题已译入 165 道（「日译中」），关键词判定按中文写的。
+- 英文题已全部译入中文（「英译中」297 道），日文题已译入 165 道（「日译中」），关键词判定按中文写的。
 - 「英译中」「日译中」的汤底是机器翻译，措辞可能生硬；这类题没有关键词表，只能靠 AI 汤主判定。
 - 汤库题材里有不少落在「其他」。
 - 内容包含猎奇、犯罪、真实事件向谜题，没有单独的成人开关。

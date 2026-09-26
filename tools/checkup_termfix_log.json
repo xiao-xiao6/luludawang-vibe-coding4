@@ -1,0 +1,358 @@
+[
+ {
+  "id": "lib_580b68c8f90a",
+  "srcNo": 15615,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "名字里的距离感"
+ },
+ {
+  "id": "lib_2f72c96fbe56",
+  "srcNo": 10912,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "选You还是一亿"
+ },
+ {
+  "id": "lib_49e649be452b",
+  "srcNo": 15861,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女"
+  ],
+  "title": "无偿的精神"
+ },
+ {
+  "id": "lib_ceab2a86032c",
+  "srcNo": 7399,
+  "ops": [
+   "truth:カメコ→龟女"
+  ],
+  "title": "笨又迟钝的龟男"
+ },
+ {
+  "id": "lib_c1ec5b9605c6",
+  "srcNo": 77,
+  "ops": [
+   "surface:カメコ→龟女"
+  ],
+  "title": "其实是开水"
+ },
+ {
+  "id": "lib_3ca329e5820f",
+  "srcNo": 1,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "耳垂汤"
+ },
+ {
+  "id": "lib_6f7f12eb6788",
+  "srcNo": 3977,
+  "ops": [
+   "truth:カメオ→龟男"
+  ],
+  "title": "戒不掉的烟"
+ },
+ {
+  "id": "lib_7219593c0848",
+  "srcNo": 429,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "秋刀鱼味创可贴"
+ },
+ {
+  "id": "lib_0f06ad993f2a",
+  "srcNo": 6030,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "悲剧的餐桌"
+ },
+ {
+  "id": "lib_2481c37b873f",
+  "srcNo": 18552,
+  "ops": [
+   "truth:カメコ→龟女",
+   "truth:カメオ→龟男"
+  ],
+  "title": "唯一的选项"
+ },
+ {
+  "id": "lib_d64bd9e1fcd0",
+  "srcNo": 6874,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女"
+  ],
+  "title": "无法取舍的女孩"
+ },
+ {
+  "id": "lib_89a8f078be96",
+  "srcNo": 19462,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "那就竞走吧"
+ },
+ {
+  "id": "lib_5c353987154c",
+  "srcNo": 19297,
+  "ops": [
+   "surface:カメオ→龟男"
+  ],
+  "title": "可怎么办才好呢"
+ },
+ {
+  "id": "lib_f58ac59a57f9",
+  "srcNo": 18545,
+  "ops": [
+   "surface:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "但愿一切顺利"
+ },
+ {
+  "id": "lib_7962073cf911",
+  "srcNo": 18688,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "投票还剩两小时"
+ },
+ {
+  "id": "lib_4acc7313577d",
+  "srcNo": 19167,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "灵异故事不可信"
+ },
+ {
+  "id": "lib_ea1fdd0ce317",
+  "srcNo": 3976,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "茶间里的老婆婆"
+ },
+ {
+  "id": "lib_becfcadea897",
+  "srcNo": 18370,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "侦探舒加：车祸密室"
+ },
+ {
+  "id": "lib_35e374a0500b",
+  "srcNo": 13695,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "飞船晕得厉害"
+ },
+ {
+  "id": "lib_d57db3489376",
+  "srcNo": 15702,
+  "ops": [
+   "truth:カメオ→龟男"
+  ],
+  "title": "梅神隧道怪谈·里"
+ },
+ {
+  "id": "lib_dc1830048523",
+  "srcNo": 15247,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "隧道尽头魔王城"
+ },
+ {
+  "id": "lib_086053fa989c",
+  "srcNo": 14249,
+  "ops": [
+   "surface:ウミオ→海男",
+   "truth:ウミオ→海男"
+  ],
+  "title": "躲猫猫爷爷"
+ },
+ {
+  "id": "lib_39acd4d3b1c0",
+  "srcNo": 11223,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男"
+  ],
+  "title": "洗衣天气预警"
+ },
+ {
+  "id": "lib_27b0208fe33b",
+  "srcNo": 11356,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "只有这首曲子"
+ },
+ {
+  "id": "lib_5de40d79e8cc",
+  "srcNo": 11196,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男",
+   "surface:ウミオ→海男",
+   "truth:ウミオ→海男"
+  ],
+  "title": "消失的一片"
+ },
+ {
+  "id": "lib_af8bd56629bf",
+  "srcNo": 11113,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "未完成的摇篮曲"
+ },
+ {
+  "id": "lib_a7eea5d563b0",
+  "srcNo": 10728,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "那家店不能去"
+ },
+ {
+  "id": "lib_d86ad49c209f",
+  "srcNo": 11041,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女"
+  ],
+  "title": "天花板的鬼脸"
+ },
+ {
+  "id": "lib_a8fec84d593d",
+  "srcNo": 8073,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "聪明的流星愿"
+ },
+ {
+  "id": "lib_ead7a250b22c",
+  "srcNo": 10522,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "名侦探一眼认凶"
+ },
+ {
+  "id": "lib_a490286d9c14",
+  "srcNo": 10009,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "冲不走的劣行"
+ },
+ {
+  "id": "lib_04772c00c628",
+  "srcNo": 8980,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "逃票上学"
+ },
+ {
+  "id": "lib_16dfc330f802",
+  "srcNo": 9759,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女"
+  ],
+  "title": "才不是抽烟"
+ },
+ {
+  "id": "lib_27bb8da569b7",
+  "srcNo": 9661,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "不能借的伞"
+ },
+ {
+  "id": "lib_df3068c2e35f",
+  "srcNo": 7323,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男",
+   "truth:ウミコ→海女"
+  ],
+  "title": "忘掉的三年级"
+ },
+ {
+  "id": "lib_8a7f1f8d0da1",
+  "srcNo": 8694,
+  "ops": [
+   "surface:カメコ→龟女",
+   "truth:カメコ→龟女",
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "深夜的眼睛"
+ },
+ {
+  "id": "lib_379ca498d4a4",
+  "srcNo": 9337,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "哥哥是英雄"
+ },
+ {
+  "id": "lib_ab7ed3ae602a",
+  "srcNo": 9199,
+  "ops": [
+   "surface:カメオ→龟男",
+   "truth:カメオ→龟男"
+  ],
+  "title": "遇见你真好"
+ }
+]

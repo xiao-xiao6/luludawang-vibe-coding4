@@ -1,0 +1,1110 @@
+### lib_a9a31483c0fc | 没接住的车模 | 专名:Oscar,Shortly
+  原面:Oscar was sitting reading his newspaper, when he heard a noise. When he realized what had happened, he bitterl
+  译面:奥斯卡正坐在那儿看报纸，忽然听到一声响。当他明白发生了什么事时，他痛悔自己没能及时接住那辆“出租车”。不久之后，他自杀了。
+  原底:Oscar was broke. He was a miniature car models collector and, to solve his economic problems, he was going to sell his most valuab
+  译底:奥斯卡身无分文。他是一名微缩汽车模型收藏者，为了解决经济问题，他打算卖掉自己最值钱的那辆车。他一直在擦拭它，擦完后没有把它好好放回桌上。当他坐下开始看报纸时，他听到它从桌上掉了下来，却没能在它摔到地板之前及时接住它。
+
+### lib_9a43d4ffe028 | 敞开的笼门 | 专名:Martin,Silvester
+  原面:When Martin woke up that morning, he was surprised to see the door open. As soon as he crossed the threshold h
+  译面:那天早上马丁醒来时，惊讶地发现门开着。他刚一跨过门槛，脑袋就被咬掉了。
+  原底:Martin was a canary that had been living in his cage for four months. Silvester - a cat - was waiting for his opportumity to catch
+  译底:马丁是一只金丝雀，已经在笼子里住了四个月。西尔维斯特——一只猫——一直在等机会抓住马丁并吃掉他。主人不小心没关好笼门，马丁飞了出来，西尔维斯特一口咬掉了他小小的脑袋。
+
+### lib_8320eb039ce6 | 迟来的电话 | 专名:Soon
+  原面:A woman is at home, sad, and watching the street through her window. Soon after she jumps out of it. Just in t
+  译面:一个女人在家里，很伤心，透过窗户望着街道。不久之后她从窗户跳了下去。就在那一瞬间，她听到电话响了，后悔自己跳了下来。
+  原底:After a nuclear catastrophe, the woman thought that she was the only person alive and decided to put an end to her life. When the 
+  译底:一场核灾难之后，这个女人以为自己是唯一的幸存者，决定结束自己的生命。当电话响起时，她意识到自己并不孤单。但对她来说，已经太晚了。
+
+### lib_ad3f8dbf2e29 | 一家三口报案 | 专名:Police,Station
+  原面:A guy goes into a drugstore and leaves shortly after with the money from the cash register. The drugstore owne
+  译面:一个男的走进一家药店，不久后就带着收银机里的钱离开了。药店老板打电话给警察局，过了一段时间，一名警察追回了那笔钱，把那个男的带走了。当天晚上，这三个人一起去警察局报案，说家里被偷了。
+  原底:The guy was the drugstore owner's son. His car had been stolen and he had an important exam. He had been to the drugstore to ask h
+  译底:那个男的是药店老板的儿子。他的车被偷了，而他有一场重要的考试。他去药店是想找妈妈要点钱打车。除此之外，妈妈还打电话给她的丈夫——他是一名警察——让他把儿子送去考试。他照做了，而儿子既然不再需要那笔钱，就把钱还给了父亲，父亲又还给了母亲。一天结束时，全家人一起去
+
+### lib_f59aeed67b52 | 新年前夜 | 专名:Eve,Suddenly,Then,Year
+  原面:A woman is watching a movie. Suddenly she hears a lot of explosions and people screaming outside. Then there i
+  译面:一个女人正在看电影。突然，她听到外面传来许多爆炸声和人们的尖叫。随后是一片寂静。女人关掉电视，去睡觉了。
+  原底:It was New Year's Eve. The woman waited until everyone had finished celebrating and then went to bed.
+  译底:那天是新年前夜。女人一直等到所有人都庆祝完，然后才上床睡觉。
+
+### lib_2556d8eb7313 | 狱警下班了 | 专名:Michael
+  原面:Michael is in prison. One day, he has luch, goes to prison courtyard for a while and finally visits the librar
+  译面:迈克尔在监狱里。有一天，他吃了午饭，去监狱的院子待了一会儿，最后又去了图书馆。傍晚时分，在监控摄像头拍不到的地方，他换了衣服。然后他从大门走了出去，离开了监狱，没有被抓到。
+  原底:Michael worked as a guard in the prison.
+  译底:迈克尔是这座监狱里的狱警。
+
+### lib_e3886008eca7 | 床下的尸体 | 专名:Paul
+  原面:Paul comes home tired. He goes to his room and turns off the light to sleep. After a while, feeling uneasy, he
+  译面:保罗回到家，很疲惫。他走进自己的房间，关灯睡觉。过了一会儿，他感到不安，打开灯环顾四周。他又把灯关掉，试着再次入睡。这样重复了好几次之后，他往床底下看了一眼，发现了一具尸体。
+  原底:A thief was stealing from Paul's home. When Paul arrived home, the thief hid under the bed. The tension became too much and the th
+  译底:一个小偷正在保罗家偷东西。保罗到家时，小偷躲到了床底下。紧张感太强烈了，小偷突发心脏病。保罗睡不着，是因为小偷手腕上手表的滴答声。
+
+### lib_cab9a8ad59be | 死海里捞表 | 专名:Dead,Due,Sea,Tim
+  原面:Tim is sailing his boat when his watch falls overboard. He is a great diver. However, he does not manage to re
+  译面:蒂姆正在驾驶帆船航行，这时他的手表掉进了水里。他是个很棒的潜水员。然而，他还是没能把手表捞回来。
+  原底:Tim was sailing on the Dead Sea. Due to the high salt concentration, he couldn't dive deep enough to get his watch back.
+  译底:蒂姆是在死海上航行。由于盐度非常高，他无法潜得足够深，把手表找回来。
+
+### lib_2bb52cc974d9 | 擦不掉的微笑 | 专名:Eugene,Once
+  原面:Eugene was watching his relatives and friends being killed, but he couldn’t wipe the smile  off his face.
+  译面:尤金看着自己的亲友被杀死，却无法抹去脸上的笑容。
+  原底:Eugene worked as a clown in a circus. Once, animals escaped from  their enclosures during a performance, and everyone broke into a
+  译底:尤金在马戏团里当小丑。有一次演出时，动物从围栏里逃了出来，所有人都撒腿就跑。人们和他的家人在踩踏中死去。但他无法抹去脸上的笑容，因为那是小丑的妆容。
+
+### lib_162cc63b8124 | 追人的店员 | 专名:Another,Tony
+  原面:Tony ran out of the building, carrying two bags. Another man ran after him, shouting and waving knives.
+  译面:托尼抱着两个袋子跑出大楼。另一个男人跟在他后面追，一边喊一边挥舞着刀。
+  原底:Tony was shopping in the store, he spent a lot of money, so the shop workers decided to give him a gift: a set of kitchen knives. 
+  译底:托尼在店里购物，花了很多钱，所以店员们决定送他一份礼物：一套厨房刀具。托尼赶时间，跑向自己的车，把这件事忘了。店员注意到了，就追上去想把礼物送给他。
+
+### lib_2aa3e2f14dcf | 教堂里的仓鼠 | 专名:Bobby,Tom
+  原面:When the priest stopped talking, Bobby died.
+  译面:当神父停止讲话时，博比死了。
+  原底:Bobby was a little hamster who had come to the church along with Tom, his 9-year-old owner. When the priest was speaking in front 
+  译底:博比是一只小仓鼠，跟着九岁的饲主汤姆一起来到教堂。当神父在信徒面前讲话时，小仓鼠从孩子的腿上溜走，跑到了祭坛上。神父讲完话朝自己的椅子走去时，没有看见博比，一脚把他踩死了。
+
+### lib_82896982de6c | 最后一趟搬家 | 专名:Then
+  原面:A man comes breathless out of a house, closes the door and goes quickly down stairs. Then he walks two blocks 
+  译面:一个男人气喘吁吁地从一栋房子里出来，关上房门，快步走下楼梯。然后他走过两个街区，来到另一栋房子，走进去，松了一口气。
+  原底:The man had just moved. He arrived to his new home with the last boxes and he breathed a sigh of relief because he had finished.
+  译底:这个男人刚刚搬家。他带着最后一批箱子到达新家，松了一口气，因为他终于搬完了。
+
+### lib_b7626dbb7eb3 | 富豪变穷了 | 专名:Therefore
+  原面:A man and a woman got married. After the wedding they abandoned all their activities, that were bringing them 
+  译面:一个男人和一个女人结婚了。婚礼之后，他们放弃了所有为自己赚钱的事业，只顾玩乐。结果，三年后他们成了百万富翁。
+  原底:Before the wedding, they were billionaires. Therefore during these three years they spent a lot of money and as a result became mi
+  译底:婚礼之前，他们是亿万富翁。因此在这三年里，他们花掉了大量的钱，结果变成了百万富翁。
+
+### lib_9dea6dcb8b9a | 挂在树上的人 | 专名:John
+  原面:John was walking along the snow-covered field. When he came to a lonely tree, he saw the corpse of a man hangi
+  译面:约翰走在白雪覆盖的田野上。当他走到一棵孤零零的树旁时，他看见树上挂着一个男人的尸体。他死于前一天晚上的绞杀，但除了约翰自己的痕迹，他周围没有任何其他痕迹。
+  原底:The hanged man was a skydiver. His parachute was entangled and caught on branches of the tree.
+  译底:被吊着的男人是一名跳伞者。他的降落伞缠住了，挂在了树枝上。
+
+### lib_d002ff70ca7f | 隧道里的列车 | 专名:Then
+  原面:The man was walking along the rails and suddenly he saw a train coming towards him. Then he ran like hell to m
+  译面:这个男人正沿着铁轨走，突然看见一列火车朝他迎面驶来。于是他拼命地迎着开过来的火车跑。
+  原底:The man was in a tunnel and, in order to save his own life, he had to run along the rails to meet the train. When the tunnel was o
+  译底:这个男人在一个隧道里，为了保住自己的命，他必须沿着铁轨迎着火车跑。当隧道到了尽头，他才能跳下铁轨。多亏这样，他活了下来。
+
+### lib_596df3827d0c | 引发雪崩的枪声 | 专名:Minutes,Seconds
+  原面:A hunter aimed his gun carefully and fired. Seconds later, he realized his mistake. Minutes later, he was dead
+  译面:一个猎人仔细瞄准，扣动了扳机。几秒钟后，他意识到自己犯了个错误。几分钟后，他死了。
+  原底:He hunted in snow-capped mountains. The shot provoked an avalanche, which covered the man. He died of strangulation.
+  译底:他在白雪覆盖的群山中打猎。枪声引发了雪崩，把这个人埋了起来。他死于窒息。
+
+### lib_b118a4dc2aa2 | 逃票的代价 | 专名:Andrew
+  原面:Andrew decided to spend the evening with his family. He bought tickets for the whole family, but his ticket co
+  译面:安德鲁决定和家人一起度过这个晚上。他给全家都买了票，但他自己的那张票却让他丢了性命。
+  原底:Andrew took his family to the zoo. He found the tickets too expensive. So, he decided not to buy a ticket for himself. He climbed 
+  译底:安德鲁带家人去了动物园。他觉得门票太贵了，于是决定不给自己买票。他翻过了围墙，却掉进了一个关着狮子的笼舍。等他明白发生了什么事时，已经太晚了。
+
+### lib_08c36fa880c1 | 游艇旁的尸体 | 专名:Alternate,Several,Solution
+  原面:In the middle of the ocean is a yacht. Several corpses are floating in the water nearby.
+  译面:大洋中央有一艘游艇。附近的水里有好几具尸体漂浮着。
+  原底:A group of people were on an ocean voyage in a yacht. One day, they decided to go swimming — they put on their swimsuits and dove 
+  译底:一群人乘游艇出海航行。有一天，他们决定下水游泳——他们换上泳衣，从船舷跳了下去。他们后来才发现，自己忘了把梯子从船边放下去，无法再爬回船上，于是都淹死了。  另一种解答（二选一）：  同样的情形，但他们放下了一架刚好够长的梯子。当他们跳进水里后，失去了他们重量
+
+### lib_c58cee8e7a52 | 无王之局 | 专名:Assessing,Detain,Following
+  原面:Following criminals’ trail, a police inspector entered a chess club. Assessing the situation, he told his assi
+  译面:一名警探循着罪犯的踪迹走进一家国际象棋俱乐部。他打量了一下局面，便对助手们说：“把那两个人扣起来！”  他是怎么猜出来的？
+  原底:One of the “chess players” had no kings on the board.
+  译底:那两个“下棋的人”当中，有一个人的棋盘上没有王。
+
+### lib_7110aa915ebb | 床在境外 | 专名:Colombia,From,Venezuela,Venezuelan
+  原面:The Venezuelan police made a few attempts to arrest a well-known bandit. They knew where he lived. From time t
+  译面:委内瑞拉警方曾几次尝试逮捕一名臭名昭著的匪徒。他们知道他的住处。有时他们拿到逮捕令，就开车来到他的房子前。可每次他们一进屋，他就锁上卧室的门。警察无可奈何，只能空手而归。
+  原底:His house was on the border between Venezuela and Colombia. Although the front door and half of the house were on the territory of
+  译底:他的房子正好坐落在委内瑞拉与哥伦比亚的边境线上。虽然前门和房子的一半在委内瑞拉境内，卧室却位于哥伦比亚境内。委内瑞拉警方在哥伦比亚没有管辖权，所以只要他在卧室里，警察就抓不了他。
+
+### lib_ac376d66a0a1 | 撞人之后 | 专名:Examining,John,Upon
+  原面:A person called the police and told them to ask about John K. Upon arrival at John’s house, the police found h
+  译面:一个人打电话报警，让警方去打听约翰·K的情况。警察赶到约翰家时，发现他已经死了。检查尸体时，警察发现了严重的伤痕。可公寓里整整齐齐，没有任何搏斗或入室的痕迹。
+  原底:A driver hit a passerby at night, found his address in the documents, discovered that he lived alone, and took him home.
+  译底:一名司机在夜里撞倒了一个路人，从对方身上的证件里找到了他的住址，发现他独自居住，便把他送回了家。
+
+### lib_88e1627885fa | 最后的语言 | 专名:African,Bikya,Dalby,David,Furu,Kiessling
+  原面:The woman is speaking something and she is upset. Nobody can understand her but a man is filming her on camera
+  译面:这个女人正在说些什么，她很难过。没有人能听懂她，但有一个男人正用摄像机对着她拍摄。为什么？发生了什么事？
+  原底:It happened for real. English linguist Dr. David Dalby filmed an 87-year-old African woman who spoke Bikya as her native tongue (a
+  译底:这是真事。英国语言学家戴维·多尔比博士拍摄了一位八十七岁的非洲妇女，她的母语是比基亚语（比基亚语很可能正是因为这项工作而最为人所知）。  顺带一提，人们原本以为她是最后一位使用者，但基斯林在二〇〇七年报告说，在富鲁语系诸语言中，比基亚语是现存使用者最多的一种。
+
+### lib_8dd57b1cab11 | 剃须的命令 | 专名:Alexander,Don,Great,Greek,Heracles,Parmenio,Plutarch,Stories
+  原面:Why Alexander the Great told his army to shave off their beards?
+  译面:为什么亚历山大大帝命令他的军队把胡子剃掉？
+  原底:When the commander Parmenio asked the reason, according to the ancient historian Plutarch, Alexander replied, “Don’t you know that
+  译底:当统帅帕米尼奥问起原因时，据古代历史学家普鲁塔克记载，亚历山大回答说：“你难道不知道，在战斗中没有什么比胡子更好抓的东西吗？”  但有充分的理由怀疑普鲁塔克的解释。战场上揪胡子的故事是神话，而非史实。普鲁塔克和后世的史学家误解了这道命令，因为他们忽略了最相关的
+
+### lib_83187e9a7dec | 印钞机骗局 | 专名:Experts
+  原面:A man designed a device into which you can insert colored paper, and then get the ideal 100$. Experts can not 
+  译面:一个男人设计了一种装置，把彩色纸放进去，就能得到完美的百元美钞。连专家都无法把它们和真钞区分开。他是怎么做到的？他又为什么要卖掉这台装置？
+  原底:The man sells this device to the thief, convincing him that it prints counterfeit dollars that are indistinguishable from the real
+  译底:这个男人把这台装置卖给一个小偷，让对方相信它能印出与真钞毫无差别的假美钞。演示的时候，他把一张绿纸放进机器。可那张“绿纸”其实是一张真正的百元美钞，只是被厚厚地涂成了绿色。机器要做的，不过是把上面的绿色涂料去掉而已。
+
+### lib_a8c4779b3e68 | 致命的色盲 | 专名:Thailand
+  原面:He died because he mixed up the colors.
+  译面:他因为弄混了颜色而死。
+  原底:In Thailand if some snake bites you, doctor has to identify the snake's species in order to choose the right antidote. The tourist
+  译底:在泰国，如果有人被蛇咬伤，医生必须辨明蛇的种类，才能选择正确的抗毒血清。游客通常认不出蛇的种类，所以医生会问他蛇是什么颜色，专家再根据这个信息判断蛇的种类。这名男子是色盲，因此接受了错误的抗毒血清。
+
+### lib_c4eb8c68f90c | 拍手杀蚊 | 专名:Michael
+  原面:Michael applaused, and everyone in the room (except him) died. What happened?
+  译面:迈克尔鼓了鼓掌，房间里的所有人（除了他自己）都死了。发生了什么事？
+  原底:Michael was killing mosquitoes.
+  译底:迈克尔在打蚊子。
+
+### lib_a5847d25a3f9 | 死鸡发射器 | 专名:America,Jet
+  原面:In the 1950s in America there was invented a chicken gun. What for?
+  译面:二十世纪五十年代的美国发明了一种“鸡炮”。它是用来做什么的？
+  原底:A chicken gun is a large-diameter, compressed-air cannon used to fire dead chickens at aircraft components in order to simulate hi
+  译底:鸡炮是一门大口径的压缩空气炮，用来把死鸡射向飞机的零部件，以模拟飞机飞行时遭遇高速鸟撞的情形。喷气发动机和飞机挡风玻璃尤其容易被这类撞击损坏，也是这类测试中最常见的目标。人们认为，整只的、死的、标准大小的鸡（就像做菜用的那种）能够准确地模拟一只大型活鸟撞击飞行
+
+### lib_f26508035659 | 傻子不傻 | 专名:Visitors
+  原面:Visitors to a scenic mountain village were often amused by the village idiot. When offered a choice between a 
+  译面:来到一个风景秀丽的山村游玩的人，常常被村里的“傻子”逗乐。当让他在一枚闪亮的五十分硬币和一张皱巴巴的五美元纸币之间做选择时，他总是高高兴兴地挑那枚半美元硬币。那张纸币的价值是它的十倍，可他为什么从来都不选它呢？
+  原底:The so-called village idiot was smart enough to realize that as long as he kept choosing a 50-cent piece, people would keep offeri
+  译底:这个所谓的“傻子”其实聪明得很，他明白只要自己一直选五十分硬币，人们就会不断地给他这种选择的机会。一旦他拿了一次五美元纸币，这些送上门来的硬币就再也不会来了。
+
+### lib_ae7066573388 | 信鸽运钻石 | 专名:Policemen,Taiwan
+  原面:The son of a rich man was kidnapped. The kidnapper wanted the rich man to bring and put the expensive diamond 
+  译面:一个富人的儿子被绑架了。绑匪要这个富人把一颗昂贵的钻石送到城市公园里的一个电话亭里放好。警察包围了这座公园，想抓住罪犯。被绑架孩子的父亲来到电话亭，完全照绑匪说的做了，可警察却没能阻止这个狡猾的罪犯把钻石从电话亭里取走。
+  原底:This is a real history that happened in Taiwan. When the father came to the call-box, he found a postal pigeon in the cage. There 
+  译底:这是发生在台湾的一件真事。当父亲来到电话亭时，他发现笼子里有一只信鸽。鸽子身上系着一张字条，上面写着：把钻石放进系在鸽子脖子上的小袋子里，然后把鸽子从笼子里放出来。富人照做之后，鸽子飞越整座城市，回到自己的鸽舍，警察根本无法追踪它。
+
+### lib_59d5609804b0 | 沙漏与日晷 | 专名:Another
+  原面:Two devices are commonly used by people. They are created for the same purpose. But one of them has lots of de
+  译面:有两种装置被人们普遍使用。它们是为同一个目的而造出来的。但其中一种有很多零件，另一种却一个也没有。这两样东西是什么？
+  原底:One of these devices is hourglass. Another one is sundial.    Little hint for players: both devices are invented long time ago.
+  译底:其中一种是沙漏，另一种是日晷。  两种装置都是很久以前发明的。
+
+### lib_fc66a2854df3 | 举手的暗号 | 专名:Moreover,Therefore
+  原面:A man, who was examining some school, noticed that any time a teacher was asking a question, lots of pupils we
+  译面:一个男人到某所学校考察，他注意到，每当老师提问时，都有很多学生准备好回答。而且，每次老师点的都是不同的人，答案却总是正确的。
+  原底:The teacher told pupils to raise up their hands no matter what question would be asked. But if they khew the answer, they should r
+  译底:老师让学生们不管被问到什么问题都举手。但如果他们知道答案，就举右手；否则就举左手。这样，老师就能在知道答案的学生当中挑人回答。
+
+### lib_db7c83076926 | 黑暗中的球局 | 专名:Faldo,Nick
+  原面:One person decided to play golf with Nick Faldo, imposing one condition - he will choose the time and the plac
+  译面:一个人决定和尼克·法尔多打一场高尔夫球，他提出一个条件——比赛的时间和地点由他来定。尼克答应了。结果，这个人打败了这位冠军。
+  原底:This person was blind and he chose to play this match at moonless night. He could play golf perfectly well in dark. (It is true, b
+  译底:这个人是盲人，他选择在一个没有月亮的夜晚比赛。他在黑暗中也能把高尔夫打得很好。（这是真的，盲人可以在视力正常者的帮助下打高尔夫。）这样的条件对尼克来说太不寻常，所以他输了。
+
+### lib_48503817c899 | 安全带怪事 | 专名:Moreover,Then
+  原面:In some city an amount of people injured in car accidents was very high. Then it was decided by administration
+  译面:在某座城市，车祸中受伤的人数非常多。于是市政当局决定强制使用安全带。人们开始遵守这项规定。但车祸的数量保持不变。而且，到医院就医的伤者人数甚至增加了。
+  原底:The adopted law decreased the number of accidents. A lot of people who would die without seat belt stayed alive but got injured an
+  译底:这条法律减少了车祸中的死亡人数。许多原本不系安全带会死的人活了下来，但受了伤，因此去了医院。所以病人的人数增加了。
+
+### lib_de86bb904a12 | 格陵兰之名 | 专名:Erik,Greenland,Grfnland,Iceland,Norse,Over,Red,Scandinavian
+  原面:Over 80 percent of Greenland is covered in ice. But why then it was called Greenland (a green land)?
+  译面:格陵兰超过百分之八十的土地被冰雪覆盖。可它为什么被叫作格陵兰（绿色的土地）？
+  原底:The name Greenland comes from Scandinavian settlers. In the Norse sagas, it is said that Erik the Red was exiled from Iceland for 
+  译底:格陵兰这个名字来自斯堪的纳维亚的定居者。在北欧萨迦中记载，“红发埃里克”因杀人被逐出冰岛。他乘船出发，去寻找传说中位于西北方的一片陆地。在那里定居之后，他把这片土地命名为格陵兰，以吸引更多的人前来定居。
+
+### lib_2ef0be917a7d | 冰块里的毒 | 专名:Gradually
+  原面:A man went into a party and drank some of the punch. He then left early. Everyone at the party who drunk the p
+  译面:一个男人去参加聚会，喝了一些潘趣酒（一种用果汁调制的混合饮料），然后提前离开了。聚会上所有喝过潘趣酒的人后来都中毒身亡。为什么这个男人没有死？
+  原底:The poison from the punch came from the ice cubes. When the man drank the punch, the ice was fully frozen. Gradually, as the ice c
+  译底:潘趣酒里的毒来自冰块。这个男人喝潘趣酒的时候，冰块还完全冻着。随着冰块渐渐融化，毒才被释放到酒里。
+
+### lib_e26c71525fac | 车里的陌生人 | 专名:Upon
+  原面:A married couple was speeding into town when their sedan ran out of gas. The man went for help after making su
+  译面:一对夫妻开车飞快地驶向城里，途中他们的轿车没油了。男人确认妻子关好车窗、锁好车门之后，就去找人帮忙。等他回来时，发现妻子已经死了，车里还有一个陌生人。车窗仍然关着，车门仍然锁着，车子也没有任何损坏。
+  原底:The woman gave birth, and bled to death. Since the father has never seen the baby before, the kid can technically be called a stra
+  译底:那个女人生下了一个孩子，然后因失血过多而死。由于父亲从未见过这个婴儿，从严格意义上说，这个孩子可以称为陌生人。
+
+### lib_3737fa6595fc | 竞争催生的发明 | 专名:Almon,Anecdotally,Brown,Motivated,Strowger
+  原面:At the end of the XIX century one american enterpreneur invented a system to withstand competition. This syste
+  译面:十九世纪末，一位美国企业家发明了一套用来对抗竞争的系统。这套系统我们如今人人都在使用。
+  原底:This american enterpreneur was Almon Brown Strowger. Strowger patented his automatic telephone exchange and left the undertaking b
+  译底:这位美国企业家叫阿尔蒙·布朗·斯特罗格。斯特罗格为自己的自动电话交换机申请了专利，并放弃了殡葬生意，转而去批量生产他的新发明。  有个传闻说，斯特罗格的殡葬生意之所以不断流失客户，是因为一个竞争对手的妻子是电话接线员，她把所有打电话找斯特罗格的人都转给了别人。
+
+### lib_221f782fb31c | 车灯下的兔子 | 专名:Roger,Soon
+  原面:Roger sees the light and he becomes paralyzed. Soon after that he dies.
+  译面:罗杰看到了光，然后就全身瘫痪了。不久之后，他就死了。
+  原底:Roger was a rabbit that escaped from the house where he lived. He was crossing the road at night when the lights of a car blinded 
+  译底:罗杰是一只从自己居住的房子里逃出来的兔子。夜里它正在横穿马路，汽车的车灯晃花了它的眼。司机没有看见它，从它身上碾了过去。
+
+### lib_aec36a0b65cd | 电影院里的尖叫 | 专名:Cindy
+  原面:Cindy is amongst a crowd of people when she is murdered. However, nobody notices her cries.
+  译面:辛迪在一大群人中被人杀害。然而，没有人注意到她的哭喊。
+  原底:Cindy was in a movie theater, watching a horror movie. A very scary scene started. While everybody was screaming the murderer - wh
+  译底:辛迪当时正在电影院看一部恐怖片。一个极其恐怖的场景开始了。就在所有人都在尖叫的时候，她身后的凶手把她杀死了。
+
+### lib_647c6dd4e182 | 黑暗里的睡前故事 | 专名:Matthew
+  原面:Matthew keeps reading a bedtime story to his son despite the blackout.
+  译面:尽管停电了，马修还是不停地给儿子读睡前故事。
+  原底:Matthew was blind and he usually read bedtime stories to his son from a braille book. That night there was a blackout, but this di
+  译底:马修是盲人，平时都用盲文书给儿子读睡前故事。那天晚上停电了，但这并没有妨碍他把故事读完。
+
+### lib_09d94cbd1f46 | 风筝惹的祸 | 专名:Angela
+  原面:If the wind hadn't blown so strongly that night, Angela would still be alive.
+  译面:如果那天晚上风没有刮得那么大，安吉拉就还活着。
+  原底:As it was windy, Angela decided to go to a field to fly her kite. At twilight, she could not see the nearby transmission tower. Wh
+  译底:因为风很大，安吉拉决定去田野里放风筝。黄昏时，她看不清附近的输电塔。当风筝缠在电线上、她试着去解开时，她触电死了。
+
+### lib_731ffe3153a9 | 抢购食盐 | 专名:Cadets
+  原面:The cadets became the cause of a mass buying up of salt in the whole city.
+  译面:军校学员们成了全城抢购食盐的原因。
+  原底:Cadets were supposed to shovel the snow. But they were lazy so they strew the ground with salt. They bought lots of salt to perfro
+  译底:学员们本该去铲雪，但他们偷懒，往地上撒盐。为了撒盐，他们买了很多盐。当老人们看到军人买那么多盐时，以为马上就要打仗了，于是乱作一团，开始抢购食盐。
+
+### lib_a269a7246676 | 不能再判的罪 | 专名:Some
+  原面:A man was walking down the street when he suddenly started to choke the woman walking by him. He was taken to 
+  译面:一个男人走在街上，突然掐住了从他身边走过的女人的脖子。他被带到了警察局，但不久就被释放了。
+  原底:This woman was his wife. Some years ago she staged her death and her husband was found guilty. He already got out of jail and now 
+  译底:这个女人是他的妻子。几年前她伪造了自己的死亡，而她的丈夫被判定有罪。他如今已经出狱，不能因为同一桩罪行再被定罪一次。
+
+### lib_2d0378b8ab81 | 摩尔斯电码考试 | 专名:Students
+  原面:Students are taking an exam at military academy. One of them chooses a ticket and goes to his seat to get prep
+  译面:学员们正在军事学院参加考试。其中一个人抽了一张考签，回到座位上准备。几分钟后，他走到教授面前，一言不发地把自己的记分册交给教授，然后离开了教室。这个学生得了优秀。
+  原底:It was a morse code exam. During exam, the professor was tapping the message saying that any student may come up to him and get th
+  译底:这是一场摩尔斯电码考试。考试期间，教授一直在敲击一条电码，内容是说：任何学生都可以走到他面前，领取优秀成绩。
+
+### lib_0c420be576a3 | 罗盘失灵了 | 专名:Jack,North,Pole,South
+  原面:Jack goes on a trip with his compass. After a long walk, he stops to eat a sandwich. He is not able to find hi
+  译面:杰克带着罗盘去旅行。走了很久之后，他停下来吃了个三明治。之后他再也找不到回去的路了。
+  原底:Jack was a scientist who worked near the North Pole. When he went walking, he walked towards the north and he stopped to eat his s
+  译底:杰克是一位在北极附近工作的科学家。他散步时一路朝北走，停下来吃三明治的地方恰好就是北极点。当他想要回家时，他的罗盘失灵了，因为每一个方向都指向南方。
+
+### lib_9222838f027c | 抽签定生死 | 专名:Peter
+  原面:Peter wins the raffle and commits suicide.
+  译面:彼得在抽签中中签，然后他自杀了。
+  原底:A group of people were snowed in. They decided to do a raffle to decide who should die so the others could eat his/her corpse to s
+  译底:一群人被大雪困住了。他们决定用抽签来决定谁该死去，这样其他人就能吃他（她）的尸体活下去。彼得被抽中了，所以他必须自己结束生命。
+
+### lib_03ddcc8f9901 | 自导自演的枪伤 | 专名:Michael
+  原面:Michael manages to get shot; in doing so he saves his own life.
+  译面:迈克尔设法让自己中了枪；这样做反而救了他自己的命。
+  原底:Michael was a soldier on the battlefront. The day of a big attack was approaching. When none of the other soldiers were looking, h
+  译底:迈克尔是前线上的一名士兵。一场大进攻的日子临近了。趁其他士兵都没注意的时候，他把一条胳膊伸了出去，好让敌人朝它开枪。随后他被送进了医院，他的生命也就不再有危险了。
+
+### lib_ad68979c0d9f | 掌声中的死亡 | 专名:Francis,Therefore
+  原面:Francis dies of a heart attack at work. His colleagues are there when it happens. However, they do not call fo
+  译面:弗朗西斯在工作中因心脏病发作而死。事情发生时他的同事们就在场。然而，直到弗朗西斯死去，他们都没有去叫人来救他。
+  原底:Francis was a theather actor and suffered a heart attack in the middle of a performance. However, he was playing someone who was h
+  译底:弗朗西斯是一名戏剧演员，在一场演出中间突发心脏病。然而，他演的角色正是一个心脏病发作的人。因此，他的同事和观众都只以为他的表演非常震撼。
+
+### lib_500c7ed12627 | 没打开的包裹 | 专名:Lying
+  原面:A man is found dead in a filed. Lying next to him is an unopened package.
+  译面:一个男人被发现死在田野里。他旁边躺着一个没有打开的包裹。
+  原底:The man was skydiving and his parachute did not open. The unopened package was his parachute.
+  译底:这个男人在跳伞，他的降落伞没有打开。那个没打开的包裹就是他的降落伞。
+
+### lib_4eb4c8f15cce | 聋鹦鹉 | 专名:Some
+  原面:A woman walks into a pet store to buy a parrot. The seller offers her one, telling her that it can repeat ever
+  译面:一个女人走进宠物店想买一只鹦鹉。卖家向她推荐了一只，说它能重复它听到的一切。几天后，这个女人觉得自己上当了，回到店里要求退钱。然而，她带回家的还是那只鹦鹉，而不是她的钱。
+  原底:The parrot was deaf. It could not repeat anything, since it could not hear anything. However, the seller did not return the money 
+  译底:这只鹦鹉是聋的。它什么也听不见，所以什么也重复不了。然而卖家没有把钱退给女人，因为他从来没有对她说过谎。
+
+### lib_90f24e004722 | 摔碎的金鱼缸 | 专名:Jack,Judy
+  原面:Jack and Judy were lying on the floor dead. There was a puddle of water and broken glass on the floor. How did
+  译面:杰克和朱迪躺在地上死了。地板上有一摊水，还有碎玻璃。他们是怎么死的？
+  原底:Jack and Judy were two goldfish that swam in a small aquarium placed on a shelf. One afternoon, a cat sneaked into the room throug
+  译底:杰克和朱迪是两条金鱼，游在一个放在架子上的小鱼缸里。一天下午，一只猫从窗户溜进房间，撞到了鱼缸，鱼缸从架子上掉下来，摔在地上碎了。
+
+### lib_890d1c453bf5 | 找不回的宝藏 | 专名:Jimmy
+  原面:Jimmy hid a treasure but when he wanted to recover it, he was not able to.
+  译面:吉米藏了一份宝藏，但当他想把它找回来时，却怎么都找不到了。
+  原底:Jimmy buried a treasure when he was 8 years old. He had written a note when he was younger with how many steps he would take to fi
+  译底:吉米八岁时埋下了一份宝藏。小时候他写下了一张字条，记着要走多少步才能找到他的宝藏。但现在他长大了，步子比以前大得多，所以他再也找不到那份宝藏了。
+
+### lib_114690a86241 | 隆胸后的复诊 | 专名:Finally,Soon
+  原面:An exotic dancer goes on a date for a private session with a man. In the room where they are, she takes her sh
+  译面:一名脱衣舞娘去赴一场与一个男人的私人约会。在他们所在的房间里，她脱掉了上衣和胸罩。男人走近，看着她的胸部笑了。不久之后，她穿好衣服，付钱给那个男人，然后离开了。
+  原底:The woman had undergone a breast augmentation surgery a few days earlier and she had arranged an appointment with her private doct
+  译底:这个女人几天前刚做过隆胸手术，她预约了自己的私人医生来复查手术效果。医生看到一切都很完美，自己做得非常出色。最后，女人付了账单，离开了诊所。
+
+### lib_8c2d954d8f4b | 溺亡的拥抱 | 专名:George
+  原面:After George tries to hug a person, he dies by drowning.
+  译面:乔治试图去拥抱一个人之后，溺水身亡了。
+  原底:George was under the influence of alcohol and saw his reflection on a river. As he was intoxicated, he thought that it would be a 
+  译底:乔治当时喝醉了，在河面上看见了自己的倒影。由于醉得厉害，他觉得去拥抱那个“陌生人”是个好主意。然而，这让他掉进了河里，溺水而死。
+
+### lib_726e01754208 | 破灯下的黑猫 | 专名:Despite
+  原面:A black cat is walking through the middle of a road where there is a broken street lamp. A man is driving his 
+  译面:一只黑猫正走在路中间，路上有一盏坏掉的路灯。一个男人开着车，车头灯也坏了。尽管如此，他还是避开了猫，没有伤害到它。
+  原底:The man avoided the cat because it was daylight.
+  译底:男人之所以能避开猫，是因为当时是白天。
+
+### lib_e38aefe35f92 | 被潮水冲走的答案 | 专名:Liz,Mario
+  原面:When Liz was about to find out who killed Mario, she fell asleep. When she woke up she realized that she could
+  译面:莉兹正要查出是谁杀了马里奥时，她睡着了。醒来后她意识到，她再也查不出答案了。
+  原底:Liz was reading a novel on the beach. The main character, Mario, had been killed and she was about to find out who had committed t
+  译底:莉兹正在海滩上读一本小说。书中的主人公马里奥被人杀害，她正要查出凶手是谁。还没查出来，她就睡着了，书被丢在沙子上。醒来时，她看到潮水涨了上来，书已经被冲走了。
+
+### lib_4932daca85fa | 无人借阅的书 | 专名:Realizing
+  原面:A woman goes to the library, takes a book and cries out.
+  译面:一个女人走进图书馆，拿起一本书，大哭起来。
+  原底:The woman was a writer and she had donated one of her books to the library. She had included a 50$ bill among the pages as a gift 
+  译底:这个女人是一位作家，她把自己写的一本书捐给了图书馆。她在书页里夹了一张五十美元的钞票，作为送给第一个借这本书的人的礼物。一年之后，她回到图书馆，拿起那本书，发现钞票还在里面。意识到没有人读过她的书，她放声大哭。
+
+### lib_5e9b0b0cd305 | 打赌砸豪车 | 专名:Althought,Jimmy
+  原面:A man smashes Jimmy's luxury car. Althought Jimmy saw his car get smashed he made no attempt to stop the man.
+  译面:一个男人砸烂了吉米的豪车。尽管吉米亲眼看着自己的车被砸，他却没有做出任何阻止的举动。
+  原底:Jimmy and the other man had a bet. It was agreed that the winner of the bet would smash the loser's car. Jimmy lost the bet.
+  译底:吉米和那个男人打了赌。两人约定，赌输的一方要被赢家砸车。吉米赌输了。
+
+### lib_52363186ccfa | 丈夫爱去的小巷 | 专名:John,Mary,Stockholm
+  原面:There were many reasons why John enjoyed coming here. But his wife Mary hated this place, as did other women i
+  译面:约翰喜欢来这里有很多原因。但他的妻子玛丽讨厌这个地方，城里其他女人也一样。为什么？
+  原底:This situation puzzle is about a real geographical object. In Stockholm, there’s a narrow – no more than a meter wide – street tha
+  译底:这个故事谜题讲的是一处真实的地理景观。在斯德哥尔摩，有一条不到一米宽的窄巷，通往一家酒馆。这条巷子在18世纪非常受欢迎，因为醉汉可以扶着墙壁走过巷子。但他们的妻子进不了这条巷子，因为她们的裙撑卡在了墙壁之间。
+
+### lib_106454e9da4a | 上课迟到的收获 | 专名:Danzig,George,Once
+  原面:George was late for a math class and misunderstood the teacher. This brought him a reward and recognition! Wha
+  译面:乔治上数学课迟到了，还误解了老师。这却给他带来了奖励和认可！发生了什么？
+  原底:Once, the American mathematician George Danzig came very late for a class. He saw some problems written on the blackboard and deci
+  译底:有一次，美国数学家乔治·丹齐格上这门课迟到了很久。他看到黑板上写着几道题，以为那是家庭作业。他花了好几天时间去解它们，最终找出了答案。原来，他解开了两道许多科学家都苦苦钻研的“无解”难题。
+
+### lib_31510b340d2a | 墙里的臭蛋 | 专名:Landlords
+  原面:Landlords used to delay payment to people who built and repaired houses or even booted them out without money.
+  译面:过去，房东常常拖欠付给盖房和修房的人的工钱，甚至不付钱就把他们赶走。但工匠们想出了一个不寻常的办法，立刻让房东们全额付清了工钱。他们做了什么？
+  原底:When laying a foundation for a house or repairing it, they put a raw egg in a certain place. After a while, it began to rot. If th
+  译底:在给房子打地基或修房子时，他们会在某个地方放一个生鸡蛋。过了一段时间，鸡蛋开始腐烂。如果房东叫来工匠并付清了工钱，他们就把鸡蛋取走。如果他把他们赶走，鸡蛋最终会发出恶臭，而且很难找到它被藏在哪儿。
+
+### lib_1e8c875b983d | 画展上的报复 | 专名:Penny,Pincher
+  原面:An artist took an order to paint a portrait of a very ugly and arrogant woman. Everyone tried to dissuade him,
+  译面:一位画家接了一单生意，要给一个非常丑陋又傲慢的女人画肖像。所有人都劝他别接，说她一分钱都不会付，因为这幅肖像肯定画得很差。结果果真如此。但两天后，那个女人又回来了，恳求画家把肖像卖给她。为什么？
+  原底:The artist sent the portrait to an exhibition and called it The Penny Pincher. It triggered gossips, and the woman had to ask the 
+  译底:画家把肖像送去参加展览，并给它取名为《铁公鸡》。这引起了流言蜚语，那个女人只好请求画家把肖像从展览上撤下来。
+
+### lib_6c000ed8e0b7 | 末班车上的预言 | 专名:Excuse,Tokyo
+  原面:At five minutes to midnight, I took the train on the outskirts of Tokyo. There were only me and a few other pe
+  译面:午夜差五分钟时，我在东京郊区上了电车。车厢里除了我，只有另外几个人。这时一个男人走了进来。他环视了一下车厢，车门刚一关上，他的脸就因恐惧而扭曲了。  他走到一个女孩面前。  ——“打扰一下，女士，你今年28岁吗？”  —
+  原底:The man with prophetic gift could see how many years others would live. He realized that the train would crash in less than 5 minu
+  译底:那个有预言能力的男人能看到别人还能活多少年。他意识到电车将在不到五分钟内发生事故，车上所有乘客都会死。
+
+### lib_b6783bbd97db | 会消失的尸体 | 专名:Later,Shortly
+  原面:One day, I felt fed up with my younger sister’s bleat. So, I killed her and threw her body into a well. The ne
+  译面:有一天，我受够了我妹妹的哭闹声，于是杀了她，把她的尸体扔进一口井里。第二天，尸体不见了。  几年后，我和一个朋友为一件小事吵了起来，我决定把他也杀掉，扔进那口井里。第二天，尸体不见了。  后来，我喝醉了酒，不小心让一个女
+  原底:The main character’s mother dragged corpses away out of the well. Of course, she couldn’t drag her own corpse away.
+  译底:主人公的母亲一直在把井里的尸体拖走。当然，她没办法拖走自己的尸体。
+
+### lib_3cb084cbd056 | 许愿精灵的陷阱 | 专名:Consider,Please,Suddenly,Well
+  原面:A little girl was crying bitterly in a barn. Through her tears, she noticed an old lamp lying in the garbage. 
+  译面:一个小女孩在谷仓里哭得很伤心。透过泪水，她注意到垃圾堆里躺着一盏旧油灯。她把它捡起来，擦掉了上面的灰。  突然，一个精灵出现了，说：  “我可以实现你一个愿望。但只能实现一个，所以好好想想。”  “请让我的父母消失！”女
+  原底:The girl realized that she lived with foster parents, and her wish made her real parents, who lived somewhere else, disappear.
+  译底:女孩意识到自己一直和养父母住在一起，而她的愿望让住在别处的亲生父母消失了。
+
+### lib_2397dffdbbd4 | 电车上的女人 | 专名:Explain
+  原面:Today, I was on the train again when a woman appeared before me. I didn’t even remember her face. It’s so sad.
+  译面:今天，我又在电车上，一个女人出现在我面前。我甚至不记得她的脸。太悲伤了。  请解释叙述者为什么感到悲伤。
+  原底:This story was told by a train operator that hit a woman who suddenly jumped out onto the railway.
+  译底:这个故事是一位电车司机讲的，他撞上了一个突然跳到铁轨上的女人。
+
+### lib_253ddea858ec | 邮寄的手臂 | 专名:Carefully,Desperate
+  原面:One day a man received a parcel in the post. Carefully packed inside was a human arm. He examined it, repacked
+  译面:有一天，一个男人收到一个邮包。里面小心翼翼地包着一条人的手臂。他检查了一下，重新包好，然后把它寄给了另一个男人。第二个男人也仔细检查了那条手臂，然后把它带到树林里埋掉了。他们为什么这么做？
+  原底:The three men had been stranded on a desert island. Desperate for food, they had agreed to amputate their left arms in order to ea
+  译底:这三个男人曾经被困在一座荒岛上。为了活下去，他们商量好各自砍下自己的左臂来吃。他们立下誓言，每个人都必须被砍掉左臂。其中一个人是医生，他砍下了两个同伴的手臂。后来他们获救了。但他的誓言依然有效，所以后来他也必须把自己的手臂切下来，寄给他的同伴。
+
+### lib_f8b206e39d54 | 绿色的口红 | 专名:Therefore
+  原面:Every day he puts on green lipstick. But almost no one notices it.
+  译面:每天他都涂着绿色的口红。但几乎没有人注意到。
+  原底:In the 20th century the television was still black and white, and cameras had red filters, which absorbed red color of the image, 
+  译底:在20世纪，电视还是黑白的，而摄像机装有红色滤镜，会吸收画面中的红色，也就是说，红色口红在嘴唇上根本看不出来。因此，电视播音员不得不涂绿色的口红，好让嘴唇显得更鲜明。
+
+### lib_d3892441e402 | 被拐走的女儿 | 专名:For,Please,Then
+  原面:The parents lost their little daughter when she was playing on the playground. The police didn’t find her. The
+  译面:父母的小女儿在操场上玩耍时失踪了。警方没有找到她。案子被认定无法侦破，调查也随之结案。  但父母拒绝放弃。他们决定联系一位灵媒。这位灵媒经常协助警方，常常能指出罪犯或失踪者的确切位置。  几天后，灵媒来了，她请父母带她去
+  原底:The girl was kidnapped and sold for organs.
+  译底:女孩被绑架后，器官被卖掉了。
+
+### lib_5199771a3493 | 水龙头里的啤酒 | 专名:Due,Martha,Nils,Norway
+  原面:Due to an oversight committed by Nils when doing his job, Martha, an upstairs neighbour, couldn’t wash the dis
+  译面:由于尼尔斯工作时犯的一个疏忽，楼上的邻居玛莎没法洗碗。同时，玛莎的丈夫却很高兴，但尼尔斯还是被解雇了。为什么？
+  原底:An interesting case happened in Norway:    When a housewife (Martha) turned on a water tap, beer poured out of it! The fact is tha
+  译底:挪威发生过一件有趣的事：一位家庭主妇（玛莎）打开水龙头时，里面流出来的竟然是啤酒！原来，一楼咖啡馆里的一个酒保把两个水龙头接错了。结果，玛莎家楼上喷出了啤酒，而楼下酒吧的啤酒龙头里却喷出了水。当然，那个酒保被解雇了，但玛莎的丈夫很高兴。
+
+### lib_db6666691742 | 森林里的照片 | 专名:Eva
+  原面:Eva was a skeptic, and never believed in the paranormal. But after she had spent 3 nights in a creepy forest a
+  译面:伊娃是个怀疑论者，从不相信超自然现象。但在她独自一人在一片阴森的森林里待了三个夜晚之后，她的怀疑就消失了。为什么？
+  原底:Eva visited the ill-reputed creepy forest, and naturally, like all skeptics, she took photos and recorded her every step. After sh
+  译底:伊娃去了那片名声很糟的阴森森林，自然，和所有怀疑论者一样，她一路拍照，记录自己的每一步。回家后，她开始翻看照片，却发现自己睡在帐篷里的几张照片。
+
+### lib_05646ada5257 | 没人上车的车站 | 专名:Germany
+  原面:On a beautiful road, there’s a bus stop that is fully operational. However, no public transport stops there. W
+  译面:在一条漂亮的路上，有一个完全正常运营的公交车站。然而，没有任何公共交通在这里停靠。为什么？
+  原底:This stop is in Germany next to a nursing home for senile dementia patients. It has a schedule of supposedly passing bus routes ha
+  译底:这个车站在德国，紧邻一家收治老年痴呆症患者的养老院。站牌上挂着几班据称会经过的公交线路时刻表。那些想溜出去的老人会走到车站，坐下来，老老实实地等他们的公交车。如果养老院的工作人员发现某位住户已经失踪很久，他们就直接去车站把人接回来。
+
+### lib_0603bd6091a0 | 聪明的玛丽 | 专名:Indeed,John,Mary
+  原面:On first day, nothing in Mary’s behavior surprised John.  On the second day, John was extremely surprised.  On
+  译面:第一天，玛丽的举动没有让约翰感到任何意外。  第二天，约翰感到极其惊讶。  第三天，约翰明白了，并且对女人的看法好转了。
+  原底:Mary was a woman with a rich husband and a rich lover. Both enjoyed giving her expensive gifts but gave her very little pocket mon
+  译底:玛丽是个女人，她有一个有钱的丈夫，还有一个有钱的情人。两个人都喜欢送她昂贵的礼物，却只给她很少的零花钱。  ——第一天，玛丽和丈夫来到店里，挑了一件价值两千美元的连衣裙。丈夫当场付了钱，店员（约翰）并不感到意外。  ——第二天，玛丽和情人来到同一家店，挑了和昨
+
+### lib_3d4dec8842ce | 弄巧成拙的辩护 | 专名:Bill,Don,Winter
+  原面:After the barrister’s speech, Bill’s punishment was upgraded. Why?
+  译面:听完律师的发言后，比尔的处罚反而加重了。为什么？
+  原底:In autumn, a district court was hearing a case of a homeless man who had broken a shop window. Because of the barrister’s speech, 
+  译底:秋天，一家地区法院正在审理一个无家可归的男人砸坏商店橱窗的案子。由于律师的那番发言，法庭虽然倾向于判处缓刑，却最终判了实刑。律师说：“冬天就要来了！无家可归的人可能会死。你们难道不明白，只有在监狱里，被告才会有鞋穿、有衣穿、有饭吃……”
+
+### lib_d1ae48972e4e | 丈母娘的毒计 | 专名:Over
+  原面:A mother-in-law disliked her son-in-law so much that she wanted to poison him. But the son-in-law was careful 
+  译面:一个丈母娘非常讨厌自己的女婿，想毒死他。但女婿很谨慎，只吃丈母娘吃过的同样的东西。一天吃晚饭时，丈母娘把一块肉切成两半，自己吃了一块，把另一半给了女婿。之后他就死了。她是怎么做到的？
+  原底:She greased one side of the knife with poison.
+  译底:她在刀的一面上涂了毒。
+
+### lib_f8a3bf5b00cb | 邮差是凶手 | 专名:Holmes,John,Please,Sherlock,Suddenly
+  原面:Sherlock Holmes was walking down the corridor. Suddenly he heard a woman screaming, “Please, John, don’t kill 
+  译面:夏洛克·福尔摩斯正沿着走廊走。突然，他听到一个女人尖叫：“求你了，约翰，别杀我！”一声枪响。福尔摩斯冲进房间。一个角落里躺着一个死去的女人和一把枪。另一个角落里站着一个邮差、一个律师和一个会计。夏洛克看了看他们，走向邮差
+  原底:The postman was the only man. The lawyer and the accountant were women.
+  译底:邮差是唯一的一个男人。律师和会计都是女人。
+
+### lib_8fe448ee5744 | 金戒指与金牙 | 专名:Suddenly
+  原面:A man was walking with a gold ring on his finger. Suddenly robbers attacked him. They wanted to take the ring 
+  译面:一个男人手指上戴着金戒指走在路上。突然，强盗袭击了他。他们想抢走戒指，却怎么也摘不下来。于是他们砍下了他的手指，然后逃走了。然而，这个男人甚至没有尖叫。为什么？
+  原底:He had gold teeth, and he didn’t want to show them, so that the robbers wouldn’t take them too.
+  译底:他有金牙，他不想让人看见，免得强盗连金牙也一起抢走。
+
+### lib_7d0148e8bd21 | 公交车上的让座 | 专名:Kate
+  原面:When on a bus, Kate wanted to offer her seat to a woman who's just goton. But she was very embarrassed and ref
+  译面:在公交车上，凯特想把座位让给一个刚上车的女人。但她非常尴尬，拒绝了。为什么？
+  原底:Little Kate was sitting in her dad's lap.
+  译底:小凯特正坐在她爸爸的腿上。
+
+### lib_d443a4f706cf | 蜂蜜的归还 | 专名:Bill,None,Now
+  原面:Many people were surprised when a famous town merchant named Bill rolled out a barrel of honey to the square a
+  译面:当镇上一位著名的商人比尔把一桶蜂蜜推到广场上，请所有人品尝时，很多人都很惊讶。  但当人们问起这份礼物的缘由，听到比尔回答说这根本不是礼物时，他们更加惊讶了。
+  原底:Bill has been selling honey for many years. He scooped the product up with a measuring cup and poured it into a buyer’s jug.    Bu
+  译底:比尔卖了很多年蜂蜜。他用量杯把蜂蜜舀起来，倒进买主的罐子里。但蜂蜜是一种黏稠的东西，要完全倒干净需要很长时间……从来没有顾客愿意等到最后一滴。可比尔是个少有的诚实人，他并不打算占有什么不属于自己的东西，哪怕只是几滴。他把剩下的蜂蜜倒进另一个罐子，年复一年，居然
+
+### lib_9ad66f4c93fe | 流浪汉的远见 | 专名:Bill,Hello,Please,Right,Thank,Then,Who,Would
+  原面:The doorbell rings. Bill opens the door. On the threshold, he sees a local vagrant.      "Hello," says the vag
+  译面:门铃响了。比尔打开门。在门口的台阶上，他看见一个本地流浪汉。  “你好，”流浪汉说，“跟平常一样，我翻垃圾桶的时候，在一个垃圾坑里找到一个钱包，里面有一千美元和你的身份证件。你一定是不小心把它扔掉了。”  “对！”比尔高
+  原底:When returning the wallet, the vagrant had high hopes for gratitude.   But there was a chance that Bill wouldn’t have any broken m
+  译底:流浪汉还钱包时，心里对酬谢抱着很高的期待。  但比尔手里也有可能根本没带零钱。  钱包里只有一百美元面额的钞票。  比尔会愿意付出那么大一笔钱吗？  于是流浪汉做了一个聪明的决定。在还钱包之前，他把一张一百换成了小面额——五美元、十美元、二十美元、五十美元，心
+
+### lib_a511b38d37a3 | 土著的妙计 | 专名:Aborigines,Akimushkin,For,From,Igor,Octopuses,Primates,Sometimes
+  原面:Aborigines lived on an island in the middle of the ocean. However, they found a way to get rich. How did they 
+  译面:土著人住在大洋中间的一座岛上。可他们却找到了一条发财的路子。他们是怎么做到的？
+  原底:There were porcelain vases left at the ocean bottom after a shipwreck. For 100 years, the most experienced divers couldn’t get the
+  译底:一场海难之后，海底留下了许多瓷花瓶。一百年来，最有经验的潜水员也拿不到它们。  土著人想出了一个巧妙的办法。他们抓来章鱼，把它拴住，然后潜下水去。  接着他们等着，直到章鱼在沉船残骸堆里的瓷碗瓷器中找到藏身之处。章鱼原来很固执——即使被绳子拽着，也不肯离开自己
+
+### lib_8a1f2b8e5ad0 | 莎莉的眼泪 | 专名:Jack,Sally
+  原面:Sally was sleeping when she was awoken by Jack. She walked to the door and found a letter. She read it and beg
+  译面:莎莉正在睡觉，被杰克叫醒了。她走到门口，发现一封信。她读完信就哭了起来。她现在知道，她的男朋友再也见不到她了。为什么？
+  原底:Sally's boyfriend had recently undgone eye surgery. Jack, her boyfriend's guide-dog, awoke her after the postman had delivered a l
+  译底:莎莉的男朋友不久前做了眼部手术。杰克是她男朋友的导盲犬，邮差送来一封信之后，它把莎莉叫醒了。信是医生寄来的，是对她男朋友医学检查的回复，检查结果确认手术失败，他今后将完全失明。
+
+### lib_71d0799b4b17 | 最后一杯酒 | 专名:Camelia,Camellia,Valmont
+  原面:Camellia brought Valmont some wine. He looked at his watch, drank and died.
+  译面:卡米莉亚给瓦尔蒙端来一些葡萄酒。他看了一眼手表，喝了下去，然后死了。
+  原底:Valmont was hopelessly in love with Camellia, but she didn’t reciprocate. One day she offered Valmont a cruel game: she put some p
+  译底:瓦尔蒙无可救药地爱着卡米莉亚，可她并不爱他。有一天，她向瓦尔蒙提出一个残酷的游戏：她在两杯酒中的一杯里下了毒，瓦尔蒙必须随便选一杯喝下去。如果他活下来，卡米莉亚就答应嫁给他。  瓦尔蒙把手表当成硬币来决定自己的命运（根据秒针在竖直线的左边还是右边来定）。他运气
+
+### lib_8c5c844f5826 | 救命的一餐 | 专名:Edgar,From,Pendulum,Pit,Poe
+  原面:He wasn’t hungry, but food saved his life.
+  译面:他并不饿，但食物救了他的命。
+  原底:He was lying in a dungeon tied to a bench. A slowly descending sickle swung above him that was supposed to kill him. However, he u
+  译底:他被绑在地牢里的一张长凳上。一把慢慢下落的镰刀在他上方摆动，本该要了他的命。然而，他用一碗食物剩下的残渣给身上的绳索上了油，绳子因此被老鼠咬断了。
+
+### lib_5597fb7aa3bd | 无名考生 | 专名:Student,Therefore
+  原面:A professor didn’t want to accept a student’s paper.   Student: “Do you know who I am?”  Professor: “I neither
+  译面:一位教授不肯收下一名学生的试卷。  学生：“你知道我是谁吗？”  教授：“我既不知道，也不在乎。别想吓唬我！”  但教授最后还是收下了试卷。为什么？
+  原底:A written exam. All but one student submitted the papers, but he kept writing after the time was up. Therefore, the professor refu
+  译底:那是一场笔试。除了一名学生，所有人都交了卷，可他在时间到了之后还在写。因此，教授拒绝收他的试卷。  当学生意识到教授并不知道他的名字时，他把自己的试卷塞进那一摞卷子的中间，然后跑掉了。
+
+### lib_81a6100f1c68 | 借故搭讪 | 专名:Mark,Then
+  原面:One day Mark hid his watch. What for?
+  译面:有一天，马克把自己的手表藏了起来。为了什么？
+  原底:– We have been married for thirty-one years.  – How did you meet?  – I saw her on the bus, took off my watch, and put it in my poc
+  译底:——我们结婚三十一年了。  ——你们是怎么认识的？  ——我在公交车上看见她，就摘下手表，放进衣兜里。然后我坐到她旁边，问她现在几点了。
+
+### lib_c47fff759a22 | 神秘的钥匙 | 专名:Lisa,Some
+  原面:Every night before going to sleep, Lisa locks the door of her house and attaches the key to a string. Why?
+  译面:每天晚上睡觉前，丽莎都会锁好家门，然后把钥匙系在一根绳子上。为什么？
+  原底:Lisa was a sleepwalker. Some days before, she had left her house in the middle of the night without realizing. To prevent this hap
+  译底:丽莎有梦游的毛病。几天前，她半夜里不知不觉地出了家门。为了防止这种事再发生，她开始每天晚上用一根绳子把钥匙系在一个铃铛上。这样一来，如果丽莎想要出门，她的丈夫就会醒来，把她带回床上。
+
+### lib_059b121215b6 | 直播中断 | 专名:Realizing
+  原面:A man is driving his car while listening to the radio when suddenly the radio goes silent. He then decides to 
+  译面:一个男人一边开车一边听收音机，突然收音机没声音了。随后他决定离开公路，从悬崖顶上一跃而下。
+  原底:The man was a radio broadcaster who had commited a murder. He had left a recorded radio broadcast live as an alibi. Realizing that
+  译底:这个男人是个电台播音员，他犯下了一桩谋杀。他事先录好了一段广播节目当作直播，用来给自己制造不在场证明。当他意识到自己准备好的节目意外停播、人们就会知道他是凶手时，他决定结束自己的生命。
+
+### lib_569d2048b3ec | 丝巾飞行员 | 专名:Bill,Explanation,Silk,War,World
+  原面:Bill always wore a silk scarf to work, whatever the weather. What’s his job, and why does he need this scarf?
+  译面:比尔无论什么天气都系着一条真丝围巾去上班。他是做什么工作的，为什么需要这条围巾？
+  原底:Bill is a World War I pilot. He needs a scarf so as not to rub his neck while searching for enemy planes.    Explanation:    The f
+  译底:比尔是第一次世界大战期间的飞行员。他需要一条围巾，以免在搜寻敌机时把脖子磨破。  解释：  最早的军用飞机座舱是敞开的。当时的飞行速度能达到每小时一百五十公里。所以飞行员穿着最挡风的厚重皮衣。  那时还没有远程探测系统。为了最先发现敌人，飞行员至少每二十秒就得
+
+### lib_578507ad2a8f | 秘密房间 | 专名:Holmes,Hudson,Sherlock,Suddenly,Watson
+  原面:Sherlock Holmes had a secret room, and the key to it was in a chest of drawers. He didn’t let anyone in there 
+  译面:夏洛克·福尔摩斯有一间秘密房间，房间的钥匙放在一个五斗柜里。他不让任何人进去——华生医生不行，哈德森太太也不行。可当夏洛克·福尔摩斯和华生医生出门之后，哈德森太太决定看看房间里有什么。她拿了钥匙，打开房门，走了进去。她在
+  原底:Holmes forgot to turn off the light.
+  译底:福尔摩斯忘了关灯。
+
+### lib_2074254952c2 | 保龄球实验 | 专名:Unfortunately
+  原面:A man lets go of a bowling ball. A short while later, he is rushed to the hospital.
+  译面:一个男人松开了一个保龄球。过了没多久，他就被紧急送进了医院。
+  原底:A physics professor is demonstrating conservation of energy by suspending a bowling ball from a piece of rope. He pulls the ball b
+  译底:一位物理教授正用一根绳子吊起一个保龄球，演示能量守恒。他把球拉到正对着自己鼻子的位置，然后松手。球理应荡离他，再荡回来，恰好停在他的鼻子前面。不幸的是，他轻轻推了球一下，结果球荡回来时狠狠撞上了他的鼻子。
+
+### lib_d456eec93fc4 | 洗衣篮里的长袍 | 专名:Klan,Klux
+  原面:Two women are talking. One goes into the bathroom, comes out five minutes later, and kills the other.
+  译面:两个女人在聊天。其中一个走进卫生间，五分钟后出来，杀死了另一个。
+  原底:Both women are white; the one whose house this takes place in is single. A black friend of the other woman, the one who goes into 
+  译底:两个女人都是白人；这件事发生的这户人家的女主人是单身。走进卫生间的那个女人有一个黑人朋友最近被杀害了，据说凶手是白人至上组织。走进卫生间的女人在另一人的待洗衣物篮里发现了一件沾血的长袍，便从药柜里拿起一把指甲锉，走出去杀死了对方。
+
+### lib_6de6815b0fb9 | 最后的礼物 | 专名:Shortly
+  原面:A dying man gives another man a gift, and then the dying man dies. Shortly after that the second man dies. How
+  译面:一个垂死的男人给了另一个男人一件礼物，随后这个垂死的男人死了。没过多久，第二个男人也死了。这是怎么回事？
+  原底:The second man had shot the first man. Before he dies, the first man gives the second man a grenade pin, which he's of course just
+  译底:第二个男人开枪打了第一个男人。临死前，第一个男人把一枚手榴弹的保险栓递给第二个男人——他当然是从手榴弹上刚拔下来的。第一个男人死了，随后手榴弹爆炸，第二个男人也死了。
+
+### lib_17ed6b12faaf | 不能抬起的脚 | 专名:Mike,Suddenly,Together,Unfortunately
+  原面:Mike has been standing on his knee in the middle of the desert for over a day. He is all alone and has neither
+  译面:迈克在沙漠中央用一只脚站着，已经站了一天多。他孤身一人，既没有食物也没有水。可他就是不离开那个地方。这是怎么回事？
+  原底:He thinks his foot is standing on a mine (although it is not).    It was ordered to Mike and his partner to kill terrorists. But t
+  译底:他以为自己脚下踩着一颗地雷（其实并不是）。  迈克和他的搭档奉命去杀死恐怖分子。但行动失败了。一场沙尘暴帮他们逃脱，最后他们落到了沙漠里。他们没有立刻发觉自己身处一片雷区。  突然，迈克的搭档被地雷炸了，双腿被炸断，当场死亡。就在爆炸响起的那一刻，迈克迈了一步
+
+### lib_338fce19e1ba | 一根管子 | 专名:Monkeys
+  原面:Two monkeys are looking through a pipe that happened to be in a glade.   The pipe is straight, not too long an
+  译面:两只猴子透过一根恰好落在林间空地上的管子往里看。  管子是直的，不算太长，也没有被堵住。  两只猴子从管子的两端往对面看，却没有在那里看见彼此。为什么？
+  原底:The correct answer is: the monkeys don’t look through the pipe at one time.    There is another logical answer: because it's dark.
+  译底:正确答案是：两只猴子并不是在同一时间透过管子看的。  还有一个合乎逻辑的答案：因为天太黑。
+
+### lib_9b794e04cf52 | 沉默的侦探 | 专名:Bill,Chabrol,Claude,Durrenmatt,Executioner,Friedrich,Inspector,Judge
+  原面:Kirill is jailed for a murder he hasn’t committed. Bill can prove that it wasn’t Kirill. But he deliberately h
+  译面:基里尔因为一桩他并没有犯下的谋杀案入狱。比尔能证明那不是基里尔干的。可他却故意把证据藏了起来。为什么？
+  原底:Bill is a detective. A couple of years ago, he investigated a murder, and he believes that Kirill committed it. But the court deci
+  译底:比尔是一名侦探。几年前，他调查过一桩谋杀案，他相信是基里尔干的。但法庭做出了不同的判决，基里尔被无罪释放了。  比尔决定把这桩新罪案的所有证据都藏起来，好让基里尔能为那桩谋杀受到惩罚。
+
+### lib_fd4502763aab | 半个进球 | 专名:Brazil
+  原面:In the 1940s, a real football game in Brazil ended with an unusual score of 0.5 - 0. What happened?
+  译面:二十世纪四十年代，巴西一场正式足球比赛的比分很特别，零点五比零。发生了什么事？
+  原底:When the score was 0-0, a penalty kick was awarded. The attacker runs up and strikes... and one of the seams of the ball, which at
+  译底:比分还是零比零时，裁判判了一个点球。前锋跑上去一脚射门……那个年代的足球是手工缝制的，球的一条缝线突然裂开：里面的橡胶内胆飞进了球门，外面的皮壳滚出了球门。裁判的判罚是：“半个进球。”  由于此后双方再没有进球，比赛以零点五比零的比分结束。
+
+### lib_b178e2883cf9 | 偷来的钱包 | 专名:Inside
+  原面:A man stole a wallet. This caused his death. What happened?
+  译面:一个男人偷了一个钱包。这件事要了他的命。发生了什么事？
+  原底:Inside the wallet, there was a statement that this wallet’s owner opposes blood transfusion or organ transplantation for religious
+  译底:钱包里有一份声明，写明钱包的主人是出于宗教原因反对输血或器官移植的。小偷出了事故，本来输血可以救他的命，但因为钱包里的那份声明，输血没有进行。
+
+### lib_3c0d59d11223 | 腹部重击 | 专名:Detroit,Doctors,Gordon,Harry,Houdini,Lost,Montreal,Then
+  原面:Gordon came to see Harry and gave him a few strikes in the stomach. Then, they had a short talk, and he struck
+  译面:戈登来见哈利，朝他的肚子打了几下。接着他们简短地聊了几句，他又打了几下。两天后，哈利死了。发生了什么？
+  原底:On a tour in Montreal in 1926, three students entered Houdini’s dressing room. Among them was a college boxing champion called Gor
+  译底:1926年，在蒙特利尔的一次巡演中，三名学生闯进了胡迪尼的化妆间。其中一人是大学拳击冠军，名叫戈登。他问胡迪尼，是不是真的能挨上几记重拳而毫无感觉。胡迪尼正走神，点了点头，那学生突然朝这位魔术师打了两三拳。胡迪尼勉强把他拦住：“等等，我得先准备好。”接着他绷紧
+
+### lib_ca5f83038af2 | 隧道中的火光 | 专名:Switzerland
+  原面:A man is returning from Switzerland by train. If he had been in a non-smoking car he would have died.
+  译面:一个男人正坐火车从瑞士回国。如果他坐在非吸烟车厢里，他就会死。
+  原底:The man used to be blind — he's returning from an eye operation which restored his sight. He spent all his money on the operation,
+  译底:这男人以前是盲人——他刚从一次恢复视力的眼部手术回来。他为手术花光了所有的钱，所以当火车（车厢内没有灯）驶进隧道时，他以为自己又瞎了，决定自杀。但在他动手之前，他看见了人们在吸烟时燃起的烟头火光，意识到自己仍然看得见。
+
+### lib_fedec2f16506 | 黑鸟 | 专名:Chewing,Fortunately,Fuji,Mount,Now,Sometimes,Spitting
+  原面:I was alone in the mountains studying birds. When I accidentally fell from a height and broke my leg, I notice
+  译面:我独自在山里研究鸟类。当我意外从高处摔下来摔断了腿，我注意到一只陌生的大黑鸟。我连站都站不起来，要不是一个奇怪的女孩每晚都来找我，我早就渴死饿死了。她有着黑色的头发、长长的睫毛和迷人的微笑。她从不说话，只是趴在我身上，用
+  原底:This girl is a demon. She wanted to take care of the main character and prolong his life.    5 years after the last feeding, she c
+  译底:这个女孩是恶魔。她想照顾主人公，延长他的生命。  最后一次喂食的五年后，她又来找主人公——但这一次不是为了喂食。她变成那只黑鸟，把他带到富士山上自己的巢里。她开始每天从他身上咬下小块血肉，为了穿越回过去、在过去喂他，因为不这样做，他当初就会饿死。
+
+### lib_377b7dffd23d | 吞物成瘾的女人 | 专名:Item,Swallow,Unfortunately
+  原面:A pregnant woman had a locker that contained her collection. There were already 8 items there: a key, a lock, 
+  译面:一个孕妇有个储物柜，里面放着她的收藏。里面已经有 8 件东西了：一把钥匙、一把锁、一节电池、一枚奖章、一个小女孩雕像、一枚棋子、一顶帽子和一颗纽扣。她打算把第 9 件东西放进去，但出了岔子。这让她进了医院。
+  原底:The woman’s rich husband didn’t love her. He didn’t even talk to her and was just waiting for the baby to be born. She felt that h
+  译底:这女人的丈夫很有钱，却并不爱她。他连话都不和她说，只等着孩子出生。她觉得自己的生命毫无意义，几乎陷入严重的抑郁；直到她偶然发现，吞下各种小物件会让她感到兴奋。这既反常又危险。当那些东西自然排出来后，她把它们洗干净，收进自己的收藏。她吞东西的欲望逐渐加重，开始吞
+
+### lib_a398e7d46238 | 幽灵女嫌犯 | 专名:Austria,Bavarian,France,Germany,Heilbronn,Over,Phantom,Police
+  原面:The German police was totally confused. Over the course of 15 years, the same person had been stealing, killin
+  译面:德国警方完全被搞糊涂了。在 15 年里，同一个人一直在盗窃、杀人、开车逃逸。到 2008 年，他们已花费 1.4 万个工时和 1500 多万欧元寻找这名罪犯，却一无所获。这是怎么回事？  这是个真实的故事。
+  原底:The main suspect was a woman whose DNA was found at every crime scene. But they couldn’t find her.      Police thought that she le
+  译底:主要嫌疑人是名女性，每个案发现场都提取到了她的生物样本。但他们找不到她。  警方以为她过着流浪的生活，因为她在德国各地作案，有时甚至跑到国外——法国和奥地利。  2009 年，警方终于查明，她是一名 71 岁的波兰妇女，多年来在巴伐利亚一家工厂做棉签包装工。正
+
+### lib_5c2357dae139 | 昂贵的赝品 | 专名:Gilyarovsky,Moscow,Muscovites,Repin,Sukharevka,Vladimir
+  原面:When it turned out that the painting was fake, it became 10 times more expensive. How did it happen?
+  译面:当这幅画被证实是赝品时，它反而贵了 10 倍。这是怎么发生的？
+  原底:A lady approaches an antiquarian’s tent, spends long time looking at the paintings and stops at one of them with an inscription sa
+  译底:一位女士走向一个古玩商人的摊位，长时间地端详那些画，最后停在一幅题款写着“列宾”的画前；价签上写着：十个卢布。  ——这是十个卢布。这幅画我买了。但如果它是赝品，我会退回来。我会在朋友家，今天列宾就在那里吃午饭，我会把画拿给他看。  女士把画带到朋友家，拿给列
+
+### lib_a52aa68fcb23 | 机智的女人 | 专名:Thieves
+  原面:Thieves broke into a woman’s house. She shut herself up in her room and called the police. She was told that t
+  译面:小偷闯进了一个女人的家。她把自己锁在房间里，打电话报警。她被告知现在没有巡逻车可用，她只得等着。  她没有等。5 分钟后，3 辆巡逻车和一辆救护车就到了她家。她做了什么？
+  原底:After 2 minutes, the woman called the police again and said that she had shot all the thieves.    After all, the police immediatel
+  译底:两分钟后，女人又打电话报警，说自己把那些小偷全打死了。  毕竟警方立刻就赶来了，并成功抓获了那些劫匪。于是女人发现，其实还是有巡逻车可用的。
+
+### lib_532568228b2f | 一觉到异地 | 专名:Sonia
+  原面:Sonia was very tired and fell asleep. When she woke up, she found herself in a completely different place. Wha
+  译面:索尼娅非常累，睡着了。当她醒来时，发现自己在一个完全不同的地方。发生了什么？
+  原底:Sonia was traveling on a plane. When she woke up, the plane had already landed in another city.
+  译底:索尼娅正在坐飞机。她醒来时，飞机已经降落在另一座城市了。
+
+### lib_b51206b3f3d4 | 两个降落伞 | 专名:States,Terrorism,United
+  原面:When a plane was taking off in the United States, the terrorist demanded a million dollars and two parachutes.
+  译面:一架飞机在美国起飞时，恐怖分子索要一百万美元和两个降落伞。他的要求得到了满足。飞机起飞后，当飞越一片沙漠上空时，他带着钱跳了出去。他再也没有被找到。  这个恐怖分子为什么要两个降落伞？
+  原底:Terrorism is punished by death in the United States. So, he was afraid that they would deliberately give him a defected parachute.
+  译底:在美国，恐怖主义会被判处死刑。所以他担心他们会故意给他一个坏掉的降落伞。  警方不可能知道恐怖分子要第二个降落伞做什么，也许是为了一名人质。所以为了不拿平民的性命冒险，他们必须确保两个降落伞都能用。
+
+### lib_04e9631f7549 | 可怕的游戏 | 专名:Jasmine,Unfortunately
+  原面:Jasmine was playing her usual favorite game when they suddenly started shooting at her. What happened?
+  译面:贾斯敏正在玩她平常最喜欢的游戏，这时他们突然朝她开起枪来。发生了什么？
+  原底:A group of men came to hunt on a frozen lake. To make an air-hole for birds, they lit dynamite and threw it on the ice away from t
+  译底:一群男人来到结冰的湖上打猎。为了给鸟破一个冰窟窿，他们点燃炸药，把它从自己身边扔到冰面上。  其中一人的爱犬贾斯敏以为那是根木棍，想玩把它叼回去给主人的游戏。当她叼起炸药往回跑时，吓坏了的男人们开始朝贾斯敏开枪，希望她受惊后把东西丢下。  不幸的是，她躲到了一
+
+### lib_009423753be8 | 雪人中的铁杆 | 专名:Plus
+  原面:The killer was severely punished by his victim. Plus, instantly. How?
+  译面:凶手被他的受害者狠狠地惩罚了。而且是瞬间发生的。怎么回事？
+  原底:The man wanted to knock a snowman down with his car and gathered fairish speed. But it turned out that in the middle of the snowma
+  译底:这男人想开车把雪人撞倒，还加了相当快的速度。结果雪人中间竖着一根从地里戳出来的铁杆。
+
+### lib_693d02301ecf | 谎言与菜园 | 专名:Searching
+  原面:The husband lied to his wife that there were weapons buried in the backyard of their house. What for?
+  译面:丈夫对妻子撒谎，说他们家的后院里埋着武器。为什么？
+  原底:He was serving a sentence in prison and knew that his correspondence was read. He wanted to make his wife a birthday gift – to hel
+  译底:他正在监狱服刑，知道自己的信件会被检查。他想送妻子一份生日礼物——帮她翻出一块菜园。  为了寻找武器，警方把后院仔细挖了一遍。
+
+### lib_806b423ba1cd | 别迟到 | 专名:Bill
+  原面:Bill was late for a birthday party and ended up in prison because of it. What happened?
+  译面:比尔因为迟到一场生日聚会，结果进了监狱。发生了什么？
+  原底:It was a priest’s birthday. When giving his toast, he said that the first person who confessed to him was a murderer.    Bill came
+  译底:那是位神父的生日。祝酒时，他说第一个向他告解的人是个杀人犯。  比尔稍晚一些才到生日聚会。当他向神父祝酒时，他把这件事告诉了所有客人：他就是第一个向他告解的人。
+
+### lib_b8eb146d0cae | 支票背面 | 专名:Dali,Despite,Salvador,Well
+  原面:A man had lunch at the restaurant, and the waiter brought him his bill. He wrote out a check for the required 
+  译面:一个男人在餐厅吃午饭，侍者把他的账单送了过来。他按要求金额开了一张支票，却突然把支票翻过来，在背面写了几句话，作为对餐厅老板的祝贺。为什么？
+  原底:Salvador Dali was famous not only by his eccentric escapades, but also for his passion for money. Despite earning millions from hi
+  译底:萨尔瓦多·达利不仅以古怪的举动出名，也以对金钱的热爱出名。尽管他从画作和众多商业项目中赚了数百万，这位著名的超现实主义者却不介意在餐厅账单上省钱。整个晚上，达利都能请一大群朋友吃菜单上任何菜肴、喝任何酒水。到该付账的时候，这位艺术家慷慨地签下一张巨额支票，然后
+
+### lib_06ca52c43166 | 橘子果酱 | 专名:Australian,Bill,Marmalade
+  原面:Marmalade helped Bill to skip school with impunity. How did he do it?
+  译面:橘子果酱帮比尔毫无惩罚地逃了课。他是怎么做到的？
+  原底:Australian schools began using fingerprint scanners to check high school students’ attendance in 2010. Bill found out that he coul
+  译底:澳大利亚的学校从 2010 年起开始用指纹扫描仪核查高中生的出勤。比尔发现，他可以用做果冻小熊的那种明胶（原文写成“橘子果酱”，指的是这种软糖）轻松骗过这些扫描仪。  他把手指按在一颗果冻小熊上，请一位同学替他把小熊拿给扫描仪，好让学校的系统以为比尔在教室里。
+
+### lib_61610e8e6af3 | 广场上的告示 | 专名:Attention,Beware,Prague
+  原面:At one time, the following warning notices appeared on one of the main squares of Prague, “Attention! Beware o
+  译面:有一段时间，布拉格的一个主要广场上出现了这样的警告告示：“注意！当心扒手！”当地警方知道这里确实有很多扒手，却主动把这些告示撕掉了。为什么？
+  原底:There were a lot of tourists on this square. It was pickpockets who pasted up notices about themselves. This made their task easie
+  译底:这个广场上有很多游客。正是扒手自己贴上了关于他们自己的告示。这让他们的活儿更容易了。读过告示的人会不由自主地想检查自己的贵重物品是否还在。小偷们盯着他们，就知道了目标在哪里。  警方识破了这个把戏，就把这些告示撕掉，免得人们在不知不觉中帮着小偷抢自己。
+
+### lib_0efaf5657457 | 车里的命案 | 专名:Andrew
+  原面:Andrew was stabbed to death in his car. However, the doors were locked. The car wasn’t damaged: all the window
+  译面:安德鲁在他的车里被刺死。然而车门都锁着。车也没有损坏：所有车窗都完好，并且都升到了最高的位置。这是怎么发生的？
+  原底:Andrew was sitting in his convertible car (open-top car).
+  译底:安德鲁坐在他那辆敞篷跑车里（没有车顶的车）。
+
+### lib_24cf9bd7965c | 亚当与夏娃 | 专名:Adam,Bill,Eve
+  原面:Bill died and went to heaven. There he saw thousands of people, who all were naked. He was looking around hopi
+  译面:比尔死后上了天堂。在那里他看到了成千上万的人，全都没穿衣服。他环顾四周，希望能找到认识的人。然后他看见了亚当和夏娃。  他是怎么知道那就是他们的？
+  原底:Adam and Eve were the only ones who didn’t have belly-buttons.
+  译底:亚当和夏娃是唯一没有肚脐的人。
+
+### lib_1a34a2be5c94 | 出租车惊魂 | 专名:Taxi
+  原面:Taxi stops, the taxi driver opens the door and a dead men falls on the road. What had happened?
+  译面:出租车停下，司机打开车门，一个死人摔到了路上。发生了什么？
+  原底:The previous passenger was a spider lover and he forgot a box with his spider there. This dead men panicked when he saw it and so 
+  译底:上一位乘客是个蜘蛛爱好者，他把一个装着蜘蛛的盒子落在了车上。这位死者看到蜘蛛后惊慌失措，结果被一只有毒的蜘蛛咬了。
+
+### lib_6d8e2363bf96 | 水中浮货 | 专名:Prohibition,States,United
+  原面:They had to throw away plenty of their valuables, but it didn’t made them upset. What happened?
+  译面:他们不得不扔掉大量贵重物品，但这并没有让他们难过。发生了什么？
+  原底:They smuggled alcohol at the Prohibition time in the United States. They were ready for unexpected customs control. They tied bags
+  译底:他们在美国禁酒令时期走私酒。他们为突发的海关检查做好了准备。他们事先给每个箱子绑上盐袋。一旦有危险，就把箱子扔进水里。过了一会儿，盐在水里溶化，货物就又浮回了水面。
+
+### lib_ebc448a3b4c4 | 换轮胎 | 专名:Use
+  原面:A man is replacing a wheel on his car, when he accidentally drops the four nuts used to hold the wheel on the 
+  译面:一个男人正在换汽车轮胎，不小心把固定车轮的四颗螺母掉进了很深的排水沟，彻底找不回来了。一位路过的女孩给了他一个办法，让他能开车回家。是什么办法？（别往排水沟里想）
+  原底:Use one nut from each of the four other wheels.
+  译底:从另外四个轮子上各取一颗螺母。
+
+### lib_061a4c9b868a | 迟到的杀手 | 专名:Igor,Thomas
+  原面:Igor breaks into Thomas' home to kill him but he doesn't do it. However he is immediately arrested and sentenc
+  译面:伊戈尔闯进托马斯家要杀他，但他没有动手。然而他马上就被逮捕，并因这桩罪行被判刑。为什么？
+  原底:Igor was a hitman. The person who hired him had planned to kill Thomas and get rid of Igor. To achieve this, he hired a second ass
+  译底:伊戈尔是个职业杀手。雇他的人早就打算杀掉托马斯，同时除掉伊戈尔。为了做到这一点，他雇了第二名杀手，在伊戈尔赶到之前杀死了托马斯。当伊戈尔到达时，托马斯已经死了，而警方已经接到报案，正在赶来的路上。
+
+### lib_f2f031e20b9e | 修车工的妻子 | 专名:Again
+  原面:A man goes to the auto repair shop and asks the mechanic when he is available. The mechanic says he is busy fo
+  译面:一个男人去汽车修理店，问修车工什么时候有空。修车工说他接下来两小时都很忙。男人道了谢，却没有再来。几天后，他又问了同样的问题，修车工说他接下来一小时都很忙。男人还是没有再来。第二天男人又问了一次，修车工说：“你运气不错，
+  原底:The man did not want his car to be repaired. He was actually having an affair with the mechanic's wife and he wanted to know how m
+  译底:这男人并不想修车。他其实和修车工的妻子有婚外情，他只想弄清楚自己能和她待多久而不被发现。
+
+### lib_8030cbcaf36c | 洞口的大树 | 专名:Lou,Unfortunately
+  原面:Lou is in a cave when, suddenly, he hears a sound from outside. He thinks it's strange, so he goes out to see 
+  译面:卢在一座山洞里，忽然听见外面传来一个声响。他觉得奇怪，便走出去看发生了什么事，结果刚走出山洞就死了。
+  原底:Lou heard the sound of a chain saw and discovered that it belonged to a woodcutter who was cutting down a tree just in front of th
+  译底:卢听见的是电锯的声音，他发现那声音来自一个伐木工——那人正在山洞正前方砍一棵树。不幸的是，卢来不及躲开，树倒下来砸在了他身上。
+
+### lib_8c4d1f8a9400 | 停步救命 | 专名:Gabriela
+  原面:Gabriela's decision to stop moving saved her life.
+  译面:加布里埃拉决定停下不动，这个决定救了她的命。
+  原底:Gabriela was in a swamp and found herself stuck in quicksand. She moved slowly so that she could wait until somebody rescued her.
+  译底:加布里埃拉当时在沼泽里，陷进了流沙。她缓慢地移动，好让自己能撑到有人来救她。
+
+### lib_0b23bcd467f5 | 最后一步 | 专名:Everybody,Julia
+  原面:Everybody knew that if Julia took one step forward, she would die, but nobody told her.
+  译面:所有人都知道，只要朱莉娅再往前迈一步就会死，可谁也没有告诉她。
+  原底:Julia was a rat on which scientists were conducting an experiment. She was trapped in a labyrinth full of traps and was standing r
+  译底:朱莉娅是一只老鼠，科学家正拿它做实验。它被困在一个布满陷阱的迷宫里，就站在其中一个陷阱的正前方。
+
+### lib_cc1009314d53 | 画完的家谱 | 专名:Upon
+  原面:A woman completes a drawing, and then commits suicide. Why?
+  译面:一名女子画完了一幅画，然后就自杀了。为什么？
+  原底:Long suspicious of her family history, the woman does the research necessary to draw her family tree. Upon completing it, she conf
+  译底:这名女子一直怀疑自己的家族史有问题，于是做了必要的调查，画出了自己的家谱。画完之后，她确认自己是乱伦的产物，这个事实让她无法活下去。
+
+### lib_5fdd8c0c9147 | 怒射纸牌王 | 专名:Alexander,Out
+  原面:Alexander shot at the king, but no one condemned him. Why?
+  译面:亚历山大朝国王开了一枪，却没有人责备他。为什么？
+  原底:Alexander played poker and lost. Out of anger he shot at the card depicting the king.
+  译底:亚历山大打扑克输了，一气之下朝那张印着国王的牌开了一枪。
+
+### lib_c9361a224265 | 鼾声惊魂 | 专名:Brian
+  原面:The sound of Brian’s snoring is usually just annoying, but today it causes terror and panic. Why?
+  译面:布赖恩的鼾声平时只是让人心烦，可今天却引起了恐惧和慌乱。为什么？
+  原底:Brian is a bus driver.
+  译底:布赖恩是一名公交车司机。
+
+### lib_4a8a7c4747cd | 毒藤越狱 | 专名:Soon
+  原面:A prisoner was put in an escape-proof cell and told that he would be pardoned if he could break out. He was al
+  译面:一名囚犯被关进了一间无法逃脱的牢房，并且被告知：只要他能逃出去，就会被赦免。他还获准在牢房里养任何他想要的植物。不到一星期，他就被释放了。他是怎么做到的？
+  原底:He requested a poison ivy plant. Soon after receiving it, he broke out — in a rash. Of course, he then received his pardon.
+  译底:他要了一株毒藤。拿到后不久，他就“爆”了——全身起了疹子。（英文里“越狱”和“突然发作”是同一个说法。）当然，他随后就得到了赦免。
+
+### lib_a92fba36694e | 越捐越穷 | 专名:Buffets,Warren
+  原面:A man buys rice at $1 a pound from American growers and sells it for 2 cents a pound. As a result of this he b
+  译面:一个男人以每磅1美元的价格从美国农民手里买米，再以每磅2美分的价格卖出去。结果他成了百万富翁。这怎么可能？
+  原底:The man is a philanthropist who bought the rice to sell to poor people at prices they could afford. He started out as a billionair
+  译底:这个男人是位慈善家，他买米是为了以穷人们负担得起的价格卖给他们。他原本是个亿万富翁，但在做善事的过程中亏掉了太多钱，结果变成了百万富翁！（这是沃伦·巴菲特的目标。）
+
+### lib_cc9b649a7068 | 逆行高速 | 专名:Answer,Clue
+  原面:A man drives down the motorway at 70 miles per hour. He passes three cars going 80 miles per hour, then gets p
+  译面:一个男人以每小时70英里的速度在高速公路上行驶。他超过了三辆时速80英里的车，随后被警察拦下，得到了一张罚单。
+  原底:Clue: He doesn't get a speeding ticket.  Answer: He is driving the wrong way down the motorway.
+  译底:他是在高速公路上逆向行驶，所以拿到的并不是超速罚单。
+
+### lib_05c05683dba6 | 走私摩托车 | 专名:Motorcycles,Then
+  原面:A man comes up to the border of a neighboring country on his motorcycle. The customs officer at the border cro
+  译面:一个男人骑着摩托车来到邻国边境。边境的海关官员拦下他，对他搜身检查，什么也没搜到，就放他过去了。第二天又是同样的情况。这样一连过了好几个月。  后来有一天，这个男人没有出现。海关官员在城里的餐厅里遇到了他。官员说：“我知
+  原底:Motorcycles.
+  译底:摩托车。
+
+### lib_2e36dff77c1c | 理发师的算盘 | 专名:Canadians,York,Yorker
+  原面:A New York city hairdresser recently said that he would rather cut the hair of 3 Canadians rather than cut the
+  译面:纽约市的一位理发师最近说，他宁愿给三个加拿大人剪头发，也不愿给一个纽约人剪头发。为什么？
+  原底:He would rather earn three times as much money!
+  译底:因为他宁愿挣三倍的钱！
+
+### lib_ff795c15182d | 争吵后的火 | 专名:Micheal,Neither
+  原面:Micheal and his wife were having a heated argument that lasted hours. After some time they both left the house
+  译面:迈克尔和妻子激烈地争吵了几个小时。过了一会儿，两人一起出了门。他们谁都没有再回来。
+  原底:While they were arguing they forgot that they had food cooking in the kitchen. The unattended stove caused a fire that began sprea
+  译底:争吵的时候，他们忘了厨房里还在煮着东西。无人看管的炉子引发了火灾，火势开始向整栋房子蔓延。他们一发现房子着火就立刻跑了出来。房子被烧成了平地，所以他们再也回不去了。
+
+### lib_83679400bebe | 道具枪里的真弹 | 专名:According,Bill,Unfortunately
+  原面:Bill shot the man, but was not punished. Why?
+  译面:比尔开枪打中了那个男人，却没有受到惩罚。为什么？
+  原底:The man was a film actor. According to the script, Bill was supposed to “shoot” him.    Unfortunately, the gun was mistakenly load
+  译底:那个男人是电影演员。按照剧本，比尔本来应该“开枪”打他。不幸的是，道具枪被错装上了实弹。比尔对此并不知情。
+
+### lib_249292328e6f | 分左右的鞋 | 专名:England,George,King
+  原面:King George IV was born in 1763 and ruled England from 1820 to 1830 when he died. He wasn’t an outstanding rul
+  译面:乔治四世国王生于1763年，从1820年起统治英格兰，直到1830年去世。他并不是一位出色的君主，却以鞋履时尚的开创者而闻名。他的鞋子和同时代人所穿的鞋子有着根本的不同。大家都非常喜欢这项创新，以至于它如今已是家常便饭，
+  原底:This king was the first to have a right and a left boot. Before then, all shoes and boots were made to fit both feet.
+  译底:这位国王是第一个穿分左右脚的靴子的人。在那之前，所有的鞋和靴子都做成了左右脚都能穿的样子。
+
+### lib_a061f4d775e2 | 奶酪与老鼠夹 | 专名:Ludo
+  原面:Ludo was about to eat a piece of cheese when he was suddenly killed by a piece of metal. What happened?
+  译面:卢多正要吃一块奶酪，突然就被一块金属弄死了。发生了什么事？
+  原底:Ludo is a mouse. He was killed by the mousetrap.
+  译底:卢多是一只老鼠。它是被老鼠夹打死的。
+
+### lib_9fc782e30506 | 镜中的怒猫 | 专名:Monica,Rachael
+  原面:Rachael and Monica have moved into a shared house with several other occupants. Monica doesn’t like their new 
+  译面:蕾切尔和莫妮卡搬进了一栋合租房，里面还住着其他几个人。不过莫妮卡不喜欢这个新住处，因为她们第一次走进去时，迎接她们的是一只愤怒而凶狠的猫。蕾切尔却意识到，其实根本不成问题。为什么？
+  原底:There is a mirror near the entrance. Monica is a cat, saw her reflection, and thought that it was another cat challenging her for 
+  译底:门口附近有一面镜子。莫妮卡是一只猫，她看到镜中自己的倒影，以为那是另一只猫在跟她争夺地盘。蕾切尔可以把镜子遮起来，等莫妮卡安顿下来；不过就算蕾切尔什么也不做，莫妮卡最终也会自己明白过来。
+
+### lib_c7ed05b8713d | 被绑在椅子上 | 专名:Michael
+  原面:One of Michael’s dearest loved ones binds him to a chair, but Michael doesn't mind. Why?
+  译面:迈克尔最爱的人之一把他绑在了一把椅子上，可迈克尔并不介意。为什么？
+  原底:Michael is a kid. The chair is a car seat. One of Michael’s parents put his seatbelt on for him.
+  译底:迈克尔是个小孩。那把“椅子”是儿童安全座椅。迈克尔的父母之一给他系上了安全带。
+
+### lib_0be10583eb67 | 山脚下的车祸 | 专名:Some
+  原面:At the bottom of a large hill, more than 50 cars are involved in an accident. Some of the cars are overturned 
+  译面:在一座大山的山脚下，五十多辆车卷进了一场事故。有些车翻了过来，还有些车压在别的车上面。这堆撞在一起的车实在太多，连几辆军车和一辆消防车也一起撞了进去。究竟是什么造成了这场大事故？
+  原底:The cars, trucks, and other vehicles are toys being played with by a toddler.
+  译底:那些小汽车、卡车和其他车辆，都是一个刚学会走路的孩子正在玩的玩具。
+
+### lib_048dc4d7aeb0 | 夺命长发 | 专名:Andreas
+  原面:A woman lies dead in the street near a car.
+  译面:一名女子死在公路旁的一辆汽车边。
+  原底:She was on a motorcycle, and her long hair got caught on the car's antenna. It ripped out part of her scalp and she bled to death.
+  译底:她骑摩托车时，长发被旁边汽车的天线卷住，头皮被生生撕裂，失血过多而死。据说这是根据真实事故改编的。
+
+### lib_08a08b9bdd9c | 血字 | 专名:Accomplice,For,Schmidt
+  原面:A man is killed on a train. He is found to have written "elf" on the floor in his own blood. What happened?
+  译面:一名男子死在火车上，人们发现他用血在地上写下了“elf”三个字母。发生了什么？
+  原底:There is a safe full of jewelry on the train. The victim, Schmidt, is the conductor who guards the cargo; He robbed the safe and m
+  译底:火车上有一节装满珠宝的保险柜车厢。死者施密特是看守货物的乘务员，他监守自盗，让同伙化名搭车来转运赃物。同伙为了独吞黑货杀了他。施密特不知道同伙的化名，临终前只能写下凶手所在的铺位号11——他用德语把11拼成了一个单词：“elf”。
+
+### lib_09c0825b5def | 拆信的人 | 专名:Should
+  原面:A woman opens an envelope and dyes. What happened?
+  译面:一位女士打开一个信封，然后就死了。发生了什么？
+  原底:Should be done orally; the envelope is an envelope of dye, and she's dying some cloth, but it sounds like "opens an envelope and d
+  译底:那其实是一包染料，她拆开包装是给布料染色。在英文里，“拆开染料包”和“拆开信封然后死去”读音一模一样，这是一个文字游戏。
+
+### lib_0c44293fd6f1 | 黑暗中的号码 | 专名:Help,Once
+  原面:If he'd turned on the light, he'd have lived.
+  译面:他要是当时开了灯，就能活下来。
+  原底:A man was shot during a robbery in his store one night. He staggered into the back room, where the telephone was, and called home,
+  译底:夜里他的商店遭劫，他中枪后摸黑退进放电话的后屋，凭手感拨通了家里的电话：“我在店里……我中枪了，救命！”然后放下话筒等待救援，可救援再也没有来——他把电话按键当成了收银机键位来按，而两者的数字排布正好上下颠倒。他真正拨到的那个陌生人，根本不知道“店里”是哪家店
+
+### lib_0e134ac04a78 | 镜中无影 | 专名:Thus
+  原面:Two people are playing cards. One looks around and realizes he's going to die. What happened?
+  译面:两个人在打牌，其中一人环顾四周，突然意识到自己死定了。发生了什么？
+  原底:The one who looks around sees his own reflection in the window (it's dark outside), but not his companion's. Thus, he realizes the
+  译底:窗外一片漆黑，他在窗玻璃上看到了自己的倒影，却看不到对面牌友的——他这才明白，同伴是吸血鬼。
+
+### lib_0fa0dac82fb7 | 小便致死 | 专名:Adams,Amazon,Cecil,Death,Experts,Houta,Joseph,Malley
+  原面:A man urinates and dies.
+  译面:一个小便的男人死了。这怎么可能？
+  原底:He urinated on the third rail in the New York subway, was knocked onto the tracks by the shock, and was hit by a train and killed.
+  译底:他对着纽约地铁带电的第三轨撒尿，被电流击倒跌进轨道，随即被列车撞死——这是真实事件，专家只争论他是不是先被电死。另一个版本：他在亚马逊河的船上撒尿，一条小鱼逆着尿流钻进他体内并膨胀起来，要了他的命。
+
+### lib_10769cc52a8a | 五十三张牌 | 专名:Bee
+  原面:There are 53 bees instead of 53 bicycles. How could this be?
+  译面:眼前不是五十三辆自行车，而是五十三只蜜蜂。怎么回事？
+  原底:The same (Bee is another brand of playing cards).
+  译底:答案和“五十二辆自行车”那题同源——“蜜蜂（Bee）”和“自行车（Bicycle）”一样，也是扑克牌的牌子。一盒牌，正好五十三张。
+
+### lib_1f34e7036b8b | 连体兄弟 | 专名:Siamese
+  原面:A man and his brother are in a bar drinking. They begin to argue and the brother won't get out of the man's fa
+  译面:兄弟俩在酒吧喝酒起了争执，对方骂骂咧咧不肯退开。男人忍无可忍掏枪打死了哥哥，然后平静地坐下等死。发生了什么？
+  原底:They are Siamese twins. In the original story, the argument started when one complained about the other's bad hygiene and bad brea
+  译底:他们是连体婴，原故事里争执的起因正是互相嫌弃对方不讲卫生、口臭。开枪后他血流不止，警察赶到时他已经死了。
+
+### lib_21b65cf5f303 | 只租不买 | 专名:Houses,Pat,Tokyo,Westerner
+  原面:Pat went into a luggage shop to buy a suitcase. The assistant said, "It is most unusual to buy a suitcase. Why
+  译面:帕特走进箱包店买行李箱，店员很惊讶：“您怎么是买箱子？我们的客人都是租的。”为什么？
+  原底:Pat was a Westerner in Tokyo. Houses there are small and, in order to save space, people tend to rent any large item which they mi
+  译底:帕特是在东京的西方人。当地住房狭小，人们习惯只租不买偶尔才用的大件——行李箱也不例外，多数人度假都租箱子。
+
+### lib_269b76a49e5f | 小比利 | 专名:Billy
+  原面:Little Billy was four years old and both his parents were dead. His guardian put him on a train to send him to
+  译面:四岁的小比利父母双亡，监护人把他送上火车去乡下的新家。他不识字，脖子上挂着写明姓名和地址的大标签。可尽管铁路员工尽心又善良，比利始终没到新家。为什么？
+  原底:Little Billy, as his name suggests, was a goat who unfortunately ate his label, so no one knew where he was supposed to go!
+  译底:小比利其实是一只山羊——它把自己的标签吃掉了，谁也不知道该把它送到哪儿。
+
+### lib_26bcca939ecf | 第三段歌词 | 专名:America,Any,Asimov,Could,Greg,Isaac,Refuge,Save
+  原面:Tim and Greg were talking. Tim said "The terror of flight." Greg said "The gloom of the grave." Greg was arres
+  译面:蒂姆和格雷格聊天。蒂姆说“飞行的恐惧”，格雷格接“坟墓的阴郁”。随后格雷格被捕了。
+  原底:The setting is America during WWII. Greg is a German spy. His "friend" Tim is suspicious, so he plays a word-association game with
+  译底:二战时的美国，格雷格是德国间谍，蒂姆起疑，用联想游戏试探他：先说“自由之地”，格雷格接“勇敢者家园”——美国人人会唱国歌第一段；再说“飞行的恐惧”，格雷格接出“坟墓的阴郁”——那是国歌第三段的歌词。只有受过特训的间谍，才会背第三段。
+
+### lib_26d12ef6da2a | 镜中杀机 | 专名:Again,Come,France,Please
+  原面:A woman in France in 1959 is waiting in her room, with all the doors locked from the inside, for her husband t
+  译面:1959年的法国，一位女把自己锁在房间里等丈夫回家，所有门都从里面反锁。丈夫赶到时，房子已烧成平地，她死了。
+  原底:This is apparently a true story. The hot sun reflected from the woman's large mirror (which I speculate may have been imperfectly 
+  译底:这是真实事件。烈日的光经她房间里那面大镜子反射（镜面不够平，把阳光聚成了焦点），把她身上轻薄的睡衣一点点烤到了燃点。她正埋头看书，察觉到时衣服已经烧起来。房门全从里面反锁，谁也进不去救她。
+
+### lib_30ffbff72d13 | 天气预报 | 专名:John,Wrong
+  原面:John was watching television. Just after the midnight news there was a weather forecast: /?It is raining now a
+  译面:约翰深夜看电视，午夜新闻后的预报说：“现在在下雨，接下来两天都会下雨。但七十二小时之后将是大晴天。”“又预报错了。”约翰冷笑。他说得对，可他是怎么知道的？
+  原底:In 72 hours it would be midnight again, so it could not be "bright and sunny.,z
+  译底:七十二小时之后，还是午夜。午夜不可能“大晴天”。
+
+### lib_33a8157609fc | 找不到椅子 | 专名:Come
+  原面:He couldn't find a chair, so he died. (RM, with KH wording; from How Come?) How could this be?
+  译面:他找不到椅子，于是死了。这怎么可能？
+  原底:He was a lion-tamer. This one is kind of silly, but I like it, and it sounds possible to me (though I'm told a whip is more import
+  译底:他是驯狮师。驯狮表演里那把椅子是他的护身符——狮子怕他站上椅子挥鞭发令。那天他找不到椅子，狮子没有像往常一样退让。
+
+### lib_36a9685bff7a | 风停了 | 专名:Luckily,Unfortunately
+  原面:The wind stopped blowing and the man died. What happened?
+  译面:风停了，男人就死了。发生了什么？
+  原底:The sole survivor of a shipwreck reached a desert isle. Unfortunately, he was blind. Luckily, there was a freshwater spring on the
+  译底:海难后他是唯一的幸存者，漂流到一座荒岛。可惜他是盲人。幸好岛上有淡水泉，他把同样漂来的船钟系在泉边——风一吹，钟声就为他指路。有一年整整一周没有风，他再也找不到水源，活活渴死了。
+
+### lib_39fb5cec5a60 | 没油救了命 | 专名:Browning
+  原面:Mr. Browning is glad the car ran out of gas. Why?
+  译面:布朗宁先生反而庆幸车里的油用光了。为什么？
+  原底:Mr. and Mrs. Browning had just gotten married. Mrs. Browning was subject to fits of depression. They had their first fight soon af
+  译底:布朗宁夫妇新婚，妻子有抑郁症。婚后第一次大吵，丈夫摔门而出；妻子走进车库发动汽车，想用尾气自杀。可油很快就烧光了——丈夫回来时，她还在车里，人来得及救回。
+
+### lib_3ec7a7147508 | 越洋包裹 | 专名:Europe,Instead,Later,Several,Thank
+  原面:A man sends a package to someone in Europe and gets a note back saying "Thank you. I received it." What happen
+  译面:一个男人往欧洲寄了个包裹，收到回信：“谢谢你，东西收到了。”发生了什么？
+  原底:Several men were shipwrecked together. They agreed to survive by eating each other a piece at a time. Each of them in turn gave up
+  译底:当年几人同船遇险，约定“各出一块肉”轮流牺牲撑到救援。每人先后献出一条手臂，唯独最后一人等到获救也没舍得动手。回国后众人要他兑现承诺，他却杀了个流浪汉，把流浪汉的手臂装盒寄给每个人，冒充自己的。直到某天，有人在地铁里看见他抓着吊环——用的正是那条“早就寄出去”
+
+### lib_43e1934bbc83 | 音乐停了 | 专名:Explain,Unfortunately
+  原面:The music stopped. She died. Explain.
+  译面:音乐停了。她死了。请还原真相。
+  原底:She was a circus tightrope walker. Her most daring act was to cross a high wire while blindfolded. The band played while she cross
+  译底:她是马戏团走钢丝的演员，最惊险的节目是蒙眼过钢丝，琴声伴随她全程，音乐停止就是“已到终点、可以落脚”的信号。那天指挥突然病倒，临时换上的指挥不知道这段音乐的分量，提前收了一点点尾——她应声迈步，从半空踏进了死亡。
+
+### lib_48818f1558f0 | 浓雾会车 | 专名:Andreas
+  原面:Two dead people sit in their cars on a street.
+  译面:大雾的街上，两辆汽车里各坐着一个死人。
+  原底:Because there was a heavy fog, two people driving in opposite directions on the same road both stuck their heads out of their wind
+  译底:浓雾里，相向而行的两人都想看清路中央的标线，各自把头探出车窗。会车的一瞬间，两人的头在高车速下迎面相撞，双双身亡。据说是真实事故。
+
+### lib_4a0f40ddff23 | 没有奖杯 | 专名:Bruce
+  原面:Bruce wins the race, but he gets no trophy. What happened?
+  译面:布鲁斯赢了比赛，却没有领奖。发生了什么？
+  原底:Bruce is a horse.
+  译底:布鲁斯是一匹马。
+
+### lib_4cea3fb48eaf | 更受欢迎的死 | 专名:Appalachians,Beulah,Craig
+  原面:Beulah died in the Appalachians, while Craig died at sea. Everyone was much happier with Craig's death. What h
+  译面:贝拉死于阿巴拉契亚，克雷格死于海上。所有人都为克雷格的死高兴。发生了什么？
+  原底:Beulah and Craig were hurricanes.
+  译底:贝拉和克雷格都是飓风的名字。登陆山区的贝拉造成了惨重灾情，而在海上消散的克雷格无人伤亡——大家当然庆幸它“死”在了海上。
+
+### lib_4fa7348b73fc | 非洲的黑色首领 | 专名:Africa
+  原面:A black leader dies in Africa. What happened?
+  译面:一位黑人首领死在了非洲。发生了什么？
+  原底:The black leader is a chess king, and the game was played in Africa.
+  译底:“首领”是国际象棋的黑方国王——那盘棋下在非洲。
+
+### lib_52b79b7f332d | 卡米洛特的两位牧师 | 专名:Camelot
+  原面:It's the year 860 A.D., at Camelot. Two priests are sitting in the castle's chapel. The queen attacks the king
+  译面:公元860年，卡米洛特城堡。两位牧师坐在小教堂里，王后袭击了国王。两位牧师起身，握手，离开了房间。发生了什么？
+  原底:The two priests are playing chess; one of them just mated by moving his queen.
+  译底:两位牧师在下国际象棋。其中一人刚走出“后”，一步将死了对方国王的“王”——输赢已分，起身握手致意。
+
+### lib_57ae1306e87a | 音乐停时死 | 专名:Chairs,Charlie,Musical
+  原面:Charlie died when the music stopped. What happened?
+  译面:音乐一停，查理就死了。发生了什么？
+  原底:Charlie was an insect sitting on a chair; the music playing was for the game Musical Chairs.
+  译底:查理是停在椅子上的一只虫子。人们在玩抢椅子游戏——音乐一停，所有人猛地坐下，它被压死了。
+
+### lib_667e4d272252 | 推车上旅馆 | 专名:Monopoly
+  原面:A man pushes a car up to a hotel and tells the owner he's bankrupt. What happened?
+  译面:一个男人把一辆车推到一家旅馆前，对老板说自己破产了。发生了什么？
+  原底:It's a game of Monopoly.
+  译底:他们在玩《大富翁》。
+
+### lib_689043d7869e | 银幕枪声 | 专名:Don,Joe,Tom
+  原面:Tom and Joe went to a movie. There were many other people there. During a quiet scene, Tom drew a gun. Joe scr
+  译面:汤姆和乔去看电影，影厅里坐满了人。在一场安静的戏里，汤姆掏出枪，乔大喊“别开枪”，汤姆还是开了枪，随后离场。很多人看见他离开并围住了他，警察却很快放了他。为什么？
+  原底:Tom and Joe were the stars of the movie. Tom shot Joe in a sequence in the movie. When Tom left he was mobbed by fans seeking his 
+  译底:汤姆和乔是银幕上的电影主演，“开枪”是电影情节。汤姆（演员本人）离场时被索要签名的影迷围住，警察赶到只是为了维持秩序。
+
+### lib_6a2910380309 | 收音机停了 | 专名:See
+  原面:The music stopped and the man died. How could this be?
+  译面:音乐停了，男人死了。怎么可能？
+  原底:Same as #1.75a, but the blind swimmer kept a portable transistor radio on the beach instead of a bell. When the batteries gave out
+  译底:他是盲人游泳者，靠沙滩上一台收音机的音乐判断何时朝哪个方向回岸。那天电池耗尽了，音乐戛然而止——他在死寂里迷失方向，游到力竭溺亡。
+
+### lib_6bf8c1505a1e | 惊喜派对 | 专名:Brown,Fredric,Nightmare,Note,Surprise,Yellow
+  原面:A man kills his wife, then goes inside his house and kills himself. (DH original, from "Nightmare in Yellow," 
+  译面:一个男人杀了妻子，回到家里，又杀了自己。怎么可能？
+  原底:It's the man's fiftieth birthday, and in celebration of this he plans to kill his wife, then take the money he's embezzled and mov
+  译底:那天是他五十岁生日，他盘算好杀妻后带着挪用的公款去外地开始新生活。妻子带他出来吃饭，在自家门前他开了枪。他拖着尸体推开门——满屋灯火骤亮，朋友们齐声大喊：“惊喜！”他成了所有人眼里弑妻的凶手，走投无路，举枪自尽。
+
+### lib_71e368d13be5 | 破了的防护服 | 专名:Fifteen
+  原面:A man is doing his job when his suit tears. Fifteen minutes later, he's dead. What happened?
+  译面:一个男人正在工作，他的衣服破了。十五分钟后，他死了。发生了什么？
+  原底:The man is an astronaut out on a space walk.It's a radiation suit. The suit was broken, causing him to die from radiation.
+  译底:他是正在太空行走的宇航员，那身衣服是防辐射服。服面破裂，强辐射在几分钟内击穿了他。
+
+### lib_8ad076c37f47 | 从窗口扔出的东西 | 专名:Boomerangs
+  原面:A woman throws something out a window and dies.
+  译面:一位女士往窗外扔了个东西，然后她死了。
+  原底:The object she throws is a boomerang. It flies out, loops around, and comes back and hits her in the head, killing her. Boomerangs
+  译底:她扔出去的是回旋镖。它飞出去绕了一圈，折回来正中她的头。
+
+### lib_8c78c11c3fa1 | 张嘴即死 | 专名:Hautamaki,Kari,Reeboks,Russell,Style
+  原面:A man opens his mouth and dies shortly afterwards.
+  译面:一个男人张开嘴，很快就死了。
+  原底:He annoyed the mafia several hours ago; he's now underwater and wearing cement Reeboks. ("Style is everything, and cement Reeboks 
+  译底:几小时前他得罪了黑手党。此刻他被灌了水泥、穿着球鞋沉在水底——张嘴，就是灌水。
+
+### lib_95482535a7ae | 冰屋外的两具尸体 | 专名:Igloo
+  原面:Two men are found dead outside of an igloo.
+  译面:两个男人死在一座冰屋外面。
+  原底:The men have gone spelunking and have taken an Igloo brand cooler with them so they can have a picnic down in the caves. They clev
+  译底:他们是去探洞的，随身带了只“Igloo”牌冷藏箱野餐，还用干冰镇啤酒。他们没想到：干冰升华出的二氧化碳会沉在洞里，把氧气挤走。两人窒息死在了洞口外。
+
+### lib_97096b7207e0 | 面包！ | 专名:Bastille,France,Pain,Versaille
+  原面:A woman meets the king, cries "Pain!", and loses consciousness. What happened?
+  译面:一位女士见到了国王，大喊一声“Pain!”，昏了过去。发生了什么？
+  原底:in France, shortly after the fall of the Bastille, food shortages became a problem again. A mob of people went to Versaille to pet
+  译底:真实历史：法国大革命、巴士底狱陷落后，饥荒又起。民众涌向凡尔赛请愿，一小批人获准面见国王。一位妇女情绪激荡，千言万语只喊出一个词——“Pain!”（法语：面包）——然后晕了过去。
+
+### lib_a039666c7124 | 箱子里是什么 | 专名:Another
+  原面:A man is sitting in a room. Another person enters, carrying a closed cardboard box, and sits down nearby. Thou
+  译面:一个男人坐在屋里，另一人抱着一个封好的纸箱进来坐在旁边。男人看不见、听不见也闻不到箱中之物，却知道里面装的是什么。
+  原底:The man is allergic to cats, and feels the allergy symptoms coming on, so he knows the box contains a cat. (It could be argued tha
+  译底:他对猫过敏。刚坐下，过敏反应就一阵阵地来了——箱子里一定是只猫。
+
+### lib_a562d099d9e0 | 跳窗时响起的电话 | 专名:Balfour,Bruce,Days,From,Like,Some,Variant,With
+  原面:As a man jumps out of a window, he hears the telephone ring and regrets having jumped. (from "Some Days are Li
+  译面:一个男人跳窗的瞬间，听见电话铃响了，他后悔跳了。为什么？
+  原底:This is a post-holocaust scenario of some kind; for whatever reason, the man believes himself to be the last human on earth. He do
+  译底:核战之后的世界，他以为自己是地球上最后一个人，不想独自苟活，于是纵身跳窗。可就在他腾空的刹那，电话响了——世界上还有别人。可惜，已经来不及了。
+
+### lib_aa939a5ceff4 | 回不了家 | 专名:Joe
+  原面:Joe wants to go home, but he can't go home because the man in the mask is waiting for him. What happened?
+  译面:乔想回家，可它回不去，因为那个戴面具的男人正在等着它。发生了什么？
+  原底:Joe is a bee; the man in the mask is a beekeeper.
+  译底:乔是一只蜜蜂，戴面具的是养蜂人——防护面罩。
+
+### lib_c026a4977b0e | 好心的急救 | 专名:Another,Australian
+  原面:A man was walking down a road when a stone lodged itself between his foot and his sandal. He leaned against a 
+  译面:一个男人走路时鞋里硌了颗石子，他靠着电线杆低头抖脚想把石子倒出来。另一个男人走来，把他的手臂摔断在三处地方。
+  原底:The chap shaking his foot to dislodge the stone was leanig against a metal light pole. The other fellow came along and thought tha
+  译底:他靠的是一根金属灯杆。后来者以为灯杆漏电、那人正被电击（肌肉痉挛松不开手），冲上去一记“急救”把他抡开——真实事件，来自澳大利亚报纸。误会解除后他道了歉。
+
+### lib_ca411d1cf9c1 | 两万英尺的观鸟 | 专名:Soon
+  原面:An avid birdwatcher sees an unexpected bird. Soon he's dead.
+  译面:一位狂热观鸟者看到了一只意想不到的鸟。很快他就死了。
+  原底:He is a passenger in an airplane and sees the bird get sucked into an engine at 20,000 feet.
+  译底:他在飞机里“观鸟”——那只鸟被吸进了万米高空的喷气引擎，引擎停车，飞机坠毁。
+
+### lib_ca618df9d6da | 王位继承人 | 专名:Book,Come,Knowing
+  原面:The king dies and two men both claim to be his long-lost son. One of the king's advisors proposes a test to de
+  译面:国王驾崩，两个男人都自称失散多年的王子。大臣提出一个测试：答应测试的人被赶走，拒绝的人反而被认定为真继承人。为什么？
+  原底:The proposed test was a blood test. Knowing that blood typing isn't very accurate, the impostor felt it was worth trying to get aw
+  译底:测试是验血。假王子心想血型鉴定本就不算铁证，值得一赌，于是答应了；真王子是血友病患者，抽血可能流血不止——他只能拒绝。拒绝，反而证明了他。
+
+### lib_d18a8dcc9c6c | 全黑的城镇 | 专名:Come,Elsa
+  原面:A black man dressed all in black, wearing a black mask, stands at a crossroads in a totally black-painted town
+  译面:一个全黑皮肤的男人一身黑衣、戴着黑面罩，站在整座刷成黑色的城镇的十字路口。街灯全坏，没有月亮。一辆不开车灯的黑色汽车径直冲他开来，却在最后一刻及时转弯，没有撞到他。为什么？
+  原底:It's daytime; the sun is out. 2.5a. Elsa can turn off her bedroom light at the door to her bedroom, and still make it acroos the r
+  译底:因为是白天，太阳当空照。
+
+### lib_d9078a59e095 | 海上的死亡 | 专名:According,Alfred,Come,Death,Henry,Hitchcock,Landru,Sea
+  原面:A man sitting on a park bench reads a newspaper article headlined "Death at Sea" and knows a murder has been c
+  译面:一个男人坐在公园长椅上看报纸，头条是《海上死亡事件》，他立刻断定：这是一桩谋杀。怎么可能？
+  原底:The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of t
+  译底:他是旅行社职员。曾有人用同一个姓氏买了两张船票——一张往返，一张单程。报纸上那个“失足落海身亡”的女人，正是同一个姓。单程票，从一开始就是为她买的。
+
+### lib_e0d6ce92565c | 喝掉的两餐 | 专名:Unfortunately
+  原面:Every day a man drinks his breakfast and drinks his lunch. When his boss finds out, he is immediately fired. T
+  译面:一个人每天早餐“喝”掉、午餐也“喝”掉。第一任老板知道后立刻开除他；换了新工作后老板知道，却开玩笑说“你敢停下我就开除你”。为什么？
+  原底:The man is drinking diet shakes for his breakfast and lunch in order to lose weight. Unfortunately, his first job is at a weight-l
+  译底:他在减肥，早午两餐都喝代餐奶昔。第一份工作在世界减肥中心——喝对家的产品等于砸自己招牌；第二家在保健品店——老板巴不得他瘦下来给店里代言。
+
+### lib_f19f1c8dd5e9 | 盲乞丐的亲人 | 专名:Brother
+  原面:A blind beggar had a brother who died. What relation was the blind beggar to the brother who died? ("Brother" 
+  译面:一个盲乞丐有个兄弟死了。这位盲乞丐和死者是什么关系？（答案不是“兄弟”。）
+  原底:The blind beggar was the sister of her brother who died.
+  译底:盲乞丐是死者的女性亲人——是他的姐妹。
+
+### lib_fb77315aaeee | 不知道才能活 | 专名:Abbot,Costello,Who
+  原面:A man was brought before a tribal chief, who asked him a question. If he had known the answer, he probably wou
+  译面:一个男人被带到部落首领面前，首领问了他一个问题。他若知道答案，多半会死；他不知道答案，于是活了。怎么可能？
+  原底:The native chief asked him, "What is the third baseman's name in the Abbot and Costello routine 'Who's on First'?" The man, who ha
+  译底:首领问：“和我女儿私会的那个男人是谁？”他完全不知情，老老实实答“我不知道”——歪打正着，这是唯一能活命的真话。知道答案的人，反而都被处死了。
+
+### lib_fd3477ddff5b | 丢饭碗的忠告 | 专名:Come,Don,From
+  原面:A man tells his boss, "Don't take your planned flight today! I had a dream last night that if you do, your pla
+  译面:员工对老板说：“你今天千万别坐那班飞机！我昨晚梦见你要是去了，飞机会坠毁，你会死。”老板听他说了，反而把他开除了。为什么？
+  原底:The man was the night watchman; he should've been on duty the previous night, not dreaming. (He tells the boss about the dream out
+  译底:这名员工是工厂的夜班看守。前一晚他本该坚守岗位，却在睡觉做梦——他擅离职守被老板发现了，所以被开除。（他提醒老板，确实是出于好意。）
+
+### lib_16c80a13e181 | 回不去的家 | 专名:Chris,Hal,Instead,Joe,Johnny,Lowery,Riley,Variant
+  原面:Joe wants to go home, but he can't go home because the man in the mask is waiting for him. (AL wording)
+  译面:乔很想回家，可他却不能回去——因为一个戴着面具的人正在等着他。
+  原底:A baseball game is going on. The base-runner sees the catcher waiting at home plate with the ball, and so decides to stay at third
+  译底:那是一场棒球赛。乔是跑垒员，捕手戴着面罩、拿着球守在本垒（家）等他。他要是现在跑回“家”，就会被触杀出局，只能留在三垒。
+
