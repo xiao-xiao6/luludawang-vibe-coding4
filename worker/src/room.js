@@ -149,6 +149,11 @@ export class Room {
       puzzleId: null,
       revealed: [],                /* 全员共享的已挖线索编号（规格 #2） */
       qaLog: [],
+      /* 本锅战况统计（2026-09-26）：报喜框 / 个人庆祝弹窗 / 终局排行榜的三个数据格用它。
+         单独计数而不是数 qaLog：qaLog 有 200 条上限，长房截断后统计会失真。 */
+      potAskTotal: 0,              /* 本锅全桌提问总数 */
+      potAskByUid: {},             /* uid → 本锅个人提问数 */
+      potStartedAt: 0,             /* 本锅开锅时刻（算个人用时的起点） */
       guessCooldowns: {},          /* uid → 冷却到期时间戳：每人独立，互不影响 */
       lastGuess: null,
       /* ---- 多人「私有猜底」大改（2026-09-25）----
@@ -242,6 +247,12 @@ export class Room {
     s.players = s.players.filter((x) => x.uid !== target.uid);
     s.order = s.order.filter((u) => u !== target.uid);
     s.potUids = (s.potUids || []).filter((u) => u !== target.uid);
+    /* 已说破的人退出房间：说破名单同步除名（2026-09-26 修播报口径）。
+       以前只减「房间总人数」不减「已说破人数」，汤主报喜会出现 5/5 之后还冒出 6/5
+       的怪账；现在分子分母一起 -1，后续报喜与排行榜都只算还在座的人。 */
+    if (s.solveOrder && s.solveOrder.length) {
+      s.solveOrder = s.solveOrder.filter((o) => o.uid !== target.uid);
+    }
     if (s.vote) {
       /* 投票中途有人退房：把 TA 的票摘掉，门槛按现有人数重算 */
       s.vote.agree = s.vote.agree.filter((u) => u !== target.uid);
@@ -584,6 +595,7 @@ export class Room {
       s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
       s.phase = "playing";
       this.resetPotSolve(s);
+      s.potStartedAt = now();      /* 本锅计时起点（个人用时的锚） */
     }
     this.bump();
     return { ok: true, phase: s.phase };
@@ -703,6 +715,7 @@ export class Room {
       s.turnIdx = 0;
       s.turnDeadline = 0;
       s.phase = "playing";
+      s.potStartedAt = now();
     }
     this.bump();
     return { ok: true, phase: s.phase };
@@ -790,6 +803,10 @@ export class Room {
     };
     s.qaLog.push(item);
     if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
+    /* 本锅战况计数：只对真正入账的提问 +1（AI 失败回退的不算） */
+    s.potAskTotal = (s.potAskTotal || 0) + 1;
+    if (!s.potAskByUid) s.potAskByUid = {};
+    s.potAskByUid[p.uid] = (s.potAskByUid[p.uid] || 0) + 1;
     this.advanceTurn();
     this.bump();
     return { ok: true, item, rev: s.rev };
@@ -937,6 +954,9 @@ export class Room {
       out.solved = true;
       out.rank = (s.solveOrder || []).length;
       out.participants = this.potMembers(s).length;
+      /* 三个战况数据随答返回：个人弹窗当场展示，不用等下一拍快照 */
+      const mineEntry = (s.solveOrder || []).filter((o) => o.uid === p.uid).slice(-1)[0];
+      out.stats = (mineEntry && mineEntry.stats) || null;
       /* 汤底只发给刚刚猜对的这个人（别人连 TA 猜对了都要晚一步才在聊天里知道） */
       out.truth = puzzle.truth || "";
       out.snapshot = this.snapshot(internalId);
@@ -976,6 +996,8 @@ export class Room {
     s.solveOrder = [];
     s.guessLog = [];
     s.allSolved = false;
+    s.potAskTotal = 0;
+    s.potAskByUid = {};
     s.players.forEach((x) => { x.solved = false; });
     this.bump();
   }
@@ -984,7 +1006,13 @@ export class Room {
   markSolved(s, player) {
     if (!s.solveOrder) s.solveOrder = [];
     player.solved = true;
-    s.solveOrder.push({ uid: player.uid, nickname: player.nickname, at: now() });
+    /* 三个战况数据在说破这一刻就地冻结：个人提问数 / 全桌总提问数 / 从开锅到说破的用时 */
+    const stats = {
+      askMine: (s.potAskByUid && s.potAskByUid[player.uid]) || 0,
+      askTotal: s.potAskTotal || 0,
+      ms: Math.max(0, now() - (s.potStartedAt || now()))
+    };
+    s.solveOrder.push({ uid: player.uid, nickname: player.nickname, at: now(), stats: stats });
     const rank = s.solveOrder.length;
     const wasTurn = s.order[s.turnIdx] === player.uid;
     const oi = s.order.indexOf(player.uid);
@@ -998,12 +1026,12 @@ export class Room {
       if (wasTurn) s.turnDeadline = now() + TURN_TIMEOUT_MS;
     }
     if (s.guessCooldowns) delete s.guessCooldowns[player.uid];
-    this.congratsChat(s, player, rank, this.potMembers(s).length);
+    this.congratsChat(s, player, rank, this.potMembers(s).length, stats);
     this.bump();
   }
 
   /* 汤主报喜：进房间聊天（前端用炫彩特效框渲染），只报人名与名次，绝不带汤底 */
-  congratsChat(s, player, rank, total) {
+  congratsChat(s, player, rank, total, stats) {
     if (!s.chatLog) s.chatLog = [];
     s.chatSeq = (s.chatSeq || 0) + 1;
     const rest = Math.max(0, total - rank);
@@ -1020,6 +1048,7 @@ export class Room {
       solverNick: player.nickname,
       rank,
       total,
+      stats: stats || null,
       at: now(),
       seq: s.chatSeq
     });
@@ -1064,10 +1093,12 @@ export class Room {
     s.vote = null;
     s.giveUp = false;
     s.revealHow = "";
-    /* 新锅：说破名单 / 私有猜底手账 / 全员标志全部清零，人人重新来过 */
+    /* 新锅：说破名单 / 私有猜底手账 / 全员标志 / 战况统计全部清零，人人重新来过 */
     s.solveOrder = [];
     s.guessLog = [];
     s.allSolved = false;
+    s.potAskTotal = 0;
+    s.potAskByUid = {};
     s.players.forEach((x) => { x.solved = false; });
     /* 这锅还在打时已经点过准备的人，下一锅直接算准备好；其余人重新准备。
        全员都准备好了就直接开下一锅，不用再干等。 */
@@ -1079,6 +1110,7 @@ export class Room {
       s.turnIdx = 0;
       s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
       s.phase = "playing";
+      s.potStartedAt = now();
     }
     this.bump();
     return { ok: true, phase: s.phase };
@@ -1173,8 +1205,13 @@ export class Room {
          myGuessLog：只把「我自己」的猜底手账发给我；
          myTruth：还在对局中但已说破的人，凭它恢复个人汤底弹窗（刷新不丢）。 */
       solveOrder: (s.solveOrder || []).map(function (o, i) {
-        return { uid: o.uid, nickname: o.nickname, rank: i + 1, at: o.at };
+        return { uid: o.uid, nickname: o.nickname, rank: i + 1, at: o.at, stats: o.stats || null };
       }),
+      /* 本锅实时战况：终局排行榜给「还没说破的人」也摆上个人提问数与全桌总提问数 */
+      askStats: {
+        total: s.potAskTotal || 0,
+        byUid: s.potAskByUid || {}
+      },
       potCount: s.solo ? (s.players || []).length : this.potMembers(s).length,
       allSolved: !!s.allSolved,
       mySolved: !!(you && you.solved),

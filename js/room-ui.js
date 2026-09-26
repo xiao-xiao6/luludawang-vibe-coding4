@@ -59,6 +59,32 @@
     return uid;
   }
 
+  /* ---- 图标与战况数据小工具（2026-09-26）----
+     界面里的 emoji 全部换成 js/icons.js 的同风格线性 SVG；
+     没挂上图标库时降级成空字符串，绝不把半成品贴到屏幕上。 */
+  function ic(name, cls) {
+    return (typeof root.SoupIcon === "function") ? root.SoupIcon(name, cls) : "";
+  }
+  /* 用时→人话：48秒 / 5分12秒 / 1小时02分 */
+  function fmtDur(ms) {
+    if (!isFinite(ms) || ms <= 0) return "—";
+    var sec = Math.round(ms / 1000);
+    if (sec < 60) return sec + "秒";
+    var m = Math.floor(sec / 60), s2 = sec % 60;
+    if (m < 60) return m + "分" + (s2 ? s2 + "秒" : "");
+    var h = Math.floor(m / 60);
+    return h + "小时" + (m % 60 ? (m % 60 < 10 ? "0" : "") + (m % 60) + "分" : "");
+  }
+  /* 三个战况数据小格：个人提问数 / 全桌总提问数 / 从开锅算起的用时 */
+  function statBoxesHtml(st, cls) {
+    if (!st) return "";
+    return '<div class="guess-stats' + (cls ? " " + cls : "") + '">' +
+      '<div class="gs"><i>个人提问</i><b>' + (st.askMine || 0) + " 次</b></div>" +
+      '<div class="gs"><i>全桌提问</i><b>' + (st.askTotal || 0) + " 次</b></div>" +
+      '<div class="gs"><i>用时</i><b>' + fmtDur(st.ms) + "</b></div>" +
+      "</div>";
+  }
+
   var R = {
     inRoom: false,
     snap: null,
@@ -315,7 +341,7 @@
         if (p.isHost) tags.push('<span class="room-tag host">房主</span>');
         if (mine && p.uid === mine.uid) tags.push('<span class="room-tag me">我</span>');
         /* 私有猜底大改：说破的人挂金徽章（聊天里汤主已报喜，不算剧透） */
-        if (p.solved) tags.push('<span class="room-tag solved">🏆 说破</span>');
+        if (p.solved) tags.push('<span class="room-tag solved">' + ic("trophy") + " 说破</span>");
         if (s.phase === "playing" && s.turnUid === p.uid) tags.push('<span class="room-tag turn">' + (mine && p.uid === mine.uid ? "该你问" : "该他问") + "</span>");
         /* 房主可请离 / 转让任意在座玩家；离线超过 1 分钟的单独标成死座位 */
         if (isHostMe && !p.isHost) {
@@ -337,7 +363,7 @@
 
     /* 阶段提示 */
     var ph = $("#room-phase");
-    if (ph) ph.textContent = phaseText(s, mine);
+    if (ph) ph.innerHTML = phaseText(s, mine);
 
     /* 本锅 */
     var pz = $("#room-puzzle");
@@ -398,7 +424,7 @@
       qi.disabled = iSolved && s.phase === "playing";
       qi.readOnly = qi.disabled;
       qi.placeholder = iSolved && s.phase === "playing"
-        ? "🏆 你已说破汤底 —— 安静看大家一问一答，想递话去右下角聊天框…"
+        ? "你已说破汤底 —— 安静看大家一问一答，想递话去右下角聊天框…"
         : (pending
           ? "可以先写下轮到你时要问的话…"
           : (myTurn ? "轮到你了，向汤主提问…" : "没轮到你也可以先写好问题，轮到再发送"));
@@ -436,7 +462,7 @@
       rb.classList.toggle("on", !!mineReady);
       if (s.phase === "playing" && iSolved) {
         /* 已说破：不再撤回也不再排队，本锅只剩旁观 */
-        rb.textContent = "🏆 已说破 · 旁观本锅";
+        rb.innerHTML = ic("trophy") + " 已说破 · 旁观本锅";
         rb.disabled = true;
       } else if (s.phase === "playing" && inThisPot) {
         rb.textContent = "撤回准备（回大堂）";
@@ -444,7 +470,7 @@
       } else if (s.phase === "playing") {
         /* 第④条：中途进来 / 退出重进的人，点一下 = 准备并排进本锅队尾，
            不影响任何人；已排上的人再点才是退出队列（文案说清楚，防手滑）。 */
-        rb.textContent = (mine && mine.ready) ? "已排进本锅，等轮到你（点一下退出）" : "🙋 准备，参与本锅提问";
+        rb.innerHTML = (mine && mine.ready) ? "已排进本锅，等轮到你（点一下退出）" : ic("hand") + " 准备，参与本锅提问";
         rb.disabled = false;
       } else if (s.phase === "revealed") {
         rb.textContent = mineReady ? "已为下一锅准备" : "为下一锅准备";
@@ -465,7 +491,9 @@
        POST 当场由 submit 直接弹；刷新 / 断线重进凭快照 myTruth 在这里补弹。 */
     if (s.phase === "playing" && iSolved && s.myTruth && !R.mySolvedShown) {
       R.mySolvedShown = true;
-      showMySolvedPopup({ truth: s.myTruth, rank: s.myRank, total: s.potCount });
+      /* 刷新 / 断线重进也要带上战况三格：从排行榜名单里拿冻结好的 stats */
+      var myEntry = (s.solveOrder || []).filter(function (o) { return o.rank === s.myRank; })[0];
+      showMySolvedPopup({ truth: s.myTruth, rank: s.myRank, total: s.potCount, stats: myEntry && myEntry.stats });
     }
     if (s.phase !== "playing" || !iSolved) R.mySolvedShown = false;
     /* 揭底（全员说破 / 投票放弃才走到这里；单人说破同一条通道） */
@@ -529,7 +557,7 @@
       var solvedN = (s.solveOrder || []).length;
       var totalN = s.potCount || (s.players || []).length;
       if (iSolved) {
-        return "🏆 你已说破汤底：一问一答对你停了，安静看大家熬；想递话可以去聊天框打字。"
+        return ic("trophy") + " 你已说破汤底：一问一答对你停了，安静看大家熬；想递话可以去聊天框打字。"
           + (solvedN >= totalN ? "" : "还在熬的只剩 " + (totalN - solvedN) + " 位，全员说破才统一揭底。");
       }
       var who = (s.players || []).filter(function (p) { return p.uid === s.turnUid; })[0];
@@ -545,10 +573,10 @@
     }
     if (s.phase === "revealed") {
       if (s.allSolved) {
-        return "🎊 全员说破，本锅圆满收官！汤底与排行榜已统一展示，房主可以选下一锅。";
+        return ic("party") + " 全员说破，本锅圆满收官！汤底与排行榜已统一展示，房主可以选下一锅。";
       }
       var sn = (s.solveOrder || []).length;
-      return "汤底已揭晓——" + (s.giveUp ? "🏳️ 全房投票放弃。" : (s.winnerNick ? "恭喜 " + s.winnerNick + " 说破。" : ""))
+      return "汤底已揭晓——" + (s.giveUp ? ic("flag") + " 全房投票放弃。" : (s.winnerNick ? "恭喜 " + esc(s.winnerNick) + " 说破。" : ""))
         + (sn ? "本锅共 " + sn + " 人抢先说破。" : "") + "房主可以选下一锅。";
     }
     return "";
@@ -809,10 +837,12 @@
         if (x.type === "congrats") {
           return '<div class="chat-item congrats">' +
             '<div class="cg-frame"><span class="cg-shine" aria-hidden="true"></span>' +
-            '<div class="cg-head"><span class="cg-bell" aria-hidden="true">✨</span>' +
-            '<b class="cg-title">汤主报喜</b><span class="cg-bell" aria-hidden="true">✨</span></div>' +
+            '<div class="cg-head"><span class="cg-bell" aria-hidden="true">' + ic("bell") + "</span>" +
+            '<b class="cg-title">汤主报喜</b><span class="cg-bell" aria-hidden="true">' + ic("bell") + "</span></div>" +
             '<div class="cg-text">' + esc(x.text) + "</div>" +
-            '<div class="cg-foot">🏆 当前 ' + (x.rank || "?") + "/" + (x.total || "?") + " 人已说破 · 猜底内容与判定全桌保密</div>" +
+            /* 本锅战况三小格：TA 个人提问数 / 全桌总提问数 / 从开锅到说破的用时 */
+            statBoxesHtml(x.stats, "cg-stats") +
+            '<div class="cg-foot">' + ic("trophy") + " 当前 " + (x.rank || "?") + "/" + (x.total || "?") + " 人已说破 · 猜底内容与判定全桌保密</div>" +
             "</div></div>";
         }
         var mineCls = (x.uid === myUid(R.snap || {})) ? " me" : "";
@@ -868,7 +898,7 @@
       return false;
     })())) {
       btn.disabled = true;
-      btn.textContent = "🏆 已说破";
+      btn.innerHTML = ic("trophy") + " 已说破";
       var bg = $("#btn-room-giveup");
       if (bg && s.phase === "playing") {
         bg.disabled = true;
@@ -899,12 +929,12 @@
     if (!el) return;
     if (R.timerTimer) { clearInterval(R.timerTimer); R.timerTimer = 0; }
     var show = !!(s && s.phase === "playing" && s.turnDeadline);
-    if (!show) { el.classList.add("hidden"); el.textContent = "⏳ 90s"; return; }
+    if (!show) { el.classList.add("hidden"); el.innerHTML = ic("hourglass") + " 90s"; return; }
     el.classList.remove("hidden");
     var tick = function () {
       var left = Math.ceil(((s.turnDeadline || 0) - Date.now()) / 1000);
       if (left < 0) left = 0;
-      el.textContent = "⏳ " + left + "s";
+      el.innerHTML = ic("hourglass") + " " + left + "s";
       el.classList.toggle("warn", left <= 10);
       el.classList.toggle("urgent", left <= 5);
       if (left <= 0 && R.timerTimer) { clearInterval(R.timerTimer); R.timerTimer = 0; }
@@ -913,17 +943,21 @@
     R.timerTimer = setInterval(tick, 1000);
   }
 
-  /* 说破排行榜（全员揭底 / 投票放弃时同屏展示）：金銀銅 + 未说破灰条，逐行华丽入场 */
+  /* 说破排行榜（全员揭底 / 投票放弃时同屏展示）：金銀銅牌 + 未说破灰条，逐行华丽入场；
+     每人一行后面摆三个战况小格：个人提问 / 全桌提问 / 用时；还没说破的人也有格。 */
   function rankBoardHtml(s) {
     var order = s.solveOrder || [];
     var players = s.players || [];
+    var askStats = s.askStats || { total: 0, byUid: {} };
     var rows = order.map(function (o) {
-      var medal = o.rank === 1 ? "🥇" : o.rank === 2 ? "🥈" : o.rank === 3 ? "🥉" : "🎖️";
+      var medal = ic("medal" + Math.min(o.rank, 3));
       var delay = ((o.rank - 1) * 0.16).toFixed(2);
       return '<div class="rk rk' + Math.min(o.rank, 4) + '" style="animation-delay:' + delay + 's">' +
-        '<span class="rk-medal">' + medal + "</span>" +
+        '<span class="rk-medal m' + Math.min(o.rank, 4) + '">' + medal + "</span>" +
         '<span class="rk-name">' + esc(o.nickname) + "</span>" +
-        '<span class="rk-tag">第 ' + o.rank + " 个说破</span></div>";
+        '<span class="rk-tag">第 ' + o.rank + " 个说破</span>" +
+        statBoxesHtml(o.stats || { askMine: 0, askTotal: 0, ms: 0 }, "rk-stats") +
+        "</div>";
     });
     var extra = 0;
     players.forEach(function (p) {
@@ -932,15 +966,20 @@
       if (got) return;
       extra++;
       rows.push('<div class="rk rk-none" style="animation-delay:' + ((order.length + extra - 1) * 0.12).toFixed(2) + 's">' +
-        '<span class="rk-medal">🥣</span>' +
+        '<span class="rk-medal m0">' + ic("bowl") + "</span>" +
         '<span class="rk-name">' + esc(p.nickname) + "</span>" +
-        '<span class="rk-tag">这锅没熬出来</span></div>');
+        '<span class="rk-tag">这锅没熬出来</span>' +
+        '<div class="guess-stats rk-stats"><div class="gs"><i>个人提问</i><b>' +
+        ((askStats.byUid || {})[p.uid] || 0) + " 次</b></div>" +
+        '<div class="gs"><i>全桌提问</i><b>' + (askStats.total || 0) + " 次</b></div>" +
+        '<div class="gs"><i>用时</i><b>未说破</b></div></div>' +
+        "</div>");
     });
     if (!rows.length) return "";
     return '<div class="rank-board">' +
-      '<div class="rb-head"><span class="rb-spark" aria-hidden="true">✦</span>' +
+      '<div class="rb-head"><span class="rb-spark" aria-hidden="true">' + ic("spark4") + "</span>" +
       "<b>本锅说破排行榜</b>" +
-      '<span class="rb-spark" aria-hidden="true">✦</span></div>' +
+      '<span class="rb-spark" aria-hidden="true">' + ic("spark4") + "</span></div>" +
       rows.join("") + "</div>";
   }
 
@@ -952,16 +991,16 @@
     /* 第⑦条：猜出者的昵称挂在汤底框正上方，流光 + 弹跳小特效（全员说破时交给排行榜展示） */
     var winnerLine = (!allSolved && s.winnerNick)
       ? '<div class="winner-tag">' +
-        '<span class="wt-spark" aria-hidden="true">✦</span>' +
+        '<span class="wt-spark" aria-hidden="true">' + ic("spark4") + "</span>" +
         '<span class="wt-name">' + esc(s.winnerNick) + "</span>" +
-        '<span class="wt-spark" aria-hidden="true">✦</span>' +
+        '<span class="wt-spark" aria-hidden="true">' + ic("spark4") + "</span>" +
         "</div>"
       : "";
     var note = byVote
-      ? "🏳️ 全房投票放弃，直接上汤底"
+      ? ic("flag") + " 全房投票放弃，直接上汤底"
       : (allSolved
-        ? "🎊 全员说破！猜对的人各自庆功，汤底此刻统一上桌"
-        : (s.winnerNick ? "🎉 " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束"));
+        ? ic("party") + " 全员说破！猜对的人各自庆功，汤底此刻统一上桌"
+        : (s.winnerNick ? ic("popper") + " " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束"));
     host.innerHTML =
       '<div class="modal modal-reveal" role="dialog" aria-modal="true">' +
       "<h3>" + (allSolved ? "全员说破 · 统一揭底 &amp; 排行榜" : "汤底揭晓") + "</h3>" +
@@ -1000,19 +1039,21 @@
     var rest = Math.max(0, (o.total || 0) - (o.rank || 1));
     host.innerHTML =
       '<div class="modal me-solved" role="dialog" aria-modal="true">' +
-      '<div class="ms-crown" aria-hidden="true">🏆</div>' +
+      '<div class="ms-crown" aria-hidden="true">' + ic("trophy") + "</div>" +
       "<h3 class=\"ms-h\">说破啦！</h3>" +
       '<div class="winner-tag">' +
-      '<span class="wt-spark" aria-hidden="true">✦</span>' +
+      '<span class="wt-spark" aria-hidden="true">' + ic("spark4") + "</span>" +
       '<span class="wt-name ms-name">' + esc(me().nickname || "你") + "</span>" +
-      '<span class="wt-spark" aria-hidden="true">✦</span></div>' +
+      '<span class="wt-spark" aria-hidden="true">' + ic("spark4") + "</span></div>" +
       '<p class="ms-rank">你是本锅 <b>第 ' + (o.rank || 1) + " 个</b> 猜对汤底的人" +
       (rest > 0 ? " · 还有 " + rest + " 位在熬" : " · 本锅就此收官") + "</p>" +
+      /* 战况三小格：个人提问数 / 全桌总提问数 / 从开锅到自己说破的用时 */
+      statBoxesHtml(o.stats, "ms-stats") +
       '<div class="truth-box ms-truth"><p class="ms-truth-k">汤底（此刻只有你看得见）</p><p style="margin:0">' + esc(o.truth || "（这一锅没有汤底）") + "</p></div>" +
       '<p class="ms-note">系统不会把汤底剧透给任何人：本锅继续，你转入旁观——' +
       "想看大家怎么熬就安静看，想递提示就去聊天框打字。</p>" +
       '<div class="modal-actions">' +
-      '<button type="button" class="btn primary" id="ms-ok">进入旁观 👀</button>' +
+      '<button type="button" class="btn primary" id="ms-ok">进入旁观' + ic("eye") + "</button>" +
       "</div></div>";
     document.body.appendChild(host);
     document.body.classList.add("modal-open");
@@ -1312,12 +1353,12 @@
     host.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true">' +
       "<h3>说出你的推理</h3>" +
-      '<p class="modal-sub">🤫 全程私密：你写了什么、汤主判了什么色，<b>只有你自己的屏幕看得到</b>——' +
+      '<p class="modal-sub">' + ic("secret") + " 全程私密：你写了什么、汤主判了什么色，<b>只有你自己的屏幕看得到</b>——" +
       "不进问答记录，不进实时对话，别人不知道你猜过。</p>" +
       '<textarea id="rguess-input" rows="5" placeholder="我认为，他之所以……是因为……" autocapitalize="off" spellcheck="false"></textarea>' +
       '<p class="guess-feedback" id="rguess-fb"></p>' +
       '<div class="modal-actions">' +
-      '<button type="button" class="btn ghost" id="rguess-book">📓 我的猜底手账</button>' +
+      '<button type="button" class="btn ghost" id="rguess-book">' + ic("notebook") + " 我的猜底手账</button>" +
       '<button type="button" class="btn ghost" id="rguess-cancel">再想想</button>' +
       '<button type="button" class="btn primary" id="rguess-submit">提交推理</button>' +
       "</div></div>";
@@ -1349,19 +1390,20 @@
             R.mySolvedShown = true;   /* 拦住快照兜底重复补弹 */
             close();
             /* 先立个人庆祝弹窗，再重绘：全员揭底会被 personalOpen 押后，不叠罗汉 */
-            showMySolvedPopup({ truth: r.truth, rank: r.rank, total: r.participants });
+            showMySolvedPopup({ truth: r.truth, rank: r.rank, total: r.participants, stats: r.stats });
             if (R.snap) render(R.snap);
             return;
           }
           var cls = (lv === "close" || lv === "vague") ? "close" : "no";
-          var lead = lv === "close" ? "🟡 部分正确" : (lv === "vague" ? "🟡 方向模糊" : "🔴 完全错误");
-          fb.innerHTML = "<b>" + lead + "</b><span class=\"pv-note\">（只有你看得见）</span><br>" +
+          var leadTxt = lv === "close" ? "部分正确" : (lv === "vague" ? "方向模糊" : "完全错误");
+          var leadDot = (lv === "close" || lv === "vague") ? ic("dotY", "dot-y") : ic("dotR", "dot-r");
+          fb.innerHTML = "<b>" + leadDot + " " + leadTxt + "</b><span class=\"pv-note\">（只有你看得见）</span><br>" +
             esc((r && r.note) || "方向还不对。") +
-            (lv === "close" || lv === "vague" ? " 60 秒后可再猜一次；🔴 要等 180 秒。" : " 冷却结束后再来。");
+            (lv === "close" || lv === "vague" ? " 60 秒后可再猜一次；完全错误要等 180 秒。" : " 冷却结束后再来。");
           fb.className = "guess-feedback pv " + cls;
           ta.readOnly = true;
           cancel.textContent = "知道了";
-          R.toast(lead + " · 判定只有你可见");
+          R.toast(leadTxt + " · 判定只有你可见");
           return;
         }
         /* 兜底：服务端还是旧版（没有 private 标记）时维持原行为 */
@@ -1400,16 +1442,16 @@
     var s = R.snap || {};
     var log = s.myGuessLog || [];
     var LV = {
-      solved: ["🟢 说破了", "yes"],
-      close: ["🟡 部分正确", "partial"],
-      vague: ["🟡 方向模糊", "partial"],
-      "no": ["🔴 完全错误", "no"]
+      solved: ["说破了", "G", "yes"],
+      close: ["部分正确", "Y", "partial"],
+      vague: ["方向模糊", "Y", "partial"],
+      "no": ["完全错误", "R", "no"]
     };
     var host = document.createElement("div");
     host.className = "modal-wrap";
     host.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="mgn-title">' +
-      '<h3 id="mgn-title">📓 我的猜底手账</h3>' +
+      '<h3 id="mgn-title">' + ic("notebook") + " 我的猜底手账</h3>" +
       '<p class="modal-sub">这里每一条都只有你看得见：别人既不知道你何时猜、猜了什么，也看不到汤主的判定。</p>' +
       '<div class="room-qa-sheet" id="mgn-body"></div>' +
       '<div class="modal-actions">' +
@@ -1420,10 +1462,10 @@
     var body = host.querySelector("#mgn-body");
     body.innerHTML = log.length
       ? log.slice().reverse().map(function (x) {
-        var v = LV[x.level] || ["⚪ 未判定", ""];
+        var v = LV[x.level] || ["未判定", "W", ""];
         return '<div class="qa-item guess ' + esc(x.level || "") + '">' +
           '<div class="qa-q"><span class="qa-k">我的推理</span>' + esc(x.text) + "</div>" +
-          '<div class="qa-a"><span class="qa-k verdict ' + esc(v[1]) + '">' + esc(v[0]) + "</span>" + esc(qaStrip("", x.reply)) + "</div>" +
+          '<div class="qa-a"><span class="qa-k verdict ' + esc(v[2]) + '">' + ic("dot" + v[1], "dot-" + v[1].toLowerCase()) + esc(v[0]) + "</span>" + esc(qaStrip("", x.reply)) + "</div>" +
           "</div>";
       }).join("")
       : '<p class="empty">还没猜过。放心猜——这一页只属于你。</p>';
@@ -1578,7 +1620,7 @@
         var solv = !!(SA && SA.isSolved && SA.isSolved(p.id));
         return '<button type="button" class="pz-card' + (solv ? " solved" : "") + '" data-id="' + esc(p.id) + '">' +
           '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
-          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? "✓" : "") + "</span>" +
+          'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? ic("check") : "") + "</span>" +
           '<div class="pz-title">' + name + "</div>" +
           '<div class="pz-surface">' + surf + "</div>" +
           '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div>" +
@@ -1595,7 +1637,7 @@
           var id = ck.getAttribute("data-check");
           var on = SA2.toggleSolved(id);
           ck.classList.toggle("on", on);
-          ck.textContent = on ? "✓" : "";
+          ck.innerHTML = on ? ic("check") : "";
           ck.setAttribute("aria-checked", on ? "true" : "false");
           var card = ck.closest ? ck.closest(".pz-card") : null;
           if (card) card.classList.toggle("solved", on);
@@ -1737,7 +1779,7 @@
     host.className = "modal-wrap";
     host.innerHTML =
       '<div class="modal" role="dialog" aria-modal="true">' +
-      '<h3>🏳️ 放弃这一锅？</h3>' +
+      '<h3>' + ic("flag") + " 放弃这一锅？</h3>" +
       '<p class="modal-sub">被卡住了不丢人。放弃后直接揭开本锅汤底，这锅就算过去了。</p>' +
       '<div class="modal-actions">' +
       '<button type="button" class="btn ghost" id="gs-no">再想想</button>' +
@@ -1759,7 +1801,7 @@
       rv.innerHTML =
         '<div class="modal" role="dialog" aria-modal="true">' +
         "<h3>汤底揭晓</h3>" +
-        '<p class="end-note">🏳️ 你选择了放弃，直接上汤底。</p>' +
+        '<p class="end-note">' + ic("flag") + " 你选择了放弃，直接上汤底。</p>" +
         '<div class="truth-box"><p style="margin:0">' + esc(truth || "这一锅没有汤底。") + "</p></div>" +
         '<div class="modal-actions"><button type="button" class="btn ghost" id="gs-close">知道了</button></div></div>';
       document.body.appendChild(rv);
@@ -1781,7 +1823,7 @@
     host.className = "modal-wrap";
     host.innerHTML =
       '<div class="modal modal-unlock" role="dialog" aria-modal="true" aria-labelledby="unlock-title">' +
-      '<h3 id="unlock-title" class="unlock-head">🔑 密码看汤底（权区）</h3>' +
+      '<h3 id="unlock-title" class="unlock-head">' + ic("key") + " 密码看汤底（权区）</h3>" +
       '<p class="modal-sub unlock-sub">此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！</p>' +
       '<input id="unlock-code" class="input" type="password" inputmode="numeric" maxlength="12" placeholder="输入密码" autocomplete="off" />' +
       '<p class="guess-feedback" id="unlock-fb"></p>' +
@@ -1865,7 +1907,7 @@
 
   function giveupGo() {
     act("giveup", {}).then(function (r) {
-      R.toast("🏳️ 已发起「放弃看汤底」投票，全房 60 秒内表态");
+      R.toast("已发起「放弃看汤底」投票，全房 60 秒内表态");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
       startWatch();
     }).catch(function (e) {
@@ -1878,7 +1920,7 @@
 
   function castVote(yes) {
     act("vote", { agree: !!yes, yes: !!yes }).then(function (r) {
-      if (r && r.passed) R.toast("🏳️ 放弃投票通过，上汤底！");
+      if (r && r.passed) R.toast("放弃投票通过，上汤底！");
       else if (r && r.passed === false) R.toast("放弃被否决，继续熬");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
       startWatch();
@@ -1914,8 +1956,8 @@
         '<div class="vc-title" id="vc-title"></div>' +
         '<div class="vc-sub" id="vc-sub"></div>' +
         '<div class="vc-actions">' +
-        '<button type="button" class="btn vc-yes" id="vc-agree">👍 同意</button>' +
-        '<button type="button" class="btn vc-no" id="vc-reject">👎 拒绝</button>' +
+        '<button type="button" class="btn vc-yes" id="vc-agree">' + ic("thumbUp") + " 同意</button>" +
+        '<button type="button" class="btn vc-no" id="vc-reject">' + ic("thumbDown") + ' 拒绝</button>' +
         "</div>";
       document.body.appendChild(card);
       card.querySelector("#vc-agree").addEventListener("click", function () { castVote(true); });
@@ -1923,7 +1965,7 @@
     }
     card.classList.remove("hidden");
     var t = $("#vc-title", card);
-    if (t) t.textContent = "🏳️ " + (v.byNick || "有玩家") + " 想放弃本锅，直接看汤底";
+    if (t) t.innerHTML = ic("flag") + " " + esc(v.byNick || "有玩家") + " 想放弃本锅，直接看汤底";
     var left = Math.max(0, Math.ceil((v.until - Date.now()) / 1000));
     var sub = $("#vc-sub", card);
     if (sub) sub.textContent = voteSubText(v, left);
