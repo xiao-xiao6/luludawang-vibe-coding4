@@ -1,0 +1,1840 @@
+{
+ "items": [
+  {
+   "id": 1,
+   "title": "A match",
+   "surface": "A naked man is lying dead in the middle of a desert with a match in his hand. What happened? \n\n A man is found dead in a desert. He is naked, and lots of clothes are scattered around him, among other things. There is a match in his hand. How did he die?",
+   "truth": "He was with several others in a hot air balloon crossing the desert. The balloon was punctured and they began to lose altitude. They tossed all their non-essentials overboard, then their clothing and food, but were still going to crash in the middle of the desert. Finally, they drew matches to see who would jump over the side and save the others; this man lost.",
+   "url": "https://yesnogame.net/en/stories/1",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 3,
+   "title": "The last taxi",
+   "surface": "Oscar was sitting reading his newspaper, when he heard a noise. When he realized what had happened, he bitterly regretted not having caught the taxi in time. Shortly afterwards, he committed suicide.",
+   "truth": "Oscar was broke. He was a miniature car models collector and, to solve his economic problems, he was going to sell his most valuable car. He had been cleaning it and did not put it down on the table properly when he finished. When he sat down and began to read his newspaper, he heard how it fell off the table. He could not catch it in time before it crashed into the floor.",
+   "url": "https://yesnogame.net/en/stories/3",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 4,
+   "title": "An open door",
+   "surface": "When Martin woke up that morning, he was surprised to see the door open. As soon as he crossed the threshold he got beheaded.",
+   "truth": "Martin was a canary that had been living in his cage for four months. Silvester - a cat - was waiting for his opportumity to catch Martin and eat him. When their owner left the cage door open by mistake Martin flew out of it and Silvester bit off his small head.",
+   "url": "https://yesnogame.net/en/stories/4",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 5,
+   "title": "The accident",
+   "surface": "A car driver causes an accident when he crashes into a bike, as he was making an unexpected turn at a crossroad. When the policemen arrive, another man gets arrested. The one who was driving is carried home.",
+   "truth": "The driver was receiving driving lessons and his instructor told him to make an incorrect turn at a crossroad, crashing into a bike. The policemen considered the driving instructor to be responsible for the accident so they arrested him and took the learner home.",
+   "url": "https://yesnogame.net/en/stories/5",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 8,
+   "title": "The blackout",
+   "surface": "A woman - at work - is going downstairs, when suddenly there is a blackout. In that very moment she realizes that her husband is about to die.",
+   "truth": "The woman worked as an electrician at a hospital and she knew that the emergency generators were broken. He husband had had a car crash and he was at that hospital, connected to a machine that kept him alive. When the blackout happened she knew that her husband couldn't be breathing by himself and therefore that he was dying.",
+   "url": "https://yesnogame.net/en/stories/8",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 9,
+   "title": "Not now...!",
+   "surface": "A woman is at home, sad, and watching the street through her window. Soon after she jumps out of it. Just in that precise moment, she hears the telephone ringing and regrets jumping.",
+   "truth": "After a nuclear catastrophe, the woman thought that she was the only person alive and decided to put an end to her life. When the telephone rang she realized that she was not alone. But it was too late for her.",
+   "url": "https://yesnogame.net/en/stories/9",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 10,
+   "title": "Witness to a kidnapping",
+   "surface": "A businessman witnesses a kidnapping. However, when he tells the police, they do not believe him.",
+   "truth": "After leaving the dentist, the witness was unable to speak properly, since he had numb mouth. The policemen thought that the man was drunk and did not believe a word he said.",
+   "url": "https://yesnogame.net/en/stories/10",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 11,
+   "title": "An unsolved robbery",
+   "surface": "A guy goes into a drugstore and leaves shortly after with the money from the cash register. The drugstore owner calls the Police Station and, some time later, a police officer recovers the money and takes the guy away. That evening the three people go to the police station to report a theft.",
+   "truth": "The guy was the drugstore owner's son. His car had been stolen and he had an important exam. He had been to the drugstore to ask his mother for some money so he could take a taxi. In addition to this, the mother called her husband - who was a police officer - and asked him to bring their son to the exam. He did, and since the son did not need the money any more, he gave it back to his father, who returned it to the mother. At the end of the day, the whole family reported the car theft.",
+   "url": "https://yesnogame.net/en/stories/11",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 12,
+   "title": "Another two bite the dust",
+   "surface": "Two men are beating each other up and both of them suddenly fall to the floor.",
+   "truth": "The daughter of one of the boxers had been kidnapped and she would be killed if her father won the fight. At the end of the fight, the boxer's opponent fainted and the other boxer - in order not to win the match - threw himself to the floor.",
+   "url": "https://yesnogame.net/en/stories/12",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 13,
+   "title": "Death under an umbrella",
+   "surface": "A couple find a man's corpse on the beach. The corpse is under an umbrella and has a knife on his back. There are no signs of violence and no traces of blood. The autopsy reveals that the man died of natural causes.",
+   "truth": "The man, who had a tattoo of a knife on his back, died of a heart attack.",
+   "url": "https://yesnogame.net/en/stories/13",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 14,
+   "title": "Time to sleep",
+   "surface": "A woman is watching a movie. Suddenly she hears a lot of explosions and people screaming outside. Then there is silence. The woman turns off the TV and goes to sleep.",
+   "truth": "It was New Year's Eve. The woman waited until everyone had finished celebrating and then went to bed.",
+   "url": "https://yesnogame.net/en/stories/14",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 15,
+   "title": "Prison break",
+   "surface": "Michael is in prison. One day, he has luch, goes to prison courtyard for a while and finally visits the library. At dusk, out of the reach of the security cameras, he changes his clothes. He then goes through the door to leave the prison, without being caught.",
+   "truth": "Michael worked as a guard in the prison.",
+   "url": "https://yesnogame.net/en/stories/15",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 16,
+   "title": "Restless sleep",
+   "surface": "Paul comes home tired. He goes to his room and turns off the light to sleep. After a while, feeling uneasy, he turns on the light and looks around. He turns the light back off and tries to sleep again. After repeating this several times, he takes a look under his bed and finds a dead body.",
+   "truth": "A thief was stealing from Paul's home. When Paul arrived home, the thief hid under the bed. The tension became too much and the thief suffered a sudden heart attack Paul was unable to sleep due to the ticking of the thief's wristwatch.",
+   "url": "https://yesnogame.net/en/stories/16",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 17,
+   "title": "Doctor, doctor",
+   "surface": "A man goes to the doctor to get the results of some previous tests. The results do not show up any health issues. However, he commits suicide shortly after the visit.",
+   "truth": "The patient knew that his wife was cheating on him, but he only knew the lover's name. His wife swore to him that this lover did not exist. However when the man left the doctor's, he saw the lover's name on the report. He realized his wife was cheating on him with the doctor and could not cope with it.",
+   "url": "https://yesnogame.net/en/stories/17",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 19,
+   "title": "Splish, splash!",
+   "surface": "Tim is sailing his boat when his watch falls overboard. He is a great diver. However, he does not manage to retrieve the watch.",
+   "truth": "Tim was sailing on the Dead Sea. Due to the high salt concentration, he couldn't dive deep enough to get his watch back.",
+   "url": "https://yesnogame.net/en/stories/19",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 21,
+   "title": "The albatross",
+   "surface": "A man goes into a restaurant, orders albatross, eats one bite, and kills himself. Why?",
+   "truth": "The man was in a ship that was wrecked on a desert island. When there was no food left, another passenger brought what he said was albatross but was really part of the man's wife (who had died in the wreck). The man suspects something fishy, so when they finally return to civilization, he orders albatross , realizes that what he ate before was his wife, and kills himself. \n\n (there is also a version of the riddle with an abalone instead of an albatross)",
+   "url": "https://yesnogame.net/en/stories/21",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 22,
+   "title": "The smile",
+   "surface": "Eugene was watching his relatives and friends being killed, but he couldn’t wipe the smile\n\noff his face.",
+   "truth": "Eugene worked as a clown in a circus. Once, animals escaped from\n\ntheir enclosures during a performance, and everyone broke into a run. People\n\nand members of his family were dying in the stampede. But he couldn’t wipe the\n\nsmile off his face because of the clown makeup.",
+   "url": "https://yesnogame.net/en/stories/22",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 24,
+   "title": "Caught up",
+   "surface": "Tony ran out of the building, carrying two bags. Another man ran after him, shouting and waving knives.",
+   "truth": "Tony was shopping in the store, he spent a lot of money, so the shop workers decided to give him a gift: a set of kitchen knives. Tony was in a hurry so he ran to his car, forgetting about it. The worker noticed this and ran after Tony to give him the gift.",
+   "url": "https://yesnogame.net/en/stories/24",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 25,
+   "title": "Sacred death",
+   "surface": "When the priest stopped talking, Bobby died.",
+   "truth": "Bobby was a little hamster who had come to the church along with Tom, his 9-year-old owner. When the priest was speaking in front of the believers, the little hamster escaped from the child's lap and went to the altar. When the priest finished speaking and headed towards his chair, he did not see Bobby and crushed him with his foot.",
+   "url": "https://yesnogame.net/en/stories/25",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 27,
+   "title": "That trip",
+   "surface": "A man comes breathless out of a house, closes the door and goes quickly down stairs. Then he walks two blocks to get to another house, enters and breathes relieved.",
+   "truth": "The man had just moved. He arrived to his new home with the last boxes and he breathed a sigh of relief because he had finished.",
+   "url": "https://yesnogame.net/en/stories/27",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 28,
+   "title": "The Flat Tire",
+   "surface": "The man was going to go to work by car, but found that one of the tires was flat. Without doing anything, he got into the car and drove 20 kilometers to work and then back home, without the slightest embarrassment. How could he manage it?",
+   "truth": "The tire was flat on the spare wheel, which was in the trunk.",
+   "url": "https://yesnogame.net/en/stories/28",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 30,
+   "title": "More cats",
+   "surface": "A woman went on vacation and asked a friend to look after her cat. A week later, 8 cats were running around the apartment!",
+   "truth": "The next day this cat ran away, and the friend had to start looking for it. Since he did not know the cat very well, he had to keep all the similar cats that he had seen and wait for the friend who was supposed to identify the right pet.",
+   "url": "https://yesnogame.net/en/stories/30",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 31,
+   "title": "Rich couple",
+   "surface": "A man and a woman got married. After the wedding they abandoned all their activities, that were bringing them money, and only had fun. As a result, in three years they became millionaires.",
+   "truth": "Before the wedding, they were billionaires. Therefore during these three years they spent a lot of money and as a result became millionaires.",
+   "url": "https://yesnogame.net/en/stories/31",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 38,
+   "title": "The Hanged Man",
+   "surface": "John was walking along the snow-covered field. When he came to a lonely tree, he saw the corpse of a man hanging on the tree. He died the last night from strangulation, but there were no traces around him, except John's ones.",
+   "truth": "The hanged man was a skydiver. His parachute was entangled and caught on branches of the tree.",
+   "url": "https://yesnogame.net/en/stories/38",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 42,
+   "title": "The Train",
+   "surface": "The man was walking along the rails and suddenly he saw a train coming towards him. Then he ran like hell to meet the approaching train.",
+   "truth": "The man was in a tunnel and, in order to save his own life, he had to run along the rails to meet the train. When the tunnel was over, he was able to jump off the rails. And thanks to that, he remained alive.",
+   "url": "https://yesnogame.net/en/stories/42",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 43,
+   "title": "The Chase",
+   "surface": "A man is running, a crowd is running after him. The man is screaming to the crowd:\"You will never see the gold!\" and he starts shooting. People who observe all that are exulting.",
+   "truth": "It was the biathlon.",
+   "url": "https://yesnogame.net/en/stories/43",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 44,
+   "title": "Betrayal",
+   "surface": "A man returns from a business trip, he rings a door, his wife opens it. He immediately accused her of betrayal.",
+   "truth": "On the way back home, this man decided to visit his friend. And the door was opened by his own half-dressed wife.",
+   "url": "https://yesnogame.net/en/stories/44",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 47,
+   "title": "Fatal shot",
+   "surface": "A hunter aimed his gun carefully and fired. Seconds later, he realized his mistake. Minutes later, he was dead.",
+   "truth": "He hunted in snow-capped mountains. The shot provoked an avalanche, which covered the man. He died of strangulation.",
+   "url": "https://yesnogame.net/en/stories/47",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 49,
+   "title": "High price",
+   "surface": "Andrew decided to spend the evening with his family. He bought tickets for the whole family, but his ticket cost him his life.",
+   "truth": "Andrew took his family to the zoo. He found the tickets too expensive. So, he decided not to buy a ticket for himself. He climbed over the wall but got into a cage with a lion. When he realized what happened, it was too late.",
+   "url": "https://yesnogame.net/en/stories/49",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 90,
+   "title": "Bait",
+   "surface": "In the middle of the ocean is a yacht. Several corpses are floating in the water nearby.",
+   "truth": "A group of people were on an ocean voyage in a yacht. One day, they decided to go swimming — they put on their swimsuits and dove off the side. They discovered belatedly that they have forgotten to put a ladder down the side of the yacht and were unable to climb back in, so they drowned. \n\n Alternate Solution (choose one): \n\n The same situation, but they set out a ladder that was just barely long enough. When they dove into the water, the boat, without their weight, rose slightly in the water, putting the ladder just out of reach.",
+   "url": "https://yesnogame.net/en/stories/90",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 92,
+   "title": "Dry",
+   "surface": "A man dies of thirst at home. How could it happen?",
+   "truth": "The man’s home was a yacht, in which he was travelling around the world. While sailing in the ocean, he ran out of fresh water much faster than he expected.",
+   "url": "https://yesnogame.net/en/stories/92",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 95,
+   "title": "The Flayer",
+   "surface": "The man received the parcel in which he found a dead mouse. He reported this to the police, and the sender of this parcel was found guilty of fraud.",
+   "truth": "The sender was supposed to send the jewels to this man. He hoped that the mouse would gnaw a hole in the box and run away, and nobody could blame on him for the loss.",
+   "url": "https://yesnogame.net/en/stories/95",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 96,
+   "title": "The Grand Master",
+   "surface": "Following criminals’ trail, a police inspector entered a chess club. Assessing the situation, he told his assistants, “Detain those two!” \n\nHow did he guess?",
+   "truth": "One of the “chess players” had no kings on the board.",
+   "url": "https://yesnogame.net/en/stories/96",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 97,
+   "title": "Private space",
+   "surface": "The Venezuelan police made a few attempts to arrest a well-known bandit. They knew where he lived. From time to time they got the arrest warrant and approached his house. When they entered the house, he locked in the bedroom. The police had nothing to do but to leave empty-handed.",
+   "truth": "His house was on the border between Venezuela and Colombia. Although the front door and half of the house were on the territory of Venezuela, the bedroom was located on the territory of Colombia. The Venezuelan police had no jurisdiction in Colombia, so the police couldn't arrest him while he was in the bedroom.",
+   "url": "https://yesnogame.net/en/stories/97",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 99,
+   "title": "Hit his little finger",
+   "surface": "A person called the police and told them to ask about John K. Upon arrival at John’s house, the police found him dead. Examining the corpse, the police discovered severe injuries. But the apartment was in perfect order, without any signs of a struggle or break-in.",
+   "truth": "A driver hit a passerby at night, found his address in the documents, discovered that he lived alone, and took him home.",
+   "url": "https://yesnogame.net/en/stories/99",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 106,
+   "title": "The Locked Room",
+   "surface": "A man is found dead in a puddle of blood and water on the floor of an otherwise empty\n\nlocked room with no windows. How could this happen?",
+   "truth": "He stabbed himself with an icicle.",
+   "url": "https://yesnogame.net/en/stories/106",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 125,
+   "title": "Piece of Paper on the Cactus",
+   "surface": "A man walks up to a cactus, looks at a piece of paper pinned there, and kills himself.",
+   "truth": "The man has been wandering lost in the desert. He fears he has been walking in circles. To test this, he pins a blank piece of paper to a cactus and sets off walking. When he encounters the paper again, his fears are confirmed and he knows he will never find his way out.",
+   "url": "https://yesnogame.net/en/stories/125",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 126,
+   "title": "A woman shoe",
+   "surface": "Before going to bed, the woman hides her shoe in the safe. What for?",
+   "truth": "This woman works as a stewardess on an airplane. In the hotel before going to bed she puts her documents in the safe, and to not forget them in the morning, she puts one of her shoes along with the documents.",
+   "url": "https://yesnogame.net/en/stories/126",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 127,
+   "title": "Healthy arm",
+   "surface": "Why did a healthy young girl put a gypsum on her arm, which was not damaged?",
+   "truth": "A young girl put a gypsum on the healthy arm before an oral french exam. She thought that the examiner would ask about her arm. And she came to the exam, having prepared for this particular question.",
+   "url": "https://yesnogame.net/en/stories/127",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 129,
+   "title": "Private conversation",
+   "surface": "The woman is speaking something and she is upset. Nobody can understand her but a man is filming her on camera. Why? And what is happening?",
+   "truth": "It happened for real. English linguist Dr. David Dalby filmed an 87-year-old African woman who spoke Bikya as her native tongue (and Bikya is probably best known for this particular work).\n\nBy the way, it was thought that she was the last speaker, but Kiessling (2007) reports that Bikya has the largest number of remaining speakers of the Furu languages.",
+   "url": "https://yesnogame.net/en/stories/129",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 130,
+   "title": "Off With Their Beards!",
+   "surface": "Why Alexander the Great told his army to shave off their beards?",
+   "truth": "When the commander Parmenio asked the reason, according to the ancient historian Plutarch, Alexander replied, “Don’t you know that in battles there is nothing handier to grasp than a beard?” \n\n ---\n\nBut there is ample cause to doubt Plutarch’s explanation. Stories of beard-pulling in battles were myth rather than history. Plutarch and later historians misunderstood the order because they neglected the most relevant fact, namely that Alexander had dared to do what no self-respecting Greek leader had ever done before: shave his face, likening himself to the demigod Heracles, rendered in painting and sculpture in the immortal splendor of youthful, beardless nudity. Alexander wished above all, as he told his generals before the battle, that each man would see himself as a crucial part of the mission. They would certainly see this more clearly if each of them looked more like their heroic commander.",
+   "url": "https://yesnogame.net/en/stories/130",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 131,
+   "title": "Suffering",
+   "surface": "When kids were watching TV, they were not frigthened so much. But when they saw others suffering, they realized that something was not right.",
+   "truth": "It was an experiment when kids were giving blood. It showed that the kids were feeling better during this process if they were watching TV rather than if they were supported by their parents.",
+   "url": "https://yesnogame.net/en/stories/131",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 132,
+   "title": "Want to print some cash?",
+   "surface": "A man designed a device into which you can insert colored paper, and then get the ideal 100$. Experts can not distinguish them from the real ones. How does he do that, and why does he sell this device?",
+   "truth": "The man sells this device to the thief, convincing him that it prints counterfeit dollars that are indistinguishable from the real ones. He demonstrates the machine by inserting green paper into it. But green paper - this is actually real 100$, but richly painted in green. The machine simply removes green paint from them.",
+   "url": "https://yesnogame.net/en/stories/132",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 133,
+   "title": "Colorblind",
+   "surface": "He died because he mixed up the colors.",
+   "truth": "In Thailand if some snake bites you, doctor has to identify the snake's species in order to choose the right antidote. The tourist usually can not identify it, so doctor asks him/her what color the snake was, and using this information specialist defines snake's species. The man was colorblind, therefore he received a wrong antidote.",
+   "url": "https://yesnogame.net/en/stories/133",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 134,
+   "title": "A murderer",
+   "surface": "Michael applaused, and everyone in the room (except him) died. What happened?",
+   "truth": "Michael was killing mosquitoes.",
+   "url": "https://yesnogame.net/en/stories/134",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 135,
+   "title": "Chicken gun",
+   "surface": "In the 1950s in America there was invented a chicken gun. What for?",
+   "truth": "A chicken gun is a large-diameter, compressed-air cannon used to fire dead chickens at aircraft components in order to simulate high-speed bird strikes during the aircraft's flight. Jet engines and aircraft windshields are particularly vulnerable to damage from such strikes, and are the most common target in such tests. Whole, dead, standard-size chickens, as would be used for cooking, are thought to accurately simulate a large, live bird striking a plane in flight.",
+   "url": "https://yesnogame.net/en/stories/135",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 136,
+   "title": "Pear inside a bottle",
+   "surface": "How do you get a full-grown pear inside a bottle of brandy?",
+   "truth": "It may be easier than putting a ship in a bottle but requires just as much patience. The pear isn’t put into the bottle; it grows inside it. When the fruit is small, the bottle is affixed to the tree branch, and the pear grows to maturity inside the bottle.",
+   "url": "https://yesnogame.net/en/stories/136",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 137,
+   "title": "The village idiot",
+   "surface": "Visitors to a scenic mountain village were often amused by the village idiot. When offered a choice between a shiny 50-cent piece and a crumpled $5 bill, he would always happily choose the half-dollar. The bill was worth ten times as much, so why did he never choose it?",
+   "truth": "The so-called village idiot was smart enough to realize that as long as he kept choosing a 50-cent piece, people would keep offering him the choice. If he took the $5 bill once, the stream of coins would stop rolling in.",
+   "url": "https://yesnogame.net/en/stories/137",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 138,
+   "title": "Burning Island",
+   "surface": "A man is stranded on an island covered in forest. One day, when the wind is blowing from the west, lightning strikes the west end of the island and sets fire to the forest. The fire is very violent, burning everything in its path, and without intervention the fire will burn the whole island, killing the man in the process. There are cliffs around the island, so he cannot jump off.\n\nHow can the man survive the fire? (There are no buckets or any other means to put out the fire)",
+   "truth": "The man picks up a piece of wood and lights it from the fire on the west end of the island. He then quickly carries it near the east end of he island and starts a new fire. The wind will cause that fire to burn out the eastern end and he can then shelter in the burnt area.",
+   "url": "https://yesnogame.net/en/stories/138",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 139,
+   "title": "Ransom in the call-box",
+   "surface": "The son of a rich man was kidnapped. The kidnapper wanted the rich man to bring and put the expensive diamond into the call-box located in a city park. Policemen surrounded this park, intending to catch the criminal. The father of the kidnapped child came to the call-box and did everything the kidnapper said to him, but the police could not prevent the cunning criminal from taking the diamond out of the call-box. They didn't grab the villian as well. What did he do?",
+   "truth": "This is a real history that happened in Taiwan. When the father came to the call-box, he found a postal pigeon in the cage. There was a note attached to him, in which it was said that the diamond should be put into a small pouch attached to the neck of the pigeon, and then he should let the pigeon out of the cage. When the rich man did this, the dove flew through the city to its dovecote, and the police could not follow it.",
+   "url": "https://yesnogame.net/en/stories/139",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 140,
+   "title": "Similar devices",
+   "surface": "Two devices are commonly used by people. They are created for the same purpose. But one of them has lots of details and another does not has any. What are these things?",
+   "truth": "One of these devices is hourglass. Another one is sundial. \n\n Little hint for players: both devices are invented long time ago.",
+   "url": "https://yesnogame.net/en/stories/140",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 141,
+   "title": "First in the class",
+   "surface": "A man, who was examining some school, noticed that any time a teacher was asking a question, lots of pupils were ready to answer. Moreover, every time the teacher was choosing another person and the answer was always right.",
+   "truth": "The teacher told pupils to raise up their hands no matter what question would be asked. But if they khew the answer, they should raise the right hand, otherwise - the left one. Therefore the teacher could choose among the pupils who knew the answer.",
+   "url": "https://yesnogame.net/en/stories/141",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 142,
+   "title": "How to outplay Nick Faldo?",
+   "surface": "One person decided to play golf with Nick Faldo, imposing one condition - he will choose the time and the place for a match. Nick agreed. As a result this person beat the champion.",
+   "truth": "This person was blind and he chose to play this match at moonless night. He could play golf perfectly well in dark. (It is true, blind people can play golf with the help of not blind people). Such conditions were unusual for Nick so he lost.",
+   "url": "https://yesnogame.net/en/stories/142",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 143,
+   "title": "Seat belts",
+   "surface": "In some city an amount of people injured in car accidents was very high. Then it was decided by administration to make the using of seat belts oblidatory. People started to obey this rule. But the amount of crash accidents remained the same. Moreover, the number of injured people who addressed to the hospital even increased.",
+   "truth": "The adopted law decreased the number of accidents. A lot of people who would die without seat belt stayed alive but got injured and therefore they went to the hospital. So the number of patients increased.",
+   "url": "https://yesnogame.net/en/stories/143",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 144,
+   "title": "Healthy people",
+   "surface": "A hospital director recently confirmed that many that many of people admitted to his hospital were not ill at all. They were perfectly healthy, yet were given hospital care and treatment.",
+   "truth": "The hospital was a maternity hospital and all those admitted were pregnant women.",
+   "url": "https://yesnogame.net/en/stories/144",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 145,
+   "title": "Greenland",
+   "surface": "Over 80 percent of Greenland is covered in ice. But why then it was called Greenland (a green land)?",
+   "truth": "The name Greenland comes from Scandinavian settlers. In the Norse sagas, it is said that Erik the Red was exiled from Iceland for murder. He set out in ships to find land rumoured to be to the northwest. After settling there, he named the land Grfnland (Greenland) to attract more people to settle there.",
+   "url": "https://yesnogame.net/en/stories/145",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 146,
+   "title": "Don't open The Door",
+   "surface": "A little girl was warned by her parents never to open the cellar door. If she did, she would see things that they did not want her to see. One day, while her parents were out, they accidentally left the cellar door unlocked. The girl opened the cellar door. What did she see?",
+   "truth": "When the girl opened the cellar door she saw the living room and a beautiful garden through its windows. She had never seen these before because her parents had kept her in the cellar all her life.",
+   "url": "https://yesnogame.net/en/stories/146",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 147,
+   "title": "Died of fright",
+   "surface": "A man woke up, lit a match and saw something that frightened him to death.",
+   "truth": "This man was a prisoner. He wanted to escape and asked the mortician to do something for him. When somebody in prison would die, the prisoner would hide in the coffin and would be buried along with the corpse outside the territory of prison. And after some time he would be released by this mortician. \n\n But something went wrong. When the prisoner opened his eyes after the burial and lit a match, he saw the face of the mortician. He understood that he is doomed and died of fright.",
+   "url": "https://yesnogame.net/en/stories/147",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 148,
+   "title": "The punch",
+   "surface": "A man went into a party and drank some of the punch. He then left early. Everyone at the party who drunk the punch subsequently died of poisoning. Why did the man not die?",
+   "truth": "The poison from the punch came from the ice cubes. When the man drank the punch, the ice was fully frozen. Gradually, as the ice cubes melted the poison was released into the punch.",
+   "url": "https://yesnogame.net/en/stories/148",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 149,
+   "title": "A stranger in the car",
+   "surface": "A married couple was speeding into town when their sedan ran out of gas. The man went for help after making sure his wife closed the windows and locked the doors of the car. Upon his return, he found his wife dead and a stranger in the car. The windows were still closed, the doors were still locked, and no damage was done to the car.",
+   "truth": "The woman gave birth, and bled to death. Since the father has never seen the baby before, the kid can technically be called a stranger.",
+   "url": "https://yesnogame.net/en/stories/149",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 150,
+   "title": "Rivalry",
+   "surface": "At the end of the XIX century one american enterpreneur invented a system to withstand competition. This system we all use nowadays.",
+   "truth": "This american enterpreneur was Almon Brown Strowger. Strowger patented his automatic telephone exchange and left the undertaking business to mass-produce his new invention. \n\n Anecdotally, Strowger's undertaking business was losing clients to a competitor whose telephone-operator wife was redirecting everyone who called for Strowger. Motivated to remove the intermediary operator, he invented the first automatic telephone exchange in 1889 and received its patent in 1891.It is reported that he initially constructed a model of his invention from a round collar box and some straight pins.",
+   "url": "https://yesnogame.net/en/stories/150",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 151,
+   "title": "Jumping from a 6th floor",
+   "surface": "A woman jumps from a windowshell, on a 6th floor. However, she is not injured in any way.",
+   "truth": "The woman was about to commit suicide but she changed her mind in the last minute and decided to jump back into her apartment.",
+   "url": "https://yesnogame.net/en/stories/151",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 152,
+   "title": "A premature death",
+   "surface": "A man who was expecting to die in a few days dies sooner than he thought.",
+   "truth": "The man was really sick and he decided to donate his organs to a rich man. Since this rich man's son wanted to inherit his farther's fortune he poisoned the donor so that his organs became unable to work again in his father's body.",
+   "url": "https://yesnogame.net/en/stories/152",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 153,
+   "title": "There's light",
+   "surface": "Roger sees the light and he becomes paralyzed. Soon after that he dies.",
+   "truth": "Roger was a rabbit that escaped from the house where he lived. He was crossing the road at night when the lights of a car blinded him. The driver did not see him and ran him over.",
+   "url": "https://yesnogame.net/en/stories/153",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 154,
+   "title": "A lethal dinner",
+   "surface": "A woman is planning to kill her husband during dinner. However, she commits suicide while preparing it.",
+   "truth": "She was planning to kill him by poisoning the food with some pills that she had in her bag. When she went to grab them, she noticed that they were not there, and that her son had swallowed them, thinking they were sweets. She couldn't bear it and took her own life.",
+   "url": "https://yesnogame.net/en/stories/154",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 155,
+   "title": "What an incredible sight!",
+   "surface": "A woman is looking through the window and sees a man with a knife. However, she does not have enough time to call the police before being murdered.",
+   "truth": "What the woman really saw was the reflection of the murderer, who was already inside her house, behind her.",
+   "url": "https://yesnogame.net/en/stories/155",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 156,
+   "title": "Cry, baby, cry",
+   "surface": "Cindy is amongst a crowd of people when she is murdered. However, nobody notices her cries.",
+   "truth": "Cindy was in a movie theater, watching a horror movie. A very scary scene started. While everybody was screaming the murderer - who was behind her - was killing her.",
+   "url": "https://yesnogame.net/en/stories/156",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 157,
+   "title": "Sweet dreams",
+   "surface": "Matthew keeps reading a bedtime story to his son despite the blackout.",
+   "truth": "Matthew was blind and he usually read bedtime stories to his son from a braille book. That night there was a blackout, but this did not stop him from finishing the story.",
+   "url": "https://yesnogame.net/en/stories/157",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 158,
+   "title": "Gone with the wind",
+   "surface": "If the wind hadn't blown so strongly that night, Angela would still be alive.",
+   "truth": "As it was windy, Angela decided to go to a field to fly her kite. At twilight, she could not see the nearby transmission tower. When her kite got tangled in the cables and she tried to untangle them, she was electrocuted.",
+   "url": "https://yesnogame.net/en/stories/158",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 159,
+   "title": "Salt",
+   "surface": "The cadets became the cause of a mass buying up of salt in the whole city.",
+   "truth": "Cadets were supposed to shovel the snow. But they were lazy so they strew the ground with salt. They bought lots of salt to perfrom it. When old people saw military men buying lots of salt, they thought there'll be a war soon and began to wreak havoc and buy up salt.",
+   "url": "https://yesnogame.net/en/stories/159",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 160,
+   "title": "Jump",
+   "surface": "A man jumped out of plane. And he survived.",
+   "truth": "The plane wasn't flying.",
+   "url": "https://yesnogame.net/en/stories/160",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 161,
+   "title": "An uncommon man",
+   "surface": "A man lives on the 10th floor of a building. Every morning he takes the elevator to the ground floor to go to work. Upon returning from work he goes up always to floor 7th in the elevator. Then he goes upstairs the 3 remaining floors.",
+   "truth": "The man is very short so he has no problem to press the button on the ground floor but he does not reach the 10th floor button. The maximum he reaches is up to the 7th floor button.",
+   "url": "https://yesnogame.net/en/stories/161",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 162,
+   "title": "Taxi",
+   "surface": "A woman asks a driver to take her home. The whole way she talks, too much. The taxist tells her: \"I'm sorry but I am deaf.\" The woman falls silent. But when she goes out of the taxi, she understands that the driver isn't deaf.",
+   "truth": "The taxist have heard and understood where her house was.",
+   "url": "https://yesnogame.net/en/stories/162",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 163,
+   "title": "Hearing aid",
+   "surface": "A man was furious, when he realized that he can hear better without hearing aid that he was using the last 20 years. He went to his doctor to complain but the specialist became even more furious than him.",
+   "truth": "The man was wearing the hearing aid on his healthy ear.",
+   "url": "https://yesnogame.net/en/stories/163",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 164,
+   "title": "A murder outdoors",
+   "surface": "A man was walking down the street when he suddenly started to choke the woman walking by him. He was taken to the police station but soon after was released.",
+   "truth": "This woman was his wife. Some years ago she staged her death and her husband was found guilty. He already got out of jail and now can not be convicted for the same crime one more time.",
+   "url": "https://yesnogame.net/en/stories/164",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 165,
+   "title": "No light",
+   "surface": "A man woke up at night feeling thirsty. Then he turned off the light everywhere and went to bed again. In the morning he woke up, looked out of the window and yelled. Soon after he committed suicide.",
+   "truth": "The man was caretaker. Accindetally he turned off the lighthouse and it caused some shipwrecks. When he woke up, he realized what he have done.",
+   "url": "https://yesnogame.net/en/stories/165",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 166,
+   "title": "Exam",
+   "surface": "Students are taking an exam at military academy. One of them chooses a ticket and goes to his seat to get prepared. After some minutes he goes to the professor, silently gives him the student's record-book and leaves the classroom. The student got the excellent.",
+   "truth": "It was a morse code exam. During exam, the professor was tapping the message saying that any student may come up to him and get the excelllent.",
+   "url": "https://yesnogame.net/en/stories/166",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 167,
+   "title": "A death in a museum",
+   "surface": "A man wearing a balaclava runs out of a museum carrying a painting under his arm. A police officer sees him, shoots him dead and commits suicide soon after. A couple of days later, the man with the painting is buried and named favorite son of the city.",
+   "truth": "During a cold spell, there is fire in a museum and its director tried to save the most valuable painting from the museum's collection. The police officer had not noticed the fire and thought the man with the painting was a thief. He told him to freeze but since the director was deaf he did not hear the police officer. When the police officer realized what he had done, he committed suicide.",
+   "url": "https://yesnogame.net/en/stories/167",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 168,
+   "title": "Lost",
+   "surface": "Jack goes on a trip with his compass. After a long walk, he stops to eat a sandwich. He is not able to find his way back afterwards.",
+   "truth": "Jack was a scientist who worked near the North Pole. When he went walking, he walked towards the north and he stopped to eat his sandwich exactly at the North Pole. When he tried to return home, his compass was useless, since every direction pointed South.",
+   "url": "https://yesnogame.net/en/stories/168",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 169,
+   "title": "Lucky me",
+   "surface": "Peter wins the raffle and commits suicide.",
+   "truth": "A group of people were snowed in. They decided to do a raffle to decide who should die so the others could eat his/her corpse to stay alive. Peter's name was selected so he had to take his own life.",
+   "url": "https://yesnogame.net/en/stories/169",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 170,
+   "title": "I am here!",
+   "surface": "Michael manages to get shot; in doing so he saves his own life.",
+   "truth": "Michael was a soldier on the battlefront. The day of a big attack was approaching. When none of the other soldiers were looking, he put out an arm, so that the enemy would shoot at it. He was then taken to the hospital, and his life was no longer in danger.",
+   "url": "https://yesnogame.net/en/stories/170",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 171,
+   "title": "It didn't seem that serious",
+   "surface": "Anthony couldn't have imagine his cold would be the cause of his death.",
+   "truth": "There was a gas leak at Anthony's house but since he had a cold, he could not smell it. He died when he started a fire, as he was cooking his dinner.",
+   "url": "https://yesnogame.net/en/stories/171",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 172,
+   "title": "Try hard",
+   "surface": "A salesman tries too hard to get a sale and as a result ends up dying.",
+   "truth": "The salesman sold bulletproof vests. One day, to prove the quality of his product to a customer, he put one of them on and insisted the client to shoot him. The client accepted but unfortunately he missed the shot and shot the salesman in the head.",
+   "url": "https://yesnogame.net/en/stories/172",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 173,
+   "title": "A fratricide",
+   "surface": "A man kills his brother in front of a crowd of people. However, no one reports him.",
+   "truth": "The man worked as executioner and his brother had been sentenced to death.",
+   "url": "https://yesnogame.net/en/stories/173",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 174,
+   "title": "Employee of the Month",
+   "surface": "Francis dies of a heart attack at work. His colleagues are there when it happens. However, they do not call for help until Francis dies.",
+   "truth": "Francis was a theather actor and suffered a heart attack in the middle of a performance. However, he was playing someone who was having a heart attack. Therefore, both his colleagues and the audience simply thought that he was giving a really impressive performance.",
+   "url": "https://yesnogame.net/en/stories/174",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 175,
+   "title": "Unopened package",
+   "surface": "A man is found dead in a filed. Lying next to him is an unopened package.",
+   "truth": "The man was skydiving and his parachute did not open. The unopened package was his parachute.",
+   "url": "https://yesnogame.net/en/stories/175",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 176,
+   "title": "Dressed to die",
+   "surface": "A woman finishes getting dressed and dies.",
+   "truth": "There was a very venomous spider in one of her shoes. When the woman put on her shoes, the spider bit her.",
+   "url": "https://yesnogame.net/en/stories/176",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 178,
+   "title": "The dancing dead",
+   "surface": "A couple of dancers die around a dance competition.",
+   "truth": "During a tango competition, another - very competitive - couple poisoned the rose that another couple passed each other during their routine, so that the couple would die. The poisoned rose killed this couple and the others won the contest.",
+   "url": "https://yesnogame.net/en/stories/178",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 179,
+   "title": "The parrot",
+   "surface": "A woman walks into a pet store to buy a parrot. The seller offers her one, telling her that it can repeat everything it hears. Some days later the woman - feeling cheated - goes back into the store to get her money back. However, she comes back home with the parrot and not her money.",
+   "truth": "The parrot was deaf. It could not repeat anything, since it could not hear anything. However, the seller did not return the money to the woman because he never lied to her.",
+   "url": "https://yesnogame.net/en/stories/179",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 180,
+   "title": "Death at the wheel",
+   "surface": "In the front of a car, a woman is found dead. There is a gun in the back seat, out of her reach. The windows are closed and the doors are all locked.",
+   "truth": "The woman was sitting in a convertible and the top was down. The murderer shot her and threw the gun into the back seat of the car.",
+   "url": "https://yesnogame.net/en/stories/180",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 181,
+   "title": "Fire!",
+   "surface": "Paul goes diving. How could he know he would be burnt to a crisp?",
+   "truth": "He was scuba diving when a firefighting plane landed nearby and filled its tanks with water, sucking him in. He ran out of air while the plane was in flight; then the water, with him in it, was dumped onto a burning forest.",
+   "url": "https://yesnogame.net/en/stories/181",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 182,
+   "title": "Death: delayed",
+   "surface": "Helen never thought that her decision to travel by plane would save her life.",
+   "truth": "A few days earlier Helen had been operated on. Before boarding the plane, she had to go through the metal detector, which kept going off, despite the fact that she had removed everything metal she had on. After an X-ray examination, it was discovered that the doctors had left a scalpel inside her body. If Helen had not discovered it in time, she would died for sure.",
+   "url": "https://yesnogame.net/en/stories/182",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 183,
+   "title": "Red high heels",
+   "surface": "A woman buys a new pair of red high heels. Hours later, she dies.",
+   "truth": "Her husband was a magician that was doing a gun trick with an apple on her head and his eyes closed. He didn't realize that she was wearing high heals so he didn't calculate the height accurately.... so he killed her.",
+   "url": "https://yesnogame.net/en/stories/183",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 184,
+   "title": "The best day of her life",
+   "surface": "She thought that it was the best day of her life moments before she died.",
+   "truth": "At the end of a theather play, the lead actress appeared and the audience began to applaud. At that time there was a failure with the scenery and it started to collapse on stage. The oublic rose from their seats screaming, trying to warn the actress but she thought it was a standing ovation and she was crushed.",
+   "url": "https://yesnogame.net/en/stories/184",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 185,
+   "title": "Jack and Judy are dead",
+   "surface": "Jack and Judy were lying on the floor dead. There was a puddle of water and broken glass on the floor. How did they die?",
+   "truth": "Jack and Judy were two goldfish that swam in a small aquarium placed on a shelf. One afternoon, a cat sneaked into the room through the window and hit the aquarium that fell off the shelf and broke against the ground.",
+   "url": "https://yesnogame.net/en/stories/185",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 186,
+   "title": "The lost treasure",
+   "surface": "Jimmy hid a treasure but when he wanted to recover it, he was not able to.",
+   "truth": "Jimmy buried a treasure when he was 8 years old. He had written a note when he was younger with how many steps he would take to find his treasure. But now that he was grown up, his stride was much longer and he could never find his treasure.",
+   "url": "https://yesnogame.net/en/stories/186",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 187,
+   "title": "A mysterious call",
+   "surface": "A man is lying awake in bed. He makes a phone call, says nothing, and goes to sleep.",
+   "truth": "He is in a hotel and is unable to sleep because the man in the adjacent room is snoring. He calls the snorer up (at this hotel, like many others, the phone numbers are based on the room number). The snorer wakes up and answers. The first man hangs up without saying anything and goes to sleep before the snorer starts snoring again.",
+   "url": "https://yesnogame.net/en/stories/187",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 188,
+   "title": "Starving to death",
+   "surface": "A woman starves to death despite being surrounded by food.",
+   "truth": "The woman worked in the stores of a large food company. During the holiday period, she was alone and locked herself in by accident. As all the food was canned and she had nothing to open the cans with, she starved to death.",
+   "url": "https://yesnogame.net/en/stories/188",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 189,
+   "title": "A good plan",
+   "surface": "After careful planning, five men break into a house and take thousands of dollars in cash from it. The owner of the house is the only person arrested.",
+   "truth": "The five men were policemen and they had an arrest warrant to enter a mobster's house and take all his money. After planning the assault, they arrested the house's owner.",
+   "url": "https://yesnogame.net/en/stories/189",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 190,
+   "title": "An unexpected ending",
+   "surface": "An exotic dancer goes on a date for a private session with a man. In the room where they are, she takes her shirt and bra off. The man approaches, watches her breasts and smiles. Soon after, she dresses herself up, pays the man and leaves.",
+   "truth": "The woman had undergone a breast augmentation surgery a few days earlier and she had arranged an appointment with her private doctor to review the result of the operation. The man saw that everything was perfect and that he had done a great job. Finally the woman paid the bill and left the clinic.",
+   "url": "https://yesnogame.net/en/stories/190",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 191,
+   "title": "Drowned",
+   "surface": "After George tries to hug a person, he dies by drowning.",
+   "truth": "George was under the influence of alcohol and saw his reflection on a river. As he was intoxicated, he thought that it would be a good idea to give a hug to the \"stranger\". However this caused him to fall into the river and drown.",
+   "url": "https://yesnogame.net/en/stories/191",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 192,
+   "title": "The Black Cat",
+   "surface": "A black cat is walking through the middle of a road where there is a broken street lamp. A man is driving his vehicle with headlights that do not work. Despite all of this, he is able to avoid harming the cat.",
+   "truth": "The man avoided the cat because it was daylight.",
+   "url": "https://yesnogame.net/en/stories/192",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 193,
+   "title": "Unsolved crime",
+   "surface": "When Liz was about to find out who killed Mario, she fell asleep. When she woke up she realized that she could no longer find it out.",
+   "truth": "Liz was reading a novel on the beach. The main character, Mario, had been killed and she was about to find out who had committed the crime. Before she found it out, she fell asleep with the book lying in the sand. When she woke up she saw that the tide had risen and the book had been washed away.",
+   "url": "https://yesnogame.net/en/stories/193",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 194,
+   "title": "Deadly scissors",
+   "surface": "A woman is found dead in a hospital. The murder weapon is a pair of scissors. However, the body has no cuts ot wounds of any kind.",
+   "truth": "The woman's condition was critical, and the doctors had connected her to a device that kept her alive. The murderer simply cut the wires off that device with scissors to end her life.",
+   "url": "https://yesnogame.net/en/stories/194",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 195,
+   "title": "The Library",
+   "surface": "A woman goes to the library, takes a book and cries out.",
+   "truth": "The woman was a writer and she had donated one of her books to the library. She had included a 50$ bill among the pages as a gift for the first person borrowing the book. After a year, she came back to the library, took the book and saw that the bill was still there. Realizing that no one had read her book she burst into tears.",
+   "url": "https://yesnogame.net/en/stories/195",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 196,
+   "title": "The detective",
+   "surface": "A woman asks questions to her friend - a policeman - about a strange death. After 5 minutes the policeman is surprised to see that the woman finds out the cause of the death.",
+   "truth": "The woman and the policeman were friends and they were playing \"situation puzzle\". The policeman told a story and thought that his friend could not solve it. He was very surprised when the woman, after a few questions, found out the solution.",
+   "url": "https://yesnogame.net/en/stories/196",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 197,
+   "title": "Oh my car!",
+   "surface": "A man smashes Jimmy's luxury car. Althought Jimmy saw his car get smashed he made no attempt to stop the man.",
+   "truth": "Jimmy and the other man had a bet. It was agreed that the winner of the bet would smash the loser's car. Jimmy lost the bet.",
+   "url": "https://yesnogame.net/en/stories/197",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 201,
+   "title": "A favorite place",
+   "surface": "There were many reasons why John enjoyed coming here. But his wife Mary hated this place, as did other women in the city. Why?",
+   "truth": "This situation puzzle is about a real geographical object. In Stockholm, there’s a narrow – no more than a meter wide – street that leads to a drinking place. It was very popular in the 18th century, as drunkards could hold on to the walls when walking along the street. However, their wives couldn’t enter this street, because their hooped dresses got stuck between the walls.",
+   "url": "https://yesnogame.net/en/stories/201",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 202,
+   "title": "A reward for coming late",
+   "surface": "George was late for a math class and misunderstood the teacher. This brought him a reward and recognition! What happened?",
+   "truth": "Once, the American mathematician George Danzig came very late for a class. He saw some problems written on the blackboard and decided that these were a homework task. He spent several days working on them and eventually found the answers. It turned out that he found the key to two “unsolvable” problems that many scientists were wrestling with.",
+   "url": "https://yesnogame.net/en/stories/202",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 203,
+   "title": "The countermove",
+   "surface": "Landlords used to delay payment to people who built and repaired houses or even booted them out without money. But the builders came up with an uncommon move, which immediately made the landlords pay them in full. What did they do?",
+   "truth": "When laying a foundation for a house or repairing it, they put a raw egg in a certain place. After a while, it began to rot. If the landlord called the builders and paid for their work, they took the egg away. If he booted them out, the egg eventually began to stink, and it was very difficult to find where it had been hidden.",
+   "url": "https://yesnogame.net/en/stories/203",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 204,
+   "title": "A cunning artist",
+   "surface": "An artist took an order to paint a portrait of a very ugly and arrogant woman. Everyone tried to dissuade him, claiming that she wouldn’t pay a penny, because the portrait would be bad. And so it happened. But two days later, the woman returned and begged the artist to sell her the portrait. Why?",
+   "truth": "The artist sent the portrait to an exhibition and called it The Penny Pincher. It triggered gossips, and the woman had to ask the artist to remove the portrait from the exhibition.",
+   "url": "https://yesnogame.net/en/stories/204",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 209,
+   "title": "A sad story",
+   "surface": "Today, I was on the train again when a woman appeared before me. I didn’t even remember her face. It’s so sad. \n\n \n\nExplain why the narrator feels sad.",
+   "truth": "This story was told by a train operator that hit a woman who suddenly jumped out onto the railway.",
+   "url": "https://yesnogame.net/en/stories/209",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 210,
+   "title": "The Arm of the Postal Service",
+   "surface": "One day a man received a parcel in the post. Carefully packed inside was a human arm. He examined it, repacked it and then sent it on to another man. The second man also carefully examined the arm before taking it to the woods and burying it. Why did they do this?",
+   "truth": "The three men had been stranded on a desert island. Desperate for food, they had agreed to amputate their left arms in order to eat them. They swore an oath that each would have his left arm cut off. One of them was a doctor and he cut the arms off his two companions. They were then rescued. But his oath was still binding so he later had to have his arm amputated and sent to his colleagues. \n\n This is often told with a further twist whereby a doctor pays a tramp a large sum in order to amputate the tramp's arm which the doctor then sends to another man who inspects it etc. This variation can make for a long night of questioning!",
+   "url": "https://yesnogame.net/en/stories/210",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 211,
+   "title": "Green lipstick",
+   "surface": "Every day he puts on green lipstick. But almost no one notices it.",
+   "truth": "In the 20th century the television was still black and white, and cameras had red filters, which absorbed red color of the image, i.e., red lipstick couldn’t be seen on the lips. Therefore, TV broadcasters had to make up their lips with green lipstick to make them look more expressive.",
+   "url": "https://yesnogame.net/en/stories/211",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 212,
+   "title": "The dangerous dinner",
+   "surface": "A dinner at a dormitory. The light went out. When they turned on the light, a student had blood all over his hands.",
+   "truth": "There was the last sausage left on the plate. When the light went out, all the students reached for the sausage with their forks, and this one with his hands.",
+   "url": "https://yesnogame.net/en/stories/212",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 215,
+   "title": "(Un)luck",
+   "surface": "Due to an oversight committed by Nils when doing his job, Martha, an upstairs neighbour, couldn’t wash the dishes. At the same time, Martha’s husband was glad, but Nils was still fired. Why?",
+   "truth": "An interesting case happened in Norway: \n\n When a housewife (Martha) turned on a water tap, beer poured out of it! The fact is that in a cafe on the ground floor, a bartender confused taps. As a result, Martha had a beer jet upstairs, and in the bar below, water splashed from the beer tap. Of course, the bartender was fired, but Martha’s husband was happy.",
+   "url": "https://yesnogame.net/en/stories/215",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 216,
+   "title": "Mysticism, and that’s it",
+   "surface": "Eva was a skeptic, and never believed in the paranormal. But after she had spent 3 nights in a creepy forest all alone, her skepticism disappeared. Why?",
+   "truth": "Eva visited the ill-reputed creepy forest, and naturally, like all skeptics, she took photos and recorded her every step. After she returned home and started flipping the photos, she discovered a couple of pictures of her sleeping in a tent.",
+   "url": "https://yesnogame.net/en/stories/216",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 217,
+   "title": "A weird bus stop",
+   "surface": "On a beautiful road, there’s a bus stop that is fully operational. However, no public transport stops there. Why?",
+   "truth": "This stop is in Germany next to a nursing home for senile dementia patients. It has a schedule of supposedly passing bus routes hanging on it. Old men and old women who tried to tail off, went to the bus stop, sat down and humbly waited for their bus.\n\n \n\nIf the nursing home employees noticed that one of the inhabitants had been missing for a long time, they just went and picked them up from the bus stop.",
+   "url": "https://yesnogame.net/en/stories/217",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 220,
+   "title": "Woman’s reason",
+   "surface": "On first day, nothing in Mary’s behavior surprised John.\n\nOn the second day, John was extremely surprised.\n\nOn the third day, John got it and switched his opinion about women for the better.",
+   "truth": "Mary was a woman with a rich husband and a rich lover. Both enjoyed giving her expensive gifts but gave her very little pocket money. \n\n \n\n - On the first day, Mary and her husband came to the store and chose a dress that cost $2,000. The husband paid at once, and the store assistant (John) wasn’t surprised. \n\n - On the second day, Mary came to the same store with her lover and chose just the same dress as yesterday. The lover paid at once, and John the seller was very surprised. \n\n - On the third day, Mary came to the store alone and returned one of the dresses, receiving $2,000 in cash. Indeed, John was lost in admiration.",
+   "url": "https://yesnogame.net/en/stories/220",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 221,
+   "title": "Heaven born barrister",
+   "surface": "After the barrister’s speech, Bill’s punishment was upgraded. Why?",
+   "truth": "In autumn, a district court was hearing a case of a homeless man who had broken a shop window. Because of the barrister’s speech, the court, although drifting toward a conditional sentence, convicted the criminal. \n\n \n\n The barrister said: “Winter is coming! A homeless man can die. Don’t you understand that only in prison the defendant will have shoes, clothes, and food…”.",
+   "url": "https://yesnogame.net/en/stories/221",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 222,
+   "title": "A cunning mother-in-law",
+   "surface": "A mother-in-law disliked her son-in-law so much that she wanted to poison him. But the son-in-law was careful and always ate only what his mother-in-law ate. Over dinner one night, the mother-in-law cut a piece of meat in half, ate one half herself, and gave the other to her son-in-law. After that he died. How did she manage to do it?",
+   "truth": "She greased one side of the knife with poison.",
+   "url": "https://yesnogame.net/en/stories/222",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 223,
+   "title": "Sherlock found the killer",
+   "surface": "Sherlock Holmes was walking down the corridor. Suddenly he heard a woman screaming, “Please, John, don’t kill me!” A shot rang. Holmes burst into the room. In one corner lay a dead woman and a gun. In another corner stood a postman, a lawyer, and an accountant. Sherlock looked at them, approached the postman, and grabbed him: “I will arrest you for killing this woman.” It was really the postman who killed this woman, but how could Holmes know it?",
+   "truth": "The postman was the only man. The lawyer and the accountant were women.",
+   "url": "https://yesnogame.net/en/stories/223",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 225,
+   "title": "A man with a ring",
+   "surface": "A man was walking with a gold ring on his finger. Suddenly robbers attacked him. They wanted to take the ring but couldn’t take it off. So, they cut off the finger and ran away. However, the man didn’t even scream. Why?",
+   "truth": "He had gold teeth, and he didn’t want to show them, so that the robbers wouldn’t take them too.",
+   "url": "https://yesnogame.net/en/stories/225",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 226,
+   "title": "On a bus",
+   "surface": "When on a bus, Kate wanted to offer her seat to a woman who's just goton. But she was very embarrassed and refused. Why?",
+   "truth": "Little Kate was sitting in her dad's lap.",
+   "url": "https://yesnogame.net/en/stories/226",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 227,
+   "title": "A honeyman",
+   "surface": "Many people were surprised when a famous town merchant named Bill rolled out a barrel of honey to the square and offered everyone a treat. \n\n But people were even more surprised when they asked about the reason for such a gift and heard Bill reply that it wasn’t a gift at all.",
+   "truth": "Bill has been selling honey for many years. He scooped the product up with a measuring cup and poured it into a buyer’s jug. \n\n But honey is a thick substance, and it takes a long time to pour it out completely... None of the customers have ever waited until the last drop. \n\n But Bill was a rarely honest man and wasn’t going to appropriate anything that wasn’t his, even if it was a matter of a few drops. He poured the rest of the honey into a separate jug, and over the years, he accumulated a barrel full of honey. Now, Bill’s initially strange answer is clear: after all, one can only give what’s one’s own, and he never thought that this honey was his own. He just RETURNED the honey to people who kind of left it for long-term storage.",
+   "url": "https://yesnogame.net/en/stories/227",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 231,
+   "title": "The last will",
+   "surface": "After a professor died, his will was followed carefully, but later it turned out that he wanted something completely different. Why?",
+   "truth": "The professor signed his skeleton away to the medical university. After his death, his skeleton was turned into a teaching aid. But later a skeleton on a stand was found in the professor’s office – this very skeleton the professor had in mind.",
+   "url": "https://yesnogame.net/en/stories/231",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 232,
+   "title": "Savages also can be clever",
+   "surface": "Aborigines lived on an island in the middle of the ocean. However, they found a way to get rich. How did they do it?",
+   "truth": "There were porcelain vases left at the ocean bottom after a shipwreck. For 100 years, the most experienced divers couldn’t get them. \n\n \n\nThe aborigines invented a clever method. They caught octopuses, tied them down, and plunged into the water. \n\n \n\nThen they waited until the animals find places to hide inside porcelain bowls and vessels among the pile of ship wreckage. Octopuses turned out to be stubborn – they didn’t want to part with their favorite dwelling, even when being pulled by the rope. \n\n \n\nSometimes, the octopus pulled a stone instead of the porcelain, but it worked out all right. \n\n \n\n From “Primates of the sea” by Igor Akimushkin",
+   "url": "https://yesnogame.net/en/stories/232",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 233,
+   "title": "A flat tire",
+   "surface": "Four college students were late for a lecture and explained it to the lecturer by having a flat tire. The smart lecturer quickly proved to the rest of the audience that the latecomers had lied. How?",
+   "truth": "The lecturer took all four latecomers to different rooms and asked each of them, on which of the car’s wheels the flat tire was. Of course, they gave different answers.",
+   "url": "https://yesnogame.net/en/stories/233",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 234,
+   "title": "Noseless death",
+   "surface": "While he was in the forest, a wild beast bit off his nose. But he died only 3 months later.",
+   "truth": "It was a snowman. A hare bit off its carrot nose, but it melted only in April.",
+   "url": "https://yesnogame.net/en/stories/234",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 235,
+   "title": "Sad Sally",
+   "surface": "Sally was sleeping when she was awoken by Jack. She walked to the door and found a letter. She read it and began to cry. She now knew that her boyfriend would never see her again. Why?",
+   "truth": "Sally's boyfriend had recently undgone eye surgery. Jack, her boyfriend's guide-dog, awoke her after the postman had delivered a letter. The letter was from the doctor's. The letter was in response to her boyfriends medical tests that confirmed the surgery was unsuccesful and he would now be fully blind.",
+   "url": "https://yesnogame.net/en/stories/235",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 236,
+   "title": "Feather",
+   "surface": "A man lies dead next to a feather. How did he die?",
+   "truth": "The man was a sword swallower in a carnival side-show. While he was practicing, someone tickled his throat with the feather, causing him to gag. \n\n Real fact: twenty-nine deaths have been reported as a result of sword swallowing injuries since 1880.",
+   "url": "https://yesnogame.net/en/stories/236",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 238,
+   "title": "The last wine",
+   "surface": "Camellia brought Valmont some wine. He looked at his watch, drank and died.",
+   "truth": "Valmont was hopelessly in love with Camellia, but she didn’t reciprocate. One day she offered Valmont a cruel game: she put some poison into one of the two glasses of wine, and Valmont had to drink any of them. If he survived, Camelia agreed to marry him. \n\n Valmont used his watch as a coin to decide his fate (by the position of the second hand to the left or right of the vertical line). He was unlucky.",
+   "url": "https://yesnogame.net/en/stories/238",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 239,
+   "title": "Life-saving food",
+   "surface": "He wasn’t hungry, but food saved his life.",
+   "truth": "He was lying in a dungeon tied to a bench. A slowly descending sickle swung above him that was supposed to kill him. However, he used leftovers from a bowl of food to lubricate the ties (ropes), which were thus gnawed by rats. \n\n From the story \"The Pit and the Pendulum\" by Edgar Poe.",
+   "url": "https://yesnogame.net/en/stories/239",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 240,
+   "title": "Who am I?",
+   "surface": "A professor didn’t want to accept a student’s paper. \n\nStudent: “Do you know who I am?”\n\nProfessor: “I neither know nor care. And don’t try to frighten me!”\n\nBut the professor still accepted the paper. Why?",
+   "truth": "A written exam. All but one student submitted the papers, but he kept writing after the time was up. Therefore, the professor refused to accept his paper. \n\n When the student realized that the professor didn’t know his name, he put his paper in the middle of the stack and ran away.",
+   "url": "https://yesnogame.net/en/stories/240",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 241,
+   "title": "Time isn’t important",
+   "surface": "One day Mark hid his watch. What for?",
+   "truth": "– We have been married for thirty-one years.\n\n– How did you meet?\n\n– I saw her on the bus, took off my watch, and put it in my pocket. Then, he sat down next to her and asked what time it was.",
+   "url": "https://yesnogame.net/en/stories/241",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 243,
+   "title": "The mysterious key",
+   "surface": "Every night before going to sleep, Lisa locks the door of her house and attaches the key to a string. Why?",
+   "truth": "Lisa was a sleepwalker. Some days before, she had left her house in the middle of the night without realizing. To prevent this happening again, she began tying the key with a piece of string to a bell each night. That way, if Lisa tried to leave the house, her husband would wake up and take her back to bed.",
+   "url": "https://yesnogame.net/en/stories/243",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 245,
+   "title": "Enterprising businessmen",
+   "surface": "A company produced knives for peeling potatoes. The manufacturers wanted to increase sales of their products and decided: if the knives disappear more often in homes, then housewives will buy new ones. How did they embody their idea?",
+   "truth": "The company began to produce knives for peeling potatoes, which were painted to match the color of the peel of this vegetable. The device merged color with peelings, and they were often thrown away.",
+   "url": "https://yesnogame.net/en/stories/245",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 246,
+   "title": "A blessing in disguise...",
+   "surface": "The girl’s mother died. The girl was burying her, and at the funeral she saw the man of her dreams and fell in love with him. 14 days later, she killed her sister. Why did she do that?",
+   "truth": "To see this guy again, since he might come to the funeral again.",
+   "url": "https://yesnogame.net/en/stories/246",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 247,
+   "title": "Dinner",
+   "surface": "I was having dinner with my friend and he said to find a hidden place so that he would not be seen. After a while, my friend exploded.",
+   "truth": "My friend and I are mosquitoes, and in the middle of sucking blood, my friend was slapped to death by a human, so he exploded.",
+   "url": "https://yesnogame.net/en/stories/247",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 248,
+   "title": "Radio silence",
+   "surface": "A man is driving his car while listening to the radio when suddenly the radio goes silent. He then decides to leave the road and throw himself off the top of a cliff.",
+   "truth": "The man was a radio broadcaster who had commited a murder. He had left a recorded radio broadcast live as an alibi. Realizing that the program he had prepared had stopped airing accidentally and that they would know that he was the culprit, he decided to end his life.",
+   "url": "https://yesnogame.net/en/stories/248",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 249,
+   "title": "A silk scarf",
+   "surface": "Bill always wore a silk scarf to work, whatever the weather. What’s his job, and why does he need this scarf?",
+   "truth": "Bill is a World War I pilot. He needs a scarf so as not to rub his neck while searching for enemy planes. \n\n Explanation: \n\n The first military aircraft (“air stacks”) had an open cockpit. At the same time, the flight speed reached 150 km/h. So, the pilots wore thick leather clothes with maximum wind resistance. \n\n At that time, there were no long-range detection systems. To be the first to detect the enemy, the pilot had to turn his head round at least every 20 seconds. The cases are known when pilots rubbed their necks to blood. \n\n That’s how the pilots got white silk scarves for flights. Silk is a very smooth and at the same time dense fabric. It served both as protection from the headwind and as a smooth layer between the skin and the collar.",
+   "url": "https://yesnogame.net/en/stories/249",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 251,
+   "title": "Misread",
+   "surface": "A woman misread something and never saw another person again.",
+   "truth": "The woman was a scientist working in a laboratory. She accidentally misread a bottle label before adding the chemical to another. The mixture exploded, blinding her permanently. She could never see another person, or anything at all ever again.",
+   "url": "https://yesnogame.net/en/stories/251",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 252,
+   "title": "A secret room",
+   "surface": "Sherlock Holmes had a secret room, and the key to it was in a chest of drawers. He didn’t let anyone in there – neither Dr. Watson, nor Mrs. Hudson. But when Sherlock Holmes and Dr. Watson left, Mrs. Hudson decided to see what was in the room, took the key, opened the room, and entered. She walked around the room, approached a table, opened a book lying on it. \n\n Suddenly, she heard footsteps downstairs, and Holmes’s voice, “I forgot something.” Mrs. Hudson quickly closed the book, put it back, went to the door, turned off the light, left the room, closed the door, and managed to put the key back. Holmes took the key, opened the door, looked into the room, and immediately asked, “Mrs. Hudson, why did you enter my room?” \n\n How did Holmes know that Mrs. Hudson had entered his room?",
+   "truth": "Holmes forgot to turn off the light.",
+   "url": "https://yesnogame.net/en/stories/252",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 254,
+   "title": "Bowling ball",
+   "surface": "A man lets go of a bowling ball. A short while later, he is rushed to the hospital.",
+   "truth": "A physics professor is demonstrating conservation of energy by suspending a bowling ball from a piece of rope. He pulls the ball back until it's right in front of his nose, then lets go. It is supposed to swing away from him, then back at him, stopping just in front of his nose. Unfortunately, he gave the ball a slight push, resulting in the ball crashing into his nose upon its return.",
+   "url": "https://yesnogame.net/en/stories/254",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 255,
+   "title": "The lady killed the lady",
+   "surface": "Two women are talking. One goes into the bathroom, comes out five minutes later, and kills the other.",
+   "truth": "Both women are white; the one whose house this takes place in is single. A black friend of the other woman, the one who goes into the bathroom, was recently killed, reportedly by the KKK (Ku Klux Klan). The woman who goes into the bathroom discovers a bloodstained KKK robe in the other's laundry hamper, picks up a nail file from the medicine cabinet, and goes out and kills the other.",
+   "url": "https://yesnogame.net/en/stories/255",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 257,
+   "title": "A car without a driver",
+   "surface": "A car without a driver moves; a man dies. How come?",
+   "truth": "The murderer sets the car on a slope above the hot dog stand where the victim works. He then wedges an ice block in the car to keep the brake pedal down, and puts the car in neutral, after which he flies to another city to avoid suspicion. It's a warm day; when the ice melts, the car rolls down the hill and strikes the hot dog man at his roadside stand, killing him.",
+   "url": "https://yesnogame.net/en/stories/257",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 258,
+   "title": "The gift",
+   "surface": "A dying man gives another man a gift, and then the dying man dies. Shortly after that the second man dies. How come?",
+   "truth": "The second man had shot the first man. Before he dies, the first man gives the second man a grenade pin, which he's of course just pulled from a grenade. The first man dies, then the grenade explodes and the second man dies.",
+   "url": "https://yesnogame.net/en/stories/258",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 260,
+   "title": "Stand to the end",
+   "surface": "Mike has been standing on his knee in the middle of the desert for over a day. He is all alone and has neither food nor water. But he doesn’t leave the place. What’s the matter?",
+   "truth": "He thinks his foot is standing on a mine (although it is not). \n\n It was ordered to Mike and his partner to kill terrorists. But the operation failed. A sandstorm helped them to escape, and they ended up in the desert. They didn’t notice at once that they were in a minefield. \n\n Suddenly, Mike’s partner was blown up by a mine, his legs were torn off, and he died. Together with the explosion, Mike took a step and clearly heard that something clicked under his foot; he froze. He thought he had activated a mine fuse. This meant that if he lifted his foot, the mine would explode. \n\n Mike managed to use a comset to inform his superiors about the situation. They told he that they would be able to help him in 52 hours only. And Mike decided to wait. \n\n A day later, he felt very bad because of the heat and began to hallucinate. Unfortunately, he didn’t know that the click he heard was not of a mine, but of a tin can left in the desert by another person who had been blown up by a mine in the same field.",
+   "url": "https://yesnogame.net/en/stories/260",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 269,
+   "title": "A pipe",
+   "surface": "Two monkeys are looking through a pipe that happened to be in a glade. \n\nThe pipe is straight, not too long and not clogged. \n\nMonkeys look through the opposite ends of the pipe, but don’t see each other there. Why?",
+   "truth": "The correct answer is: the monkeys don’t look through the pipe at one time. \n\n There is another logical answer: because it's dark.",
+   "url": "https://yesnogame.net/en/stories/269",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 272,
+   "title": "Shouldn’t have looked out of the window",
+   "surface": "A man looked out of the window and soon died. What happened?",
+   "truth": "Through the window of his car, he saw a pretty woman and had a fatal accident.",
+   "url": "https://yesnogame.net/en/stories/272",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 273,
+   "title": "A woman",
+   "surface": "A woman entered a building accompanied by a man whom she loves very much. But she left the building with another man, whom she loves very much. What happened?",
+   "truth": "A woman is getting married. Her father brought her to church, and she leaves the church with her husband.",
+   "url": "https://yesnogame.net/en/stories/273",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 275,
+   "title": "A double-cross",
+   "surface": "Kirill is jailed for a murder he hasn’t committed. Bill can prove that it wasn’t Kirill. But he deliberately hides the evidence. Why?",
+   "truth": "Bill is a detective. A couple of years ago, he investigated a murder, and he believes that Kirill committed it. But the court decided otherwise, and Kirill walked free. \n\n \n\nBill decided to hide all the evidence of the new crime so that Kirill could be punished for the murder. \n\n \n\n (Pay attention to the difference between “believe” and “know” when answering the questions)\n\n \n\n --- \n\n This is a common plot for literature and movies. \n\n \n\nIn Claude Chabrol’s Inspector Lavardin, an innocent man is accused, but Lavardin keeps silent although he knows that he’s innocent in this murder case, since the accused has committed other crimes that Lavardin can’t prove. \n\n \n\n “The Judge and his Executioner” by Friedrich Durrenmatt has the same plot.",
+   "url": "https://yesnogame.net/en/stories/275",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 276,
+   "title": "Lock, Stock and Three Dead Men",
+   "surface": "Three dead men sitting at a table in a room. On the table, there are playing cards and a gun. What happened?",
+   "truth": "Two men shot themselves in the head, and the third one suffocated. The room is in a submarine lying motionless at the sea bottom. \n\n \n\nThe men had a gun with only two bullets. When there was very little air left, the men decided to gamble. The winners got the right to shoot themselves, and the loser had to agonize suffocating, accompanied by two corpses.",
+   "url": "https://yesnogame.net/en/stories/276",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 278,
+   "title": "Half a point",
+   "surface": "In the 1940s, a real football game in Brazil ended with an unusual score of 0.5 - 0. What happened?",
+   "truth": "When the score was 0-0, a penalty kick was awarded. The attacker runs up and strikes... and one of the seams of the ball, which at that time was hand-made, burst: the inner rubber bubble flew into the gate, and the outer leather case rolled out of the gate. The referee’s decision was: “half a goal.” \n\n Since no more goals were scored, the game ended with a score of 0.5 - 0.",
+   "url": "https://yesnogame.net/en/stories/278",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 279,
+   "title": "A thief",
+   "surface": "A man stole a wallet. This caused his death. What happened?",
+   "truth": "Inside the wallet, there was a statement that this wallet’s owner opposes blood transfusion or organ transplantation for religious reasons. The thief got in an accident, and blood transfusion would have saved his life, but this wasn’t done because of the statement in the wallet.",
+   "url": "https://yesnogame.net/en/stories/279",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 280,
+   "title": "The Duck Family",
+   "surface": "Three ducklings are swimming in the lake in a row. \n\n The first duckling says, “There are two ducklings swimming behind me.”\n\nThe second duckling says, “There is one duckling swimming in front of me, and another duckling is swimming behind me.” \n\nThe third duckling says, “There are two ducklings swimming in front of me, and another one is swimming behind me.” \n\n How is it possible?",
+   "truth": "The third duckling lied.",
+   "url": "https://yesnogame.net/en/stories/280",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 282,
+   "title": "Silence",
+   "surface": "Silence fell, and after a few moments she died.",
+   "truth": "A blind ropedancer shows high-altitude acrobatic stunts at high altitude. According to the script, she was to jump off the rope exactly at that moment when the musician stops playing. \n\n On this day, the musician didn’t feel well and suddenly lost consciousness. The music stopped, the ropedancer jumped too early and plunge to death.",
+   "url": "https://yesnogame.net/en/stories/282",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 283,
+   "title": "A fight",
+   "surface": "He was very calm. However, they kept beating him until he screamed. After that, she was happy. Why?",
+   "truth": "The girl has just given birth to a son.",
+   "url": "https://yesnogame.net/en/stories/283",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 284,
+   "title": "Levitation",
+   "surface": "A man is found hanging in an otherwise empty locked room with a puddle of water under his feet.",
+   "truth": "He stood on a block of ice to hang himself.",
+   "url": "https://yesnogame.net/en/stories/284",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 291,
+   "title": "Strikes in the stomach",
+   "surface": "Gordon came to see Harry and gave him a few strikes in the stomach. Then, they had a short talk, and he struck a few more times. Harry died a couple of days later. What happened?",
+   "truth": "On a tour in Montreal in 1926, three students entered Houdini’s dressing room. Among them was a college boxing champion called Gordon. He asked Houdini if he really could stand up to a few strong strikes in the stomach without feeling anything. Lost in thought, Houdini nodded, and the student suddenly struck the illusionist two or three times. Houdini barely stopped him, “Wait, I need to get ready.” Then, he strained his abs, “You can strike now.” The student struck a couple times and felt Houdini’s iron abs. \n\n Harry ignored the increasing stomach ache for a few days. The illusionist fell right on stage during a performance in Detroit and was taken to the hospital. Houdini was diagnosed with a burst appendix, which caused peritonitis. Doctors predicted speedy death, but the illusionist survived a few days, which was pretty long in his situation. Harry Houdini died, his body was taken to New York and buried in a bronze box that he used for his tricks. \n\n Harry Houdini is an American illusionist, philanthropist, and actor. He became famous for exposing charlatans and complex escape and release tricks.",
+   "url": "https://yesnogame.net/en/stories/291",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 292,
+   "title": "Smoker",
+   "surface": "A man is returning from Switzerland by train. If he had been in a non-smoking car he would have died.",
+   "truth": "The man used to be blind — he's returning from an eye operation which restored his sight. He spent all his money on the operation, so when the train (which had no internal lighting) goes through a tunnel, he thinks he's gone blind again and decides to kill himself. But before he could do it, he saw the light of the cigarettes people were smoking and realized he could still see.",
+   "url": "https://yesnogame.net/en/stories/292",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 293,
+   "title": "The black bird",
+   "surface": "I was alone in the mountains studying birds. When I accidentally fell from a height and broke my leg, I noticed an unknown black bird. I couldn't even get up, and I would have died of thirst or hunger if it hadn’t been for a strange girl who started coming to me every night. She had black hair, long eyelashes, and a charming smile. She never talked but just lay on top of me and fed me from her mouth. I thought it was raw meat. Sometimes, she gave me warm blood to drink, but I was so hungry that enjoyed any food. She left immediately afterwards. \n\n About a month later, my leg felt better. I managed to get up, return home, and finally have a proper meal. I was surprised when at night she somehow got into my room again and woke me up. Chewing something, she slowly started climbing on top of me again. I tried to resist, but in vain. She forced the food into my mouth and left, smiling. This time I was full, so I felt an aversion. Spitting everything out on the floor and recollecting myself, I managed see pieces of someone’s eye in this lump. \n\n Since then, it happened every night. Although I was grateful to her for saving me, I begin to feel really worried. Fortunately, she stopped visiting me after a couple of weeks. \n\n Five years have passed since then. I’m on Mount Fuji now, and here I met the black bird again. Now I understand everything. My time is short. Do you know why?",
+   "truth": "This girl is a demon. She wanted to take care of the main character and prolong his life. \n\n 5 years after the last feeding, she came to the main character again – but this time not for feeding. She transformed into the black bird and took him to her nest on Mount Fuji. Every day, she started biting off small pieces of his flesh to travel back in time and feed him in the past, because otherwise he would have starved to death.",
+   "url": "https://yesnogame.net/en/stories/293",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 294,
+   "title": "The collector woman",
+   "surface": "A pregnant woman had a locker that contained her collection. There were already 8 items there: a key, a lock, a battery, a medallion, a statuette of a girl, a pawn, a cap, and a button. She was going to put item number 9 in there, but something went wrong. This brought her to the hospital.",
+   "truth": "The woman’s rich husband didn’t love her. He didn’t even talk to her and was just waiting for the baby to be born. She felt that her life was insignificant and had almost got severely depressed when she accidentally discovered that she felt inspired by swallowing various small objects. It was unusual and risky. When the objects came out in a natural way, she washed them and added them to her collection. Her desire to swallow objects gradually worsened, and she began to swallow dangerous and painful things. \n\n Item number 9 was a small screwdriver. Unfortunately, it got stuck in her intestines, and the woman was hospitalized. \n\n A story based on the Swallow movie (2019).",
+   "url": "https://yesnogame.net/en/stories/294",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 295,
+   "title": "A fantom",
+   "surface": "The German police was totally confused. Over the course of 15 years, the same person had been stealing, killing, and driving away. By 2008, they had spent 14 thousand working hours and over 15 million euros to find the criminal but failed. How did it happen? \n\n \n\nThis is a true story.",
+   "truth": "The main suspect was a woman whose DNA was found at every crime scene. But they couldn’t find her. \n\n \n\nPolice thought that she led a nomadic life, because she committed crimes all over Germany and sometimes even abroad – in France and Austria. \n\n \n\nIn 2009, the police finally found out that she was a 71-year-old Polish woman who spent many years working as a cotton buds packer at a Bavarian factory. It was with these buds that were used for DNA tests. \n\n \n\nThe case went down in history as The Phantom of Heilbronn.",
+   "url": "https://yesnogame.net/en/stories/295",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 296,
+   "title": "The calm pirate",
+   "surface": "A rich pirate buried a treasure full of jewels. Of course, he had a map to find it, but someone stole it a month later. The pirate didn’t react to this at all. Why was he so calm?",
+   "truth": "The pirate had a few copies of the map. He deliberately buried the main part of the treasure deep, and the rest of the treasure was closer to the surface. \n\n People who’ll find the first treasure on the surface will think that it is the entire treasure. In addition, they’ll spread rumors that the treasure has been stolen and other people will stop hunting the pirate’s map.",
+   "url": "https://yesnogame.net/en/stories/296",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 297,
+   "title": "The expensive fake",
+   "surface": "When it turned out that the painting was fake, it became 10 times more expensive. How did it happen?",
+   "truth": "A lady approaches an antiquarian’s tent, spends long time looking at the paintings and stops at one of them with an inscription saying: “I. Repin”; the price tag said: ten rubles. \n\n — Here’s ten rubles. I’m taking the painting. But I’ll bring it back if it’s fake. I’ll be at my friends’ place, where Repin is having lunch today, and I'll show it to him. \n\n The lady brings the picture to her friends and shows it to Repin. He laughs. He asks for a pen and ink and signs at the bottom of the picture, “This is not Repin. I. Repin.” \n\n This painting returned to Sukharevka and was sold for a hundred rubles thanks to Repin’s autograph. \n\n An abstract from Vladimir Gilyarovsky’s book “Moscow and Muscovites”, 1926",
+   "url": "https://yesnogame.net/en/stories/297",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 298,
+   "title": "The drinking party",
+   "surface": "There are three drunk men and a corpse in the room. The men refuse to talk to the police, but they still quickly identified the killer. How?",
+   "truth": "There was a bottle with a bloody mark left by the murdered man’s head on the table. It was an obvious murder weapon. It had all four men’s fingerprints on it. However, only one man’s fingerprints were turned over. It meant that he was the one who made the strike, holding the bottle like a club.",
+   "url": "https://yesnogame.net/en/stories/298",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 299,
+   "title": "The quick-witted woman",
+   "surface": "Thieves broke into a woman’s house. She shut herself up in her room and called the police. She was told that there were no patrol cars available right now, and she would have to wait. \n\n She didn’t wait. 5 minutes later, 3 patrol cars and an ambulance were at her house. What did she do?",
+   "truth": "After 2 minutes, the woman called the police again and said that she had shot all the thieves. \n\n After all, the police immediately came and successfully detained the robbers. So, the woman found out that there were still patrol cars available.",
+   "url": "https://yesnogame.net/en/stories/299",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 300,
+   "title": "The moving dream",
+   "surface": "Sonia was very tired and fell asleep. When she woke up, she found herself in a completely different place. What happened?",
+   "truth": "Sonia was traveling on a plane. When she woke up, the plane had already landed in another city.",
+   "url": "https://yesnogame.net/en/stories/300",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 301,
+   "title": "Two parachutes",
+   "surface": "When a plane was taking off in the United States, the terrorist demanded a million dollars and two parachutes. His demands were fulfilled. The plane took off and the terrorist jumped out with the money as they were flying above a desert. He was never found. \n\n Why did the terrorist ask for two parachutes?",
+   "truth": "Terrorism is punished by death in the United States. So, he was afraid that they would deliberately give him a defected parachute. \n\n The police couldn’t know why the terrorist needed the second parachute; it might be for a hostage. So, they had to make sure that both parachutes were serviceable not to risk civilians’ lives.",
+   "url": "https://yesnogame.net/en/stories/301",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 302,
+   "title": "The creepy game",
+   "surface": "Jasmine was playing her usual favorite game when they suddenly started shooting at her. What happened?",
+   "truth": "A group of men came to hunt on a frozen lake. To make an air-hole for birds, they lit dynamite and threw it on the ice away from themselves. \n\n A beloved dog of one of the men called Jasmine thought that it was a stick and wanted to play bringing it back to the owner. When she grabbed the dynamite and ran back, the frightened men began to shoot at Jasmine, hoping that she’d get frightened and drop it. \n\n Unfortunately, she hid under a jeep instead and exploded with it.",
+   "url": "https://yesnogame.net/en/stories/302",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 303,
+   "title": "Punishment",
+   "surface": "The killer was severely punished by his victim. Plus, instantly. How?",
+   "truth": "The man wanted to knock a snowman down with his car and gathered fairish speed. But it turned out that in the middle of the snowman there was an iron pole sticking out of the ground.",
+   "url": "https://yesnogame.net/en/stories/303",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 304,
+   "title": "The racer",
+   "surface": "A person got into the car and drove off, but five minutes later the car was just in the same place that it started from. What happened?",
+   "truth": "The person was on a merry-go-round. He got into the car and it drove circle-wise.",
+   "url": "https://yesnogame.net/en/stories/304",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 306,
+   "title": "Liar",
+   "surface": "The husband lied to his wife that there were weapons buried in the backyard of their house. What for?",
+   "truth": "He was serving a sentence in prison and knew that his correspondence was read. He wanted to make his wife a birthday gift – to help her dig up a vegetable garden. \n\n Searching for the weapons, police did a great job.",
+   "url": "https://yesnogame.net/en/stories/306",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 308,
+   "title": "The fateful meeting",
+   "surface": "Two women accidently met in a train compartment. This brought a man they didn’t know to prison. What happened?",
+   "truth": "One of the women had a sable fur coat, and the other was allergic to cat hair.\n\nThe allergic one had a severe allergy attack. This revealed that the fur coat was actually made of cat hair. \n\n The woman complained to the police and after a while the director of the fur factory was sentenced to imprisonment.",
+   "url": "https://yesnogame.net/en/stories/308",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 309,
+   "title": "Don’t be late!",
+   "surface": "Bill was late for a birthday party and ended up in prison because of it. What happened?",
+   "truth": "It was a priest’s birthday. When giving his toast, he said that the first person who confessed to him was a murderer. \n\n Bill came to the birthday party a bit later. When giving his toast to the priest, he told all the guests that he was the first person who confessed to him.",
+   "url": "https://yesnogame.net/en/stories/309",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 311,
+   "title": "On the reverse side...",
+   "surface": "A man had lunch at the restaurant, and the waiter brought him his bill. He wrote out a check for the required amount but suddenly turned it over and wrote a few words on the reverse side of the check as congratulations to the restaurant owner. What for?",
+   "truth": "Salvador Dali was famous not only by his eccentric escapades, but also for his passion for money. Despite earning millions from his paintings and numerous commercial projects, the famous surrealist wasn’t above saving on restaurant bills. The whole evening, Dali could treat a large company of friends to any dishes and drinks from the menu. When it was time to pay the bill, the artist generously signed a check for a huge amount, then turned the check over and wrote a few warm words, expressing gratitude to the restaurant owner. \n\n The idea was simple – relying on his fame as a living genius, he was sure that the restaurant owner would never dare to cash a check signed by Salvador Dali himself! And this was how it actually happened – the restaurateurs understood that eventually they would get much more for this check than just the amount in the bill. Well, and Dali saved a lot of money.",
+   "url": "https://yesnogame.net/en/stories/311",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 312,
+   "title": "Marmalade",
+   "surface": "Marmalade helped Bill to skip school with impunity. How did he do it?",
+   "truth": "Australian schools began using fingerprint scanners to check high school students’ attendance in 2010. Bill found out that he could easily bypass these scanners with gelatin, which is used to make marmalade bears. \n\n He put his finger to a marmalade bear and asked a classmate to show it to the scanner for him, so that the school system would think that Bill was present in class. The scanner successfully recognized the fingerprint.",
+   "url": "https://yesnogame.net/en/stories/312",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 313,
+   "title": "Pickpockets",
+   "surface": "At one time, the following warning notices appeared on one of the main squares of Prague, “Attention! Beware of pickpockets!” The local police knew that there really were a lot of pickpockets here, but they actively tore these notices down. Why?",
+   "truth": "There were a lot of tourists on this square. It was pickpockets who pasted up notices about themselves. This made their task easier. People who read the notices automatically wanted to check whether their valuables were intact. The thieves were watching them and understood where their target was. \n\n The police found out about this trick and tore these notices down so that people couldn’t unknowingly help to rob themselves.",
+   "url": "https://yesnogame.net/en/stories/313",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 315,
+   "title": "The murder in the car",
+   "surface": "Andrew was stabbed to death in his car. However, the doors were locked. The car wasn’t damaged: all the windows were intact and raised up to the highest position. How could this happen?",
+   "truth": "Andrew was sitting in his convertible car (open-top car).",
+   "url": "https://yesnogame.net/en/stories/315",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 320,
+   "title": "The Coal, Carrot and Scarf",
+   "surface": "Five pieces of coal, a carrot and a scarf are lying on the lawn. Nobody put them on the lawn but there is a perfectly logical reason why they should be there. What is it?",
+   "truth": "They were used by children who made a snowman. The snow has now melted.",
+   "url": "https://yesnogame.net/en/stories/320",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 321,
+   "title": "Adam and Eve",
+   "surface": "Bill died and went to heaven. There he saw thousands of people, who all were naked. He was looking around hoping to find someone he knew. And then he saw Adam and Eve. \n\n How did he know it was them?",
+   "truth": "Adam and Eve were the only ones who didn’t have belly-buttons.",
+   "url": "https://yesnogame.net/en/stories/321",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 332,
+   "title": "The Terminal Taxi",
+   "surface": "Taxi stops, the taxi driver opens the door and a dead men falls on the road. What had happened?",
+   "truth": "The previous passenger was a spider lover and he forgot a box with his spider there. This dead men panicked when he saw it and so he was bitten by apoisonous spider.",
+   "url": "https://yesnogame.net/en/stories/332",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 333,
+   "title": "Hang up!",
+   "surface": "A woman dies from a long telephone conversation.",
+   "truth": "She was just coming from the mechanic, where she picked up her car. The mechanic forgot to put on the brakes, and he was trying to call and tell her. But it was impossible because she was already talking on the phone with someone.",
+   "url": "https://yesnogame.net/en/stories/333",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 336,
+   "title": "Light-handed",
+   "surface": "They had to throw away plenty of their valuables, but it didn’t made them upset. What happened?",
+   "truth": "They smuggled alcohol at the Prohibition time in the United States. They were ready for unexpected customs control. They tied bags of salt to each box in advance. In case of danger, they threw them into the water. After a while, salt dissolved in the water and the cargo floated back to the surface.",
+   "url": "https://yesnogame.net/en/stories/336",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 342,
+   "title": "A deaf man",
+   "surface": "A deaf man came into a store to pick up flowers he ordered for his beloved wife. How did he explain that he needs to pick up the flowers that he ordered before?",
+   "truth": "He just said it. He is deaf, but not mute.",
+   "url": "https://yesnogame.net/en/stories/342",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 343,
+   "title": "The Wheel Replacement",
+   "surface": "A man is replacing a wheel on his car, when he accidentally drops the four nuts used to hold the wheel on the car, and they fall into a deep drain, irretrievably lost. A passing girl offers him a solution which enables him to drive home. What is it? (keep you mind out of the drain)",
+   "truth": "Use one nut from each of the four other wheels.",
+   "url": "https://yesnogame.net/en/stories/343",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 345,
+   "title": "Not guilty?",
+   "surface": "Igor breaks into Thomas' home to kill him but he doesn't do it. However he is immediately arrested and sentenced for the crime. Why?",
+   "truth": "Igor was a hitman. The person who hired him had planned to kill Thomas and get rid of Igor. To achieve this, he hired a second assassin that killed Thomas before Igor got there. When Igor arrived, Thomas was dead and the police had already been called and were on their way.",
+   "url": "https://yesnogame.net/en/stories/345",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 347,
+   "title": "The mechanic",
+   "surface": "A man goes to the auto repair shop and asks the mechanic when he is available. The mechanic says he is busy for the next 2 hours. The man thanks him but doesn't return. A few days later, he asks him again, the mechanic says he is busy for the next one hour. Again, the man doesn't return. Next day the man asks him again and the mechanic says \"You are lucky, 5 minutes and I'm available\" but the man leaves\n\nanyway.",
+   "truth": "The man did not want his car to be repaired. He was actually having an affair with the mechanic's wife and he wanted to know how much time he could spend with her without risking being caught.",
+   "url": "https://yesnogame.net/en/stories/347",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 348,
+   "title": "Start the party!",
+   "surface": "A man quits his job and celebrates by throwing a party all night. The next day he dresses up and jumps from the balcony of his house. Why?",
+   "truth": "The man won the lottery. He quit his job and celebrated with his friends. The next day the man dressed up to get the prize but realized that he had destroyed the ticket when washing his suit at the dry cleaner a few days before.",
+   "url": "https://yesnogame.net/en/stories/348",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 350,
+   "title": "Numismatist",
+   "surface": "A coin collector finds an internet advertisement about a coin collection at a very low price. After reading it carefully, he decides to buy it. Although it is genuine and its value is much higher than the price he pays, he is not happy but very angry.",
+   "truth": "The man’s wife had found out that he had an affair with another woman. To take revenge, she put for sale her husband's coin collection at a very low price so that she could sell it soon. When the man realized what was happening, he quickly bought the coins before anyone else did.",
+   "url": "https://yesnogame.net/en/stories/350",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 357,
+   "title": "The cave",
+   "surface": "Lou is in a cave when, suddenly, he hears a sound from outside. He thinks it's strange, so he goes out to see what had happened, and dies the moment he exits the cave.",
+   "truth": "Lou heard the sound of a chain saw and discovered that it belonged to a woodcutter who was cutting down a tree just in front of the cave. Unfortunately, Lou could not dodge the tree before it fell on him.",
+   "url": "https://yesnogame.net/en/stories/357",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 359,
+   "title": "Crash!",
+   "surface": "A woman hits the windshield of a vehicle travelling down the road and falls to the ground.The driver calls the police. When the officer comes, he looks after the victim and takes her into custody. Why?",
+   "truth": "The woman threw herself against the windshield of the car, which was going at a low speed, with the intention of getting paid by the driver's insurance company. Her plan did not work, however, because the car was fitted with a security camera that recorded her actions.",
+   "url": "https://yesnogame.net/en/stories/359",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 366,
+   "title": "Stop!",
+   "surface": "Gabriela's decision to stop moving saved her life.",
+   "truth": "Gabriela was in a swamp and found herself stuck in quicksand. She moved slowly so that she could wait until somebody rescued her.",
+   "url": "https://yesnogame.net/en/stories/366",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 369,
+   "title": "The last step",
+   "surface": "Everybody knew that if Julia took one step forward, she would die, but nobody told her.",
+   "truth": "Julia was a rat on which scientists were conducting an experiment. She was trapped in a labyrinth full of traps and was standing right in front of one.",
+   "url": "https://yesnogame.net/en/stories/369",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 374,
+   "title": "Photo with Grandfather",
+   "surface": "A young woman has her photo taken with her grandfather, but they have never met before, and neither of them is aware of their relationship.",
+   "truth": "The woman is a student in medical school. She has her photo taken with a human skeleton in the classroom, used for instruction. She does not know that the skeleton is that of her grandfather, who donated his body to science.",
+   "url": "https://yesnogame.net/en/stories/374",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 375,
+   "title": "The Picture",
+   "surface": "A woman completes a drawing, and then commits suicide. Why?",
+   "truth": "Long suspicious of her family history, the woman does the research necessary to draw her family tree. Upon completing it, she confirms that she is the product of incest, a fact she cannot live with.",
+   "url": "https://yesnogame.net/en/stories/375",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 380,
+   "title": "The king",
+   "surface": "Alexander shot at the king, but no one condemned him. Why?",
+   "truth": "Alexander played poker and lost. Out of anger he shot at the card depicting the king.",
+   "url": "https://yesnogame.net/en/stories/380",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 381,
+   "title": "The Snore",
+   "surface": "The sound of Brian’s snoring is usually just annoying, but today it causes terror and panic. Why?",
+   "truth": "Brian is a bus driver.",
+   "url": "https://yesnogame.net/en/stories/381",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 382,
+   "title": "Round Manhole",
+   "surface": "Why is it better to have round manhole covers than square ones?",
+   "truth": "A square manhole cover can be turned and dropped down the diagonal of the manhole. A round manhole cover cannot be dropped down the manhole. So for safety reasons, all manhole covers should be round.",
+   "url": "https://yesnogame.net/en/stories/382",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 383,
+   "title": "Metal tube",
+   "surface": "A woman enters a large metal tube. She is overcome with fear and clenches her boyfriend’s hand tightly. She is visibly shaken. Her boyfriend gently rubs her arms and speaks softly to her, but is unaffected himself. A few hours later, the woman’s boyfriend tells her that it’s time to go and her torment ends. What was happening to the woman?",
+   "truth": "The woman is terrified of flying but must travel to see a dying relative and this adds to her stress level. Her boyfriend does his best to comfort her during the few hours of the flight.",
+   "url": "https://yesnogame.net/en/stories/383",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 385,
+   "title": "The Man in the Mask",
+   "surface": "The man was afraid to go home because the man in the mask was there.",
+   "truth": "They are playing baseball. The man in the mask is the catcher. The other man is afraid to advance to home base.",
+   "url": "https://yesnogame.net/en/stories/385",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 386,
+   "title": "A Ballroom",
+   "surface": "A couple enters a grand ballroom only to find the occupants are dead. There has been no crime committed. The couple is not concerned by what they have found. How is this possible?",
+   "truth": "The couple is scuba diving on a sunken cruise ship. The occupants in the ballroom had drowned when the ship sank suddenly in a terrible disaster at sea.",
+   "url": "https://yesnogame.net/en/stories/386",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 387,
+   "title": "A Raw Egg",
+   "surface": "A magician is standing on a concrete floor holding a raw egg with his hand outstretched. Without the aid of any objects, he is able to drop the egg two feet without breaking it's shell. How does he do it?",
+   "truth": "He simply holds the egg higher than two feet, and then releases the egg. The first two feet it will fall without breaking.",
+   "url": "https://yesnogame.net/en/stories/387",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 388,
+   "title": "Pardoned",
+   "surface": "A prisoner was put in an escape-proof cell and told that he would be pardoned if he could break out. He was also given permission to keep any plants he wished in his cell. He was released in less than a week. How did he di it?",
+   "truth": "He requested a poison ivy plant. Soon after receiving it, he broke out — in a rash. Of course, he then received his pardon.",
+   "url": "https://yesnogame.net/en/stories/388",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 389,
+   "title": "The Millionaire",
+   "surface": "A man buys rice at $1 a pound from American growers and sells it for 2 cents a pound. As a result of this he becomes a millionaire. How could this be?",
+   "truth": "The man is a philanthropist who bought the rice to sell to poor people at prices they could afford. He started out as a billionaire, but lost so much money in his good works that he became a millionaire! (this is Warren Buffets goal)",
+   "url": "https://yesnogame.net/en/stories/389",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 390,
+   "title": "The motorway",
+   "surface": "A man drives down the motorway at 70 miles per hour. He passes three cars going 80 miles per hour, then gets pulled over by a police officer and is given a ticket.",
+   "truth": "Clue: He doesn't get a speeding ticket.\n\nAnswer: He is driving the wrong way down the motorway.",
+   "url": "https://yesnogame.net/en/stories/390",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 391,
+   "title": "The Hay",
+   "surface": "A horse is tied to a 15 ft. rope and there is a bail of hay 25 ft. away from him, yet the horse is able to eat from the bail of hay. How is this possible?",
+   "truth": "The horse is ties to one end of the rope but the other end of the rope is not tied to anything so the horse walks over and eats the hay.",
+   "url": "https://yesnogame.net/en/stories/391",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 392,
+   "title": "Friday",
+   "surface": "A cowboy rode into town on Friday, spent one night in town, and left on Friday. How do you account for this?",
+   "truth": "His horse is named Friday.",
+   "url": "https://yesnogame.net/en/stories/392",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 393,
+   "title": "The Choice",
+   "surface": "You are driving down the road in your car on a wild, stormy night, when you pass by a bus stop and you see three people waiting for the bus: An old lady, an old friend who once saved your life and the perfect partner you have been dreaming about. There can only be one passenger in your car, whom do you choose?",
+   "truth": "The old lady of course! After helping the old lady into the car, you can give your keys to your friend and have him drive the old lady. You get to wait for the next bus with your perfect partner.",
+   "url": "https://yesnogame.net/en/stories/393",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 394,
+   "title": "The smuggling",
+   "surface": "A man comes up to the border of a neighboring country on his motorcycle. The customs officer at the border crossing stops him and searches the man. He finds nothing so he lets him cross. The next day the same thing happens. This goes on every day for several months. \n\n Then one day, the man doesnʼt show up. The border official meets up with him in a restaurant in the city. The officer says, “I know youʼre smuggling something and itʼs driving me crazy. Itʼs all I think about. I canʼt even sleep. Just between you and me, what are you\n\nsmuggling?” What is the man smuggling?",
+   "truth": "Motorcycles.",
+   "url": "https://yesnogame.net/en/stories/394",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 395,
+   "title": "The hairdresser",
+   "surface": "A New York city hairdresser recently said that he would rather cut the hair of 3 Canadians rather than cut the hair of one New Yorker. Why?",
+   "truth": "He would rather earn three times as much money!",
+   "url": "https://yesnogame.net/en/stories/395",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 396,
+   "title": "The Age",
+   "surface": "A man was born in 1972 and dies in 1952 at the age of 25. How can this be?",
+   "truth": "He's born in room number 1972 of a hospital and dies in room number 1952.",
+   "url": "https://yesnogame.net/en/stories/396",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 400,
+   "title": "My Son",
+   "surface": "There are a man and his son in a car. The car crashes and the father dies. When the ambulance takes the son to the hospital, the surgeon says:\" I can't do the surgery, because he is my son\". How can that be possible?",
+   "truth": "Because the surgeon is a woman and his mother.",
+   "url": "https://yesnogame.net/en/stories/400",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 406,
+   "title": "Heated Argument",
+   "surface": "Micheal and his wife were having a heated argument that lasted hours. After some time they both left the house to go outside. Neither of them ever returned.",
+   "truth": "While they were arguing they forgot that they had food cooking in the kitchen. The unattended stove caused a fire that began spreading through the house. They left the house as soon as they realised it was burning. The house burned to the ground so they could never go back.",
+   "url": "https://yesnogame.net/en/stories/406",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 413,
+   "title": "The Shooter",
+   "surface": "Bill shot the man, but was not punished. Why?",
+   "truth": "The man was a film actor. According to the script, Bill was supposed to “shoot” him. \n\n Unfortunately, the gun was mistakenly loaded with live ammunition. Bill didn't know about this.",
+   "url": "https://yesnogame.net/en/stories/413",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 417,
+   "title": "The trendsetter",
+   "surface": "King George IV was born in 1763 and ruled England from 1820 to 1830 when he died. He wasn’t an outstanding ruler but is known as a footwear trendsetter. His shoes were fundamentally different from those worn by his contemporaries. Everyone liked this innovation so much that today it’s a common practice, which can’t be said about those times. What kind of innovation is it?",
+   "truth": "This king was the first to have a right and a left boot. Before then, all shoes and boots were made to fit both feet.",
+   "url": "https://yesnogame.net/en/stories/417",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 460,
+   "title": "The full bucket",
+   "surface": "A man takes a bucket of water and turns it over. However, nothing pours out, and the water in the bucket isn’t frozen. How is this possible?",
+   "truth": "The man is a diver and is underwater.",
+   "url": "https://yesnogame.net/en/stories/460",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 467,
+   "title": "Open the door!",
+   "surface": "The boy knocks on the door. The owner of the house opens it. The boy immediately thanks the owner and leaves. Why?",
+   "truth": "Before knocking, the boy tied his baby tooth to the door handle. When the owner opened the door, he also pulled the boy's tooth.",
+   "url": "https://yesnogame.net/en/stories/467",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 468,
+   "title": "Ludo and the cheese",
+   "surface": "Ludo was about to eat a piece of cheese when he was suddenly killed by a piece of metal. What happened?",
+   "truth": "Ludo is a mouse. He was killed by the mousetrap.",
+   "url": "https://yesnogame.net/en/stories/468",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 472,
+   "title": "The Angry Cat",
+   "surface": "Rachael and Monica have moved into a shared house with several other occupants. Monica doesn’t like their new accommodation though because of the angry and aggressive cat that greeted them when they first walked in. Rachael realizes that there isn’t really a problem. Why?",
+   "truth": "There is a mirror near the entrance. Monica is a cat, saw her reflection, and thought that it was another cat challenging her for territory. Rachael can cover up the mirror until Monica becomes settled, but Monica will figure it out eventually even if Rachael does nothing.",
+   "url": "https://yesnogame.net/en/stories/472",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 473,
+   "title": "Binded",
+   "surface": "One of Michael’s dearest loved ones binds him to a chair, but Michael doesn't mind. Why?",
+   "truth": "Michael is a kid. The chair is a car seat. One of Michael’s parents put his seatbelt on for him.",
+   "url": "https://yesnogame.net/en/stories/473",
+   "src": "yesnogame.net"
+  },
+  {
+   "id": 474,
+   "title": "The big accident",
+   "surface": "At the bottom of a large hill, more than 50 cars are involved in an accident. Some of the cars are overturned and others are resting on top of other cars. The pile-up is so large that a few military vehicles and a fire truck are also involved in the crash. What happened to cause this big accident?",
+   "truth": "The cars, trucks, and other vehicles are toys being played with by a toddler.",
+   "url": "https://yesnogame.net/en/stories/474",
+   "src": "yesnogame.net"
+  }
+ ],
+ "held": [
+  {
+   "id": 32,
+   "title": "A glass of water",
+   "why": "与已入库英译中重复"
+  },
+  {
+   "id": 177,
+   "title": "The birdwatcher",
+   "why": "与已入库英译中重复"
+  },
+  {
+   "id": 205,
+   "title": "A train on the outskirts of Tokyo",
+   "why": "超长/多问句，疑似解析串味"
+  },
+  {
+   "id": 207,
+   "title": "A well for corpses",
+   "why": "超长/多问句，疑似解析串味"
+  },
+  {
+   "id": 208,
+   "title": "The parents disappeared",
+   "why": "超长/多问句，疑似解析串味"
+  },
+  {
+   "id": 213,
+   "title": "The daughter disappeared",
+   "why": "超长/多问句，疑似解析串味"
+  },
+  {
+   "id": 229,
+   "title": "A funny vagrant",
+   "why": "超长/多问句，疑似解析串味"
+  },
+  {
+   "id": 253,
+   "title": "Death at Sea",
+   "why": "与已入库英译中重复"
+  },
+  {
+   "id": 256,
+   "title": "Happy death",
+   "why": "与已入库英译中重复"
+  },
+  {
+   "id": 259,
+   "title": "Arson",
+   "why": "与已入库英译中重复"
+  }
+ ]
+}

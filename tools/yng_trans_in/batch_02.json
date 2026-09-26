@@ -1,0 +1,230 @@
+{
+ "batch": 2,
+ "count": 32,
+ "items": [
+  {
+   "sid": 96,
+   "title": "The Grand Master",
+   "surface": "Following criminals’ trail, a police inspector entered a chess club. Assessing the situation, he told his assistants, “Detain those two!” \n\nHow did he guess?",
+   "truth": "One of the “chess players” had no kings on the board.",
+   "url": "https://yesnogame.net/en/stories/96"
+  },
+  {
+   "sid": 97,
+   "title": "Private space",
+   "surface": "The Venezuelan police made a few attempts to arrest a well-known bandit. They knew where he lived. From time to time they got the arrest warrant and approached his house. When they entered the house, he locked in the bedroom. The police had nothing to do but to leave empty-handed.",
+   "truth": "His house was on the border between Venezuela and Colombia. Although the front door and half of the house were on the territory of Venezuela, the bedroom was located on the territory of Colombia. The Venezuelan police had no jurisdiction in Colombia, so the police couldn't arrest him while he was in the bedroom.",
+   "url": "https://yesnogame.net/en/stories/97"
+  },
+  {
+   "sid": 99,
+   "title": "Hit his little finger",
+   "surface": "A person called the police and told them to ask about John K. Upon arrival at John’s house, the police found him dead. Examining the corpse, the police discovered severe injuries. But the apartment was in perfect order, without any signs of a struggle or break-in.",
+   "truth": "A driver hit a passerby at night, found his address in the documents, discovered that he lived alone, and took him home.",
+   "url": "https://yesnogame.net/en/stories/99"
+  },
+  {
+   "sid": 106,
+   "title": "The Locked Room",
+   "surface": "A man is found dead in a puddle of blood and water on the floor of an otherwise empty\n\nlocked room with no windows. How could this happen?",
+   "truth": "He stabbed himself with an icicle.",
+   "url": "https://yesnogame.net/en/stories/106"
+  },
+  {
+   "sid": 125,
+   "title": "Piece of Paper on the Cactus",
+   "surface": "A man walks up to a cactus, looks at a piece of paper pinned there, and kills himself.",
+   "truth": "The man has been wandering lost in the desert. He fears he has been walking in circles. To test this, he pins a blank piece of paper to a cactus and sets off walking. When he encounters the paper again, his fears are confirmed and he knows he will never find his way out.",
+   "url": "https://yesnogame.net/en/stories/125"
+  },
+  {
+   "sid": 126,
+   "title": "A woman shoe",
+   "surface": "Before going to bed, the woman hides her shoe in the safe. What for?",
+   "truth": "This woman works as a stewardess on an airplane. In the hotel before going to bed she puts her documents in the safe, and to not forget them in the morning, she puts one of her shoes along with the documents.",
+   "url": "https://yesnogame.net/en/stories/126"
+  },
+  {
+   "sid": 127,
+   "title": "Healthy arm",
+   "surface": "Why did a healthy young girl put a gypsum on her arm, which was not damaged?",
+   "truth": "A young girl put a gypsum on the healthy arm before an oral french exam. She thought that the examiner would ask about her arm. And she came to the exam, having prepared for this particular question.",
+   "url": "https://yesnogame.net/en/stories/127"
+  },
+  {
+   "sid": 129,
+   "title": "Private conversation",
+   "surface": "The woman is speaking something and she is upset. Nobody can understand her but a man is filming her on camera. Why? And what is happening?",
+   "truth": "It happened for real. English linguist Dr. David Dalby filmed an 87-year-old African woman who spoke Bikya as her native tongue (and Bikya is probably best known for this particular work).\n\nBy the way, it was thought that she was the last speaker, but Kiessling (2007) reports that Bikya has the largest number of remaining speakers of the Furu languages.",
+   "url": "https://yesnogame.net/en/stories/129"
+  },
+  {
+   "sid": 130,
+   "title": "Off With Their Beards!",
+   "surface": "Why Alexander the Great told his army to shave off their beards?",
+   "truth": "When the commander Parmenio asked the reason, according to the ancient historian Plutarch, Alexander replied, “Don’t you know that in battles there is nothing handier to grasp than a beard?” \n\n ---\n\nBut there is ample cause to doubt Plutarch’s explanation. Stories of beard-pulling in battles were myth rather than history. Plutarch and later historians misunderstood the order because they neglected the most relevant fact, namely that Alexander had dared to do what no self-respecting Greek leader had ever done before: shave his face, likening himself to the demigod Heracles, rendered in painting and sculpture in the immortal splendor of youthful, beardless nudity. Alexander wished above all, as he told his generals before the battle, that each man would see himself as a crucial part of the mission. They would certainly see this more clearly if each of them looked more like their heroic commander.",
+   "url": "https://yesnogame.net/en/stories/130"
+  },
+  {
+   "sid": 131,
+   "title": "Suffering",
+   "surface": "When kids were watching TV, they were not frigthened so much. But when they saw others suffering, they realized that something was not right.",
+   "truth": "It was an experiment when kids were giving blood. It showed that the kids were feeling better during this process if they were watching TV rather than if they were supported by their parents.",
+   "url": "https://yesnogame.net/en/stories/131"
+  },
+  {
+   "sid": 132,
+   "title": "Want to print some cash?",
+   "surface": "A man designed a device into which you can insert colored paper, and then get the ideal 100$. Experts can not distinguish them from the real ones. How does he do that, and why does he sell this device?",
+   "truth": "The man sells this device to the thief, convincing him that it prints counterfeit dollars that are indistinguishable from the real ones. He demonstrates the machine by inserting green paper into it. But green paper - this is actually real 100$, but richly painted in green. The machine simply removes green paint from them.",
+   "url": "https://yesnogame.net/en/stories/132"
+  },
+  {
+   "sid": 133,
+   "title": "Colorblind",
+   "surface": "He died because he mixed up the colors.",
+   "truth": "In Thailand if some snake bites you, doctor has to identify the snake's species in order to choose the right antidote. The tourist usually can not identify it, so doctor asks him/her what color the snake was, and using this information specialist defines snake's species. The man was colorblind, therefore he received a wrong antidote.",
+   "url": "https://yesnogame.net/en/stories/133"
+  },
+  {
+   "sid": 134,
+   "title": "A murderer",
+   "surface": "Michael applaused, and everyone in the room (except him) died. What happened?",
+   "truth": "Michael was killing mosquitoes.",
+   "url": "https://yesnogame.net/en/stories/134"
+  },
+  {
+   "sid": 135,
+   "title": "Chicken gun",
+   "surface": "In the 1950s in America there was invented a chicken gun. What for?",
+   "truth": "A chicken gun is a large-diameter, compressed-air cannon used to fire dead chickens at aircraft components in order to simulate high-speed bird strikes during the aircraft's flight. Jet engines and aircraft windshields are particularly vulnerable to damage from such strikes, and are the most common target in such tests. Whole, dead, standard-size chickens, as would be used for cooking, are thought to accurately simulate a large, live bird striking a plane in flight.",
+   "url": "https://yesnogame.net/en/stories/135"
+  },
+  {
+   "sid": 136,
+   "title": "Pear inside a bottle",
+   "surface": "How do you get a full-grown pear inside a bottle of brandy?",
+   "truth": "It may be easier than putting a ship in a bottle but requires just as much patience. The pear isn’t put into the bottle; it grows inside it. When the fruit is small, the bottle is affixed to the tree branch, and the pear grows to maturity inside the bottle.",
+   "url": "https://yesnogame.net/en/stories/136"
+  },
+  {
+   "sid": 137,
+   "title": "The village idiot",
+   "surface": "Visitors to a scenic mountain village were often amused by the village idiot. When offered a choice between a shiny 50-cent piece and a crumpled $5 bill, he would always happily choose the half-dollar. The bill was worth ten times as much, so why did he never choose it?",
+   "truth": "The so-called village idiot was smart enough to realize that as long as he kept choosing a 50-cent piece, people would keep offering him the choice. If he took the $5 bill once, the stream of coins would stop rolling in.",
+   "url": "https://yesnogame.net/en/stories/137"
+  },
+  {
+   "sid": 138,
+   "title": "Burning Island",
+   "surface": "A man is stranded on an island covered in forest. One day, when the wind is blowing from the west, lightning strikes the west end of the island and sets fire to the forest. The fire is very violent, burning everything in its path, and without intervention the fire will burn the whole island, killing the man in the process. There are cliffs around the island, so he cannot jump off.\n\nHow can the man survive the fire? (There are no buckets or any other means to put out the fire)",
+   "truth": "The man picks up a piece of wood and lights it from the fire on the west end of the island. He then quickly carries it near the east end of he island and starts a new fire. The wind will cause that fire to burn out the eastern end and he can then shelter in the burnt area.",
+   "url": "https://yesnogame.net/en/stories/138"
+  },
+  {
+   "sid": 139,
+   "title": "Ransom in the call-box",
+   "surface": "The son of a rich man was kidnapped. The kidnapper wanted the rich man to bring and put the expensive diamond into the call-box located in a city park. Policemen surrounded this park, intending to catch the criminal. The father of the kidnapped child came to the call-box and did everything the kidnapper said to him, but the police could not prevent the cunning criminal from taking the diamond out of the call-box. They didn't grab the villian as well. What did he do?",
+   "truth": "This is a real history that happened in Taiwan. When the father came to the call-box, he found a postal pigeon in the cage. There was a note attached to him, in which it was said that the diamond should be put into a small pouch attached to the neck of the pigeon, and then he should let the pigeon out of the cage. When the rich man did this, the dove flew through the city to its dovecote, and the police could not follow it.",
+   "url": "https://yesnogame.net/en/stories/139"
+  },
+  {
+   "sid": 140,
+   "title": "Similar devices",
+   "surface": "Two devices are commonly used by people. They are created for the same purpose. But one of them has lots of details and another does not has any. What are these things?",
+   "truth": "One of these devices is hourglass. Another one is sundial. \n\n Little hint for players: both devices are invented long time ago.",
+   "url": "https://yesnogame.net/en/stories/140"
+  },
+  {
+   "sid": 141,
+   "title": "First in the class",
+   "surface": "A man, who was examining some school, noticed that any time a teacher was asking a question, lots of pupils were ready to answer. Moreover, every time the teacher was choosing another person and the answer was always right.",
+   "truth": "The teacher told pupils to raise up their hands no matter what question would be asked. But if they khew the answer, they should raise the right hand, otherwise - the left one. Therefore the teacher could choose among the pupils who knew the answer.",
+   "url": "https://yesnogame.net/en/stories/141"
+  },
+  {
+   "sid": 142,
+   "title": "How to outplay Nick Faldo?",
+   "surface": "One person decided to play golf with Nick Faldo, imposing one condition - he will choose the time and the place for a match. Nick agreed. As a result this person beat the champion.",
+   "truth": "This person was blind and he chose to play this match at moonless night. He could play golf perfectly well in dark. (It is true, blind people can play golf with the help of not blind people). Such conditions were unusual for Nick so he lost.",
+   "url": "https://yesnogame.net/en/stories/142"
+  },
+  {
+   "sid": 143,
+   "title": "Seat belts",
+   "surface": "In some city an amount of people injured in car accidents was very high. Then it was decided by administration to make the using of seat belts oblidatory. People started to obey this rule. But the amount of crash accidents remained the same. Moreover, the number of injured people who addressed to the hospital even increased.",
+   "truth": "The adopted law decreased the number of accidents. A lot of people who would die without seat belt stayed alive but got injured and therefore they went to the hospital. So the number of patients increased.",
+   "url": "https://yesnogame.net/en/stories/143"
+  },
+  {
+   "sid": 144,
+   "title": "Healthy people",
+   "surface": "A hospital director recently confirmed that many that many of people admitted to his hospital were not ill at all. They were perfectly healthy, yet were given hospital care and treatment.",
+   "truth": "The hospital was a maternity hospital and all those admitted were pregnant women.",
+   "url": "https://yesnogame.net/en/stories/144"
+  },
+  {
+   "sid": 145,
+   "title": "Greenland",
+   "surface": "Over 80 percent of Greenland is covered in ice. But why then it was called Greenland (a green land)?",
+   "truth": "The name Greenland comes from Scandinavian settlers. In the Norse sagas, it is said that Erik the Red was exiled from Iceland for murder. He set out in ships to find land rumoured to be to the northwest. After settling there, he named the land Grfnland (Greenland) to attract more people to settle there.",
+   "url": "https://yesnogame.net/en/stories/145"
+  },
+  {
+   "sid": 146,
+   "title": "Don't open The Door",
+   "surface": "A little girl was warned by her parents never to open the cellar door. If she did, she would see things that they did not want her to see. One day, while her parents were out, they accidentally left the cellar door unlocked. The girl opened the cellar door. What did she see?",
+   "truth": "When the girl opened the cellar door she saw the living room and a beautiful garden through its windows. She had never seen these before because her parents had kept her in the cellar all her life.",
+   "url": "https://yesnogame.net/en/stories/146"
+  },
+  {
+   "sid": 147,
+   "title": "Died of fright",
+   "surface": "A man woke up, lit a match and saw something that frightened him to death.",
+   "truth": "This man was a prisoner. He wanted to escape and asked the mortician to do something for him. When somebody in prison would die, the prisoner would hide in the coffin and would be buried along with the corpse outside the territory of prison. And after some time he would be released by this mortician. \n\n But something went wrong. When the prisoner opened his eyes after the burial and lit a match, he saw the face of the mortician. He understood that he is doomed and died of fright.",
+   "url": "https://yesnogame.net/en/stories/147"
+  },
+  {
+   "sid": 148,
+   "title": "The punch",
+   "surface": "A man went into a party and drank some of the punch. He then left early. Everyone at the party who drunk the punch subsequently died of poisoning. Why did the man not die?",
+   "truth": "The poison from the punch came from the ice cubes. When the man drank the punch, the ice was fully frozen. Gradually, as the ice cubes melted the poison was released into the punch.",
+   "url": "https://yesnogame.net/en/stories/148"
+  },
+  {
+   "sid": 149,
+   "title": "A stranger in the car",
+   "surface": "A married couple was speeding into town when their sedan ran out of gas. The man went for help after making sure his wife closed the windows and locked the doors of the car. Upon his return, he found his wife dead and a stranger in the car. The windows were still closed, the doors were still locked, and no damage was done to the car.",
+   "truth": "The woman gave birth, and bled to death. Since the father has never seen the baby before, the kid can technically be called a stranger.",
+   "url": "https://yesnogame.net/en/stories/149"
+  },
+  {
+   "sid": 150,
+   "title": "Rivalry",
+   "surface": "At the end of the XIX century one american enterpreneur invented a system to withstand competition. This system we all use nowadays.",
+   "truth": "This american enterpreneur was Almon Brown Strowger. Strowger patented his automatic telephone exchange and left the undertaking business to mass-produce his new invention. \n\n Anecdotally, Strowger's undertaking business was losing clients to a competitor whose telephone-operator wife was redirecting everyone who called for Strowger. Motivated to remove the intermediary operator, he invented the first automatic telephone exchange in 1889 and received its patent in 1891.It is reported that he initially constructed a model of his invention from a round collar box and some straight pins.",
+   "url": "https://yesnogame.net/en/stories/150"
+  },
+  {
+   "sid": 151,
+   "title": "Jumping from a 6th floor",
+   "surface": "A woman jumps from a windowshell, on a 6th floor. However, she is not injured in any way.",
+   "truth": "The woman was about to commit suicide but she changed her mind in the last minute and decided to jump back into her apartment.",
+   "url": "https://yesnogame.net/en/stories/151"
+  },
+  {
+   "sid": 152,
+   "title": "A premature death",
+   "surface": "A man who was expecting to die in a few days dies sooner than he thought.",
+   "truth": "The man was really sick and he decided to donate his organs to a rich man. Since this rich man's son wanted to inherit his farther's fortune he poisoned the donor so that his organs became unable to work again in his father's body.",
+   "url": "https://yesnogame.net/en/stories/152"
+  },
+  {
+   "sid": 153,
+   "title": "There's light",
+   "surface": "Roger sees the light and he becomes paralyzed. Soon after that he dies.",
+   "truth": "Roger was a rabbit that escaped from the house where he lived. He was crossing the road at night when the lights of a car blinded him. The driver did not see him and ran him over.",
+   "url": "https://yesnogame.net/en/stories/153"
+  }
+ ]
+}

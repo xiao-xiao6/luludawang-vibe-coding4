@@ -3,7 +3,7 @@
  * ------------------------------------------------------------
  * 产出两份 ES module：
  *   worker/src/puzzles.data.js  ← js/data.js + js/data-more.js（精品层，100 题）
- *   worker/src/library.data.js  ← js/library.data.js（汤库层，1361 题）
+ *   worker/src/library.data.js  ← data/library/library.data.js（汤库层母本）
  *
  * 为什么要搬库层：库层原本把 truth 整段塞在前端，
  * F12 打开 library.data.js 就能直接看答案。搬进 Worker 后
@@ -22,13 +22,12 @@ const JS = path.join(ROOT, "js");
 const SRC = path.join(ROOT, "worker", "src");
 const CHECK = process.argv.indexOf("--check") !== -1;
 
-/* 汤库源码已在发布瘦身时搬出 js/，优先读 data/Library/ */
-const LIB_SRC_FILE = [
-  path.join(ROOT, "data", "Library", "library.data.js"),
-  path.join(JS, "library.data.js")
-].find((f) => fs.existsSync(f));
-if (!LIB_SRC_FILE) {
-  console.error("✗ 找不到汤库源码：data/Library/library.data.js 或 js/library.data.js");
+/* 汤库源码已在发布瘦身时搬出 js/，只读 data/library/ 母本。
+ * 注：旧版 js/library.data.js（1361 条、清洗前）已于 2026-09-26 隔离到 _local_backup/，
+ *     不再作为回落源，避免构建静默回退到污染数据。 */
+const LIB_SRC_FILE = path.join(ROOT, "data", "library", "library.data.js");
+if (!fs.existsSync(LIB_SRC_FILE)) {
+  console.error("✗ 找不到汤库母本：data/library/library.data.js");
   process.exit(1);
 }
 
@@ -75,7 +74,7 @@ const coreSlim = coreList.map((p) => ({
 const lib = loadSandbox([path.basename(LIB_SRC_FILE)], path.dirname(LIB_SRC_FILE));
 const libList = lib.SOUP_LIBRARY || [];
 if (!libList.length) {
-  console.error("✗ 没抽到任何库题，检查 js/library.data.js");
+  console.error("✗ 没抽到任何库题，检查 data/library/library.data.js");
   process.exit(1);
 }
 
@@ -148,7 +147,7 @@ emit(
  * 才能让 AI 汤主吃真底判定（否则就是空底瞎编）。防作弊交给玩家自觉。
  * 多人房判定仍在服务端 Worker，不受影响。
  */
-const libPublic = libList.map((p) => ({
+const libPublic = libList.map((p) => Object.assign({
   id: p.id,
   srcNo: p.srcNo,
   title: p.title || "",
@@ -166,7 +165,7 @@ const libPublic = libList.map((p) => ({
   mode: p.mode || (p.truth ? "truth" : "surface"),
   hasTruth: !!(p.truth && p.mode !== "surface"),
   truthSource: p.truthSource || ""
-}));
+}, (p.alsoIn && p.alsoIn.length) ? { alsoIn: p.alsoIn } : {}));
 
 /* 策略变更后不再做「不能有 truth」的自检（现在 truth 是必须的）。
    保留一条正向自检：确认带底题目的 truth 真的落进了产物。 */

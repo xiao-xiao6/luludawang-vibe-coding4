@@ -1,0 +1,25 @@
+{
+ "before": 1140,
+ "after": 1137,
+ "removed": [
+  {
+   "id": "lib_0696ae22b31a",
+   "title": "白昼流星",
+   "truthSource": "recovered",
+   "surface": "白昼流星将要划过，我躲在阴影里掐算着它的死期。\n 手机里一条APP提示突然亮起，"
+  },
+  {
+   "id": "lib_1b5f8818a812",
+   "title": "一周还是两年？",
+   "truthSource": "recovered",
+   "surface": "法医推了推眼镜，指着解剖台上的遗体，语气笃定地说：“从器官腐败程度与皮下组织状态"
+  },
+  {
+   "id": "lib_57e7c1800d44",
+   "title": "深渊情书",
+   "truthSource": "recovered",
+   "surface": "我对着镜头解开了衣扣，强忍着恶心，把那张裸照发给了那个男人。\n他贪婪地以为这是爱"
+  }
+ ],
+ "legacy_recovered_left": 100
+}

@@ -1,0 +1,43 @@
+{
+ "before": 1354,
+ "restored": [
+  {
+   "id": "lib_b560a80af76b",
+   "title": "音乐停了，她也停了",
+   "surface": "音乐停了，女人死了。发生了什么？"
+  },
+  {
+   "id": "lib_bb9b8da83f0b",
+   "title": "曲终人亡三解",
+   "surface": "音乐停了，女人死了。这是怎么回事？"
+  }
+ ],
+ "alsoIn": [
+  {
+   "id": "lib_4195efaab01e",
+   "alsoIn": [
+    "lib_b560a80af76b",
+    "lib_bb9b8da83f0b"
+   ]
+  },
+  {
+   "id": "lib_b560a80af76b",
+   "alsoIn": [
+    "lib_4195efaab01e",
+    "lib_bb9b8da83f0b"
+   ]
+  },
+  {
+   "id": "lib_bb9b8da83f0b",
+   "alsoIn": [
+    "lib_4195efaab01e",
+    "lib_b560a80af76b"
+   ]
+  }
+ ],
+ "renamed": {
+  "id": "lib_e4042204c3dc",
+  "from": "无声的电话",
+  "to": "打鼾的邻居"
+ }
+}

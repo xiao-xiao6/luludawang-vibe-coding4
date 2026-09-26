@@ -1,0 +1,124 @@
+==============================================================================
+dup 分档：确定 9 | 较可信 68 | 边界（疑似误伤）84 | 合计 161
+review 67 | fresh 5
+==============================================================================
+
+【边界档抽样：若语义不符，即为误伤，须回收到新增】
+------------------------------------------------------------------------------
+YNG#165 《No light》  S=0.37 T=0.60   ←→ 库内 lib_2d7a2f4d5b9f《》
+  YNG 汤面: A man woke up at night feeling thirsty. Then he turned off the light everywhere and went to bed again. In the morning he woke up, looked out of the window and yelled. Soon after he committed suicide.
+  YNG 汤底: The man was caretaker. Accindetally he turned off the lighthouse and it caused some shipwrecks. When he woke up, he realized what he have done.
+  库内汤面: A man wakes up in a dark room. He switches on the light.why?
+  库内汤底: The man is a lighthouse-keeper. He woke up in the darkness with a nagging feeling that he had forgotten something. He turned on the radio and heard a report that a ship had crashed onto rocks with gre
+------------------------------------------------------------------------------
+YNG#229 《A funny vagrant》  S=0.42 T=0.60   ←→ 库内 lib_d9078a59e095《》
+  YNG 汤面: The doorbell rings. Bill opens the door. On the threshold, he sees a local vagrant.      "Hello," says the vagrant, "as usual, I was going around the garbage pits and in one of them found a wallet with $1,000 and your ID. You must have thrown it away by mistak
+  YNG 汤底: When returning the wallet, the vagrant had high hopes for gratitude.   But there was a chance that Bill wouldn’t have any broken money at hand.   In the wallet, there were only $100 bills.   Would Bill agree to pay such a large amount?    And the vagrant made 
+  库内汤面: A man sitting on a park bench reads a newspaper article headlined "Death at Sea" and knows a murder has been committed. How could this be
+  库内汤底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woma
+------------------------------------------------------------------------------
+YNG#406 《Heated Argument》  S=0.45 T=0.60   ←→ 库内 lib_c026a4977b0e《Jed 1.65》
+  YNG 汤面: Micheal and his wife were having a heated argument that lasted hours. After some time they both left the house to go outside. Neither of them ever returned.
+  YNG 汤底: While they were arguing they forgot that they had food cooking in the kitchen. The unattended stove caused a fire that began spreading through the house. They left the house as soon as they realised it was burning. The house burned to the ground so they could 
+  库内汤面: A man was walking down a road when a stone lodged itself between his foot and his sandal. He leaned against a pole and, with his head down to watch, he shook his foot to dislodge the stone. Another ma
+  库内汤底: The chap shaking his foot to dislodge the stone was leanig against a metal light pole. The other fellow came along and thought that the pole had become 'live' somehow; he thought the first fellow was 
+------------------------------------------------------------------------------
+YNG#215 《(Un)luck》  S=0.42 T=0.60   ←→ 库内 lib_26d12ef6da2a《Jed 1.12》
+  YNG 汤面: Due to an oversight committed by Nils when doing his job, Martha, an upstairs neighbour, couldn’t wash the dishes. At the same time, Martha’s husband was glad, but Nils was still fired. Why?
+  YNG 汤底: An interesting case happened in Norway:    When a housewife (Martha) turned on a water tap, beer poured out of it! The fact is that in a cafe on the ground floor, a bartender confused taps. As a result, Martha had a beer jet upstairs, and in the bar below, wat
+  库内汤面: A woman in France in 1959 is waiting in her room, with all the doors locked from the inside, for her husband to come home. When he arrives, the house has burned to the ground and she's dead. (JM, orig
+  库内汤底: This is apparently a true story. The hot sun reflected from the woman's large mirror (which I speculate may have been imperfectly flat and therefore focused the sunlight, but I don't know for sure) an
+------------------------------------------------------------------------------
+YNG#5 《The accident》  S=0.23 T=0.59   ←→ 库内 lib_0c44293fd6f1《Jed 1.51》
+  YNG 汤面: A car driver causes an accident when he crashes into a bike, as he was making an unexpected turn at a crossroad. When the policemen arrive, another man gets arrested. The one who was driving is carried home.
+  YNG 汤底: The driver was receiving driving lessons and his instructor told him to make an incorrect turn at a crossroad, crashing into a bike. The policemen considered the driving instructor to be responsible for the accident so they arrested him and took the learner ho
+  库内汤面: If he'd turned on the light, he'd have lived.
+  库内汤底: A man was shot during a robbery in his store one night. He staggered into the back room, where the telephone was, and called home, dialing by feel since he hadn't turned on the light. Once the call we
+------------------------------------------------------------------------------
+YNG#345 《Not guilty?》  S=0.29 T=0.59   ←→ 库内 lib_5351805ac486《》
+  YNG 汤面: Igor breaks into Thomas' home to kill him but he doesn't do it. However he is immediately arrested and sentenced for the crime. Why?
+  YNG 汤底: Igor was a hitman. The person who hired him had planned to kill Thomas and get rid of Igor. To achieve this, he hired a second assassin that killed Thomas before Igor got there. When Igor arrived, Thomas was dead and the police had already been called and were
+  库内汤面: A car without a driver moves; a man dies. How could this be?
+  库内汤底: The murderer sets the car on a slope above the hot dog stand where the victim works. He then wedges an ice block in the car to keep the brake pedal down, and puts the car in neutral, after which he fl
+------------------------------------------------------------------------------
+YNG#211 《Green lipstick》  S=0.13 T=0.59   ←→ 库内 lib_36a9685bff7a《》
+  YNG 汤面: Every day he puts on green lipstick. But almost no one notices it.
+  YNG 汤底: In the 20th century the television was still black and white, and cameras had red filters, which absorbed red color of the image, i.e., red lipstick couldn’t be seen on the lips. Therefore, TV broadcasters had to make up their lips with green lipstick to make 
+  库内汤面: The wind stopped blowing and the man died. What happened?
+  库内汤底: The sole survivor of a shipwreck reached a desert isle. Unfortunately, he was blind. Luckily, there was a freshwater spring on the island, and he rigged the ship's bell (which had drifted to the islan
+------------------------------------------------------------------------------
+YNG#145 《Greenland》  S=0.31 T=0.59   ←→ 库内 lib_48818f1558f0《Jed 1.16》
+  YNG 汤面: Over 80 percent of Greenland is covered in ice. But why then it was called Greenland (a green land)?
+  YNG 汤底: The name Greenland comes from Scandinavian settlers. In the Norse sagas, it is said that Erik the Red was exiled from Iceland for murder. He set out in ships to find land rumoured to be to the northwest. After settling there, he named the land Grfnland (Greenl
+  库内汤面: Two dead people sit in their cars on a street.
+  库内汤底: Because there was a heavy fog, two people driving in opposite directions on the same road both stuck their heads out of their windows to better see the road's center line. Their heads hit each other a
+------------------------------------------------------------------------------
+YNG#357 《The cave》  S=0.39 T=0.59   ←→ 库内 lib_36a9685bff7a《》
+  YNG 汤面: Lou is in a cave when, suddenly, he hears a sound from outside. He thinks it's strange, so he goes out to see what had happened, and dies the moment he exits the cave.
+  YNG 汤底: Lou heard the sound of a chain saw and discovered that it belonged to a woodcutter who was cutting down a tree just in front of the cave. Unfortunately, Lou could not dodge the tree before it fell on him.
+  库内汤面: The wind stopped blowing and the man died. What happened?
+  库内汤底: The sole survivor of a shipwreck reached a desert isle. Unfortunately, he was blind. Luckily, there was a freshwater spring on the island, and he rigged the ship's bell (which had drifted to the islan
+------------------------------------------------------------------------------
+YNG#196 《The detective》  S=0.33 T=0.59   ←→ 库内 lib_4195efaab01e《》
+  YNG 汤面: A woman asks questions to her friend - a policeman - about a strange death. After 5 minutes the policeman is surprised to see that the woman finds out the cause of the death.
+  YNG 汤底: The woman and the policeman were friends and they were playing "situation puzzle". The policeman told a story and thought that his friend could not solve it. He was very surprised when the woman, after a few questions, found out the solution.
+  库内汤面: Music stops and a woman dies. What happened?
+  库内汤底: The woman is a tightrope walker in a circus. Her act consists of walking the rope blindfolded, accompanied by music, without a net. The musician (organist, or calliopist, or pianist, or whatever) is s
+
+【较可信档抽样：验证是否真同题】
+------------------------------------------------------------------------------
+YNG#260 《Stand to the end》  S=0.39 T=0.70   ←→ 库内《Jed 2.20》
+  YNG 汤底: He thinks his foot is standing on a mine (although it is not).    It was ordered to Mike and his partner to kill terrorists. But the operation failed. A sandstorm helped them to escape, and they ended
+  库内汤底: A baseball game is going on. The base-runner sees the catcher waiting at home plate with the ball, and so decides to stay at third base to avoid being tagged out. 2.20 variant answer: Joe's in the hos
+------------------------------------------------------------------------------
+YNG#130 《Off With Their Beards!》  S=0.18 T=0.70   ←→ 库内《Jed 2.20》
+  YNG 汤底: When the commander Parmenio asked the reason, according to the ancient historian Plutarch, Alexander replied, “Don’t you know that in battles there is nothing handier to grasp than a beard?”    ---  B
+  库内汤底: A baseball game is going on. The base-runner sees the catcher waiting at home plate with the ball, and so decides to stay at third base to avoid being tagged out. 2.20 variant answer: Joe's in the hos
+------------------------------------------------------------------------------
+YNG#90 《Bait》  S=0.38 T=0.69   ←→ 库内《》
+  YNG 汤底: A group of people were on an ocean voyage in a yacht. One day, they decided to go swimming — they put on their swimsuits and dove off the side. They discovered belatedly that they have forgotten to pu
+  库内汤底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woma
+------------------------------------------------------------------------------
+YNG#21 《The albatross》  S=0.38 T=0.69   ←→ 库内《》
+  YNG 汤底: The man was in a ship that was wrecked on a desert island. When there was no food left, another passenger brought what he said was albatross but was really part of the man's wife (who had died in the 
+  库内汤底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woma
+------------------------------------------------------------------------------
+YNG#150 《Rivalry》  S=0.41 T=0.69   ←→ 库内《》
+  YNG 汤底: This american enterpreneur was Almon Brown Strowger. Strowger patented his automatic telephone exchange and left the undertaking business to mass-produce his new invention.    Anecdotally, Strowger's 
+  库内汤底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woma
+------------------------------------------------------------------------------
+YNG#210 《The Arm of the Postal Service》  S=0.44 T=0.69   ←→ 库内《》
+  YNG 汤底: The three men had been stranded on a desert island. Desperate for food, they had agreed to amputate their left arms in order to eat them. They swore an oath that each would have his left arm cut off. 
+  库内汤底: The man is a travel agent. He had sold someone two tickets for an ocean voyage, one round-trip and one one-way. The last name of the man who bought the tickets is the same as the last name of the woma
+------------------------------------------------------------------------------
+YNG#275 《A double-cross》  S=0.18 T=0.68   ←→ 库内《》
+  YNG 汤底: Bill is a detective. A couple of years ago, he investigated a murder, and he believes that Kirill committed it. But the court decided otherwise, and Kirill walked free.      Bill decided to hide all t
+  库内汤底: The woman is a tightrope walker in a circus. Her act consists of walking the rope blindfolded, accompanied by music, without a net. The musician (organist, or calliopist, or pianist, or whatever) is s
+------------------------------------------------------------------------------
+YNG#291 《Strikes in the stomach》  S=0.20 T=0.68   ←→ 库内《Jed 1.90》
+  YNG 汤底: On a tour in Montreal in 1926, three students entered Houdini’s dressing room. Among them was a college boxing champion called Gordon. He asked Houdini if he really could stand up to a few strong stri
+  库内汤底: He urinated on the third rail in the New York subway, was knocked onto the tracks by the shock, and was hit by a train and killed. (Experts apparently disagree on whether he died from the electrical s
+
+==============================================================================
+【净新增全部 5 条（需逐条确认确实不在库内）】
+==============================================================================
+
+YNG#175  《Unopened package》
+  汤面: A man is found dead in a filed. Lying next to him is an unopened package.
+  汤底: The man was skydiving and his parachute did not open. The unopened package was his parachute.
+
+YNG#381  《The Snore》
+  汤面: The sound of Brian’s snoring is usually just annoying, but today it causes terror and panic. Why?
+  汤底: Brian is a bus driver.
+
+YNG#392  《Friday》
+  汤面: A cowboy rode into town on Friday, spent one night in town, and left on Friday. How do you account for this?
+  汤底: His horse is named Friday.
+
+YNG#395  《The hairdresser》
+  汤面: A New York city hairdresser recently said that he would rather cut the hair of 3 Canadians rather than cut the hair of one New Yorker. Why?
+  汤底: He would rather earn three times as much money!
+
+YNG#396  《The Age》
+  汤面: A man was born in 1972 and dies in 1952 at the age of 25. How can this be?
+  汤底: He's born in room number 1972 of a hospital and dies in room number 1952.

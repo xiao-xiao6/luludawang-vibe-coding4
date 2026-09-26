@@ -1,0 +1,230 @@
+{
+ "batch": 4,
+ "count": 32,
+ "items": [
+  {
+   "sid": 188,
+   "title": "Starving to death",
+   "surface": "A woman starves to death despite being surrounded by food.",
+   "truth": "The woman worked in the stores of a large food company. During the holiday period, she was alone and locked herself in by accident. As all the food was canned and she had nothing to open the cans with, she starved to death.",
+   "url": "https://yesnogame.net/en/stories/188"
+  },
+  {
+   "sid": 189,
+   "title": "A good plan",
+   "surface": "After careful planning, five men break into a house and take thousands of dollars in cash from it. The owner of the house is the only person arrested.",
+   "truth": "The five men were policemen and they had an arrest warrant to enter a mobster's house and take all his money. After planning the assault, they arrested the house's owner.",
+   "url": "https://yesnogame.net/en/stories/189"
+  },
+  {
+   "sid": 190,
+   "title": "An unexpected ending",
+   "surface": "An exotic dancer goes on a date for a private session with a man. In the room where they are, she takes her shirt and bra off. The man approaches, watches her breasts and smiles. Soon after, she dresses herself up, pays the man and leaves.",
+   "truth": "The woman had undergone a breast augmentation surgery a few days earlier and she had arranged an appointment with her private doctor to review the result of the operation. The man saw that everything was perfect and that he had done a great job. Finally the woman paid the bill and left the clinic.",
+   "url": "https://yesnogame.net/en/stories/190"
+  },
+  {
+   "sid": 191,
+   "title": "Drowned",
+   "surface": "After George tries to hug a person, he dies by drowning.",
+   "truth": "George was under the influence of alcohol and saw his reflection on a river. As he was intoxicated, he thought that it would be a good idea to give a hug to the \"stranger\". However this caused him to fall into the river and drown.",
+   "url": "https://yesnogame.net/en/stories/191"
+  },
+  {
+   "sid": 192,
+   "title": "The Black Cat",
+   "surface": "A black cat is walking through the middle of a road where there is a broken street lamp. A man is driving his vehicle with headlights that do not work. Despite all of this, he is able to avoid harming the cat.",
+   "truth": "The man avoided the cat because it was daylight.",
+   "url": "https://yesnogame.net/en/stories/192"
+  },
+  {
+   "sid": 193,
+   "title": "Unsolved crime",
+   "surface": "When Liz was about to find out who killed Mario, she fell asleep. When she woke up she realized that she could no longer find it out.",
+   "truth": "Liz was reading a novel on the beach. The main character, Mario, had been killed and she was about to find out who had committed the crime. Before she found it out, she fell asleep with the book lying in the sand. When she woke up she saw that the tide had risen and the book had been washed away.",
+   "url": "https://yesnogame.net/en/stories/193"
+  },
+  {
+   "sid": 194,
+   "title": "Deadly scissors",
+   "surface": "A woman is found dead in a hospital. The murder weapon is a pair of scissors. However, the body has no cuts ot wounds of any kind.",
+   "truth": "The woman's condition was critical, and the doctors had connected her to a device that kept her alive. The murderer simply cut the wires off that device with scissors to end her life.",
+   "url": "https://yesnogame.net/en/stories/194"
+  },
+  {
+   "sid": 195,
+   "title": "The Library",
+   "surface": "A woman goes to the library, takes a book and cries out.",
+   "truth": "The woman was a writer and she had donated one of her books to the library. She had included a 50$ bill among the pages as a gift for the first person borrowing the book. After a year, she came back to the library, took the book and saw that the bill was still there. Realizing that no one had read her book she burst into tears.",
+   "url": "https://yesnogame.net/en/stories/195"
+  },
+  {
+   "sid": 196,
+   "title": "The detective",
+   "surface": "A woman asks questions to her friend - a policeman - about a strange death. After 5 minutes the policeman is surprised to see that the woman finds out the cause of the death.",
+   "truth": "The woman and the policeman were friends and they were playing \"situation puzzle\". The policeman told a story and thought that his friend could not solve it. He was very surprised when the woman, after a few questions, found out the solution.",
+   "url": "https://yesnogame.net/en/stories/196"
+  },
+  {
+   "sid": 197,
+   "title": "Oh my car!",
+   "surface": "A man smashes Jimmy's luxury car. Althought Jimmy saw his car get smashed he made no attempt to stop the man.",
+   "truth": "Jimmy and the other man had a bet. It was agreed that the winner of the bet would smash the loser's car. Jimmy lost the bet.",
+   "url": "https://yesnogame.net/en/stories/197"
+  },
+  {
+   "sid": 201,
+   "title": "A favorite place",
+   "surface": "There were many reasons why John enjoyed coming here. But his wife Mary hated this place, as did other women in the city. Why?",
+   "truth": "This situation puzzle is about a real geographical object. In Stockholm, there’s a narrow – no more than a meter wide – street that leads to a drinking place. It was very popular in the 18th century, as drunkards could hold on to the walls when walking along the street. However, their wives couldn’t enter this street, because their hooped dresses got stuck between the walls.",
+   "url": "https://yesnogame.net/en/stories/201"
+  },
+  {
+   "sid": 202,
+   "title": "A reward for coming late",
+   "surface": "George was late for a math class and misunderstood the teacher. This brought him a reward and recognition! What happened?",
+   "truth": "Once, the American mathematician George Danzig came very late for a class. He saw some problems written on the blackboard and decided that these were a homework task. He spent several days working on them and eventually found the answers. It turned out that he found the key to two “unsolvable” problems that many scientists were wrestling with.",
+   "url": "https://yesnogame.net/en/stories/202"
+  },
+  {
+   "sid": 203,
+   "title": "The countermove",
+   "surface": "Landlords used to delay payment to people who built and repaired houses or even booted them out without money. But the builders came up with an uncommon move, which immediately made the landlords pay them in full. What did they do?",
+   "truth": "When laying a foundation for a house or repairing it, they put a raw egg in a certain place. After a while, it began to rot. If the landlord called the builders and paid for their work, they took the egg away. If he booted them out, the egg eventually began to stink, and it was very difficult to find where it had been hidden.",
+   "url": "https://yesnogame.net/en/stories/203"
+  },
+  {
+   "sid": 204,
+   "title": "A cunning artist",
+   "surface": "An artist took an order to paint a portrait of a very ugly and arrogant woman. Everyone tried to dissuade him, claiming that she wouldn’t pay a penny, because the portrait would be bad. And so it happened. But two days later, the woman returned and begged the artist to sell her the portrait. Why?",
+   "truth": "The artist sent the portrait to an exhibition and called it The Penny Pincher. It triggered gossips, and the woman had to ask the artist to remove the portrait from the exhibition.",
+   "url": "https://yesnogame.net/en/stories/204"
+  },
+  {
+   "sid": 205,
+   "title": "A train on the outskirts of Tokyo",
+   "surface": "At five minutes to midnight, I took the train on the outskirts of Tokyo. There were only me and a few other people in the carriage when a man entered. He looked around the carriage and as soon as the doors closed, his face was convulsed with horror. \n\n He approached a girl.\n\n– Excuse me, ma’am, are you 28 years old?\n\n– Yes! – she replied – How did you guess? \n\n He ignored her question and moved on to the man sitting next to him. \n\n – And you... are you 45?\n\n– Yes, right! \n\n He looked at me. \n\n – And you’re 35.\n\n– That’s right, but how do you know? \n\n – And you, miss, are you 50?\n\n– Yes, exactly, but tomorrow I’ll be 51... or rather, in 5 minutes. \n\n When she said that, the man’s face turned white as a sheet. Why?",
+   "truth": "The man with prophetic gift could see how many years others would live. He realized that the train would crash in less than 5 minutes and all the passengers would die.",
+   "url": "https://yesnogame.net/en/stories/205"
+  },
+  {
+   "sid": 207,
+   "title": "A well for corpses",
+   "surface": "One day, I felt fed up with my younger sister’s bleat. So, I killed her and threw her body into a well. The next day, the body disappeared. \n\n A few years later, I quarreled with a friend over a trifle and decided to kill him too and to throw his body into the well. The next day, the body disappeared. \n\n Later, I was drunk and accidentally impregnated a girl. I killed her and threw her into the same well. The next day, her body disappeared, as all the others did. \n\n 10 years later, my boss drove me nuts. I killed him and disposed of the body in the same well. A day later, his body disappeared. \n\n Shortly thereafter, I needed to send my mom to a nursing home, but I didn’t have enough money for that, so I killed her and threw her into the well. The next day, the body was still there. Why?",
+   "truth": "The main character’s mother dragged corpses away out of the well. Of course, she couldn’t drag her own corpse away.",
+   "url": "https://yesnogame.net/en/stories/207"
+  },
+  {
+   "sid": 208,
+   "title": "The parents disappeared",
+   "surface": "A little girl was crying bitterly in a barn. Through her tears, she noticed an old lamp lying in the garbage. She took it and dusted it off. \n\n Suddenly a genie appeared and said: \n\n \"I’ll fulfill one of your wishes. But only one, so think it over.\" \n\n \"Please make my parents disappear!\" the girl said through tears, \"I hate them!\" \n\n \"Consider it done,\" replied the genie. \"Go to bed, and in the morning your wish will be fulfilled.\" \n\n The next morning, the girl woke up and went down to the kitchen. She found her mom and dad sitting at the kitchen table having breakfast. The girl immediately regretted her wish. She rushed into the barn and began to rub the lamp. \n\n The genie appeared and said, \"Well, are you happy now?\" \n\n \"Please cancel my yesterday’s wish,\" the girl pleaded. \n\n \"I'm sorry,\" the genie replied. \"But once a wish is made, I can’t cancel it.\" \n\n And the girl burst into bitter tears. Why?",
+   "truth": "The girl realized that she lived with foster parents, and her wish made her real parents, who lived somewhere else, disappear.",
+   "url": "https://yesnogame.net/en/stories/208"
+  },
+  {
+   "sid": 209,
+   "title": "A sad story",
+   "surface": "Today, I was on the train again when a woman appeared before me. I didn’t even remember her face. It’s so sad. \n\n \n\nExplain why the narrator feels sad.",
+   "truth": "This story was told by a train operator that hit a woman who suddenly jumped out onto the railway.",
+   "url": "https://yesnogame.net/en/stories/209"
+  },
+  {
+   "sid": 210,
+   "title": "The Arm of the Postal Service",
+   "surface": "One day a man received a parcel in the post. Carefully packed inside was a human arm. He examined it, repacked it and then sent it on to another man. The second man also carefully examined the arm before taking it to the woods and burying it. Why did they do this?",
+   "truth": "The three men had been stranded on a desert island. Desperate for food, they had agreed to amputate their left arms in order to eat them. They swore an oath that each would have his left arm cut off. One of them was a doctor and he cut the arms off his two companions. They were then rescued. But his oath was still binding so he later had to have his arm amputated and sent to his colleagues. \n\n This is often told with a further twist whereby a doctor pays a tramp a large sum in order to amputate the tramp's arm which the doctor then sends to another man who inspects it etc. This variation can make for a long night of questioning!",
+   "url": "https://yesnogame.net/en/stories/210"
+  },
+  {
+   "sid": 211,
+   "title": "Green lipstick",
+   "surface": "Every day he puts on green lipstick. But almost no one notices it.",
+   "truth": "In the 20th century the television was still black and white, and cameras had red filters, which absorbed red color of the image, i.e., red lipstick couldn’t be seen on the lips. Therefore, TV broadcasters had to make up their lips with green lipstick to make them look more expressive.",
+   "url": "https://yesnogame.net/en/stories/211"
+  },
+  {
+   "sid": 212,
+   "title": "The dangerous dinner",
+   "surface": "A dinner at a dormitory. The light went out. When they turned on the light, a student had blood all over his hands.",
+   "truth": "There was the last sausage left on the plate. When the light went out, all the students reached for the sausage with their forks, and this one with his hands.",
+   "url": "https://yesnogame.net/en/stories/212"
+  },
+  {
+   "sid": 213,
+   "title": "The daughter disappeared",
+   "surface": "The parents lost their little daughter when she was playing on the playground. The police didn’t find her. The case was deemed as unsolved, and the investigation was closed. \n\n But the parents refused to give up. And they decided to contact a medium. This medium often helped the police and could often point out the exact location of a criminal or a missing person. \n\n When the medium arrived a few days later, she asked the parents to take her to the place where they had last seen their daughter. The mother and father took the medium to the park and watched her sit down on the grass, close her eyes, and do into a trance. Then she exclaimed, “Your daughter is alive! Her heart is beating and her lungs are breathing.” \n\n The happy parents held hands tightly. The mother asked, “But where is she now?” \n\n “She sees a luxurious house with expensive furniture,” the medium continued, “And only the most delicious food is in her stomach”. \n\n The mother breathed a sigh of relief again and pleaded, \"But where is our daughter? Please tell us!\" \n\n The medium hesitated for a while. Then her eyes opened wide, and she screamed, \"She’s all over the world!\" \n\n For a while, the parents of the missing girl stood motionless with their mouths wide open. Then they suddenly understood what the medium meant and fell on the floor, crying bitterly. \n\n What happened to the girl?",
+   "truth": "The girl was kidnapped and sold for organs.",
+   "url": "https://yesnogame.net/en/stories/213"
+  },
+  {
+   "sid": 215,
+   "title": "(Un)luck",
+   "surface": "Due to an oversight committed by Nils when doing his job, Martha, an upstairs neighbour, couldn’t wash the dishes. At the same time, Martha’s husband was glad, but Nils was still fired. Why?",
+   "truth": "An interesting case happened in Norway: \n\n When a housewife (Martha) turned on a water tap, beer poured out of it! The fact is that in a cafe on the ground floor, a bartender confused taps. As a result, Martha had a beer jet upstairs, and in the bar below, water splashed from the beer tap. Of course, the bartender was fired, but Martha’s husband was happy.",
+   "url": "https://yesnogame.net/en/stories/215"
+  },
+  {
+   "sid": 216,
+   "title": "Mysticism, and that’s it",
+   "surface": "Eva was a skeptic, and never believed in the paranormal. But after she had spent 3 nights in a creepy forest all alone, her skepticism disappeared. Why?",
+   "truth": "Eva visited the ill-reputed creepy forest, and naturally, like all skeptics, she took photos and recorded her every step. After she returned home and started flipping the photos, she discovered a couple of pictures of her sleeping in a tent.",
+   "url": "https://yesnogame.net/en/stories/216"
+  },
+  {
+   "sid": 217,
+   "title": "A weird bus stop",
+   "surface": "On a beautiful road, there’s a bus stop that is fully operational. However, no public transport stops there. Why?",
+   "truth": "This stop is in Germany next to a nursing home for senile dementia patients. It has a schedule of supposedly passing bus routes hanging on it. Old men and old women who tried to tail off, went to the bus stop, sat down and humbly waited for their bus.\n\n \n\nIf the nursing home employees noticed that one of the inhabitants had been missing for a long time, they just went and picked them up from the bus stop.",
+   "url": "https://yesnogame.net/en/stories/217"
+  },
+  {
+   "sid": 220,
+   "title": "Woman’s reason",
+   "surface": "On first day, nothing in Mary’s behavior surprised John.\n\nOn the second day, John was extremely surprised.\n\nOn the third day, John got it and switched his opinion about women for the better.",
+   "truth": "Mary was a woman with a rich husband and a rich lover. Both enjoyed giving her expensive gifts but gave her very little pocket money. \n\n \n\n - On the first day, Mary and her husband came to the store and chose a dress that cost $2,000. The husband paid at once, and the store assistant (John) wasn’t surprised. \n\n - On the second day, Mary came to the same store with her lover and chose just the same dress as yesterday. The lover paid at once, and John the seller was very surprised. \n\n - On the third day, Mary came to the store alone and returned one of the dresses, receiving $2,000 in cash. Indeed, John was lost in admiration.",
+   "url": "https://yesnogame.net/en/stories/220"
+  },
+  {
+   "sid": 221,
+   "title": "Heaven born barrister",
+   "surface": "After the barrister’s speech, Bill’s punishment was upgraded. Why?",
+   "truth": "In autumn, a district court was hearing a case of a homeless man who had broken a shop window. Because of the barrister’s speech, the court, although drifting toward a conditional sentence, convicted the criminal. \n\n \n\n The barrister said: “Winter is coming! A homeless man can die. Don’t you understand that only in prison the defendant will have shoes, clothes, and food…”.",
+   "url": "https://yesnogame.net/en/stories/221"
+  },
+  {
+   "sid": 222,
+   "title": "A cunning mother-in-law",
+   "surface": "A mother-in-law disliked her son-in-law so much that she wanted to poison him. But the son-in-law was careful and always ate only what his mother-in-law ate. Over dinner one night, the mother-in-law cut a piece of meat in half, ate one half herself, and gave the other to her son-in-law. After that he died. How did she manage to do it?",
+   "truth": "She greased one side of the knife with poison.",
+   "url": "https://yesnogame.net/en/stories/222"
+  },
+  {
+   "sid": 223,
+   "title": "Sherlock found the killer",
+   "surface": "Sherlock Holmes was walking down the corridor. Suddenly he heard a woman screaming, “Please, John, don’t kill me!” A shot rang. Holmes burst into the room. In one corner lay a dead woman and a gun. In another corner stood a postman, a lawyer, and an accountant. Sherlock looked at them, approached the postman, and grabbed him: “I will arrest you for killing this woman.” It was really the postman who killed this woman, but how could Holmes know it?",
+   "truth": "The postman was the only man. The lawyer and the accountant were women.",
+   "url": "https://yesnogame.net/en/stories/223"
+  },
+  {
+   "sid": 225,
+   "title": "A man with a ring",
+   "surface": "A man was walking with a gold ring on his finger. Suddenly robbers attacked him. They wanted to take the ring but couldn’t take it off. So, they cut off the finger and ran away. However, the man didn’t even scream. Why?",
+   "truth": "He had gold teeth, and he didn’t want to show them, so that the robbers wouldn’t take them too.",
+   "url": "https://yesnogame.net/en/stories/225"
+  },
+  {
+   "sid": 226,
+   "title": "On a bus",
+   "surface": "When on a bus, Kate wanted to offer her seat to a woman who's just goton. But she was very embarrassed and refused. Why?",
+   "truth": "Little Kate was sitting in her dad's lap.",
+   "url": "https://yesnogame.net/en/stories/226"
+  },
+  {
+   "sid": 227,
+   "title": "A honeyman",
+   "surface": "Many people were surprised when a famous town merchant named Bill rolled out a barrel of honey to the square and offered everyone a treat. \n\n But people were even more surprised when they asked about the reason for such a gift and heard Bill reply that it wasn’t a gift at all.",
+   "truth": "Bill has been selling honey for many years. He scooped the product up with a measuring cup and poured it into a buyer’s jug. \n\n But honey is a thick substance, and it takes a long time to pour it out completely... None of the customers have ever waited until the last drop. \n\n But Bill was a rarely honest man and wasn’t going to appropriate anything that wasn’t his, even if it was a matter of a few drops. He poured the rest of the honey into a separate jug, and over the years, he accumulated a barrel full of honey. Now, Bill’s initially strange answer is clear: after all, one can only give what’s one’s own, and he never thought that this honey was his own. He just RETURNED the honey to people who kind of left it for long-term storage.",
+   "url": "https://yesnogame.net/en/stories/227"
+  }
+ ]
+}

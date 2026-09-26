@@ -1,0 +1,75 @@
+# らてらて (late-late.jp)
+#
+# 方針: 検索エンジンと、利用者に頼まれてページを読むAIアシスタントは歓迎する。
+# 断るのは「被リンク調査」と「AI学習用の大量収集」だけ。どちらもサイトの表示にも
+# 検索流入にも何も返さない一方で量が非常に多い。
+# 2026年8月は21日間でボットが約300万ヒット・50GB超を占め、夜間の高負荷の一因だった。
+#
+# ここに名前が無いものは、いちばん下の User-agent: * が適用されて許可される。
+# ChatGPT(GPTBot / OAI-SearchBot / ChatGPT-User)、Claude(ClaudeBot / Claude-User /
+# Claude-SearchBot)、Googlebot、Bingbot、Applebot、Twitterbot、
+# facebookexternalhit(リンク共有時のカード画像)、Mediapartners-Google(広告配信) は
+# すべてこの既定で許可されている。意図的に通しているので、断る側へ移さないこと。
+
+# --- 被リンク・SEO調査のクローラ ---
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: SeekportBot
+Disallow: /
+
+# --- AI学習用の大量収集 ---
+# facebookexternalhit（共有カードの取得）とは別物なので、こちらだけを名指しする。
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: Omgili
+Disallow: /
+
+# --- 日本語サイトのため流入がほとんど無い割に量が多い検索 ---
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+# --- 上記以外はすべて許可 ---
+# Crawl-delay は Bing・Yandex などが従う（Google は見ない）。
+User-agent: *
+Crawl-delay: 5
+Allow: /
+
+Sitemap: https://late-late.jp/sitemap.xml
