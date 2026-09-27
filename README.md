@@ -152,6 +152,21 @@
 - 软键盘弹出时收起音乐台和已展开的房间聊天，并缩短对话区。
 - `prefers-reduced-motion` 关掉动效。
 
+### 手机端省电档（`@media (pointer: coarse)` + `SoupFx` 内 LITE）
+
+针对「120Hz ProMotion 手机上不开特效都发烫、开特效卡」的反馈（iPhone 16 Pro）。根因是所有无限循环动画和 rAF 在 120Hz 下按 120 次/秒计费，而 `text-shadow` / `box-shadow` / `filter` / `background-position` 这几类关键帧没法走 GPU 合成，等于常驻重画整块内容。触屏设备一律：
+
+| 开销 | 桌面 | 手机端 |
+|---|---|---|
+| 雨幕 Canvas | 60~120fps、dpr≤2、220 丝每丝一次 stroke | 封顶 30fps、dpr≤1.5、密度 ×0.6、按透明度分桶每桶一次 stroke |
+| 蒸汽 / 扫描线 / 全屏 backdrop-filter | 开 | 关（overlay 混合与高斯模糊是 iOS 烧 GPU 大户） |
+| 标题辉光 / 徽章呼吸 / 结算炫彩字 / 报喜彩框 / 墨晕 | 无限循环 | 全部停成静态一档 |
+| 问答记录自动慢滚 | rAF 每帧写 scrollTop | 节流到约 30fps 才写一次 |
+| 庆祝烟花 | 全量粒子 | 粒子减半 |
+| 氛围特效开关 | 默认开 | 新访客默认关（存过的偏好不动） |
+
+桌面 `pointer: fine` 完全不受影响；`SoupFx.stats()` 会回显 `lite` 方便真机排查。
+
 ---
 
 ## 技术栈

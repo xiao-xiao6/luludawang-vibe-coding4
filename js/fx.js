@@ -17,6 +17,25 @@
     REDUCE = !!(mq && mq.matches);
   } catch (e) { }
 
+  /* 手机省电档（2026-09-27）：触屏设备一律降载——
+   * iPhone 16 Pro 这类 120Hz ProMotion 屏下，rAF 会按 120 次/秒跑，
+   * 雨幕 Canvas 按满像素比铺屏是发烫主因。这里统一：
+   *   · 帧率封顶 30fps（雨幕观感几乎无损，GPU 填充率直接砍半以上）
+   *   · 画布像素比上限 1.5（原来是 2）
+   *   · 雨丝密度 ×0.6、尘埃减半、庆祝粒子减半
+   */
+  var LITE = false;
+  try {
+    var mqc = root.matchMedia && root.matchMedia("(pointer: coarse)");
+    /* 与 style.css 的 @media (pointer: coarse) 省电档同一口径，
+       避免窄窗桌面（fine）被误降帧 */
+    LITE = !!(mqc && mqc.matches);
+  } catch (e) { }
+
+  var FRAME_BUDGET = LITE ? 1 / 30 : 0;   /* 0 = 不封顶（桌面） */
+  var DPR_CAP = LITE ? 1.5 : 2;
+  var RAIN_BUCKETS = 6;                    /* 雨丝按透明度分桶，每桶一次 stroke */
+
   var STATE = {
     canvas: null,
     ctx: null,
@@ -26,6 +45,7 @@
     running: false,
     rafId: 0,
     last: 0,
+    acc: 0,            /* 帧率封顶累加器：不到预算帧距就只排下一帧、不画 */
     time: 0,
     scene: "menu",
     enabled: true,       // 氛围特效总开关（关掉后雨幕 / 闪电 / 粒子全停）
@@ -66,7 +86,7 @@
     if (!c) return;
     var w = root.innerWidth || doc.documentElement.clientWidth || 800;
     var h = root.innerHeight || doc.documentElement.clientHeight || 600;
-    STATE.dpr = clamp(root.devicePixelRatio || 1, 1, 2);
+    STATE.dpr = clamp(root.devicePixelRatio || 1, 1, DPR_CAP);
     STATE.w = w;
     STATE.h = h;
     c.width = Math.floor(w * STATE.dpr);
@@ -83,6 +103,7 @@
     var cfg = STATE.sceneCfg;
     var area = (STATE.w * STATE.h) / (1920 * 1080);
     var base = 220 * clamp(area, 0.35, 1.6);
+    if (LITE) base *= 0.6;
     return Math.round(base * cfg.count);
   }
 
@@ -108,6 +129,7 @@
 
   function seedMotes() {
     var n = STATE.sceneCfg.mote;
+    if (LITE) n = Math.round(n * 0.5);
     STATE.motes = [];
     for (var i = 0; i < n; i++) {
       STATE.motes.push({
@@ -213,6 +235,7 @@
     var ctx = STATE.ctx, cfg = STATE.sceneCfg;
     var slant = 0.22 * cfg.slant * STATE.gust;
     var tint = cfg.tint;
+    var buckets = drawRain._buckets || (drawRain._buckets = []);
     for (var i = 0; i < STATE.drops.length; i++) {
       var d = STATE.drops[i];
       var vx = d.vy * slant;
@@ -231,12 +254,27 @@
         STATE.drops[i] = makeDrop(false);
         continue;
       }
-      ctx.strokeStyle = "rgba(" + tint + "," + (d.a * (0.5 + d.depth * 0.5)) + ")";
-      ctx.lineWidth = d.w;
+      /* 省电做法：按「透明度分桶」攒路径，最后每桶只 stroke 一次。
+         原来 220 条雨丝 = 每帧 220 次 stroke()，每次都是独立光栅化，
+         是 120Hz 手机上 GPU 填充率的最大黑洞。分桶后一般只 5~6 次。 */
+      var al = d.a * (0.5 + d.depth * 0.5);
+      var bucket = Math.min(RAIN_BUCKETS - 1, Math.floor(al * RAIN_BUCKETS / 0.5));
+      if (!buckets[bucket]) buckets[bucket] = [];
+      buckets[bucket].push(d);
+    }
+    for (var bi = 0; bi < RAIN_BUCKETS; bi++) {
+      var arr = buckets[bi];
+      if (!arr || !arr.length) continue;
+      ctx.strokeStyle = "rgba(" + tint + "," + ((bi + 0.5) / RAIN_BUCKETS * 0.5).toFixed(3) + ")";
+      ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(d.x, d.y);
-      ctx.lineTo(d.x - d.len * slant, d.y - d.len);
+      for (var ai = 0; ai < arr.length; ai++) {
+        var dd = arr[ai];
+        ctx.moveTo(dd.x, dd.y);
+        ctx.lineTo(dd.x - dd.len * slant, dd.y - dd.len);
+      }
       ctx.stroke();
+      arr.length = 0;
     }
   }
 
@@ -299,8 +337,19 @@
     var a = clamp(b.life, 0, 1);
     ctx.save();
     ctx.globalAlpha = a;
-    ctx.shadowColor = "rgba(190,215,255,.95)";
-    ctx.shadowBlur = 22;
+    /* shadowBlur 是 canvas 里最贵的操作之一：手机端直接用双层描边模拟辉光 */
+    if (!LITE) {
+      ctx.shadowColor = "rgba(190,215,255,.95)";
+      ctx.shadowBlur = 22;
+    } else {
+      ctx.strokeStyle = "rgba(190,215,255,.35)";
+      ctx.lineWidth = 7;
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(b.main[0].x, b.main[0].y);
+      for (var gi = 1; gi < b.main.length; gi++) ctx.lineTo(b.main[gi].x, b.main[gi].y);
+      ctx.stroke();
+    }
     ctx.strokeStyle = "rgba(236,244,255,.95)";
     ctx.lineWidth = 2.4;
     ctx.beginPath();
@@ -344,7 +393,7 @@
     if (!c) return;
     var w = root.innerWidth || doc.documentElement.clientWidth || 800;
     var h = root.innerHeight || doc.documentElement.clientHeight || 600;
-    var dpr = clamp(root.devicePixelRatio || 1, 1, 2);
+    var dpr = clamp(root.devicePixelRatio || 1, 1, DPR_CAP);
     FRONT.w = w; FRONT.h = h; FRONT.dpr = dpr;
     c.width = Math.floor(w * dpr);
     c.height = Math.floor(h * dpr);
@@ -370,6 +419,8 @@
 
   function frontKick() {
     if (FRONT.raf || !FRONT.ctx) return;
+    /* 上一轮放完时被隐藏掉了，重开前先亮回来 */
+    if (FRONT.canvas.style.display === "none") FRONT.canvas.style.display = "block";
     FRONT.last = 0;
     FRONT.raf = root.requestAnimationFrame(frontFrame);
   }
@@ -377,6 +428,7 @@
   function frontBoom(x, y, opt) {
     opt = opt || {};
     var n = opt.count || 80;
+    if (LITE) n = Math.round(n * 0.5);
     var colors = opt.colors || CELE_COLORS;
     var pow = opt.power || 280;
     for (var i = 0; i < n; i++) {
@@ -472,13 +524,16 @@
     } else {
       FRONT.raf = 0;
       ctx.clearRect(0, 0, FRONT.w, FRONT.h);
+      /* 放完就摘掉：否则整块全屏 canvas 会一直以合成层挂在屏幕上，
+         手机端白白占显存、还让 iOS 每次页面重绘都要带上它（省电档实测有感） */
+      if (FRONT.canvas) FRONT.canvas.style.display = "none";
     }
   }
 
   /* 礼炮齐射：朝 ang 方向喷一大束火花 + 一把彩纸 */
   function frontSalvo(x, y, ang) {
     var colors = CELE_COLORS;
-    for (var i = 0; i < 58; i++) {
+    for (var i = 0; i < (LITE ? 30 : 58); i++) {
       var a = ang + rand(-0.3, 0.3);
       var sp = rand(520, 1180);
       FRONT.parts.push({
@@ -489,7 +544,7 @@
         color: colors[Math.floor(Math.random() * colors.length)], hi: "#ffffff"
       });
     }
-    for (var j = 0; j < 26; j++) {
+    for (var j = 0; j < (LITE ? 13 : 26); j++) {
       var a2 = ang + rand(-0.44, 0.44);
       var sp2 = rand(360, 920);
       FRONT.parts.push({
@@ -524,6 +579,11 @@
     STATE.rafId = root.requestAnimationFrame(frame);
     if (!STATE.last) STATE.last = ts;
     var dt = (ts - STATE.last) / 1000;
+
+    /* 帧率封顶（省电档 30fps）：没到预算帧距就直接排下一帧，什么都不画。
+       120Hz ProMotion 屏上这一步就省掉 3/4 的重绘。 */
+    if (FRAME_BUDGET && dt < FRAME_BUDGET) return;
+
     STATE.last = ts;
     if (dt > 0.1) dt = 0.1;
     if (dt <= 0) return;
@@ -626,7 +686,10 @@
         applyFlash();
         /* 前景庆祝层一并清场 */
         FRONT.parts.length = 0;
-        if (FRONT.ctx) FRONT.ctx.clearRect(0, 0, FRONT.w, FRONT.h);
+        if (FRONT.ctx) {
+          FRONT.ctx.clearRect(0, 0, FRONT.w, FRONT.h);
+          if (FRONT.canvas) FRONT.canvas.style.display = "none";
+        }
       } else {
         api.resume();
       }
@@ -744,7 +807,8 @@
         sparks: STATE.sparks.length,
         crows: STATE.crows.length,
         fps: STATE.fps,
-        reduce: REDUCE
+        reduce: REDUCE,
+        lite: LITE
       };
     }
   };

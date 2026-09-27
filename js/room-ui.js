@@ -657,6 +657,7 @@
   var qaUserHold = 0;         /* 手动接管：自动滚动暂停到此时刻 */
   var qaLastBeat = 0;         /* 循环心跳：看门狗用它判断循环是否假死 */
   var qaLastTs = 0;
+  var qaAcc = 0;              /* 节流累加器：约 30fps 才写一次 scrollTop */
   var qaPos = 0;              /* 浮点滚动累加器（根因修复的核心） */
 
   function qaScrollWanted() {
@@ -677,13 +678,24 @@
     }
     if (qaRaf) return;      /* 已经在跑 */
     qaLastTs = 0;
+    qaAcc = 0;
     var step = function (ts) {
       try {
         qaLastBeat = Date.now();
         var el = $("#qa-log");
         if (!el || !qaScrollWanted()) { qaRaf = 0; return; }
-        var dt = qaLastTs ? Math.min((ts - qaLastTs) / 1000, 0.25) : 0.016;
+        var frameDt = qaLastTs ? Math.min((ts - qaLastTs) / 1000, 0.25) : 0.016;
         qaLastTs = ts;
+        /* 省电（2026-09-27）：每帧写 scrollTop 会逼浏览器重排重绘这个盒子，
+           120Hz ProMotion 屏上等于每秒 120 次。滚动速度只有 ~12px/s，
+           按 33ms 节流完全看不出差别，重绘直接省掉 3/4。 */
+        qaAcc += frameDt;
+        if (qaAcc < 0.033) {
+          qaRaf = requestAnimationFrame(step);
+          return;
+        }
+        var dt = qaAcc;
+        qaAcc = 0;
         var over = el.scrollHeight - el.clientHeight;
         if (over <= 4) {
           /* 内容不够长：不动，也不花帧 */
