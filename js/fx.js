@@ -45,7 +45,6 @@
     running: false,
     rafId: 0,
     last: 0,
-    acc: 0,            /* 帧率封顶累加器：不到预算帧距就只排下一帧、不画 */
     time: 0,
     scene: "menu",
     enabled: true,       // 氛围特效总开关（关掉后雨幕 / 闪电 / 粒子全停）
