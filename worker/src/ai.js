@@ -8,8 +8,78 @@
 const LEAD_OF = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
 
 /* 思考链出口硬过滤：命中这些痕迹说明模型把内部分析吐出来了，整段丢弃，绝不展示给玩家。
-   与前端 js/ai.js 的 REASON_TAIL 保持同一口径。 */
-export const REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示)|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说)/;
+   与前端 js/ai.js 的 REASON_TAIL 保持同一口径。
+   2026-09-27 补：旧串漏掉了模型最常吐的「但汤底核心：…」「汤底的关键是…」，
+   导致这类分析尾巴被当成「短答」直接上屏（主人在多人房截图里看到的半截文案就是这个）。 */
+export const REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示|核心|的关键|的重点|的主旨|的主线|讲的是|说的是|的意思)|但(是)?汤底|不过汤底|其实汤底|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说|核心诡计|关键真相)/;
+
+/* ------------------------------------------------------------------
+ * 判定归一（2026-09-27 新增）
+ * ------------------------------------------------------------------
+ * 老逻辑：模型输出的 verdict 认不出时，直接默认成 "irr"，
+ * 于是任何一次格式抖动都会变成一整句「与此无关」——这就是主人
+ * 反复看到的「无关回答」根因，跟模型智力无关。
+ * 新逻辑：字段 → reply 开头 → 明文关键词，逐级兜底；
+ * 全认不出就返回 null，让上层带上更强提醒重试一次，绝不静默判错。
+ * ------------------------------------------------------------------ */
+
+/* verdict 归一：支持英文 / 中文 / 带标点，认不出返回 ""。 */
+export function normVerdict(rawV) {
+  var v = String(rawV == null ? "" : rawV)
+    .trim()
+    .toLowerCase()
+    .replace(/[。.！!？?：:；;、,，"'“”‘’\s]/g, "");
+  if (!v) return "";
+  if (/^(yes|y|true|1|对|是|是的|正确|没错)/.test(v)) return "yes";
+  if (/^(no|n|false|0|不是|并非|否|不对|错)/.test(v)) return "no";
+  if (/^(partial|part|半对|部分)/.test(v)) return "partial";
+  if (/^(irr|unrelated|irrelevant)/.test(v)) return "irr";
+  if (/^(与此)?无关/.test(v) || v.indexOf("不相关") === 0) return "irr";
+  return "";
+}
+
+var LEAD_MAP = { "与此无关": "irr", "部分正确": "partial", "不是": "no", "是": "yes" };
+
+/* 模型明文回复开头的判定词 → 内部判定码；判定词不在开头返回 ""。 */
+export function leadVerdict(text) {
+  var m = String(text || "").match(/^(与此无关|部分正确|不是|是)([。.！!？?：:；;、,，\s]|$)/);
+  return m ? (LEAD_MAP[m[1]] || "") : "";
+}
+
+/* 把模型的一包输出归一成 { verdict, reply, clue }；认不出判定返回 null（交给上层重试）。
+   与前端 js/ai.js 的 guardAnswer 对齐：字段 → reply 开头 → 明文关键词，逐级兜底；
+   上屏前统一剥掉分析痕迹与复述句，正文最多两句。 */
+export function normalizeAskJson(j, puzzle) {
+  if (!j || typeof j !== "object") return null;
+  var reply = String(j.reply || j.text || "").replace(/\s+/g, " ").trim();
+  var rawV = String(j.verdict || j.result || j.answer || j.level || "");
+  var verdict = normVerdict(rawV);
+  if (!verdict) verdict = leadVerdict(reply);
+  if (!verdict && reply) {
+    if (reply.indexOf("与此无关") !== -1 || reply.indexOf("无关") !== -1) verdict = "irr";
+    else if (reply.indexOf("部分正确") !== -1 || reply.indexOf("部分对") !== -1) verdict = "partial";
+    else if (reply.indexOf("不是") !== -1 || reply.indexOf("不对") !== -1) verdict = "no";
+    else if (reply.indexOf("是的") !== -1) verdict = "yes";
+  }
+  if (!verdict) return null;
+  /* 剥掉开头的判定词，正文只留短答 */
+  var body = reply.replace(/^(与此无关|部分正确|不是|是)[。.！!？?：:；;、,，\s]*/, "").trim();
+  /* 带分析痕迹 → 正文整段丢掉，只留判定词（防「但汤底核心：…」这类分析上屏） */
+  if (body && REASON_TAIL.test(body)) body = "";
+  /* 复述型空答：把问题重念一遍的，正文丢掉 */
+  if (body && /^(玩家|他(想|要)?问|你(这)?(是在)?问|问的是|这(个)?问题|问题里)/.test(body)) body = "";
+  /* 连说四句以上 → 只取第一短句 */
+  if (body && (body.match(/[。！？]/g) || []).length >= 4) {
+    var mF3 = body.match(/^[^。！？；]{0,60}/);
+    body = mF3 ? mF3[0].trim() : "";
+  }
+  var lead = LEAD_OF[verdict];
+  var out = body ? lead + "。" + body.slice(0, 60) : lead + "。";
+  var clue = Number(j.clue) || 0;
+  var nClues = (puzzle && puzzle.clues ? puzzle.clues.length : 0);
+  if (clue < 0 || clue > nClues) clue = 0;
+  return { verdict: verdict, reply: out, clue: clue };
+}
 
 function listText(arr, cap) {
   var a = (arr || []).slice(0, cap || 40);
@@ -58,7 +128,8 @@ export function buildSystemPrompt(puzzle) {
     "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。",
     "10. 玩家只能看到汤面，所以他是基于汤面进行猜测的。例如玩家说「他喝的不是海龟汤」，是在问汤面里他喝的是不是海龟汤——即使汤底里他曾经喝过别的汤，你也应该判定汤面里那碗。",
     "11. 思考、分析、逐条排除、「让我想想」这类内部草稿，无论出现在 JSON 内外、任何字段里，都绝对禁止输出；输出前必须全部删干净，只留最终判定和一句短答。",
-    "12. 玩家一次连着问了好几个小问题（比如「男人是正常男人吗，身高体重是不是正常成年男人的范畴？」）时：先选一个最贴切的总体判定词放开头，再用几个短句把每个小问题都答到，例如「部分正确。人是正常成年男人，体重却偏轻。」；绝对禁止把玩家的问题复述一遍当作回答（「玩家问…」「你问的是…」「这个问题是…」这类句式一律不许出现），永远直接给答案。"
+    "12. 玩家一次连着问了好几个小问题（比如「男人是正常男人吗，身高体重是不是正常成年男人的范畴？」）时：先选一个最贴切的总体判定词放开头，再用几个短句把每个小问题都答到，例如「部分正确。人是正常成年男人，体重却偏轻。」；绝对禁止把玩家的问题复述一遍当作回答（「玩家问…」「你问的是…」「这个问题是…」这类句式一律不许出现），永远直接给答案。",
+    "13. 【关键】【此】只有一种情况才回答「与此无关」：玩家说的话跟这个故事彻底不沾边（现实知识、闲聊、问你是谁、要答案、跟本题无关的别的话题）。只要玩家在问「故事里有没有某人 / 某人是不是某种人 / 有没有发生某事」，那就属于故事内提问：故事里确实没有这个元素，就回答「不是。」，绝不许因为「汤面里没提到」或「汤底里没有这个词」就判「与此无关」。举例：玩家问「女儿是同人女吗」，答案应该是「不是。这个故事里没有女儿。」而不是「与此无关。」。"
   ].join("\n");
 }
 

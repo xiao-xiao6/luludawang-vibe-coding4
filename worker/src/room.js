@@ -26,6 +26,8 @@ import {
   pickJson,
   looseAnswer,
   looseJudge,
+  normalizeAskJson,
+  normVerdict,
   REASON_TAIL,
   callModel,
   isLocalOnlyUrl,
@@ -445,52 +447,25 @@ export class Room {
     try {
       const sys = buildSystemPrompt(puzzle);
       const usr = buildAskUser(puzzle, question, ctx);
+      /* 归一化只在拿得到 json 时才有意义：模型偶尔整段不守格式，
+         这时 pickJson / looseAnswer 都认不出，只能带更强提醒再要一次。 */
       let text = await callModel(cfg, sys, usr);
       let j = pickJson(text) || looseAnswer(text);
-      if (!j) {
-        /* 带上更强的格式重申再要一次，别一枪就判死 */
+      let norm = j ? normalizeAskJson(j, puzzle) : null;
+      if (!norm) {
+        /* 格式不对或判定词认不出：带上更强的格式重申再要一次，别一枪就判死 */
         text = await callModel(cfg, sys, usr + RETRY_HINT);
         j = pickJson(text) || looseAnswer(text);
+        norm = j ? normalizeAskJson(j, puzzle) : null;
       }
-      if (!j) return { error: "AI_BAD_FORMAT", note: "汤主两次都没给出可认的判定（已自动重试过）；这个模型输出太自由，建议房主换 deepseek-chat 等更守格式的模型" };
-      /* verdict 宽松归一：模型可能回英文、中文、甚至带句号 */
-      var rawV = String(j.verdict || j.result || j.answer || "").trim().toLowerCase();
-      var verdict = "irr";
-      if (/^yes|^是/.test(rawV)) verdict = "yes";
-      else if (/^no|^不是/.test(rawV)) verdict = "no";
-      else if (/^partial|^部分/.test(rawV)) verdict = "partial";
-      else if (/^irr|^无关|与此无关/.test(rawV)) verdict = "irr";
-      else if (["yes","no","partial","irr"].indexOf(rawV) !== -1) verdict = rawV;
-      /* reply 兜底：模型没给 reply 时按判定给一句标准话，绝不上屏 undefined */
-      var reply = String(j.reply || j.text || "").slice(0, 120).trim();
-      /* 思考链出口硬过滤：带分析痕迹的整段丢弃，只保留判定词开头的第一短句，绝不把推理原文上屏 */
-      var LEAD_OF2 = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
-      /* 开头判定词与 verdict 冲突时以开头为准（与前端 guardAnswer 同口径），先剥掉开头 */
-      var mLead = reply.match(/^(与此无关|部分正确|不是|是)([。！？：；、\s]|$)/);
-      if (mLead) {
-        var vk = { "与此无关": "irr", "部分正确": "partial", "不是": "no", "是": "yes" }[mLead[1]];
-        if (vk) verdict = vk;
-        reply = reply.slice(mLead[1].length).replace(/^[。！？：；、\s]+/, "");
-      } else {
-        var lw0 = LEAD_OF2[verdict];
-        var rvi = reply.indexOf(lw0);
-        if (rvi > 0) reply = reply.slice(rvi + lw0.length).replace(/^[。！？：；、\s]+/, "");
-      }
-      /* 思考链硬过滤：带分析痕迹的整段丢弃（不保留第一句，防「根据汤底…」开头句泄漏） */
-      if (REASON_TAIL.test(reply)) reply = "";
-      /* 复述型空答拦截：把「玩家问…」「你问的是…」这类转述句丢掉，
-         只留干净的判定词（主人反馈的复合提问翻车现场，与前端 guardAnswer 同口径） */
-      if (reply && /^(玩家|他(想|要)?问|你(这)?(是在)?问|问的是|这(个)?问题|问题里)/.test(reply)) reply = "";
-      if (reply && (reply.match(/[。！？]/g) || []).length >= 4) {
-        var mF3 = reply.match(/^[^。！？；]{0,40}/);
-        reply = mF3 ? mF3[0].replace(/\s+$/, "") : "";
-      }
-      var lwFinal = LEAD_OF2[verdict];
-      if (!reply) reply = lwFinal + "。";
-      else reply = lwFinal + "。" + reply.slice(0, 60);
-      let clueNo = Number(j.clue) || 0;
-      if (clueNo < 0 || clueNo > (puzzle.clues || []).length) clueNo = 0;
-      return { verdict, reply, clue: clueNo };
+      if (!norm) return { error: "AI_BAD_FORMAT", note: "汤主两次都没给出可认的判定（已自动重试过）；这个模型输出太自由，建议房主换 deepseek-chat 等更守格式的模型" };
+      /* 纵深防线（规格 #11）：归一之后、上屏之前再过一遍思考链硬过滤。
+         即便上游归一漏网，也绝不把「但汤底核心：…」这类分析贴到玩家面前。 */
+      let reply = String(norm.reply || "");
+      const leadSafe = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" }[norm.verdict] || "与此无关";
+      const bodySafe = reply.replace(/^(与此无关|部分正确|不是|是)[。.！!？?：:；;、,，\s]*/, "").trim();
+      if (!bodySafe || REASON_TAIL.test(reply) || REASON_TAIL.test(bodySafe)) reply = leadSafe + "。";
+      return { verdict: norm.verdict, reply, clue: norm.clue };
     } catch (e) {
       return { error: aiErrorCode(e), note: aiErrorNote(e) };
     }
