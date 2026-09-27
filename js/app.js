@@ -2015,6 +2015,14 @@
     state.music = progress.music !== false;
     state.playing = progress.playing !== false;
     state.fx = progress.fx !== false;
+    /* 手机端省电档（2026-09-27）：新访客没存过偏好时，触屏设备默认关氛围特效。
+       老玩家的既有选择（开或关）一律保留，不替主人做主。 */
+    if (progress.fx === undefined) {
+      try {
+        var mqcFx = window.matchMedia && window.matchMedia("(pointer: coarse)");
+        if (mqcFx && mqcFx.matches) state.fx = false;
+      } catch (e) { /* 忽略 */ }
+    }
     state.volume = typeof progress.volume === "number" ? progress.volume : 0.6;
 
     if (FX) FX.init();

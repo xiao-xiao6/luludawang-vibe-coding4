@@ -2514,3 +2514,68 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 .rk-stats .gs { flex: 1 1 0; max-width: none; min-width: 0; padding: 5px 6px 4px; }
 .rk-stats .gs i { font-size: 10px; letter-spacing: .04em; }
 .rk-stats .gs b { font-size: 12.5px; }
+
+/* ============================================================
+ * 手机端省电档（2026-09-27，iPhone 16 Pro 发烫反馈）
+ * ------------------------------------------------------------
+ * 120Hz ProMotion 屏下，每一个「无限循环的 CSS 动画」都按每秒
+ * 120 帧计费；而 text-shadow / box-shadow / filter / background-
+ * position 这几类关键帧没法走 GPU 合成，等于整块内容每帧重画。
+ * 手机用户就算关掉雨幕特效，这些常驻动画也一直在烧 GPU——这就
+ * 是「不开特效都发烫」的根因。本档把这些永动器全部拆掉或降级为
+ * 静态效果，观感损失很小，发热下降明显。桌面完全不受影响。
+ * ============================================================ */
+@media (pointer: coarse) {
+
+  /* 蒸汽：blur(14px) 大圆片 + 无限 rise = 每帧重新光栅化模糊层。
+     特效关时本来就隐藏；特效开时也干脆不显示（雨幕已经够氛围了） */
+  .steam-field { display: none; }
+
+  /* 扫描线：mix-blend-mode: overlay 全屏混合，整页每帧合成一次。
+     关掉不影响内容，只少一层胶片感 */
+  .fx-scan { display: none; }
+
+  /* backdrop-filter 在 iOS 上是「背后有东西在变就要重算一次高斯模糊」。
+     聊天面板常驻右栏 / 右下角，背后正是每帧在滚的问答记录 —— 等于常驻
+     烧录机。改成更实的底色，观感几乎不变。 */
+  .room-chat { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(12, 8, 6, .97); }
+  .modal-wrap { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(6, 4, 3, .84); }
+
+  /* 标题金字辉光：无限 text-shadow → 静态一档 */
+  .brand-txt h1 { animation: none; text-shadow: 0 0 22px rgba(226, 164, 79, .35); }
+
+  /* 原创徽章：无限 box-shadow → 静态 */
+  .orig-badge { animation: none; box-shadow: 0 0 12px rgba(226, 164, 79, .35); }
+
+  /* 揭底星星：starPop 一次性入场保留，starGlow 无限循环拿掉 */
+  .stars { animation: starPop .7s cubic-bezier(.2, .9, .3, 1.4) both; text-shadow: 0 0 30px rgba(255, 233, 196, .6); }
+
+  /* 结算「说破的人」炫彩名字：无限 background-position + background-clip:text
+     + drop-shadow，iOS 上整条文字每帧 CPU 重绘，是结算页最大的永动器。
+     换成静态渐变字。 */
+  .wt-name {
+    animation: wtPop .55s cubic-bezier(.2, 1.6, .4, 1);
+    filter: none;
+    background-position: 40% 0;
+  }
+  .wt-spark { animation: none; opacity: .9; }
+
+  /* 聊天报喜彩框：conic-gradient + mask-composite + 无限 hue-rotate +
+     drop-shadow，一条消息一个烧录机；shine 还在动画 left（每帧触发布局）。
+     全部停成静态彩边。 */
+  .cg-frame::before { animation: none; filter: none; }
+  .cg-shine { animation: none; display: none; }
+
+  /* 圈权 / 认输按钮的「墨晕」：blur + 7s 无限 scale/rotate → 静态 */
+  .quan-btn::before { animation: none; filter: none; opacity: .72; }
+  .giveup-btn::before { animation: none; filter: none; opacity: .72; }
+
+  /* 金章说破标签：无限 box-shadow → 静态 */
+  .room-tag.solved { animation: none; box-shadow: 0 0 10px rgba(255, 209, 102, .4); }
+
+  /* 单人榜 crown：无限 msCrown 的 transform 可 GPU 合成，留着无妨；
+     但 drop-shadow 常驻，去之 */
+  .ms-crown { animation: msCrown 1.6s ease-in-out infinite; filter: none; }
+
+  /* AI 状态点 / 等待中的省略号：opacity 动画便宜，保留 */
+}
