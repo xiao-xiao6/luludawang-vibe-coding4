@@ -26,8 +26,11 @@
   var LEAD_OF = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
   var LEVELS = ["solved", "close", "no"];
 
-  /* 思考链出口硬过滤：命中这些痕迹说明模型把内部分析吐出来了，整条打回重试，绝不展示给玩家 */
-  var REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示)|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说)/;
+  /* 思考链出口硬过滤：命中这些痕迹说明模型把内部分析吐出来了，整条打回重试，绝不展示给玩家。
+     2026-09-27 补：旧串漏掉了模型最常吐的「但汤底核心：…」「汤底的关键是…」，
+     导致这类分析尾巴被当成「短答」直接上屏（主人在房间截图里看到的半截思维链就是这个）。
+     与 worker/src/ai.js 的 REASON_TAIL 保持完全同一口径。 */
+  var REASON_TAIL = /(根据(汤底|题目|故事|设定|材料|题面)|汤底(说|写|里|中|表明|显示|核心|的关键|的重点|的主旨|的主线|讲的是|说的是|的意思)|但(是)?汤底|不过汤底|其实汤底|让我(们)?(先)?(想|分析|看|梳理|猜|盘)|我先(想|分析|看|梳理)|首先|其次|综上|分析一下|分析过程|分析如下|推理(过程|一下|链)|思考(过程|一下)|真正的答案|解释一下|举个?例|也就是说|核心诡计|关键真相)/;
 
   /* 服务商预设：除 Anthropic 外都走 OpenAI 兼容的 /chat/completions */
   var PROVIDERS = [
@@ -211,7 +214,8 @@
       "   verdict 只能是 yes / no / partial / irr；clue 是认领到的线索编号（没认到就填 0）；reply 是给玩家看的那句话。",
       "10. 玩家只能看到汤面，所以他是基于汤面进行猜测的。例如玩家说「他喝的不是海龟汤」，是在问汤面里他喝的是不是海龟汤——即使汤底里他曾经喝过别的汤，你也应该判定汤面里那碗。",
       "11. 思考、分析、逐条排除、「让我想想」这类内部草稿，无论出现在 JSON 内外、任何字段里，都绝对禁止输出；输出前必须全部删干净，只留最终判定和一句短答。",
-      "12. 玩家一次连着问了好几个小问题（比如「男人是正常男人吗，身高体重是不是正常成年男人的范畴？」）时：先选一个最贴切的总体判定词放开头，再用几个短句把每个小问题都答到，例如「部分正确。人是正常成年男人，体重却偏轻。」；绝对禁止把玩家的问题复述一遍当作回答（「玩家问…」「你问的是…」「这个问题是…」这类句式一律不许出现），永远直接给答案。"
+      "12. 玩家一次连着问了好几个小问题（比如「男人是正常男人吗，身高体重是不是正常成年男人的范畴？」）时：先选一个最贴切的总体判定词放开头，再用几个短句把每个小问题都答到，例如「部分正确。人是正常成年男人，体重却偏轻。」；绝对禁止把玩家的问题复述一遍当作回答（「玩家问…」「你问的是…」「这个问题是…」这类句式一律不许出现），永远直接给答案。",
+      "13. 【关键】【此】只有一种情况才回答「与此无关」：玩家说的话跟这个故事彻底不沾边（现实知识、闲聊、问你是谁、要答案、跟本题无关的别的话题）。只要玩家在问「故事里有没有某人 / 某人是不是某种人 / 有没有发生某事」，那就属于故事内提问：故事里确实没有这个元素，就回答「不是。」，绝不许因为「汤面里没提到」或「汤底里没有这个词」就判「与此无关」。举例：玩家问「女儿是同人女吗」，答案应该是「不是。这个故事里没有女儿。」而不是「与此无关。」。"
     ].join("\n");
   }
 
@@ -326,8 +330,13 @@
     if (reply.length > 160) return { ok: false, reason: "too-long" };
     var lk = leadKey(reply);
     if (!lk) {
-      /* 判定词没放开头：多半是模型先吐了一段思考。只取开头第一句，其余丢弃，由出口硬过滤兜底 */
-      var mFirst0 = reply.match(/^[^。！？；]{0,28}/);
+      /* 判定词没放开头：多半是模型先吐了一段思考（或整段就是分析）。
+         这类回答直接打回重试，别把分析拼上屏（与旧契约一致）。 */
+      if (REASON_TAIL.test(reply)) return { ok: false, reason: "reason-dump" };
+      /* 只是忘了把判定词放开头：补上判定词，正文按整句保留。
+         旧版这里写死截前 28 个字，会在句子中间断掉、把半截话贴上屏
+         （主人截图里「…把龟男疼得像亲生孩子，想」就是这里砍的）。 */
+      var mFirst0 = reply.match(/^[^。！？；]{0,40}/);
       reply = ((LEAD_OF[v] || "与此无关") + "。" + (mFirst0 ? mFirst0[0] : "")).slice(0, 158);
     } else if (lk !== v) {
       /* 开头的判定词是模型的明确表态，以它为准 */
@@ -472,12 +481,16 @@
        不再因为「没把判定词放句首」就把整句判死 */
     var fv = fuzzyVerdict(plain);
     if (!fv) return null;
-    /* 判定词之前的整段思考直接扔掉，之后也只取第一句——绝不把分析原文拼回给玩家 */
+    /* 判定词之前的整段思考直接扔掉，之后也只取第一句——绝不把分析原文拼回给玩家。
+       注意这里按句子收尾（0,40 且不跨句号），旧版 0,28 会在句子中间断掉。 */
     var lw = LEAD_OF[fv];
     var vi = lw ? plain.indexOf(lw) : -1;
     if (vi > 0) plain = plain.slice(vi);
     var rest = plain.replace(/^(是的?|不是的?|部分正确|与此无关|无关|对|不对|正确|否)[。.，,、！!？?：:；;—－~～\s]*/, "");
-    var mFirst = rest.match(/^[^。！？；]{0,28}/);
+    /* 判定词之后还带分析痕迹 → 只留判定词，绝不把分析拼上屏
+       （与 worker/src/ai.js 的 looseAnswer 同一口径） */
+    if (REASON_TAIL.test(rest)) rest = "";
+    var mFirst = rest.match(/^[^。！？；]{0,40}/);
     return { verdict: fv, reply: ((LEAD_OF[fv] || "") + "。" + (mFirst ? mFirst[0] : rest)).slice(0, 158), clue: 0 };
   }
 
@@ -523,6 +536,7 @@
     if (err.code === "not-configured") return "还没填好服务商或 Key";
     if (err.code === "unparsable") return "模型两次都没给出可认的判定（已自动带修复指令重试过）。这个模型输出太自由，建议在设置里换成更守格式的模型，如 deepseek-chat";
     if (err.code === "empty-reply") return "模型回了空内容（多半是 maxTokens 太小被截断，或该模型把正文放在思考字段里）";
+    if (err.code === "truncated") return "模型回复被 maxTokens 截断，话没说完（已自动放宽额度重试过）";
     if (err.code === "timeout") return "请求超时";
     if (err.code === "http") return err.message || "接口报错";
     if (err.code === "network") {
@@ -666,15 +680,29 @@
     return s.length > 160 ? s.slice(0, 158) + "…" : s;
   }
 
+  /* 被截断检测：finish_reason === "length" 说明模型话没说完就被 max_tokens 掐了。
+     这种情况绝不能把半截话/半个 JSON 当答案上屏，必须报「截断」并让上层重试一次
+     （主人反馈的「像漏了半截思维链」的另一种来源）。 */
+  function isTruncated(cfg, json) {
+    if (!json || cfg.kind === "anthropic") return false;
+    var ch = (json.choices || [])[0] || {};
+    return String(ch.finish_reason || "").toLowerCase() === "length";
+  }
+
   function callModel(cfg, system, user) {
     var req = buildRequest(cfg, system, user);
     return transport(req).then(function (res) {
       if (!res || res.status < 200 || res.status >= 300) {
         throw aiError("http", "接口返回 " + ((res && res.status) || "?") + (res && res.text ? "：" + shortBody(res.text) : ""));
       }
+      var json = null;
+      try { json = JSON.parse(res.text); } catch (e) { json = null; }
       var text = extractText(cfg, res);
       /* 把「结构里压根没有正文」和「有正文但内容为空」分开报，方便定位 */
       if (!text) throw aiError("empty-reply", "模型返回里没有可读正文（content 为空）");
+      if (isTruncated(cfg, json)) {
+        throw aiError("truncated", "模型回复被 maxTokens（" + cfg.maxTokens + "）截断，话没说完");
+      }
       return text;
     });
   }
@@ -684,14 +712,39 @@
   /* 模型偶尔不守规矩：格式错或没过把关时，带上更硬的提醒再要一次 */
   var RETRY_HINT = "\n\n【上次的回答没被读懂，请重新回答】优先输出一个 JSON 对象：{\"verdict\":\"yes|no|partial|irr\",\"reply\":\"…\",\"clue\":0}；实在做不到 JSON，就只回一句话，以「是。」「不是。」「部分正确。」「与此无关。」其中之一开头，后面最多补一两句短提示。如果玩家一次问了好几个小问题，先给一个最贴切的总体判定词，再用短句逐一简短回答；禁止复述问题（「玩家问…」「你问的是…」这类句式不行）。严禁输出思考过程、分析、举例或任何理由，也不要提到汤底。";
 
-  function tryTwice(run) {
-    return run(false).catch(function (err) {
+  /* 截断重试时临时放宽 maxTokens：思考型模型很容易把额度烧在思考上，
+     正文还没写完就被掐——放宽一倍通常就够，仍不够则由上层报错，不硬凑。 */
+  function withLargerBudget(cfg) {
+    var c = {};
+    for (var k in cfg) if (Object.prototype.hasOwnProperty.call(cfg, k)) c[k] = cfg[k];
+    c.maxTokens = Math.min(4000, Math.max(cfg.maxTokens || 1200, 800) * 2);
+    return c;
+  }
+
+  function tryTwice(cfg, sys, buildUser, parse, guard) {
+    return Promise.resolve().then(function () {
+      return callModel(cfg, sys, buildUser(false));
+    }).then(function (raw) {
+      var parsed = parse(raw);
+      if (!parsed) throw aiError("unparsable", "模型没按格式回答");
+      var g = guard(parsed);
+      if (!g.ok) throw aiError("guarded:" + g.reason, "回答没通过把关");
+      return g;
+    }).catch(function (err) {
       var c = String((err && err.code) || "");
-      /* 空正文、格式不对、没过把关、一把超时，都值得再要一次；
+      /* 空正文、格式不对、没过把关、被截断、一把超时，都值得再要一次；
          只有配置类错误（没填、HTTP 4xx）不重试 */
-      var retryable = c === "unparsable" || c === "empty-reply" || c === "timeout" || c.indexOf("guarded:") === 0;
+      var retryable = c === "unparsable" || c === "empty-reply" || c === "truncated" || c === "timeout" || c.indexOf("guarded:") === 0;
       if (!retryable) throw err;
-      return run(true);
+      /* 截断说明额度不够：重试时直接放宽一倍 */
+      var retryCfg = (c === "truncated") ? withLargerBudget(cfg) : cfg;
+      return callModel(retryCfg, sys, buildUser(true)).then(function (raw2) {
+        var parsed2 = parse(raw2);
+        if (!parsed2) throw aiError("unparsable", "模型没按格式回答");
+        var g2 = guard(parsed2);
+        if (!g2.ok) throw aiError("guarded:" + g2.reason, "回答没通过把关");
+        return g2;
+      });
     });
   }
 
@@ -700,15 +753,13 @@
     if (!isReady(cfg)) return Promise.reject(aiError("not-configured"));
     if (!puzzle) return Promise.reject(aiError("no-puzzle"));
     var sys = buildSystemPrompt(puzzle);
-    var usr = buildAskUser(puzzle, question, ctx);
-    return tryTwice(function (again) {
-      return callModel(cfg, sys, again ? usr + RETRY_HINT : usr).then(function (raw) {
-        var parsed = parseAnswer(raw);
-        if (!parsed) throw aiError("unparsable", "模型没按格式回答");
-        var g = guardAnswer(puzzle, parsed);
-        if (!g.ok) throw aiError("guarded:" + g.reason, "回答没通过把关");
-        return { verdict: g.verdict, reply: g.reply, clue: g.clue, source: "ai", model: cfg.model };
-      });
+    return tryTwice(cfg, sys, function (again) {
+      var usr = buildAskUser(puzzle, question, ctx);
+      return again ? usr + RETRY_HINT : usr;
+    }, parseAnswer, function (parsed) {
+      return guardAnswer(puzzle, parsed);
+    }).then(function (g) {
+      return { verdict: g.verdict, reply: g.reply, clue: g.clue, source: "ai", model: cfg.model };
     });
   }
 
@@ -717,15 +768,13 @@
     if (!isReady(cfg)) return Promise.reject(aiError("not-configured"));
     if (!puzzle) return Promise.reject(aiError("no-puzzle"));
     var sys = buildSystemPrompt(puzzle);
-    var usr = buildGuessUser(puzzle, guess);
-    return tryTwice(function (again) {
-      return callModel(cfg, sys, again ? usr + RETRY_HINT : usr).then(function (raw) {
-        var parsed = parseGuess(raw);
-        if (!parsed) throw aiError("unparsable", "模型没按格式回答");
-        var g = guardGuess(puzzle, parsed);
-        if (!g.ok) throw aiError("guarded:" + g.reason, "判定没通过把关");
-        return { level: g.level, note: g.note, source: "ai", model: cfg.model };
-      });
+    return tryTwice(cfg, sys, function (again) {
+      var usr = buildGuessUser(puzzle, guess);
+      return again ? usr + RETRY_HINT : usr;
+    }, parseGuess, function (parsed) {
+      return guardGuess(puzzle, parsed);
+    }).then(function (g) {
+      return { level: g.level, note: g.note, source: "ai", model: cfg.model };
     });
   }
 
