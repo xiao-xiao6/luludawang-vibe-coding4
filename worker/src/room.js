@@ -39,10 +39,10 @@ const UID_MAX = 15;             /* 单房最多 15 人 */
 const NICK_MAX = 12;            /* 昵称 ≤12 字 */
 const TURN_TIMEOUT_MS = 90000;  /* 顺序提问 90s 超时跳过 */
 const COOLDOWN_IRR_MS = 90000;  /* 猜底 🔴完全错误 90s 冷却（只算在猜的人身上） */
-const COOLDOWN_CLOSE_MS = 60000;/* 猜底 🟡部分正确 60s 冷却（只算在猜的人身上） */
+const COOLDOWN_CLOSE_MS = 45000;/* 猜底 🟡部分正确 45s 冷却（只算在猜的人身上） */
 /* 每多一人说破本锅，还在熬的人下一次踩 🔴/🟡 的冷却按人数档位递减；
-   减到下限就封住：🟡 最低 10s，🔴 最低 30s。 */
-const COOLDOWN_IRR_MIN_MS = 30000;
+   减到下限就封住：🟡 最低 10s，🔴 最低 55s。 */
+const COOLDOWN_IRR_MIN_MS = 55000;
 const COOLDOWN_CLOSE_MIN_MS = 10000;
 
 /* ---- 联机手感参数 ---- */
@@ -69,11 +69,11 @@ function nickTaken(s, nick, selfUid) {
 
 const NICK_TAKEN_NOTE = "这个昵称已经被占用了，换一个再进房——同名会让聊天框分不清是谁。";
 
-/* 人数档位：≤6 人每多说破一人减 10s，7–10 人减 7.5s，11–15 人减 5s。 */
+/* 人数档位：≤6 人每多说破一人减 7s，7–10 人减 4s，11–15 人减 2.5s。 */
 function cooldownStep(total) {
-  if (total <= 6) return 10000;
-  if (total <= 10) return 7500;
-  return 5000;
+  if (total <= 6) return 7000;
+  if (total <= 10) return 4000;
+  return 2500;
 }
 
 /* 刚刚这一次判定给 TA 设下的冷却还剩多久（毫秒）；没设冷却则为 0。 */
@@ -83,7 +83,7 @@ function pendingCooldown(s, player) {
 }
 
 /* 本锅当前实际冷却时长（毫秒）。level: "no" = 🔴，"close"/"vague" = 🟡。
-   7 人以上按档位一路减会触到下限（🔴 30s / 🟡 10s）；≤6 人最多减 5 档＝50s，🔴 停在 40s、🟡 正好停在 10s。 */
+   以 90s / 45s 起步：≤6 人档 5 档减满 35s → 🔴 正好 55s、🟡 正好 10s，两条下限都真落在地上；人数越多档越细，同样只到线为止。 */
 function guessCooldownMs(s, level) {
   const red = level === "no";
   const base = red ? COOLDOWN_IRR_MS : COOLDOWN_CLOSE_MS;

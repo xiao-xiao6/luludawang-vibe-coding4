@@ -941,10 +941,10 @@
       return;
     }
     var tier = s.cooldownTier || {};
-    var next = s.myNextCooldown || { no: 90000, close: 60000 };
+    var next = s.myNextCooldown || { no: 90000, close: 45000 };
     var cdTitle = "随时可猜。🔴 完全错误 " + Math.round(next.no / 1000) + " 秒、🟡 部分正确 " +
       Math.round(next.close / 1000) + " 秒冷却，只算在你自己身上。" +
-      (tier.solved ? "本锅已有 " + tier.solved + " 人说破，每多一人再减 " + (tier.step / 1000) + " 秒（🟡 最低 10 秒、🔴 最低 30 秒）。" : "");
+      (tier.solved ? "本锅已有 " + tier.solved + " 人说破，每多一人再减 " + (tier.step / 1000) + " 秒（🟡 最低 10 秒、🔴 最低 55 秒）。" : "");
     btn.title = cdTitle;
 
     /* 放弃按钮：冷却中 / 投票进行中 / 旁观中都不许再点 */
@@ -1489,7 +1489,7 @@
           var leadDot = (lv === "close" || lv === "vague") ? ic("dotY", "dot-y") : ic("dotR", "dot-r");
           /* 冷却秒数一律用服务端当场算好的返回值，别把 120/60 写死在文案里 */
           var cdSec = Math.max(0, Math.round(((r && r.cooldownMs) || 0) / 1000));
-          var tierNow = (R.snap && R.snap.cooldownTier) || { solved: 0, step: 10000 };
+          var tierNow = (R.snap && R.snap.cooldownTier) || { solved: 0, step: 7000 };
           var cutNote = tierNow.solved > 0
             ? "（本锅已说破 " + tierNow.solved + " 人，每多说破一人再减 " + (tierNow.step / 1000) + " 秒）"
             : "";
@@ -1506,7 +1506,7 @@
         close();
         if (R.snap) render(R.snap);
         if (lv === "solved") R.toast("对了！汤底揭晓");
-        else if (lv === "close") R.toast("已经很近了！60 秒后可再猜");
+        else if (lv === "close") R.toast("已经很近了！45 秒后可再猜");
         else R.toast((r && r.note) || "方向还不对");
       }).catch(function (e) {
         var m = e.message;
