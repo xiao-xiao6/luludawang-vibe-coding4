@@ -95,6 +95,7 @@
     chatOpen: true,    /* 默认展开在右下角；点标题才收起 */
     timerTimer: 0,      /* 顺序提问 90s 倒计时的 setInterval 句柄 */
     seenTurn: "",       /* 已经提醒过的轮次，避免每次轮询都再响一次 */
+    turnUid: null,      /* 上一拍观测到的「该谁」，用来判定是不是真换手 */
     /* ---- 多人「私有猜底」大改（2026-09-25）---- */
     mySolvedShown: false, /* 个人说破弹窗（含刷新恢复）每次进锅只弹一次 */
     personalOpen: false,  /* 个人说破弹窗当前开着：全员揭底等它关完再弹，不叠罗汉 */
@@ -192,6 +193,7 @@
   function showEntry() {
     R.inRoom = false;
     R.seenTurn = "";
+    R.turnUid = null;
     document.body.classList.remove("my-turn");
     /* 回到建房/进房页：停掉房间专属的左栏自动滚动 */
     stopQaScroll();
@@ -221,7 +223,7 @@
 
   function askNickname() {
     if (!N || !N.promptNickname) return Promise.resolve(me().nickname || "汤客");
-    return N.promptNickname({ title: "起个昵称，进汤屋", sub: "昵称最长 12 个字，可以重复。" });
+    return N.promptNickname({ title: "起个昵称，进汤屋", sub: "昵称最长 12 个字，不能和屋里其他人重名——同名会分不清谁是谁。" });
   }
 
   /* ---------------- 建房 / 进房 ---------------- */
@@ -246,6 +248,11 @@
     var codeEl = $("#room-join-code");
     var code = (codeEl ? codeEl.value : "").trim().toUpperCase();
     if (code.length < 4) { R.toast("先填 6 位房号"); return; }
+    tryJoin(code, 0);
+  }
+
+  /* 撞名就当场再问一次（最多三轮），省得用户从头点进房 */
+  function tryJoin(code, tries) {
     askNickname().then(function (nick) {
       R.toast("正在进房…");
       return N.joinRoom(code, nick);
@@ -258,7 +265,10 @@
       if (m === "CANCELLED") return;
       if (m === "ROOM_FULL") R.toast("这间汤屋坐满了（最多 15 人）");
       else if (m === "NICKNAME_REQUIRED") R.toast("昵称不能为空");
-      else R.toast("进房失败：" + m);
+      else if (m === "NICKNAME_TAKEN") {
+        R.toast((e && e.note) || "这个昵称屋里已经有人用了，换一个");
+        if (tries < 2) { tryJoin(code, tries + 1); return; }
+      } else R.toast("进房失败：" + m);
     });
   }
 
@@ -397,6 +407,8 @@
 
     /* 本锅头部 90s 倒计时：playing 才显示，全桌可见，只展示不改时长 */
     paintTurnTimer(s);
+    /* 发言顺序条：按编号轮转，看得见「还差几棒轮到自己」 */
+    paintQueue(s);
 
     /* 第⑥条：线索板已整体下线；第⑦条：「汤主的话」不再独立成框，
      文案全部并入上方阶段提示 #room-phase（见 phaseText）。 */
@@ -508,15 +520,16 @@
     paintVote(s);
   }
 
-  /* 轮到自己：整屏轻闪 + 短促轻铃，只在轮次真正换到自己时响一次 */
+  /* 轮到自己：整屏轻闪 + 横幅。铃只在「上一棒是别人、这一棒交给我」的真换手时响一次。 */
   function noteTurn(s, myTurn) {
-    var key = (s && s.phase === "playing" && s.turnUid) ? (String(s.puzzleId || "") + ":" + s.turnUid + ":" + (s.turnDeadline || 0)) : "";
+    var uid = (s && s.phase === "playing" && s.turnUid) ? s.turnUid : null;
+    var key = uid ? (String(s.puzzleId || "") + ":" + uid + ":" + (s.turnDeadline || 0)) : "";
     if (key === R.seenTurn) return;
-    var prev = R.seenTurn;
+    var prevUid = R.turnUid;    /* 上一拍真正观测到的「该谁」；null = 刚进房 / 刚刷新 */
     R.seenTurn = key;
+    R.turnUid = uid;
     document.body.classList.toggle("my-turn", !!myTurn);
-    /* 第一次进房就已经轮到自己时也要响；之后只有轮次真的换到自己才再响 */
-    if (!myTurn || (!prev && !R.inRoom)) return;
+    if (!myTurn) return;
     var banner = $("#turn-call");
     if (!banner) {
       banner = document.createElement("div");
@@ -530,6 +543,11 @@
     banner.classList.remove("on");
     void banner.offsetWidth;
     banner.classList.add("on");
+    /* 异响的根源就写在旧条件里：只要快照换了 key 就响，于是刚进房、刚刷新、
+       切回前台补拉那几拍，都可能凭空炸出一串比雷声还响的三连铃。
+       现在只认真换手，且后台标签页一律不响。 */
+    if (prevUid === null || prevUid === uid) return;
+    if (document.hidden) return;
     if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("turn");
   }
 
@@ -562,10 +580,13 @@
       }
       var who = (s.players || []).filter(function (p) { return p.uid === s.turnUid; })[0];
       var you = s.turnUid === myUid(s);
+      var wait = s.turnsUntilMe;
       var head = you
         ? "轮到你提问了，问一句「是 / 不是」能答的问题。"
         : (who
-          ? "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + " " + who.nickname + " 提问，你可以顺着问答记录想推理。"
+          ? "轮到 #" + (s.turnSeat || seatOf(s, s.turnUid)) + " " + who.nickname + " 提问" +
+            (typeof wait === "number" && wait > 0 ? "，再过 " + wait + " 棒就轮到你（按编号 #" + (s.youSeat || "?") + " 往后顺）" : "") +
+            "，你可以顺着问答记录想推理。"
           : "都在等你这一句——问吧。");
       if (solvedN > 0) head += "本锅已有 " + solvedN + "/" + totalN + " 人说破"
         + (totalN - solvedN === 1 && solvedN > 0 ? "，只剩你一个，加油！" : "。");
@@ -914,13 +935,22 @@
       var bg = $("#btn-room-giveup");
       if (bg && s.phase === "playing") {
         bg.disabled = true;
-        bg.title = "你已说破本锅——不替还没猜出的人发起放弃";
+        bg.textContent = "放弃";
+        bg.title = "你已说破本锅——这一放不放弃，由还没猜出来的人自己定";
       }
       return;
     }
+    var tier = s.cooldownTier || {};
+    var next = s.myNextCooldown || { no: 120000, close: 60000 };
+    var cdTitle = "随时可猜。🔴 完全错误 " + Math.round(next.no / 1000) + " 秒、🟡 部分正确 " +
+      Math.round(next.close / 1000) + " 秒冷却，只算在你自己身上。" +
+      (tier.solved ? "本锅已有 " + tier.solved + " 人说破，每多一人再减 " + (tier.step / 1000) + " 秒（🟡 最低 10 秒、🔴 最低 30 秒）。" : "");
+    btn.title = cdTitle;
+
+    /* 放弃按钮：冷却中 / 投票进行中 / 旁观中都不许再点 */
     var bg2 = $("#btn-room-giveup");
-    if (bg2) { bg2.disabled = false; if (bg2.dataset && bg2.dataset.titled) { /* noop */ } }
-    if (bg2) bg2.title = "卡住了？发起全房投票，同意满「人数-1」就直接上汤底";
+    if (bg2) paintGiveupBtn(bg2, s);
+
     var tick = function () {
       var left = Math.ceil(((s.myGuessCooldownUntil || 0) - Date.now()) / 1000);
       if (left > 0) {
@@ -934,6 +964,54 @@
     };
     tick();
     R.cooldownTimer = setInterval(tick, 1000);
+  }
+
+  /* 「放弃」按钮的三种沉默：已说破（旁观）/ 投票在跑 / 60 秒发起冷却 */
+  function paintGiveupBtn(bg2, s) {
+    if (s.phase !== "playing") { bg2.disabled = false; bg2.textContent = "放弃"; bg2.title = "开局后可发起「放弃本锅看汤底」投票"; return; }
+    if (s.vote) {
+      bg2.disabled = true;
+      bg2.textContent = "投票中…";
+      bg2.title = "这一轮放弃投票还在收票，先去上面的卡片表态";
+      return;
+    }
+    var left = Math.ceil((s.giveupCooldownLeft || 0) / 1000);
+    if (left > 0) {
+      bg2.disabled = true;
+      bg2.textContent = "放弃 " + left + "s";
+      bg2.title = "刚投过一轮，" + left + " 秒后才能再发起";
+      return;
+    }
+    bg2.disabled = false;
+    bg2.textContent = "放弃";
+    bg2.title = "卡住了？发起放弃投票：要所有还没猜出来的人全部同意才揭底，一人拒绝就作罢";
+  }
+
+  /* 发言顺序条（2026-09-29）：#1 → #2 → #3 → #1 真顺序轮转，
+     中途进房的人只要看自己的编号和「正在问」的那一位，就知道还差几棒轮到自己。 */
+  function paintQueue(s) {
+    var el = $("#room-queue");
+    if (!el) return;
+    var q = s.turnQueue || [];
+    if (s.phase !== "playing" || q.length < 2) {
+      el.classList.add("hidden");
+      el.innerHTML = "";
+      el.__qsig = "";
+      return;
+    }
+    var my = myUid(s);
+    var sig = q.map(function (x) { return x.uid + ":" + x.offset; }).join(",");
+    if (el.__qsig !== sig) {
+      el.__qsig = sig;
+      var chips = q.map(function (x, i) {
+        var cls = x.offset === 0 ? " now" : (x.uid === my ? " me" : "");
+        return (i ? '<span class="rq-arrow" aria-hidden="true">→</span>' : "") +
+          '<span class="rq' + cls + '">' + (x.uid === my ? "我" : "#" + x.seat + " " + esc(x.nickname)) +
+          (x.offset === 0 ? "<i>正在问</i>" : "") + "</span>";
+      }).join("");
+      el.innerHTML = '<span class="rq-head">' + ic("hand") + " 发言顺序</span>" + chips;
+    }
+    el.classList.remove("hidden");
   }
 
   function paintTurnTimer(s) {
@@ -1409,9 +1487,15 @@
           var cls = (lv === "close" || lv === "vague") ? "close" : "no";
           var leadTxt = lv === "close" ? "部分正确" : (lv === "vague" ? "方向模糊" : "完全错误");
           var leadDot = (lv === "close" || lv === "vague") ? ic("dotY", "dot-y") : ic("dotR", "dot-r");
+          /* 冷却秒数一律用服务端当场算好的返回值，别把 120/60 写死在文案里 */
+          var cdSec = Math.max(0, Math.round(((r && r.cooldownMs) || 0) / 1000));
+          var tierNow = (R.snap && R.snap.cooldownTier) || { solved: 0, step: 10000 };
+          var cutNote = tierNow.solved > 0
+            ? "（本锅已说破 " + tierNow.solved + " 人，每多说破一人再减 " + (tierNow.step / 1000) + " 秒）"
+            : "";
+          var cdTip = cdSec ? " 这次要等 " + cdSec + " 秒" + cutNote + "，只算在你自己身上。" : " 冷却结束了再来。";
           fb.innerHTML = "<b>" + leadDot + " " + leadTxt + "</b><span class=\"pv-note\">（只有你看得见）</span><br>" +
-            esc((r && r.note) || "方向还不对。") +
-            (lv === "close" || lv === "vague" ? " 60 秒后可再猜一次；完全错误要等 180 秒。" : " 冷却结束后再来。");
+            esc((r && r.note) || "方向还不对。") + cdTip;
           fb.className = "guess-feedback pv " + cls;
           ta.readOnly = true;
           cancel.textContent = "知道了";
@@ -1901,9 +1985,10 @@
   }
 
   /* ------------------------------------------------------------
-   * 第⑥条（重做）：「放弃」投票 —— 替代旧「权」密码按钮
-   * 任何人游戏途中随时点；全房弹投票卡（同意 / 拒绝）；
-   * 同意人数 ≥ 房间人数 - 1 → 服务端直接揭本锅汤底。
+   * 「放弃」投票（2026-09-29 重做）
+   * 只有还没说破本锅的人能发起、能表态；要所有还没猜出来的人
+   * 全部同意才揭底，一人拒绝立刻流产；一轮结束后 60 秒内不能再发起。
+   * 一票定音：表过态就不能改，两个按钮一起锁住。
    * ------------------------------------------------------------ */
   var voteTick = 0;
 
@@ -1911,7 +1996,7 @@
     /* 防误触（2026-09-25）：发起投票会全房弹窗打断所有人，先二级确认 */
     askConfirm({
       title: "放弃这一锅？",
-      desc: "点确认会向全房发起「放弃看汤底」投票：同意人数满「人数 − 1」就直接揭开本锅汤底、这锅结束；没通过则继续熬。",
+      desc: "点确认会向「还没猜出来的人」发起放弃投票：所有人都同意才揭开本锅汤底，任何一人拒绝就作罢；一轮结束后 60 秒内不能再发起。",
       yes: "发起投票",
       danger: true
     }, giveupGo);
@@ -1919,35 +2004,64 @@
 
   function giveupGo() {
     act("giveup", {}).then(function (r) {
-      R.toast("已发起「放弃看汤底」投票，全房 60 秒内表态");
+      R.toast("已发起「放弃看汤底」投票：要还没猜出来的人全部同意");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
       startWatch();
     }).catch(function (e) {
       var m = e.message;
       if (m === "NOT_PLAYING") R.toast("这锅还没在打，不用放弃");
       else if (m === "VOTE_RUNNING") R.toast(e.note || "已有放弃投票进行中，先投完这一轮");
+      else if (m === "GIVEUP_COOLDOWN") R.toast(e.note || "刚投过一轮，等 60 秒再发起");
+      else if (m === "SOLVED_NO_GIVEUP") R.toast(e.note || "你已说破本锅，旁观就好");
       else R.toast("发起投票失败：" + m);
     });
   }
 
+  /* 点了就当场锁死：按钮立刻变成「已记下」，另一个按钮再也点不动 */
+  function lockVote(yes) {
+    var ya = $("#vc-agree"), yn = $("#vc-reject");
+    if (ya) { ya.disabled = true; yn && (yn.disabled = true); }
+    if (yes && ya) { ya.classList.add("on", "locked"); ya.textContent = ic("check") + " 已同意（不可改）"; }
+    if (!yes && yn) { yn.classList.add("on", "locked"); yn.textContent = ic("cross") + " 已拒绝（不可改）"; }
+    var card = $("#vote-card");
+    if (card) card.classList.add(yes ? "my-yes" : "my-no");
+  }
+
   function castVote(yes) {
+    lockVote(yes);
     act("vote", { agree: !!yes, yes: !!yes }).then(function (r) {
-      if (r && r.passed) R.toast("放弃投票通过，上汤底！");
-      else if (r && r.passed === false) R.toast("放弃被否决，继续熬");
+      if (r && r.passed) R.toast("全员同意，放弃投票通过 —— 上汤底！");
+      else if (r && r.passed === false) R.toast("有人拒绝，放弃投票当场作废，本锅继续（" + ((r.byNick || "有人")) + " 投的拒绝）");
+      else R.toast(yes ? "你的票已记下：同意" : "你的票已记下：拒绝");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
       startWatch();
     }).catch(function (e) {
       var m = e.message;
       if (m === "NO_VOTE") R.toast("这一轮投票已经结束了");
+      else if (m === "ALREADY_VOTED") R.toast(e.note || "你已经表过态了，这一轮不能再改");
+      else if (m === "SOLVED_NO_VOTE") R.toast(e.note || "你已说破本锅，这一票没有你的份");
       else R.toast(e.note || ("投票失败：" + m));
       startWatch();
     });
   }
 
   function voteSubText(v, left) {
-    var you = v.youYes ? "你：同意" : (v.youNo ? "你：拒绝" : "你：未投");
-    return "同意 " + v.yes + " / 需 " + v.need + "（共 " + v.total + " 人） · 拒绝 " + v.no +
-      " · " + you + " · 剩 " + left + "s";
+    if (!v) return "";
+    var wait = (v.voters || []).filter(function (x) { return !x.voted; }).length;
+    var head = "要还没猜出来的 " + v.need + " 人全部同意 · 已同意 " + v.yes + "/" + v.need +
+      (v.no ? " · 已拒绝 " + v.no : "") + (wait ? " · " + wait + " 人还没表态" : " · 就差最后几票");
+    return head + " · 剩 " + left + "s";
+  }
+
+  /* 名单条：谁同意 / 谁拒绝 / 谁还没吭声 */
+  function voterRosterHtml(v) {
+    var list = (v && v.voters) || [];
+    if (!list.length) return "";
+    return '<div class="vc-roster">' + list.map(function (x) {
+      var cls = x.voted === "yes" ? " r-yes" : (x.voted === "no" ? " r-no" : " r-wait");
+      var mark = x.voted === "yes" ? "已同意" : (x.voted === "no" ? "已拒绝" : "待表态");
+      return '<span class="vr' + cls + '">' + ic("hand") + " #" + x.seat + " " + esc(x.nickname) + "<i>" + mark + "</i></span>";
+    }).join("") + "</div>";
   }
 
   function paintVote(s) {
@@ -1967,10 +2081,12 @@
       card.innerHTML =
         '<div class="vc-title" id="vc-title"></div>' +
         '<div class="vc-sub" id="vc-sub"></div>' +
+        '<div id="vc-roster"></div>' +
         '<div class="vc-actions">' +
         '<button type="button" class="btn vc-yes" id="vc-agree">' + ic("thumbUp") + " 同意</button>" +
         '<button type="button" class="btn vc-no" id="vc-reject">' + ic("thumbDown") + ' 拒绝</button>' +
-        "</div>";
+        "</div>" +
+        '<div class="vc-done" id="vc-done"></div>';
       document.body.appendChild(card);
       card.querySelector("#vc-agree").addEventListener("click", function () { castVote(true); });
       card.querySelector("#vc-reject").addEventListener("click", function () { castVote(false); });
@@ -1981,9 +2097,36 @@
     var left = Math.max(0, Math.ceil((v.until - Date.now()) / 1000));
     var sub = $("#vc-sub", card);
     if (sub) sub.textContent = voteSubText(v, left);
-    var ya = $("#vc-agree", card), yn = $("#vc-reject", card);
-    if (ya) ya.classList.toggle("on", !!v.youYes);
-    if (yn) yn.classList.toggle("on", !!v.youNo);
+    var roster = $("#vc-roster", card);
+    /* 名单只在内容真的变了才重建，免得每秒闪一次 */
+    var rsig = (v.voters || []).map(function (x) { return x.uid + ":" + (x.voted || "-"); }).join(",");
+    if (roster && roster.__rsig !== rsig) {
+      roster.__rsig = rsig;
+      roster.innerHTML = voterRosterHtml(v);
+    }
+    var ya = $("#vc-agree", card), yn = $("#vc-reject", card), done = $("#vc-done", card);
+    var voted = !!(v.youYes || v.youNo);
+    card.classList.toggle("my-yes", !!v.youYes);
+    card.classList.toggle("my-no", !!v.youNo);
+    card.classList.toggle("watching", v.youCanVote === false);
+    if (ya && yn) {
+      ya.classList.toggle("on", !!v.youYes);
+      yn.classList.toggle("on", !!v.youNo);
+      ya.classList.toggle("locked", voted || v.youCanVote === false);
+      yn.classList.toggle("locked", voted || v.youCanVote === false);
+      /* 投过票 / 已说破旁观 → 两个按钮一起锁死，点不动也不会有歧义 */
+      ya.disabled = voted || v.youCanVote === false;
+      yn.disabled = voted || v.youCanVote === false;
+      ya.innerHTML = (v.youYes ? ic("check") + " 已同意（不可改）" : ic("thumbUp") + " 同意");
+      yn.innerHTML = (v.youNo ? ic("cross") + " 已拒绝（不可改）" : ic("thumbDown") + " 拒绝");
+    }
+    if (done) {
+      done.textContent = v.youCanVote === false
+        ? "你已说破本锅，在旁观战就好——这一锅由还没猜出来的人自己定。"
+        : (v.youYes ? "你已经投了「同意」，等其余还没猜出来的人表态。"
+          : (v.youNo ? "你已经投了「拒绝」，这一轮当场作废，大家继续熬。"
+            : "轮到你表态了：投完就不能改。"));
+    }
     /* 本地秒表：不用等下一轮轮询，倒计时数字也在走 */
     if (!voteTick) {
       voteTick = setInterval(function () {
