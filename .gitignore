@@ -58,3 +58,20 @@ node_modules/
 .opensquilla/
 Thumbs.db
 Desktop.ini
+
+# ---- 2026-09-28 体检的临时缓存：第三方仓库源码、抓回的网页、可重建的全量转储 ----
+# 这些个体积大、含他人代码或原始 HTML，一旦提交就会被 GitHub Pages 当静态文件公开下载
+tools/checkup_20260928/gh/
+tools/checkup_20260928/_tmp_*
+tools/checkup_20260928/*.html
+tools/checkup_20260928/*.xml
+tools/checkup_20260928/all.json
+tools/checkup_20260928/batches/
+tools/checkup_20260928/trans_batches/
+tools/checkup_20260928/pollution.json
+tools/checkup_20260928/align_candidates.json
+tools/checkup_20260928/meta_hits.json
+tools/checkup_20260928/trans_pre.json
+tools/checkup_20260928/tail_*.txt
+tools/checkup_20260928/*.tmp
+tools/checkup_20260928/align_candidates.txt
