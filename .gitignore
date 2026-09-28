@@ -102,3 +102,6 @@ tools/_pool2.log
 /_tmp_*
 .wrangler/
 tools/checkup_20260928/backfill*.json
+tools/check3_align/
+tools/check3_pair/
+tools/_v_*.txt
