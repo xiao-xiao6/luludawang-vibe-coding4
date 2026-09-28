@@ -1,9 +1,9 @@
 /* ============================================================
  * 2026-09-29 多人汤屋七项改动 · 本地端到端回归
  *   ① 昵称不得与在座的人重复
- *   ② 猜底 🔴 冷却 180s → 90s，🟡 维持 60s
- *   ③ 每多一人说破，剩余玩家的 🔴/🟡 冷却按人数档位递减（10 / 7.5 / 5 秒），
- *      下限 🟡 10s、🔴 30s
+ *   ② 猜底 🔴 冷却 90s、🟡 45s
+ *   ③ 每多一人说破，剩余玩家的 🔴/🟡 冷却按人数档位递减（7 / 4 / 2.5 秒），
+ *      下限 🟡 10s、🔴 55s
  *   ④ 放弃投票：只有还没说破的人能表态；需全员同意；一人拒绝即流产；60s 发起冷却
  *   ⑤ 一票定音：投过不能改、也不能再点另一个按钮
  *   ⑥ 发言顺序按编号由小到大真顺序轮转（中途加入按编号插队）
@@ -73,7 +73,7 @@ async function newRoom(host, players, withAI) {
   ok((await st(code, B.id)).players.some((p) => p.nickname === "换个名"), "改名落库");
 
   /* ================= ② + ⑥ 开局：90s 冷却 / 按编号轮转 ================= */
-  console.log("== ② 🔴 90s、🟡 60s ｜ ⑥ 按编号轮转 ==");
+  console.log("== ② 🔴 90s、🟡 45s ｜ ⑥ 按编号轮转 ==");
   const H = P("汤主大人"), B1 = P("阿B"), B2 = P("小C"), B3 = P("丁丁");
   code = await newRoom(H, [B1, B2, B3], true);
   const list = await req("/api/puzzles?limit=5", "GET");
@@ -102,14 +102,14 @@ async function newRoom(host, players, withAI) {
   }
   ok(seen.join(",") === "1,2,3,4", "一问一答依次轮转，不跳号不乱序", seen);
 
-  /* 冷却时长：4 人房（档位 10s），无人说破 → 🔴 90s / 🟡 60s */
+  /* 冷却时长：4 人房（档位 7s），无人说破 → 🔴 90s / 🟡 45s */
   const gRed = await act(code, "guess", B1.id, { text: "瞎猜一通 NO" });
   ok(gRed.level === "no" && near(gRed.cooldownMs, 90000), "🔴 完全错误冷却 90 秒", sec(gRed.cooldownMs));
   const gYel = await act(code, "guess", B2.id, { text: "沾点边 CLOSE" });
-  ok(gYel.level === "close" && near(gYel.cooldownMs, 60000), "🟡 部分正确冷却仍是 60 秒", sec(gYel.cooldownMs));
+  ok(gYel.level === "close" && near(gYel.cooldownMs, 45000), "🟡 部分正确冷却 45 秒", sec(gYel.cooldownMs));
   const b1v = await st(code, B1.id);
-  ok(b1v.myNextCooldown.no === 90000 && b1v.myNextCooldown.close === 60000, "快照回传下一次实际冷却时长");
-  ok(b1v.cooldownTier.total === 4 && b1v.cooldownTier.step === 10000, "4 人房 → 每多说破一人减 10 秒", b1v.cooldownTier);
+  ok(b1v.myNextCooldown.no === 90000 && b1v.myNextCooldown.close === 45000, "快照回传下一次实际冷却时长");
+  ok(b1v.cooldownTier.total === 4 && b1v.cooldownTier.step === 7000, "4 人房 → 每多说破一人减 7 秒", b1v.cooldownTier);
 
   /* ================= ③ 说破递减 ================= */
   console.log("== ③ 每多一人说破，冷却递减 ==");
@@ -117,10 +117,10 @@ async function newRoom(host, players, withAI) {
   ok(g1.level === "solved", "#4 先说破一个");
   const after1 = await st(code, B1.id);
   ok(after1.cooldownTier.solved === 1, "快照记录本锅已说破 1 人");
-  ok(near(after1.myNextCooldown.no, 80000) && near(after1.myNextCooldown.close, 50000), "1 人说破 → 🔴 80s / 🟡 50s", after1.myNextCooldown);
+  ok(near(after1.myNextCooldown.no, 83000) && near(after1.myNextCooldown.close, 38000), "1 人说破 → 🔴 83s / 🟡 38s", after1.myNextCooldown);
   /* B2 冷却已过期前不能猜，先拿没冷却的人验证递减 */
   const g2 = await act(code, "guess", H.id, { text: "汤主 CLOSE" });
-  ok(near(g2.cooldownMs, 50000), "汤主 🟡 冷却按 1 人说破递减到 50 秒", sec(g2.cooldownMs));
+  ok(near(g2.cooldownMs, 38000), "汤主 🟡 冷却按 1 人说破递减到 38 秒", sec(g2.cooldownMs));
   const g3 = await act(code, "guess", B2.id, { text: "换个人猜 NO" }).then(() => null, (e) => e.message);
   /* B2 还在冷却（上一发 60s），这里必须被拒 */
   ok(g3 === "COOLDOWN", "冷却内再猜被拒（冷却只算在猜的人身上）", g3);
@@ -188,6 +188,25 @@ async function newRoom(host, players, withAI) {
   const uids = s2.order.slice();
   ok(JSON.stringify(uids) === JSON.stringify(uids.slice().sort((a, b) => a - b)), "中途加入后队列仍按编号升序", { order: uids, seats: s2.players.map((p) => p.seat + ":" + p.uid) });
   ok(s2.turnQueue.every((x, i) => i === 0 || x.offset === s2.turnQueue[i - 1].offset + 1), "偏移逐棒 +1");
+
+  /* ================= ③+ 冷却下限真的落得了地 ================= */
+  console.log("== ③+ 减满档位 → 触到下限（🔴 55s / 🟡 10s）==");
+  const FH = P("下限房主"), F1 = P("下限甲"), F2 = P("下限乙"), F3 = P("下限丙"), F4 = P("下限丁"), F5 = P("下限戊");
+  const fCode = await newRoom(FH, [F1, F2, F3, F4, F5], true);
+  await act(fCode, "choose", FH.id, { puzzleId: pid });
+  for (const p of [FH, F1, F2, F3, F4, F5]) await act(fCode, "ready", p.id, { ready: true });
+  const fs = await st(fCode, FH.id);
+  ok(fs.phase === "playing" && fs.cooldownTier.total === 6 && fs.cooldownTier.step === 7000, "6 人房 → 每多说破一人减 7 秒", fs.cooldownTier);
+  for (const p of [F1, F2, F3, F4, F5]) {
+    const r = await act(fCode, "guess", p.id, { text: "说破 " + p.nick + " SOLVED" });
+    ok(r.level === "solved", p.nick + " 说破入账", r.level);
+  }
+  const before5 = await st(fCode, FH.id);
+  ok(before5.cooldownTier.solved === 5, "全锅已说破 5 人，只剩房主一个还在熬", before5.cooldownTier);
+  ok(before5.myNextCooldown.no === 55000 && before5.myNextCooldown.close === 10000,
+    "90−35＝55s、45−35＝10s：两条下限正好落地", before5.myNextCooldown);
+  const fRed = await act(fCode, "guess", FH.id, { text: "最后一个人跑偏 NO" });
+  ok(near(fRed.cooldownMs, 55000), "🔴 实际冷却封在 55 秒，不再往下", sec(fRed.cooldownMs));
 
   /* ================= 单人模式回归 ================= */
   console.log("== 单人回归 ==");
