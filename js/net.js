@@ -300,7 +300,7 @@
       wrap.innerHTML =
         '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="pt-nick-title">' +
         '<h3 id="pt-nick-title">' + (o.title || "起个昵称，进汤屋") + '</h3>' +
-        '<p class="modal-sub">' + (o.sub || "昵称最长 12 个字，可以重复。") + '</p>' +
+        '<p class="modal-sub">' + (o.sub || "昵称最长 12 个字，不能和屋里其他人重名。") + '</p>' +
         '<input id="pt-nick" class="input" type="text" maxlength="12" ' +
         'placeholder="例如：深海捞汤人" autocomplete="off" autocapitalize="off" />' +
         '<p class="guess-feedback" id="pt-nick-err"></p>' +

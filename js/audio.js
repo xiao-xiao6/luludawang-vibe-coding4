@@ -21,6 +21,7 @@
     comp: null,
     bgmGain: null,
     sfxGain: null,
+    sfxLimit: null,
     buffers: {},
     built: {},
     building: {},
@@ -292,8 +293,17 @@
         S.bgmGain.gain.value = 0;
         S.sfxGain = S.ctx.createGain();
         S.sfxGain.gain.value = S.sfxOn ? 1 : 0;
+        /* 音效总线限幅器：多条音效撞在一起（三连铃 + 报喜 + 雷声）时兜底，
+           保证任何一次音效都不会盖过背景氛围、更不会炸出声。 */
+        S.sfxLimit = S.ctx.createDynamicsCompressor();
+        S.sfxLimit.threshold.value = -16;
+        S.sfxLimit.knee.value = 8;
+        S.sfxLimit.ratio.value = 12;
+        S.sfxLimit.attack.value = 0.003;
+        S.sfxLimit.release.value = 0.12;
         S.bgmGain.connect(S.master);
-        S.sfxGain.connect(S.master);
+        S.sfxGain.connect(S.sfxLimit);
+        S.sfxLimit.connect(S.master);
         S.master.connect(S.comp);
         S.comp.connect(S.ctx.destination);
       }
@@ -401,23 +411,25 @@
           hiss(ctx, out, t, 0.5, 0.12, 400, 3600, 43);
           break;
         case "turn":
-          /* 轮到提问：三连铃。第②条：音量拉满也要压过 BGM 与雨声——
-             峰值提到与「雷声」同量级，且三声错落，一听就知道轮到自己。 */
-          bell(ctx, out, t, 784, 0.55, 0.5, 4800);
-          bell(ctx, out, t + 0.13, 1174.66, 0.5, 0.45, 5400);
-          bell(ctx, out, t + 0.26, 1567.98, 0.42, 0.38, 6200);
+          /* 轮到提问：三连铃。2026-09-29 彻查「异响」：旧版峰值 0.5/0.45/0.38
+             是三声最尖锐的高音（784→1568Hz，人耳最敏感处）叠在一起，
+             实际听感比背景雷声还响，把用户吓到过。现在压到雷声以下一档，
+             只作「提示」不作「惊铃」。 */
+          bell(ctx, out, t, 784, 0.55, 0.13, 4800);
+          bell(ctx, out, t + 0.13, 1174.66, 0.5, 0.115, 5400);
+          bell(ctx, out, t + 0.26, 1567.98, 0.42, 0.1, 6200);
           break;
         case "pop":
-          /* 烟花炸开：短促爆响 + 一点高音碎屑 */
-          tickNoise(ctx, out, t, 0.34, 900, 0.16, 71);
-          bell(ctx, out, t + 0.02, 1244.51, 0.4, 0.1, 6000);
+          /* 烟花炸开：短促爆响 + 一点高音碎屑（同样压过峰值） */
+          tickNoise(ctx, out, t, 0.12, 900, 0.16, 71);
+          bell(ctx, out, t + 0.02, 1244.51, 0.4, 0.07, 6000);
           break;
         case "fanfare":
           /* 说破汤底：上行钟琴五连 + 低频轰鸣垫底 */
           [523.25, 659.25, 783.99, 1046.5, 1318.51].forEach(function (f, i) {
-            bell(ctx, out, t + i * 0.09, f, 1.7, 0.32, 5200);
+            bell(ctx, out, t + i * 0.09, f, 1.7, 0.14, 5200);
           });
-          rumble(ctx, out, t, 1.3, 0.22, 300, 60);
+          rumble(ctx, out, t, 1.3, 0.1, 300, 60);
           break;
         default:
           bell(ctx, out, t, 440, 0.5, 0.1, 3000);

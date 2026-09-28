@@ -1927,6 +1927,97 @@ body.room-mode .qa-log {
 .vc-no { border-color: rgba(224, 112, 94, .6); color: #ffcfc7; }
 .vc-no.on { background: rgba(224, 112, 94, .22); border-color: var(--no); }
 
+/* ---- 2026-09-29：投票结果要一眼看得见 ----
+   投过的按钮实心高亮 + 锁死，另一个降成灰；旁观者（已说破）整组禁用。 */
+.vc-yes.locked.on,
+.vc-no.locked.on {
+  box-shadow: 0 0 0 1px currentColor, 0 0 18px rgba(104, 207, 154, .35);
+  transform: translateY(-1px);
+  font-weight: 700;
+}
+.vc-yes.locked.on { background: rgba(104, 207, 154, .42); color: #eafff3; border-color: #7ff0b4; }
+.vc-no.locked.on { background: rgba(224, 112, 94, .42); color: #fff0ec; border-color: #ff9d8e; box-shadow: 0 0 0 1px currentColor, 0 0 18px rgba(224, 112, 94, .35); }
+.vc-actions .btn:disabled { opacity: .42; cursor: not-allowed; filter: saturate(.55); }
+.vc-actions .btn.locked:disabled { opacity: 1; filter: none; }
+.vc-done {
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px dashed rgba(255, 255, 255, .16);
+  font-size: 12px;
+  line-height: 1.5;
+  color: #ffe9c4;
+}
+.vote-card.my-yes .vc-done { color: #b8ecd0; }
+.vote-card.my-no .vc-done { color: #ffcfc7; }
+.vote-card.watching { border-color: rgba(255, 255, 255, .2); opacity: .92; }
+.vote-card.watching .vc-done { color: var(--dim); }
+.vc-roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 9px;
+}
+.vc-roster .vr {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  font-size: 11.5px;
+  color: var(--dim);
+  background: rgba(255, 255, 255, .04);
+}
+.vc-roster .vr i { font-style: normal; font-size: 10.5px; opacity: .8; }
+.vc-roster .vr.r-yes { border-color: rgba(104, 207, 154, .55); color: #b8ecd0; background: rgba(104, 207, 154, .12); }
+.vc-roster .vr.r-no { border-color: rgba(224, 112, 94, .55); color: #ffcfc7; background: rgba(224, 112, 94, .12); }
+.vc-roster .vr.r-wait { border-style: dashed; }
+
+/* ---- 2026-09-29：发言顺序条（#1 → #2 → #3 真顺序轮转） ---- */
+.room-queue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 2px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 12px;
+  background: rgba(10, 20, 30, .38);
+}
+.room-queue.hidden { display: none; }
+.rq-head {
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  color: var(--dim);
+  margin-right: 2px;
+}
+.room-queue .rq {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .14);
+  font-size: 12px;
+  color: #cfe3f2;
+  background: rgba(255, 255, 255, .05);
+}
+.room-queue .rq i { font-style: normal; font-size: 10.5px; opacity: .85; }
+.room-queue .rq.now {
+  border-color: var(--gold, #e2a44f);
+  color: #ffe9c4;
+  background: rgba(226, 164, 79, .18);
+  box-shadow: 0 0 12px rgba(226, 164, 79, .25);
+}
+.room-queue .rq.me {
+  border-color: rgba(104, 207, 154, .6);
+  color: #b8ecd0;
+  background: rgba(104, 207, 154, .14);
+}
+.room-queue .rq-arrow { color: var(--dim); font-size: 11px; }
+
 /* ---------- 第⑦条：说破者昵称 —— 汤底框上方，流光 + 弹跳 + 双星闪烁 ---------- */
 .winner-tag {
   display: flex;
