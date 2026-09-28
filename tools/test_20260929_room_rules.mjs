@@ -1,7 +1,7 @@
 /* ============================================================
  * 2026-09-29 多人汤屋七项改动 · 本地端到端回归
  *   ① 昵称不得与在座的人重复
- *   ② 猜底 🔴 冷却 180s → 120s，🟡 维持 60s
+ *   ② 猜底 🔴 冷却 180s → 90s，🟡 维持 60s
  *   ③ 每多一人说破，剩余玩家的 🔴/🟡 冷却按人数档位递减（10 / 7.5 / 5 秒），
  *      下限 🟡 10s、🔴 30s
  *   ④ 放弃投票：只有还没说破的人能表态；需全员同意；一人拒绝即流产；60s 发起冷却
@@ -72,8 +72,8 @@ async function newRoom(host, players, withAI) {
   ok((await errOf(act(code, "set-nick", B.id, { nickname: "换个名" }))) === null, "不撞名时改名照常成功");
   ok((await st(code, B.id)).players.some((p) => p.nickname === "换个名"), "改名落库");
 
-  /* ================= ② + ⑥ 开局：120s 冷却 / 按编号轮转 ================= */
-  console.log("== ② 🔴 120s、🟡 60s ｜ ⑥ 按编号轮转 ==");
+  /* ================= ② + ⑥ 开局：90s 冷却 / 按编号轮转 ================= */
+  console.log("== ② 🔴 90s、🟡 60s ｜ ⑥ 按编号轮转 ==");
   const H = P("汤主大人"), B1 = P("阿B"), B2 = P("小C"), B3 = P("丁丁");
   code = await newRoom(H, [B1, B2, B3], true);
   const list = await req("/api/puzzles?limit=5", "GET");
@@ -102,13 +102,13 @@ async function newRoom(host, players, withAI) {
   }
   ok(seen.join(",") === "1,2,3,4", "一问一答依次轮转，不跳号不乱序", seen);
 
-  /* 冷却时长：4 人房（档位 10s），无人说破 → 🔴 120s / 🟡 60s */
+  /* 冷却时长：4 人房（档位 10s），无人说破 → 🔴 90s / 🟡 60s */
   const gRed = await act(code, "guess", B1.id, { text: "瞎猜一通 NO" });
-  ok(gRed.level === "no" && near(gRed.cooldownMs, 120000), "🔴 完全错误冷却 120 秒", sec(gRed.cooldownMs));
+  ok(gRed.level === "no" && near(gRed.cooldownMs, 90000), "🔴 完全错误冷却 90 秒", sec(gRed.cooldownMs));
   const gYel = await act(code, "guess", B2.id, { text: "沾点边 CLOSE" });
   ok(gYel.level === "close" && near(gYel.cooldownMs, 60000), "🟡 部分正确冷却仍是 60 秒", sec(gYel.cooldownMs));
   const b1v = await st(code, B1.id);
-  ok(b1v.myNextCooldown.no === 120000 && b1v.myNextCooldown.close === 60000, "快照回传下一次实际冷却时长");
+  ok(b1v.myNextCooldown.no === 90000 && b1v.myNextCooldown.close === 60000, "快照回传下一次实际冷却时长");
   ok(b1v.cooldownTier.total === 4 && b1v.cooldownTier.step === 10000, "4 人房 → 每多说破一人减 10 秒", b1v.cooldownTier);
 
   /* ================= ③ 说破递减 ================= */
@@ -117,7 +117,7 @@ async function newRoom(host, players, withAI) {
   ok(g1.level === "solved", "#4 先说破一个");
   const after1 = await st(code, B1.id);
   ok(after1.cooldownTier.solved === 1, "快照记录本锅已说破 1 人");
-  ok(near(after1.myNextCooldown.no, 110000) && near(after1.myNextCooldown.close, 50000), "1 人说破 → 🔴 110s / 🟡 50s", after1.myNextCooldown);
+  ok(near(after1.myNextCooldown.no, 80000) && near(after1.myNextCooldown.close, 50000), "1 人说破 → 🔴 80s / 🟡 50s", after1.myNextCooldown);
   /* B2 冷却已过期前不能猜，先拿没冷却的人验证递减 */
   const g2 = await act(code, "guess", H.id, { text: "汤主 CLOSE" });
   ok(near(g2.cooldownMs, 50000), "汤主 🟡 冷却按 1 人说破递减到 50 秒", sec(g2.cooldownMs));
@@ -195,7 +195,7 @@ async function newRoom(host, players, withAI) {
   const sc = solo.roomCode;
   await req(`/api/solo/${sc}/set-ai`, "POST", { internalId: "u_solo_r29", config: AI_CFG });
   const sg = await req(`/api/solo/${sc}/guess`, "POST", { internalId: "u_solo_r29", text: "单人猜错 NO" });
-  ok(sg.level === "no" && near(sg.cooldownMs, 120000), "单人 🔴 也是 120 秒", sec(sg.cooldownMs));
+  ok(sg.level === "no" && near(sg.cooldownMs, 90000), "单人 🔴 也是 90 秒", sec(sg.cooldownMs));
   const sg2 = await req(`/api/solo/${sc}/guess`, "POST", { internalId: "u_solo_r29", text: "单人说破 SOLVED" }).then(null, (e) => e.message);
   ok(sg2 === "COOLDOWN", "单人冷却内不可再猜");
 
