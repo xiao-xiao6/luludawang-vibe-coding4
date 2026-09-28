@@ -119,7 +119,7 @@
 | 犯罪 | 84 | 搞笑 | 6 |
 | 悬疑 / 都市 | 各 54 | 悲剧 | 5 |
 | 校园 | 42 | 职场 | 3 |
-| | | 科幻 | 2 |
+| 反转 | 31 | 科幻 | 2 |
 | | | 医院 | 1 |
 
 来源覆盖 GitHub 上的多个公开汤库、haiguitang 系各站、`yesnogame.net`、`late-late.jp`、`Jed's List of Situation Puzzles (1999)`、一份繁译简数据集，以及《许二木海龟汤合集》OCR 稿。完整的采集与清洗记录在 `docs/采集矩阵.md`。
@@ -183,7 +183,7 @@
 | 音频 | Web Audio API 实时合成，无音频文件 |
 | 字体 | 标题用子集化 `NotoSerifSC-title.woff2` |
 | 存储 | `localStorage` |
-| 离线 | Service Worker（缓存名 `deepsea-soup-v16`）+ Web App Manifest |
+| 离线 | Service Worker（缓存名 `deepsea-soup-v17`）+ Web App Manifest |
 | 联机 | Cloudflare Workers + Durable Objects + SQLite |
 
 脚本顺序：`gsap.min.js` → `data.js` → `library.public.js` → `engine.js` → `ai.js` → `audio.js` → `fx.js` → `transition.js` → `icons.js` → `net.js` → `room-ui.js` → `app.js`（全部 `defer`）。精品题后 80 道在 `data-more.js`，首屏后再异步并入。`transition.js` 负责黑幕转场，没有 GSAP 时自动退回 Web Animations / CSS 过渡。
@@ -219,7 +219,7 @@
 │       └── *.data.js             # 部署时生成，不进仓库
 ├── data/library/                 # 汤库母本（不进仓库）
 ├── tools/                        # 题库构建、清洗手术、回归自检脚本
-└── docs/                         # 采集矩阵、汤面大全合并方案、多人联机方案
+└── docs/                         # 采集矩阵、汤面大全融合方案、多人联机方案
 ```
 
 ---
@@ -263,6 +263,8 @@ GitHub Pages 站点本身随 `main` 分支发布，不经过 Wrangler。
 单人局的 Key 只存在浏览器本地。多人局由房主配置，Key 只留在 Durable Object 里，不下发给其他玩家。
 
 模型不守 JSON 格式时，服务端会再要一次，并接受以「是。」「不是。」「部分正确。」「与此无关。」开头的明文。本地地址（localhost、内网 IP）从 Cloudflare 机房连不出去，会给出明确提示，而不是笼统的掉线。
+
+2026-09-27 做过一轮判定修复：Worker 侧把散落的判定词归一、回复清洗收拢成统一的 `normalizeAskJson`，并与浏览器侧 `guardAnswer` 保持同一口径；思考链出口硬过滤（`REASON_TAIL`）两侧同步补上「但汤底核心…」「汤底的关键是…」这类常见泄漏句式；答案不再被 28 字硬截断，改为按整句保留；模型回复被 `maxTokens` 掐断时会识别 `finish_reason=length`，自动放宽额度（翻倍、上限 4000）重试而不是把半截话上屏；提示词补了铁律 13——故事内提问即使汤面没提到也应答「不是。」，只有与本题彻底不沾边才允许「与此无关」。
 
 ---
 
