@@ -941,7 +941,7 @@
       return;
     }
     var tier = s.cooldownTier || {};
-    var next = s.myNextCooldown || { no: 120000, close: 60000 };
+    var next = s.myNextCooldown || { no: 90000, close: 60000 };
     var cdTitle = "随时可猜。🔴 完全错误 " + Math.round(next.no / 1000) + " 秒、🟡 部分正确 " +
       Math.round(next.close / 1000) + " 秒冷却，只算在你自己身上。" +
       (tier.solved ? "本锅已有 " + tier.solved + " 人说破，每多一人再减 " + (tier.step / 1000) + " 秒（🟡 最低 10 秒、🔴 最低 30 秒）。" : "");

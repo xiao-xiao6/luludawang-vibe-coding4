@@ -38,7 +38,7 @@ import {
 const UID_MAX = 15;             /* 单房最多 15 人 */
 const NICK_MAX = 12;            /* 昵称 ≤12 字 */
 const TURN_TIMEOUT_MS = 90000;  /* 顺序提问 90s 超时跳过 */
-const COOLDOWN_IRR_MS = 120000; /* 猜底 🔴完全错误 120s 冷却（只算在猜的人身上） */
+const COOLDOWN_IRR_MS = 90000;  /* 猜底 🔴完全错误 90s 冷却（只算在猜的人身上） */
 const COOLDOWN_CLOSE_MS = 60000;/* 猜底 🟡部分正确 60s 冷却（只算在猜的人身上） */
 /* 每多一人说破本锅，还在熬的人下一次踩 🔴/🟡 的冷却按人数档位递减；
    减到下限就封住：🟡 最低 10s，🔴 最低 30s。 */
@@ -82,7 +82,8 @@ function pendingCooldown(s, player) {
   return Math.max(0, until - now());
 }
 
-/* 本锅当前实际冷却时长（毫秒）。level: "no" = 🔴，"close"/"vague" = 🟡。 */
+/* 本锅当前实际冷却时长（毫秒）。level: "no" = 🔴，"close"/"vague" = 🟡。
+   7 人以上按档位一路减会触到下限（🔴 30s / 🟡 10s）；≤6 人最多减 5 档＝50s，🔴 停在 40s、🟡 正好停在 10s。 */
 function guessCooldownMs(s, level) {
   const red = level === "no";
   const base = red ? COOLDOWN_IRR_MS : COOLDOWN_CLOSE_MS;
