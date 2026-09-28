@@ -1,0 +1,207 @@
+[
+ {
+  "id": "lib_3ec7a7147508",
+  "kind": "omission",
+  "field": "truth",
+  "note": "漏译结局：识破骗局的人杀了最后一人",
+  "orig": "the other realizes that the last man cheated, and kills him",
+  "site": "有人在地铁里看见他抓着吊环——用的正是那条“早就寄出去”的手臂"
+ },
+ {
+  "id": "lib_ca411d1cf9c1",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "数字错：2万英尺约6千米，站内写成万米高空",
+  "orig": "sees the bird get sucked into an engine at 20,000 feet",
+  "site": "那只鸟被吸进了万米高空的喷气引擎"
+ },
+ {
+  "id": "lib_8c78c11c3fa1",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "原文指鞋里灌满水泥（水泥鞋），站内写成他被灌了水泥，待确认",
+  "orig": "underwater and wearing cement Reeboks",
+  "site": "此刻他被灌了水泥、穿着球鞋沉在水底"
+ },
+ {
+  "id": "lib_e0d6ce92565c",
+  "kind": "addition",
+  "field": "truth",
+  "note": "原文仅a weight-loss clinic，站内多出“世界”专名，待确认",
+  "orig": "his first job is at a weight-loss clinic",
+  "site": "第一份工作在世界减肥中心"
+ },
+ {
+  "id": "lib_f3b012b87734",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "死因错：原文是飞机撞上另一架飞机，站内改成雷雨失控坠毁",
+  "orig": "He was a skywriter whose plane crashed into another plane",
+  "site": "雷雨袭来，飞机失控坠毁——那封没写完的信，成了她的遗书"
+ },
+ {
+  "id": "lib_fb77315aaeee",
+  "kind": "omission",
+  "field": "truth",
+  "note": "主答案“Who's on First”三垒手梗整段未译，仅用异体答案",
+  "orig": "What is the third baseman's name in the Abbot and Costello routine 'Who's on First'",
+  "site": "首领问：“和我女儿私会的那个男人是谁？”"
+ },
+ {
+  "id": "lib_fbb763606133",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "时间错：原文周五下午5点，站内写“周五深夜”",
+  "orig": "he went to the dentist at 5 p.m. on a Friday evening",
+  "site": "周五深夜他牙痛难忍去看牙"
+ },
+ {
+  "id": "lib_48503817c899",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "原文说法律减少了“事故数”，站内改成“死亡人数”，关键数据对象被换",
+  "orig": "The adopted law decreased the number of accidents",
+  "site": "这条法律减少了车祸中的死亡人数"
+ },
+ {
+  "id": "lib_73bb0f53041b",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "arrest warrant 应为逮捕令，站内译成搜查令（另一处#97 译对了）",
+  "orig": "they had an arrest warrant to enter a mobster's house",
+  "site": "他们持有搜查令，要进入一名黑帮分子的家"
+ },
+ {
+  "id": "lib_6c000ed8e0b7",
+  "kind": "omission",
+  "field": "truth",
+  "note": "汤底末尾悖论反转未译（待确认，猜题提示删得对）",
+  "orig": "More mystics: who tells the story if the narrator also died at the age of 35?",
+  "site": "站内汤底止于“车上所有乘客都会死”，无此句"
+ },
+ {
+  "id": "lib_d456eec93fc4",
+  "kind": "omission",
+  "field": "truth",
+  "note": "原文是沾血的KKK长袍，站内漏掉KKK归属，指认凶手的关键减弱",
+  "orig": "discovers a bloodstained KKK robe in the other's laundry hamper",
+  "site": "在另一人的待洗衣物篮里发现了一件沾血的长袍"
+ },
+ {
+  "id": "lib_80d533bed0b0",
+  "kind": "addition",
+  "field": "truth",
+  "note": "原文简易解说截断于「彦星役」，站内自行补写结尾；补文中“在台下”与原文矛盾（他应在台上演银河）",
+  "orig": "しかし短冊を見てアンナの気持ちに気づいたアツヤは彦星役",
+  "site": "退出了牛郎，改演银河，在台下看着安娜与响演出"
+ },
+ {
+  "id": "lib_89a8f078be96",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "カメコ老师是女教师，站内误写成「龟男老师」",
+  "orig": "カメコ先生遅刻〜！",
+  "site": "龟男老师迟到啦～！"
+ },
+ {
+  "id": "lib_1b56e1502ad8",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "译成的中文儿歌仅10字，却仍说「二十二个字」，数字与译文不符",
+  "orig": "「どちらにしようかな」は全部で二十二文字",
+  "site": "「选哪个呢听天神的话哦」这句一共二十二个字"
+ },
+ {
+  "id": "lib_5a98c7daedbb",
+  "kind": "addition",
+  "field": "surface",
+  "note": "原文汤面未提瞳也是组合成员，站内汤面提前剧透（该信息属汤底）",
+  "orig": "人気YouTuberグループの一人、幕雅府院ハヤトに…恋をしてしまったヒトミ",
+  "site": "让同为组合成员的瞳真真正正地坠入了爱河"
+ },
+ {
+  "id": "lib_a600737d791a",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "原文（セノビー）＝背伸び踮脚凑近欲吻，站内改成抬手比拜拜手势，动作含义错",
+  "orig": "いってらっしゃい。(ｾﾉﾋﾞｰ)",
+  "site": "路上小心。（抬手比了个『拜拜』的手势）"
+ },
+ {
+  "id": "lib_8ebf9a65e333",
+  "kind": "mistranslate",
+  "field": "surface",
+  "note": "村外れ(村边缘远处)误作村口(村入口)",
+  "orig": "村外れの祠にあるその箱",
+  "site": "箱子放在村口的祠堂里"
+ },
+ {
+  "id": "lib_8ebf9a65e333",
+  "kind": "untranslated",
+  "field": "truth",
+  "note": "Various为英文残留，原文是平假名何だかんだ",
+  "orig": "と何だかんだあってその箱を放置",
+  "site": "总之 Various 原因，大家一直放着没管"
+ },
+ {
+  "id": "lib_31cf5fceb581",
+  "kind": "mistranslate",
+  "field": "surface",
+  "note": "家臣(侍从)误作家里(家中)",
+  "orig": "慌てる家臣たちでしたが",
+  "site": "慌作一团的家里，王子却灵光一闪"
+ },
+ {
+  "id": "lib_daa35510c27f",
+  "kind": "untranslated",
+  "field": "surface",
+  "note": "plain为英文残留未译，原文単純に",
+  "orig": "単純に売上が減るので",
+  "site": "但 plain 影响营业额"
+ },
+ {
+  "id": "lib_5acf8caf3584",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "拿错伞方向译反：原文是把情人的伞误当自己的拿回家，站内说成把自己的误当她的",
+  "orig": "自分のものと勘違いして彼女の傘を使ってしまったのではないか",
+  "site": "他错把自己的伞拿成了她的伞？"
+ },
+ {
+  "id": "lib_a408dd91d645",
+  "kind": "mistranslate",
+  "field": "surface",
+  "note": "主人公姓名错译：原文田中さん被译成山中先生（同批他处田中译对了）",
+  "orig": "現在猛烈に恋人を欲しがっている田中さん",
+  "site": "现在正疯狂想要一个对象的山中先生"
+ },
+ {
+  "id": "lib_a408dd91d645",
+  "kind": "mistranslate",
+  "field": "truth",
+  "note": "汤底沿用错误人名，原文田中さん多处均被译成山中先生",
+  "orig": "田中さんは神社Bに来る女性をナンパしていた",
+  "site": "山中先生在搭讪来神社B的女性"
+ },
+ {
+  "id": "lib_a1fa66b74dbd",
+  "kind": "addition",
+  "field": "truth",
+  "note": "站内末尾多出原文没有的弟弟接站情节，且句子中断在半句（疑原文字段截断，待确认）",
+  "orig": "そう、きっとこれは、私の待ち望んでいた春の訪れ",
+  "site": "「好久不见，姐。我总算来接你了」…他这么嚷着把脑袋撞上"
+ },
+ {
+  "id": "lib_16dfc330f802",
+  "kind": "addition",
+  "field": "truth",
+  "note": "站内末尾多出原文（本文件内）没有的逃往便利店解释句，待确认",
+  "orig": "カメコもたまらず音楽で騒音を遮断しようとしたのですが・・・",
+  "site": "最后她只好逃去便利店：那里虽然有人，却没有那些在寂静里被放大的怪响"
+ },
+ {
+  "id": "NONE",
+  "kind": "none",
+  "note": "整批无问题"
+ }
+]

@@ -1,0 +1,8 @@
+{"id":"[o-bus]","kind":"mismatch","field":"truth","note":"汤面称事故次日见报道后才脱险，汤底却说当天提前下车是为跑去求救，因果矛盾","quote":"她一点也不惊讶——因为三天前她就已经知道会出事"}
+{"id":"lib_007dafa7c9bf","kind":"junk","field":"truth","note":"汤底末尾残留整段主持人手册（生命值分级与扣分规则）","quote":"②选择死亡。主持人手册 1. 生命值分级：健康—擦伤—轻伤"}
+{"id":"lib_05cbea68fd8f","kind":"truncated","field":"truth","note":"汤底在句中断尾，「应对各种」后无宾语，明显截断","quote":"我可以很自信且从容的应对各种"}
+{"id":"lib_0695135164a2","kind":"junk","field":"truth","note":"汤底同一段解说整段重复粘贴两遍，属残留","quote":"可是我不敢回头。Do=1，Re=2，Mi=3，Fa=4"}
+{"id":"lib_0fdefd44364d","kind":"junk","field":"truth","note":"汤底夹带主持人操作说明","quote":"主持人需按”正-反-正-反“顺序回答问题"}
+{"id":"lib_1245207e575c","kind":"multi","field":"all","note":"一格含故事一/二/三，各带独立汤面+汤底","quote":"⏎故事二⏎汤面村子里闹鬼了，它擅长制造幻觉"}
+{"id":"lib_161809c5dbab","kind":"truncated","field":"truth","note":"汤底只开头两句，止于「一天」被截断，未解释汤面","quote":"挨打挨饿已是家常便饭。一天"}
+{"id":"lib_1a6283ab2f37","kind":"mismatch","field":"surface","note":"汤面说杰克阻止他人带走女儿，汤底是杰克自己要把女儿拉下船，情节相反","quote":"杰克拼命阻止想要把女儿带走的家伙，最终却没能成功"}

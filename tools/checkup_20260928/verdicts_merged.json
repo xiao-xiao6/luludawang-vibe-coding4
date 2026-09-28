@@ -1,0 +1,499 @@
+[
+ {
+  "id": "[o-bus]",
+  "kind": "mismatch",
+  "field": "truth",
+  "note": "汤面称事故次日见报道后才脱险，汤底却说当天提前下车是为跑去求救，因果矛盾",
+  "quote": "她一点也不惊讶——因为三天前她就已经知道会出事"
+ },
+ {
+  "id": "lib_007dafa7c9bf",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾残留整段主持人手册（生命值分级与扣分规则）",
+  "quote": "②选择死亡。主持人手册 1. 生命值分级：健康—擦伤—轻伤"
+ },
+ {
+  "id": "lib_05cbea68fd8f",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在句中断尾，「应对各种」后无宾语，明显截断",
+  "quote": "我可以很自信且从容的应对各种"
+ },
+ {
+  "id": "lib_0695135164a2",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底同一段解说整段重复粘贴两遍，属残留",
+  "quote": "可是我不敢回头。Do=1，Re=2，Mi=3，Fa=4"
+ },
+ {
+  "id": "lib_0fdefd44364d",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底夹带主持人操作说明",
+  "quote": "主持人需按”正-反-正-反“顺序回答问题"
+ },
+ {
+  "id": "lib_1245207e575c",
+  "kind": "multi",
+  "field": "all",
+  "note": "一格含故事一/二/三，各带独立汤面+汤底",
+  "quote": "⏎故事二⏎汤面村子里闹鬼了，它擅长制造幻觉"
+ },
+ {
+  "id": "lib_161809c5dbab",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底只开头两句，止于「一天」被截断，未解释汤面",
+  "quote": "挨打挨饿已是家常便饭。一天"
+ },
+ {
+  "id": "lib_1a6283ab2f37",
+  "kind": "mismatch",
+  "field": "surface",
+  "note": "汤面说杰克阻止他人带走女儿，汤底是杰克自己要把女儿拉下船，情节相反",
+  "quote": "杰克拼命阻止想要把女儿带走的家伙，最终却没能成功"
+ },
+ {
+  "id": "lib_256cd09236f0",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底开头为主持人补充说明的ps备注，属源站脚手架",
+  "quote": "ps：所有括号内的内容为主持人添加，方便观众理解"
+ },
+ {
+  "id": "lib_3fad9c3ff17b",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾夹带另一套题的主持人手册内容",
+  "quote": "主持人手册 1. 《织梦者》一定要让观众意识到有多重梦境的设定"
+ },
+ {
+  "id": "lib_3fad9c3ff17b",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "夹带的主持人手册在第3条句中突然结束",
+  "quote": "3. 《新世界》无论什么"
+ },
+ {
+  "id": "lib_43434f23746f",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在“到解”处断句，故事全貌未给出",
+  "quote": "等大家都睡觉后偷了A的钥匙到解"
+ },
+ {
+  "id": "lib_464b313662f2",
+  "kind": "title_wrong",
+  "field": "title",
+  "note": "标题“保险箱”与火车问年龄的汤面汤底均无关",
+  "quote": "一名男子在中途站上了火车，发现自己被一群陌生人包围"
+ },
+ {
+  "id": "lib_4a68dd74f870",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在“外面的世”处被截断，无后续解答",
+  "quote": "我只能从缝中看到外面的世"
+ },
+ {
+  "id": "lib_60b7bf249d99",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底仅一句且在“拖”字处突然结束",
+  "quote": "小王刚走不久就被守株待兔的变态杀人犯杀了，拖"
+ },
+ {
+  "id": "lib_614ee93f352b",
+  "kind": "truth_empty",
+  "field": "truth",
+  "note": "汤底原样重复汤面规则文本，不含任何答案",
+  "quote": "学校住宿的同学们都知道三条规则不能触犯：1."
+ },
+ {
+  "id": "lib_614ee93f352b",
+  "kind": "junk",
+  "field": "surface",
+  "note": "汤面开头残留“+汤底”字段标签文字",
+  "quote": "+汤底学校住宿的同学们都知道三条规则"
+ },
+ {
+  "id": "lib_672b157d1754",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在“所以我杀的”处中断，真相未交代",
+  "quote": "她把情人迷晕后伪装成自己，所以我杀的"
+ },
+ {
+  "id": "lib_6de0d702d28a",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾夹带源站吐槽语，非答案内容",
+  "quote": "混入了什么奇怪的东西啊喂！)"
+ },
+ {
+  "id": "lib_715c8134e625",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底句末中断，缺后半句",
+  "quote": "我很庆幸自己活了下"
+ },
+ {
+  "id": "lib_7445ad740cb8",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底夹带主持人手册玩法说明",
+  "quote": "主持人手册主持人为故事中的四维生物“开普勒725c”"
+ },
+ {
+  "id": "lib_749507623b5d",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在“众”字处突然中断",
+  "quote": "我却看到在这个国家里，很多人都没有双腿！众"
+ },
+ {
+  "id": "lib_79d2875e016e",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底末句未完即止",
+  "quote": "精神崩溃的士兵吓坏了，朝同伴"
+ },
+ {
+  "id": "lib_7ba2fe196fb5",
+  "kind": "title_wrong",
+  "field": "title",
+  "note": "标题“未完待续”属非标题",
+  "quote": "《未完待续》"
+ },
+ {
+  "id": "lib_7ba2fe196fb5",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底夹带主持人手册分节",
+  "quote": "主持人手册本汤无上帝视角，主持人仅能回答已知信息"
+ },
+ {
+  "id": "lib_7cf2a178d34a",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在“取名”后中断，真相缺失",
+  "quote": "他买了两个仿生机器人管家来照顾自己，并且取名"
+ },
+ {
+  "id": "lib_82eb6489ade9",
+  "kind": "title_wrong",
+  "field": "title",
+  "note": "标题是源站脚手架“主持人手册”",
+  "quote": "《主持人手册》"
+ },
+ {
+  "id": "lib_82eb6489ade9",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底后半为玩法手册与主持规则",
+  "quote": "主持人手册游戏人数至少4名玩家，两名主持人"
+ },
+ {
+  "id": "lib_8d4f10ff2a9c",
+  "kind": "mismatch",
+  "field": "truth",
+  "note": "汤底讲鸟撞飞机，与少贴邮票无关",
+  "quote": "这个男人在飞机上，他看到大鸟撞上飞机了"
+ },
+ {
+  "id": "lib_8e3ab9e40712",
+  "kind": "mismatch",
+  "field": "truth",
+  "note": "人称情节全换，解释不了汤面",
+  "quote": "我是一个喜欢吃人的异食癖女人"
+ },
+ {
+  "id": "lib_9654d2967355",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底只写到发现冰柜，弟弟之死未交代",
+  "quote": "便搬来小板凳，瞧见了里面的冰淇淋。"
+ },
+ {
+  "id": "lib_a077de08c109",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底末句“发现不对”后中断",
+  "quote": "当我想推开棺材盖时，却发现棺材已经被锁上了"
+ },
+ {
+  "id": "lib_ab7525f53ba2",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底截断在“美”字",
+  "quote": "我要让她好好的看着我以后的美"
+ },
+ {
+  "id": "lib_acfe4ab75d5e",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾夹带作者吐槽括注",
+  "quote": "{什么感天动地的父子(女)情，卖排骨的狂喜 }"
+ },
+ {
+  "id": "lib_c2f7a15f6c05",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在句中突然结束，故事未讲完",
+  "quote": "不得不一起杀死第三个人作为食物。分手实"
+ },
+ {
+  "id": "lib_c86242207350",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部夹带主持人手册玩法说明",
+  "quote": "主持人手册 1. 本汤最低人数为三人。2. 游戏开始前，主持人请选定警探玩家。"
+ },
+ {
+  "id": "lib_d5f2eb839af6",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底以逗号残句收尾，真相缺失",
+  "quote": "为了保护妹妹和自己，我"
+ },
+ {
+  "id": "lib_d7bbd5509593",
+  "kind": "mismatch",
+  "field": "truth",
+  "note": "汤面是猜拳输赢，汤底讲拔氧气管害死妹妹，不相干",
+  "quote": "石头赢了布，布赢了剪刀，我输了，我死了。"
+ },
+ {
+  "id": "lib_e10fef909345",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底中途断句，梦游后内容缺失",
+  "quote": "以至于我产生了幻觉和梦游症，到了夜晚，梦游状态的我穿上妈妈生"
+ },
+ {
+  "id": "lib_e925351d389a",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底夹带主持人手册角色演绎说明",
+  "quote": "主持人手册请主持人仔细阅读主持人，本期你为露琪亚，并无上帝视角"
+ },
+ {
+  "id": "lib_f7f8399079c1",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底长文在句中突然截断",
+  "quote": "疯妈妈似乎很害怕被圈养的生物，因为这让她想到了人类的"
+ },
+ {
+  "id": "lib_ff82650c1faa",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底在括号处戛然而止，故事未讲完",
+  "quote": "瓜农拿了一把刀来切瓜，(瓜农精神有"
+ },
+ {
+  "id": "lib_4bb30df46863",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "汤底以\"我看到\"残句结束，关键情节缺失",
+  "quote": "电梯突然停了，电梯门缓缓打开，我看到"
+ },
+ {
+  "id": "NONE",
+  "kind": "none",
+  "field": "all",
+  "note": "整批无问题",
+  "quote": ""
+ },
+ {
+  "id": "lib_7b21f3fd7fe1",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾附带【简易解说】分节，属源站脚手架",
+  "quote": "【简易解说】无人认领的遗体身上带着丈夫的硬币，于是遗体被确认为丈夫本人"
+ },
+ {
+  "id": "lib_80d533bed0b0",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾附带【简易解说】分节，属源站脚手架",
+  "quote": "【简易解说】敦也为了和单恋的安娜一起演主角而报名牛郎"
+ },
+ {
+  "id": "lib_49e649be452b",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾附带「简易解说」分节，属源站脚手架",
+  "quote": "简易解说：女人认为富裕的小龟名家更能给孩子幸福"
+ },
+ {
+  "id": "lib_b3e0c395299d",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底含＜解说＞分节、纯属虚构致谢与词条脚注",
+  "quote": "＜解说＞简易答案：漂着到无人岛不久，同伴中就死了一个人"
+ },
+ {
+  "id": "lib_2cca1fb77c77",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾附创作来源引用，属源站致谢脚手架",
+  "quote": "（以水平思考名题《海龟汤》为底创作。客人与厨师的对话引自拉提新版《海龟汤》。）"
+ },
+ {
+  "id": "lib_bb93c0daed69",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾附带「简易解说」分节，属源站脚手架",
+  "quote": "～简易解说～ 他以为咖啡店那扇因故障被风吹动的门，是亡妻龟女跟在自己身后"
+ },
+ {
+  "id": "lib_cb20a7758d8d",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底含＜解说＞分节、（完）与「简易答案」脚手架",
+  "quote": "（完）简易答案：独自住院、心里发慌的小学生海龟女，为了让妈妈大量吃下含朗姆酒的巧克力"
+ },
+ {
+  "id": "lib_af5cd136a547",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底夹带※站点提示注释，属源站脚手架",
+  "quote": "※这是一道需要「知识」的题目。"
+ },
+ {
+  "id": "lib_6863a9601ca8",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部附作者致谢与●○●○装饰，属源站脚手架",
+  "quote": "●○●○●○●○ 一直陪我玩的大家，谢谢。我是藤井。"
+ },
+ {
+  "id": "lib_ac2172cfc83a",
+  "kind": "multi",
+  "field": "truth",
+  "note": "汤面只问星期一，汤底含周一至周日七题成集合集",
+  "quote": "星期二 小由的哥哥想救像妹妹这样被病痛折磨的人"
+ },
+ {
+  "id": "lib_54d4261c9f3e",
+  "kind": "mismatch",
+  "field": "truth",
+  "note": "汤底残句无法解释太郎家为何穷，另混入图片出处",
+  "quote": "我爸爸呀，老像数马那样来一句'不就一着喵！'※图片来源"
+ },
+ {
+  "id": "lib_f58ac59a57f9",
+  "kind": "junk",
+  "field": "surface",
+  "note": "汤面尾部混入源站投稿署名",
+  "quote": "（题干来自 sugar⭐︎ 女士）"
+ },
+ {
+  "id": "lib_7962073cf911",
+  "kind": "title_wrong",
+  "field": "title",
+  "note": "标题为投票主题，内容与幽灵装打电话毫无关系",
+  "quote": "《投票还剩两小时》"
+ },
+ {
+  "id": "lib_90019f9e0732",
+  "kind": "truncated",
+  "field": "truth",
+  "note": "解说长文在破折号处突然结束，句未收",
+  "quote": "弄到的口红是否真能起作用，谁也没有保证——"
+ },
+ {
+  "id": "lib_983b7d7e9301",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部附作者致谢块，属源站脚手架",
+  "quote": "？？？？：感谢各位参与，我是春雨。今后请多关照。"
+ },
+ {
+  "id": "lib_d57db3489376",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部附测试参与者致谢名单",
+  "quote": "测试参与：巧手君、袜子君、霜柱君、铃兰君"
+ },
+ {
+  "id": "lib_dc1830048523",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部附作者致谢语，属源站脚手架",
+  "quote": "那么感谢各位的BS！今后也请多多关照！！"
+ },
+ {
+  "id": "lib_066b7dedef80",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底尾部附大段作者致谢问候块",
+  "quote": "【『银河系』的问候】 本次衷心感谢大家参与BS。"
+ },
+ {
+  "id": "lib_6e94fb230c62",
+  "kind": "junk",
+  "field": "surface",
+  "note": "汤面尾部混入源站SP署名",
+  "quote": "（SP：苹果们🍎）"
+ },
+ {
+  "id": "lib_086053fa989c",
+  "kind": "junk",
+  "field": "surface",
+  "note": "汤面尾部混入源站SP致谢署名",
+  "quote": "（SP：ruyo桑、木之子桑，谢谢！）"
+ },
+ {
+  "id": "lib_a72e6741b9be",
+  "kind": "junk",
+  "field": "truth",
+  "note": "汤底末尾夹带源站原作转载URL",
+  "quote": "重制原作 http://sui-hei.net/mondai/show/9496"
+ },
+ {
+  "id": "lib_34638b5cab45",
+  "kind": "title_wrong",
+  "field": "title",
+  "note": "标题是作者吐槽「取标题麻烦」，非题名",
+  "quote": "《想标题好麻烦》"
+ },
+ {
+  "id": "lib_6fd3d228e4cf",
+  "kind": "junk",
+  "field": "surface",
+  "note": "汤面末尾夹带原站板块与题眼提供者致谢",
+  "quote": "在“三条谈”板块，收到了天童魔子大人出的题眼「卖地·相机·少女」。谢谢"
+ },
+ {
+  "id": "lib_84b36d48082d",
+  "kind": "junk",
+  "field": "all",
+  "note": "汤面为玩法公告、汤底为原站游戏实况结果，非真相",
+  "quote": "荣光的冠军是！？ 盖克拉，229380日元！"
+ },
+ {
+  "id": "lib_220eec6b5346",
+  "kind": "junk",
+  "field": "all",
+  "note": "汤面带原站主题标签，汤底夹评论区留言与URL",
+  "quote": "https://late-late.jp/mondai/show/6276"
+ },
+ {
+  "id": "lib_379ca498d4a4",
+  "kind": "junk",
+  "field": "all",
+  "note": "汤面夹BS玩法公告，汤底夹第100题致谢",
+  "quote": "全都要＜感谢每一位参与的朋友＞！"
+ },
+ {
+  "id": "lib_2ee8dbec8a06",
+  "kind": "junk",
+  "field": "all",
+  "note": "整条为原站谜挂投稿企划公告与评选结果",
+  "quote": "那么来公布结果！就按企划的初衷，简单明了地来。"
+ }
+]
