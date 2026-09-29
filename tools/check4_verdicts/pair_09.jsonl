@@ -1,0 +1,8 @@
+{"id":"20983","kind":"mistranslate","field":"surface","note":"「話しかけると」是一搭话，误译成「一生气」","quote":"可我一生气大家就缩成一片"}
+{"id":"20983","kind":"mistranslate","field":"truth","note":"双关推导演出结果原文为愛してるよ，译文写成残破的「Aしてるよ」","quote":"｛愛してるよ｝（我爱你）"}
+{"id":"20979","kind":"omission","field":"truth","note":"原文汤底首行【真相】标题行在译文中缺失","quote":"【真相】"}
+{"id":"20979","kind":"mistranslate","field":"truth","note":"「これ4組の子」指同组/4班同学，误译成「附属小学」","quote":"这是附属小学的同学对吧"}
+{"id":"20977","kind":"mistranslate","field":"surface","note":"【カ】メオ应译固定名「龟男」，译文只剩「男」，专名丢失","quote":"男为了分数，渴求着炸猪排（カツ）"}
+{"id":"20977","kind":"mistranslate","field":"truth","note":"【カ】メコ应译「龟女」，译文首行只剩「女」，与后文龟女不一致","quote":"女「呐～，想要盘子～」"}
+{"id":"20976","kind":"mistranslate","field":"surface","note":"【カ】メオ应译固定名「龟男」，译文只剩「男」","quote":"男为了分数，不得不放弃了炸猪排（カツ）"}
+{"id":"20976","kind":"cut","field":"truth","note":"原文「【警】察官カメオ」译文截剩「察龟男」，称谓残缺","quote":"察龟男「那边的Umigameラテ（海龟拿铁），请停一下—。」"}
