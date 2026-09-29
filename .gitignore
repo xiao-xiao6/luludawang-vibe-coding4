@@ -131,3 +131,7 @@ tools/_ana21792.py
 
 # 会话内草稿/工作台文件（下划线开头）不入库
 tools/_*
+tools/check5_align/
+tools/check5_pair/
+tools/recheck5_ids.json
+tools/llt_dump3.json.bak
