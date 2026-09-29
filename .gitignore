@@ -105,3 +105,29 @@ tools/checkup_20260928/backfill*.json
 tools/check3_align/
 tools/check3_pair/
 tools/_v_*.txt
+
+# 2026-09-29 第三轮采集：原站日文正文与中间产物一律不入库
+tools/llt_pool3.json
+tools/llt_dump3.json
+tools/llt3_fresh.json
+tools/llt3_dropped.json
+tools/llt3_reserve.json
+tools/llt3_have.json
+tools/llt3_exclude.json
+tools/llt3_trans_all.json
+tools/llt3_trans_clean.json
+tools/llt3_trans_problems.json
+tools/llt3_clean_log.txt
+tools/llt3_merge_warns.txt
+tools/stage_l7_log.json
+tools/llt_trans_in3/
+tools/llt_trans_out3/
+tools/check4_align/
+tools/check4_pair/
+tools/_p[0-9]*.html
+tools/_pool3.log
+tools/_fetch3.log
+tools/_ana21792.py
+
+# 会话内草稿/工作台文件（下划线开头）不入库
+tools/_*
