@@ -135,3 +135,17 @@ tools/check5_align/
 tools/check5_pair/
 tools/recheck5_ids.json
 tools/llt_dump3.json.bak
+
+# 2026-09-29 全量复核第六轮（1087 道日译中）：含日文原稿的中间产物一律不入库
+tools/recheck6_ids.json
+tools/recheck6_orig.json
+tools/recheck6_manifest.json
+tools/recheck6_scan.txt
+tools/check6_align/
+tools/check6_pair/
+tools/check6_verdicts/
+tools/check6_judge/
+tools/_r6_*
+tools/recheck3_ids.json
+tools/recheck3_scan.txt
+tools/recheck5_scan.txt
