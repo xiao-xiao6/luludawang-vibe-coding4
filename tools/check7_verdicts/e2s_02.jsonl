@@ -1,0 +1,4 @@
+{"id":"lib_71e368d13be5","kind":"mistranslate","field":"truth","note":"原文未给时长，译文加“几分钟内”，与汤面“十五分钟”自相矛盾","quote":"强辐射在几分钟内击穿了他 / 十五分钟后，他死了"}
+{"id":"lib_7e5accb69163","kind":"omission","field":"surface","note":"汤面漏译“lying dead”，死亡这一核心前提在中文里消失","quote":"A man is lying dead face down in the desert → 一名男子脸朝下趴在沙漠里"}
+{"id":"lib_aa939a5ceff4","kind":"mistranslate","field":"surface","note":"原文 he/him 译成“它”，汤面提前暴露乔不是人，诡计失效","quote":"乔想回家，可它回不去，因为那个戴面具的男人正在等着它"}
+{"id":"COVERAGE","kind":"meta","field":"all","note":"已读34题/共34题","quote":"lib_ca411d1cf9c1"}
