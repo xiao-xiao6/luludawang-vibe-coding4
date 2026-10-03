@@ -59,6 +59,42 @@
     return uid;
   }
 
+  /* ---- 在场标签（2026-10-03 重做）----
+   * 在线 = 对方屏幕里看得见本项目；离线 = 看不见。绿字带时长「在线 2 分」，
+   * 红字带时长「离线 40 秒」，谁在谁不在一眼分明。时长由本地秒表自己走，
+   * 不用等下一轮快照（房间安静时快照是 unchanged 的）。 */
+  function durShort(ms) {
+    var sec = Math.max(0, Math.floor(ms / 1000));
+    if (sec < 60) return sec + "秒";
+    var m = Math.floor(sec / 60);
+    if (m < 60) return m + "分" + (sec % 60 >= 10 ? sec % 60 : (sec % 60 ? "0" + (sec % 60) : ""));
+    var h = Math.floor(m / 60);
+    return h + "小时" + (m % 60 < 10 ? "0" : "") + (m % 60) + "分";
+  }
+  function presenceText(on, since) {
+    var base = Number(since) || 0;
+    var dur = base ? durShort(Date.now() - base) : "";
+    return (on ? "在线" : "离线") + (dur ? " " + dur : "");
+  }
+  function presenceTag(p) {
+    var on = !!p.online;
+    var since = p.stateSince || p.lastSeen || 0;
+    return '<span class="rp-pres ' + (on ? "on" : "off") + '" data-on="' + (on ? 1 : 0) +
+      '" data-since="' + since + '">' + presenceText(on, since) + "</span>";
+  }
+  var presTick = 0;
+  function startPresenceTicker() {
+    if (presTick) return;
+    presTick = setInterval(function () {
+      if (!R.inRoom) return;
+      var nodes = document.querySelectorAll(".rp-pres");
+      for (var i = 0; i < nodes.length; i++) {
+        var el = nodes[i];
+        el.textContent = presenceText(el.getAttribute("data-on") === "1", el.getAttribute("data-since"));
+      }
+    }, 1000);
+  }
+
   /* ---- 图标与战况数据小工具（2026-09-26）----
      界面里的 emoji 全部换成 js/icons.js 的同风格线性 SVG；
      没挂上图标库时降级成空字符串，绝不把半成品贴到屏幕上。 */
@@ -100,6 +136,8 @@
     mySolvedShown: false, /* 个人说破弹窗（含刷新恢复）每次进锅只弹一次 */
     personalOpen: false,  /* 个人说破弹窗当前开着：全员揭底等它关完再弹，不叠罗汉 */
     cgSeenSeq: 0,         /* 已响过音效的汤主报喜 seq，防止每次重绘都叮 */
+    atRung: 0,            /* 已经响过 @ 提示音的水位（运行时，不落盘） */
+    atSeeded: false,      /* 进房第一拍是否已把历史里的 @ 记成已读 */
     toast: function (m) { if (root.SoupAppToast) root.SoupAppToast(m); }
   };
 
@@ -194,6 +232,8 @@
     R.inRoom = false;
     R.seenTurn = "";
     R.turnUid = null;
+    R.atRung = 0;
+    R.atSeeded = false;
     document.body.classList.remove("my-turn");
     /* 回到建房/进房页：停掉房间专属的左栏自动滚动 */
     stopQaScroll();
@@ -207,6 +247,7 @@
 
   function showLive() {
     R.inRoom = true;
+    R.atSeeded = false;
     var e = $("#room-entry"), l = $("#room-live");
     if (e) e.classList.add("hidden");
     if (l) l.classList.remove("hidden");
@@ -251,7 +292,8 @@
     tryJoin(code, 0);
   }
 
-  /* 撞名就当场再问一次（最多三轮），省得用户从头点进房 */
+  /* 撞名当场再问一次（最多三轮）；如果撞上的那个同名座位其实已经离线很久，
+     就说明很可能是「你自己的旧座位」，直接给一次「认领」的机会。 */
   function tryJoin(code, tries) {
     askNickname().then(function (nick) {
       R.toast("正在进房…");
@@ -266,9 +308,35 @@
       if (m === "ROOM_FULL") R.toast("这间汤屋坐满了（最多 15 人）");
       else if (m === "NICKNAME_REQUIRED") R.toast("昵称不能为空");
       else if (m === "NICKNAME_TAKEN") {
+        var d = (e && e.data) || {};
+        if (d.reclaimAvailable) {
+          askConfirm({
+            title: "认领你的旧座位？",
+            desc: "屋里有一个同名的座位已经离开 " + Math.max(1, Math.round((d.idleMs || 0) / 60000)) + " 分钟。" +
+              "如果那就是你自己（换设备 / 清过缓存后重新进来），点认领坐回原来那把椅子；" +
+              "如果不是你，请换一个昵称，别把别人顶掉。",
+            yes: "是我，认领",
+            danger: true
+          }, function () { claimSeat(code); });
+          return;
+        }
         R.toast((e && e.note) || "这个昵称屋里已经有人用了，换一个");
         if (tries < 2) { tryJoin(code, tries + 1); return; }
       } else R.toast("进房失败：" + m);
+    });
+  }
+
+  function claimSeat(code) {
+    var nick = me().nickname;
+    R.toast("正在认领旧座位…");
+    N.joinRoom(code, nick, { reclaim: true }).then(function (snap) {
+      showLive();
+      R.toast("已坐回 " + (snap.roomCode || code) + " 的老位置");
+      startWatch();
+    }).catch(function (e) {
+      var m = String((e && e.message) || e);
+      if (m === "NICKNAME_TAKEN") R.toast("那个座位已经有人坐上了，换个昵称再进");
+      else if (m !== "CANCELLED") R.toast("认领失败：" + m);
     });
   }
 
@@ -340,6 +408,15 @@
       if (p.uid === myUid(s)) mine = p;
     });
 
+    /* 孤儿座位兜底：画面还停在房间里，但服务端名单里已经没有「我」了 ——
+       要么被房主请离、要么身份被换过。与其让所有按钮默默报错，不如说清楚并退回门口。 */
+    if (R.inRoom && s.exists && !s.youUid) {
+      R.toast("你已经不在这个房间里了（座位被请离或身份失效），请重新用房号进房。");
+      showEntry();
+      return;
+    }
+    startPresenceTicker();
+
     /* 玩家列表 */
     var isHostMe = !!(mine && mine.isHost);
     var box = $("#room-players");
@@ -361,9 +438,9 @@
         }
         return '<div class="room-player' + (p.online ? "" : " off") + (mine && p.uid === mine.uid ? " self" : "") + '">' +
           '<span class="rp-uid">#' + seat + "</span>" +
-          '<span class="rp-name">' + esc(p.nickname) + "</span>" +
+          '<span class="rp-name" data-at="' + p.uid + '" data-at-nick="' + esc(p.nickname) + '" title="点一下：在聊天框里 @ 这个人">' + esc(p.nickname) + "</span>" +
           '<span class="rp-state ' + (p.ready ? "ready" : "wait") + '">' + (p.ready ? "已准备" : "未准备") + "</span>" +
-          (p.online ? "" : '<span class="rp-off">离线</span>') +
+          presenceTag(p) +
           tags.join("") +
           "</div>";
       }).join("");
@@ -477,12 +554,13 @@
         rb.innerHTML = ic("trophy") + " 已说破 · 旁观本锅";
         rb.disabled = true;
       } else if (s.phase === "playing" && inThisPot) {
-        rb.textContent = "撤回准备（回大堂）";
+        /* 2026-10-03：撤回只影响自己，不再掀全桌的桌子 */
+        rb.textContent = "退出本锅（只停自己，不打断别人）";
         rb.disabled = false;
       } else if (s.phase === "playing") {
-        /* 第④条：中途进来 / 退出重进的人，点一下 = 准备并排进本锅队尾，
+        /* 第④条：中途进来 / 退出重进的人，点一下 = 准备并插进本锅的编号序列，
            不影响任何人；已排上的人再点才是退出队列（文案说清楚，防手滑）。 */
-        rb.innerHTML = (mine && mine.ready) ? "已排进本锅，等轮到你（点一下退出）" : ic("hand") + " 准备，参与本锅提问";
+        rb.innerHTML = (mine && mine.ready) ? "已排进本锅，等轮到你（点一下退出）" : ic("hand") + " 准备以加入本锅提问";
         rb.disabled = false;
       } else if (s.phase === "revealed") {
         rb.textContent = mineReady ? "已为下一锅准备" : "为下一锅准备";
@@ -839,6 +917,44 @@
    * 面板常驻、可折叠（默认展开），空闲时也只占右下角一小块。
    */
 
+  /* ---- @点名（2026-10-03）----
+   * 被 @ 的人：独特短音 + 聊天标题上的红点 + 那一条整块黄色高亮（类 Discord），
+   * 点开聊天框才清红点。水印按「房号 + 自己 uid」存本机，刷新不会把历史重放一遍。 */
+  function atKey(s) {
+    var snap = s || R.snap || {};
+    return "soup.at." + (snap.roomCode || me().roomCode || "?") + "." + (snap.youUid || myUid(snap) || "?");
+  }
+  function atSeen(s) {
+    try {
+      var v = Number(localStorage.getItem(atKey(s)));
+      if (isFinite(v) && v > 0) return v;
+      /* 第一次进房：把已有历史算作看过，别一进来就被旧消息炸一串 */
+      var log = (s && s.chatLog) || [];
+      var lastSeq = log.length ? (log[log.length - 1].seq || 0) : 0;
+      if (lastSeq) { try { localStorage.setItem(atKey(s), String(lastSeq)); } catch (e) { } }
+      return lastSeq;
+    } catch (e) { return 0; }
+  }
+  function atMarkSeen(s, seq) {
+    try { localStorage.setItem(atKey(s), String(seq)); } catch (e) { }
+  }
+  function mentionsMe(x, myU) {
+    return !!(x && x.mentions && myU && x.mentions.indexOf(myU) !== -1);
+  }
+  /* 把 @昵称 包成高亮片段：先转义再按昵称精确替换，昵称里带正则特殊字符也不怕 */
+  function chatHtml(text, players, myU) {
+    var html = esc(text);
+    (players || []).forEach(function (p) {
+      var nm = esc(p.nickname || "");
+      if (!nm) return;
+      var needle = "@" + nm;
+      if (html.indexOf(needle) === -1) return;
+      var cls = (p.uid === myU) ? "at at-me" : "at";
+      html = html.split(needle).join('<b class="' + cls + '">' + needle + "</b>");
+    });
+    return html;
+  }
+
   function renderChat(s) {
     var box = $("#room-chat-log");
     if (!box) return;
@@ -853,6 +969,33 @@
       }
       badge.textContent = unread ? String(unread) : "";
       badge.classList.toggle("hidden", !unread);
+    }
+    /* @红点 + 提示音：两条独立的水位线
+       —— 响铃用运行时计数（每条 @ 只响一次，刷新不重放历史）；
+       —— 红点看本机「已读水位」，只有点开聊天框才推进，面板收起时也不会自己消失。 */
+    var myU = myUid(s);
+    var seen = atSeen(s);
+    /* 进房 / 刷新后的第一拍：把已经躺在历史里的 @ 全部算作看过，绝不让旧消息重放一串提示音 */
+    if (!R.atSeeded) {
+      R.atSeeded = true;
+      R.atRung = last;
+      if (last > seen) { atMarkSeen(s, last); seen = last; }
+    }
+    if (!isFinite(R.atRung) || R.atRung < seen) R.atRung = seen;
+    var freshAt = log.filter(function (x) { return mentionsMe(x, myU) && (x.seq || 0) > R.atRung; });
+    var unreadAt = log.filter(function (x) { return mentionsMe(x, myU) && (x.seq || 0) > seen; });
+    var dot = $("#room-chat-at-dot");
+    if (freshAt.length) {
+      if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("mention");
+      R.toast("「" + (freshAt[0].nickname || "有人") + "」在聊天里 @ 了你");
+      R.atRung = freshAt[freshAt.length - 1].seq || R.atRung;
+      /* 面板正开着 = 他已经看见了，直接算读过，不再挂红点 */
+      if (R.chatOpen) atMarkSeen(s, last);
+    }
+    if (dot) {
+      var showDot = !R.chatOpen && unreadAt.length > 0;
+      dot.classList.toggle("hidden", !showDot);
+      dot.textContent = "@" + (unreadAt.length > 1 ? unreadAt.length : "");
     }
     if (box.__sig === log.length + "|" + last) { box.scrollTop = box.scrollHeight; return; }
     box.__sig = log.length + "|" + last;
@@ -879,9 +1022,10 @@
             "</div></div>";
         }
         var mineCls = (x.uid === myUid(R.snap || {})) ? " me" : "";
-        return '<div class="chat-item' + mineCls + '">' +
+        var atCls = mentionsMe(x, myUid(R.snap || {})) ? " mention-me" : "";
+        return '<div class="chat-item' + mineCls + atCls + '">' +
           '<span class="ci-name">' + esc(x.nickname || ("#" + x.uid)) + "</span>" +
-          '<span class="ci-text">' + esc(x.text) + "</span></div>";
+          '<span class="ci-text">' + chatHtml(x.text, (R.snap || {}).players, myUid(R.snap || {})) + "</span></div>";
       }).join("");
     }
     if (R.chatOpen) box.scrollTop = box.scrollHeight;
@@ -903,6 +1047,12 @@
     if (btn) btn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open) {
       markChatRead(R.snap);
+      /* 打开面板就算「看见了 @」：清红点、推水印 */
+      var lg = (R.snap && R.snap.chatLog) || [];
+      var lastSeq = lg.length ? (lg[lg.length - 1].seq || 0) : 0;
+      if (lastSeq) atMarkSeen(R.snap, lastSeq);
+      var dot0 = $("#room-chat-at-dot");
+      if (dot0) { dot0.classList.add("hidden"); dot0.textContent = "@"; }
       var ib = $("#room-chat-input");
       /* 移动端不自动弹键盘：只在非触屏设备上聚焦 */
       if (ib && !isTouch()) setTimeout(function () { ib.focus(); }, 40);
@@ -1073,7 +1223,16 @@
       rows.join("") + "</div>";
   }
 
+  /* 「这锅我熬过了」的本机打钩：与单人局共用 app.js 那一份记录（只存本机）。
+     注意别替「还没看到汤底的人」打钩 —— 所以只在本人亲眼见到 truth 时才调。 */
+  function markPotSolved(pid) {
+    if (!pid) return;
+    try { if (root.SoupApp && root.SoupApp.markSolved) root.SoupApp.markSolved(pid, true); } catch (e) { /* 忽略 */ }
+  }
+
   function showReveal(s) {
+    /* 揭底即算「本机熬过这锅」：以前只有单人局自动打钩，多人房要回汤库手点 */
+    markPotSolved(s && s.puzzleId);
     var host = document.createElement("div");
     var allSolved = !!s.allSolved;
     host.className = "modal-wrap reveal-final" + (allSolved ? " all-solved" : "");
@@ -1124,6 +1283,8 @@
   function showMySolvedPopup(o) {
     o = o || {};
     if (!document.getElementById("qa-log")) return;
+    /* 自己说破的那一刻就该打钩，不用等全锅结束（也没人能替没看过答案的人打钩） */
+    markPotSolved((R.snap && R.snap.puzzleId) || o.puzzleId);
     var host = document.createElement("div");
     host.className = "modal-wrap me-solved-wrap";
     var rest = Math.max(0, (o.total || 0) - (o.rank || 1));
@@ -1353,6 +1514,13 @@
       if (m === "AI_BUSY") R.toast("上一句汤主还在熬，等它答完再问。");
       else if (m === "NOT_YOUR_TURN") R.toast("还没轮到你哦");
       else if (m === "EMPTY_QUESTION") R.toast("先写一句问题");
+      else if (m === "QUESTION_INVALID") {
+        /* 合规闸门：这一句不记账、不消耗回合（累计到第三次才跳过），输入框原话留着好改 */
+        var d = (e && e.data) || {};
+        R.toast((d.warn || "警告：发问不符合游戏规则") + "\n原因：" + (d.why || "这句没法用是 / 不是回答") +
+          (d.left ? "，改成能用「是 / 不是」回答的问法再问一次。" : "，这一棒跳过你。"));
+        if (qi) { qi.focus(); qi.classList.add("invalid"); setTimeout(function () { qi.classList.remove("invalid"); }, 1600); }
+      }
       else if (AI_ERR_TEXT[m]) R.toast(aiErrText(m, e.note));
       else R.toast("提问失败：" + m);
       /* 失败后立刻拉一次，把服务端真状态拉回来 */
@@ -1831,6 +1999,20 @@
   function doNext() { act("next", {}).then(function () { R.toast("准备下一锅，全员重新准备"); }).catch(function (e) { R.toast("操作失败：" + e.message); }); }
 
   /* 聊天发送（新①）：带 clientId 做幂等，网络重试不会重复上屏 */
+  /* 点玩家名字 = 把 @TA 的昵称塞进聊天框（已经打过就不重复加） */
+  function insertAt(nick) {
+    var nm = String(nick || "").trim();
+    if (!nm) return;
+    var ib = $("#room-chat-input");
+    if (!ib) return;
+    toggleChat(true);
+    var cur = String(ib.value || "");
+    if (cur.indexOf("@" + nm) !== -1) { ib.focus(); return; }
+    ib.value = (cur && !/\s$/.test(cur) ? cur + " " : cur) + "@" + nm + " ";
+    ib.focus();
+    try { ib.setSelectionRange(ib.value.length, ib.value.length); } catch (e) { }
+  }
+
   function doChat() {
     var ib = $("#room-chat-input");
     var v = ib ? ib.value.trim() : "";
@@ -2325,14 +2507,15 @@
     var bu = $("#btn-room-giveup"); if (bu) bu.addEventListener("click", doGiveup);
     var bai = $("#btn-room-ai"); if (bai) bai.addEventListener("click", doAi);
 
-    /* 玩家列表里的「请离死座位」是动态生成的，用事件委托接 */
+    /* 玩家列表是动态生成的，用事件委托接：请离 / 转让 / 点名字 @ 他 */
     var pb = $("#room-players");
     if (pb) pb.addEventListener("click", function (ev) {
-      var b = ev.target.closest ? ev.target.closest("[data-kick],[data-transfer]") : null;
+      var b = ev.target.closest ? ev.target.closest("[data-kick],[data-transfer],[data-at]") : null;
       if (!b) return;
       ev.preventDefault();
       if (b.hasAttribute("data-transfer")) { doTransfer(Number(b.getAttribute("data-transfer"))); return; }
-      doKick(Number(b.getAttribute("data-kick")));
+      if (b.hasAttribute("data-kick")) { doKick(Number(b.getAttribute("data-kick"))); return; }
+      insertAt(b.getAttribute("data-at-nick"));
     });
 
     /* 聊天（新①） */

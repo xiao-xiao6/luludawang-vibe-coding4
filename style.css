@@ -1499,6 +1499,18 @@ body.modal-open .room-chat { display: none; }
 .rp-state.ready { color: var(--yes); }
 .rp-state.wait { color: var(--no); }
 .rp-off { font-size: 11px; color: var(--no); }
+/* 在场标签（2026-10-03）：绿「在线 2分」/ 红「离线 40秒」，时长由本地秒表走 */
+.rp-pres {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+.rp-pres.on { color: #7fe0ac; background: rgba(104, 207, 154, .12); }
+.rp-pres.off { color: #ff9d8e; background: rgba(224, 112, 94, .14); }
 .room-tag {
   font-size: 10.5px;
   border-radius: 999px;
@@ -1630,6 +1642,57 @@ body.modal-open .room-chat { display: none; }
   background: var(--broth);
 }
 .rc-badge.hidden { display: none; }
+
+/* ---- @点名（2026-10-03）：标题上的红点 + 被@那条黄色高亮块 ---- */
+.rc-at-dot {
+  display: inline-block;
+  margin-left: 4px;
+  min-width: 17px;
+  border-radius: 999px;
+  padding: 0 5px;
+  font-size: 10.5px;
+  font-weight: 800;
+  line-height: 17px;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(140deg, #ff7a5e, #e0402f);
+  box-shadow: 0 0 10px rgba(224, 64, 47, .55);
+  animation: atPulse 1.1s ease-in-out infinite;
+}
+.rc-at-dot.hidden { display: none; }
+@keyframes atPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 8px rgba(224, 64, 47, .45); }
+  50% { transform: scale(1.13); box-shadow: 0 0 15px rgba(255, 122, 94, .8); }
+}
+.chat-item.mention-me {
+  display: block;
+  margin: 3px 0;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 209, 102, .75);
+  border-left-width: 3px;
+  background: rgba(255, 209, 102, .16);
+  box-shadow: inset 0 0 22px rgba(255, 209, 102, .12);
+}
+.chat-item .at,
+.feed-row .at {
+  font-weight: 800;
+  font-style: normal;
+  padding: 0 3px;
+  border-radius: 4px;
+  color: #ffe9c4;
+  background: rgba(255, 209, 102, .2);
+}
+.chat-item .at.at-me {
+  color: #1a1208;
+  background: #ffd166;
+}
+.rp-name { cursor: pointer; }
+.rp-name:hover { color: #ffe9c4; text-decoration: underline dotted; }
+#room-q-input.invalid {
+  border-color: var(--no);
+  box-shadow: 0 0 0 2px rgba(224, 112, 94, .35), 0 0 18px rgba(224, 112, 94, .35);
+}
 .rc-log {
   flex: 1 1 auto;
   min-height: 0;

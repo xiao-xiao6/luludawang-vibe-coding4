@@ -34,8 +34,11 @@ const server = http.createServer((req, res) => {
       const note = { solved: "说破了。", close: "已经很近了。", vague: "再讲清楚一点。", "no": "方向还不对。" }[level];
       content = JSON.stringify({ level, note });
     } else {
-      // 提问通道
-      content = JSON.stringify({ verdict: "no", reply: "不是。", clue: 0 });
+      // 提问通道：带 INVALID 标记时模拟「这句没法用是/不是回答」
+      const v = user.includes("INVALID") ? "invalid" : "no";
+      content = JSON.stringify(v === "invalid"
+        ? { verdict: "invalid", reply: "问题不合规。", clue: 0 }
+        : { verdict: "no", reply: "不是。", clue: 0 });
     }
     res.writeHead(200, { "content-type": "application/json", "access-control-allow-origin": "*" });
     res.end(JSON.stringify({

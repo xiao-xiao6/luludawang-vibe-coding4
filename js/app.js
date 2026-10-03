@@ -1425,6 +1425,34 @@
     };
   }
 
+  /* 随机池（2026-10-03）：精品层 + 全部汤库一起抽。
+     以前「随机模式」的池子来自 E.pool() → 只认 root.PUZZLES 那 100 道精品，
+     主人辛苦收进来的两千多道库题在随机模式里永远抽不到。
+     没底的题（truth 为空）一律不进池，免得抽到后汤主瞎编。 */
+  function randPool(opts) {
+    var o = opts || {};
+    return mergedLib().filter(function (p) {
+      if (!p || !p.truth) return false;
+      if (o.cat && o.cat !== "全部" && (p.cats || []).indexOf(o.cat) === -1) return false;
+      if (o.difficulty && p.difficulty !== o.difficulty) return false;
+      return true;
+    });
+  }
+
+  function pickOne(arr) { return arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : null; }
+
+  /* 精品题少但打磨过，给它稳占约 1/5 的机会；其余按汤库体量平分。 */
+  function randDraw(opts) {
+    var all = randPool(opts);
+    if (!all.length) return null;
+    var core = all.filter(function (p) { return p.layer === "core"; });
+    var lib = all.filter(function (p) { return p.layer !== "core"; });
+    if (!core.length) return pickOne(lib);
+    if (!lib.length) return pickOne(core);
+    var cw = Math.max(core.length, Math.ceil(lib.length / 4));
+    return Math.random() * (cw + lib.length) < cw ? pickOne(core) : pickOne(lib);
+  }
+
   /* 阶段 1：跨局「最近抽过」记录已砍，随机抽题不再排除历史 */
 
   function renderRandom() {
@@ -1445,7 +1473,8 @@
 
     var cbox = $("#rand-cats");
     if (cbox) {
-      var cats = ["全部"].concat(E.allCats(PUZZLES));
+      /* 题材标签与汤库页同一套词表（含库层标签），两边筛出来的结果才对得上 */
+      var cats = ["全部"].concat(E.libraryCats(mergedLib()));
       cbox.innerHTML = cats.map(function (c) {
         return '<button type="button" class="chip cat' + (c === state.randCat ? " on" : "") +
           '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
@@ -1459,7 +1488,8 @@
       });
     }
 
-    var total = E.poolSize({ cat: state.randCat, difficulty: state.randDiff });
+    /* 可选数量按「精品 + 汤库」合并池统计 */
+    var total = randPool({ cat: state.randCat, difficulty: state.randDiff }).length;
     var poolEl = $("#rand-pool");
     if (poolEl) {
       poolEl.textContent = total === 0
@@ -1503,26 +1533,15 @@
   }
 
   function drawRandom() {
-    var p = E.randomFrom(randOpts());
+    var p = randDraw(randOpts());
     if (!p) { toast("这个条件下暂时没有可抽的汤，放宽一点试试"); return; }
-    toast("抽到：" + p.title);
+    toast("抽到：" + (p.dispTitle || p.title));
     loadPuzzle(p.id);
   }
 
-  /* 首页/顶栏「随机一题」：精品 + 汤库全部可抽，不再只在精品 100 里转。
-     库题走本地真汤底。按体量加权：库大就更容易抽到库题，但精品至少占 1/6。 */
+  /* 首页/顶栏「随机一题」：与随机模式同一个池、同一套权重（精品 + 全量汤库）。 */
   function randomAnywhere() {
-    var libList = (typeof LIB !== "undefined" && LIB && LIB.length) ? LIB : [];
-    var coreList = (typeof PUZZLES !== "undefined" && PUZZLES && PUZZLES.length) ? PUZZLES : [];
-    var libAvail = libList.length ? E.drawFromLibrary(libList, { hasTruth: true }) : null;
-    var coreAvail = coreList.length ? E.drawFrom(coreList) : null;
-    var libWeight = libList.length;
-    var coreWeight = coreList.length ? Math.max(coreList.length, Math.ceil(libWeight / 5)) : 0;
-    var total = libWeight + coreWeight;
-    if (total <= 0) return coreAvail || libAvail;
-    var roll = Math.random() * total;
-    if (roll < libWeight) return libAvail || coreAvail;
-    return coreAvail || libAvail;
+    return randDraw({});
   }
 
   /* ---------------- 汤库模式 ---------------- */
@@ -2061,6 +2080,8 @@
     pid: function () { return state.pid; },
     /* 「已熬出汤底」标记：供多人选汤面板复用同一份本地记录 */
     isSolved: isSolved,
-    toggleSolved: toggleSolved
+    toggleSolved: toggleSolved,
+    /* 多人房揭底 / 说破那一刻也走这一个入口，别再让主人回汤库手动补钩 */
+    markSolved: markSolved
   };
 })(window);
