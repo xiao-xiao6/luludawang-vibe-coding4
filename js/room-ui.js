@@ -869,7 +869,11 @@
     if (!box) return;
     var log = (s.qaLog || []).filter(function (x) {
       /* 第④条：实时对话才是系统事件与超时的家；猜底条目一律不上（只留 ask/sys/timeout） */
-      return x.kind === "ask" || x.kind === "sys" || x.kind === "timeout";
+      if (x.kind !== "ask" && x.kind !== "sys" && x.kind !== "timeout") return false;
+      /* 在场翻转的流水账：服务端已不再产生，这里再把旧房遗留的那几条滤掉，
+         免得人一多整屏都是「回到了屏幕前 / 先记为离线」，正事反而看不见。 */
+      if (x.kind === "sys" && /回到了屏幕前|先记为离线|离开了屏幕/.test(x.text || "")) return false;
+      return true;
     });
     var cnt = $("#room-feed-count");
     if (cnt) cnt.textContent = (s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length + " 问";

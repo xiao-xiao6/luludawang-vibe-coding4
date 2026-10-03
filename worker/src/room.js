@@ -453,15 +453,15 @@ export class Room {
   }
 
   /* 在场心跳（2026-10-03）：前端的屏幕可见性变了就来报一次。
-     只有状态真的翻转才 bump 并广播 —— 平时每十几秒一次的续约不动 rev，不会把全桌吵醒。 */
+     只有状态真的翻转才 bump —— 平时每十几秒一次的续约不动 rev，不会把全桌吵醒。
+     2026-10-04：这里绝不往「实时对话」里播报。人一多，切来切去能把整屏刷满，
+     谁在线看名单旁的绿/红时长就够了，不需要每条流水账。 */
   async presence({ internalId, visible }) {
     const s = this.state;
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
     const flipped = applyPresence(p, visible !== false);
-    if (!flipped) return { ok: true, since: p.stateSince || now() };
-    this.sysEvent(p.nickname + (p.visible ? " 回到了屏幕前。" : " 的页面离开了屏幕，先记为离线。"));
-    this.bump();
+    if (flipped) this.bump();
     return { ok: true, since: p.stateSince || now() };
   }
 
@@ -1048,9 +1048,10 @@ export class Room {
     const warn = skipped
       ? "警告：发问不符合游戏规则，本锅已累计 " + ASK_STRIKE_MAX + " 次，这一棒跳过你，轮到下一位玩家。"
       : "警告：发问不符合游戏规则，再出现 " + left + " 次强制跳过你并轮到下一位玩家。";
-    s.qaLog.push({ kind: "sys", feed: true, text: "#" + (s.players.indexOf(p) + 1) + " " + p.nickname + " 的提问不合规（" + why + "）。", at: now() });
+    /* 警告只发给当事人（响应里带 warn，前端就地弹条）；
+       全桌对话流里只在真的强制跳过那一拍留一条，免得有人反复踩线刷屏。 */
     if (skipped) {
-      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 连续 " + ASK_STRIKE_MAX + " 次不合规，本轮跳过。", at: now() });
+      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 连续 " + ASK_STRIKE_MAX + " 次提问不合规，本轮跳过。", at: now() });
     }
     this.bump();
     return {

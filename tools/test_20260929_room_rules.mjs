@@ -236,6 +236,14 @@ async function newRoom(host, players, withAI) {
   a = await st(pvCode, PV.id);
   qcRow = a.players.filter((p) => p.nickname === QC.nick)[0];
   ok(qcRow.online === true, "重新可见即在线");
+  /* 2026-10-04：在场翻转绝不再往实时对话里灌流水账（人一多整屏都是它） */
+  const feedNoise = (a.qaLog || []).filter((x) => /回到了屏幕前|先记为离线|离开了屏幕/.test(x.text || ""));
+  ok(feedNoise.length === 0, "在场翻转不产生任何对话流条目", feedNoise);
+  ok((a.qaLog || []).length === 0, "两次翻转后问答日志仍是空的", (a.qaLog || []).length);
+  /* 反复翻转也不该把 rev 推到刷屏以外的副作用：只验状态一致 */
+  for (let i = 0; i < 6; i++) await act(pvCode, "presence", QC.id, { visible: i % 2 === 0 ? false : true });
+  const a2 = await st(pvCode, PV.id);
+  ok((a2.qaLog || []).length === 0, "连翻六次依旧零流水");
 
   /* ================= ⑩ 撞名不再顶替，认领要显式 ================= */
   console.log("== ⑩ 重名者进不来，也顶不走别人的座位 ==");
