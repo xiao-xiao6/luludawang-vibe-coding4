@@ -48,11 +48,49 @@ const COOLDOWN_CLOSE_MIN_MS = 10000;
 /* ---- 联机手感参数 ---- */
 const ONLINE_MS = 35000;         /* 在线窗口：原 15s 太紧，手机切一下消息就被判离线 */
 const DEAD_SEAT_MS = 60000;      /* 死座位：离线超 1 分钟，房主可请离释放座位 */
-const NICK_TAKEOVER_MS = 60000;  /* 同名接管：同名成员离线超 60s，同昵称重进即接管原座 */
+const NICK_TAKEOVER_MS = 60000;  /* 认领旧座位：同名座位离线且静默超 60s，才允许本人显式认领 */
+const PRESENT_FRESH_MS = 45000;  /* 在线新鲜度：可见期间心跳超时也算掉线 */
 const ASK_LOCK_MS = 90000;       /* AI 飞行锁：一次提问最长锁 90s，期间连点只算一次 */
 const GIVEUP_VOTE_MS = 60000;    /* 放弃投票窗口：60s 内不达标即流产 */
 const GIVEUP_GAP_MS = 60000;     /* 放弃发起冷却：上一轮结束后 60s 内不许再点 */
 const QA_MAX = 200;              /* 问答日志上限 */
+const ASK_STRIKE_MAX = 3;        /* 同一锅累计几次不合规提问就强制跳过该玩家 */
+const ASK_MAX_LEN = 90;          /* 一句话问不到 90 字；超长基本是破限长文 */
+/* 只能问「是 / 不是 / 部分正确 / 与此无关」能答的问题 —— 下面几类直接判不合规。
+   本地硬闸先把明显的脏话、要答案、破限长文拦掉，省一次 key 调用，也免得模型被带跑。 */
+const VIOLATION_RULES = [
+  {
+    code: "ABUSE",
+    why: "对汤主开口辱骂或人身攻击",
+    re: /(傻[逼比叉]|弱智|智障|妈的|你妈|操你|草你|狗东西|垃圾玩意|废物|白痴|王八|滚蛋|sb|SB)/
+  },
+  {
+    code: "JAILBREAK",
+    why: "索要汤底、线索或试图改写规则",
+    re: /(忽略(上面|以上|之前|前面)[^。]{0,10}(设定|规则|提示|指令|要求)|系统提示词?(原文)?|把(你的)?(规则|设定|提示词|系统)(原文)?(输出|告诉我|念)|你现在(就)?是|假装(你)?(是|我们)|进入(开发者|debug|调试)模式|告诉我(汤底|答案|真相)|(直接|干脆)说答案|给我(一条|一个)?线索|提示我(一下)?|答案是什么)/
+  },
+  {
+    code: "OPEN",
+    why: "这是开放式问题，没法用「是 / 不是」回答",
+    re: /(为什么|为何|是什么|什么是|是谁|谁是|怎么样|怎么办|如何处理|如何|哪里|哪儿|什么时候|多久|多少|讲讲|说说|描述|介绍一下|告诉我.{0,6}(故事|经过|情节|原因))/
+  }
+];
+/* 是非问法的特征词：出现任意一个就算「可以用是/不是回答」 */
+const POLAR_RE = /(吗|呢？|么？|是不是|是否|有没有|能否|能不能|可不可以|还是|算不算|对不对|得不得|是不是一定)/;
+
+/* 一句话提问的合规检查：返回 { code, why } 或 null。
+   顺序：超长 → 脏话 → 破限索答案 → 开放式提问（没有任何是非标记词才拦，避免误伤复合问）。 */
+function questionViolation(raw) {
+  const q = String(raw || "").trim();
+  if (!q) return null;
+  if (q.length > ASK_MAX_LEN) return { code: "TOO_LONG", why: "一句话问不到 " + ASK_MAX_LEN + " 字，这条太长了" };
+  const polar = POLAR_RE.test(q);
+  for (const r of VIOLATION_RULES) {
+    if (r.code === "OPEN" && polar) continue;   /* 带着「吗 / 是不是」的复合问句交给汤主判 */
+    if (r.re.test(q)) return { code: r.code, why: r.why };
+  }
+  return null;
+}
 const CHAT_MAX = 200;            /* 聊天日志上限 */
 const CHAT_LEN = 120;            /* 单条聊天字数上限 */
 const CHAT_GAP_MS = 600;         /* 同一人两条聊天最小间隔，防刷屏 */
@@ -60,14 +98,53 @@ const GUESS_LOG_MAX = 60;        /* 每人私有猜底手账的条数上限（�
 
 function now() { return Date.now(); }
 
-/* 昵称查重：忽略大小写，排除自己（uid=0 表示还没有座位） */
-function nickTaken(s, nick, selfUid) {
+/* 昵称查重：忽略大小写，排除自己（selfUid=0 表示还没有座位） */
+function findNick(s, nick, selfUid) {
   const k = String(nick || "").trim().toLowerCase();
-  if (!k) return false;
-  return s.players.some((p) => p.uid !== selfUid && String(p.nickname || "").trim().toLowerCase() === k);
+  if (!k) return null;
+  return s.players.filter((p) => p.uid !== selfUid && String(p.nickname || "").trim().toLowerCase() === k)[0] || null;
+}
+
+function nickTaken(s, nick, selfUid) {
+  return !!findNick(s, nick, selfUid);
+}
+
+/* 在场判定（2026-10-03 重做）：以「对方屏幕里看得见本项目」为准 ——
+   前端页面可见时持续心跳并把 visible 置真，页面一隐藏就立刻上报 false。
+   lastSeen 同时兜住进程被系统直接杀掉、连告别心跳都没来得及发的情况。 */
+function isPresent(p) {
+  const fresh = now() - (p.lastSeen || 0) < PRESENT_FRESH_MS;
+  /* 老房间（改动之前建的）没有 visible 字段：退化成按心跳新鲜度判，别让全桌变红 */
+  const vis = (p.visible === undefined) ? true : !!p.visible;
+  return vis && fresh;
+}
+
+/* 切换在场状态：只有真的在「在线↔离线」之间翻转时才更新计时起点，
+   这样前端才能算出「在线 2 分」「离线 40 秒」这种连续时长。 */
+function applyPresence(p, visible) {
+  const on = !!visible;
+  const flipped = !!p.visible !== on;
+  p.visible = on;
+  p.online = on;
+  p.lastSeen = now();
+  if (flipped) p.stateSince = now();
+  return flipped;
 }
 
 const NICK_TAKEN_NOTE = "这个昵称已经被占用了，换一个再进房——同名会让聊天框分不清是谁。";
+
+/* @点名：昵称房里唯一，直接按「@昵称」精确匹配；自己@自己不弹提醒 */
+function mentionUids(s, selfUid, text) {
+  const t = String(text || "");
+  if (t.indexOf("@") === -1) return [];
+  const out = [];
+  s.players.forEach(function (x) {
+    const nm = String(x.nickname || "").trim();
+    if (!nm || x.uid === selfUid) return;
+    if (t.indexOf("@" + nm) !== -1) out.push(x.uid);
+  });
+  return out;
+}
 
 /* 人数档位：≤6 人每多说破一人减 7s，7–10 人减 4s，11–15 人减 2.5s。 */
 function cooldownStep(total) {
@@ -222,7 +299,7 @@ export class Room {
 
   /* ---------------- 玩家 ---------------- */
 
-  async addPlayer({ internalId, nickname, isHost }) {
+  async addPlayer({ internalId, nickname, isHost, reclaim }) {
     const s = this.state;
     if (!s) return { error: "NO_ROOM" };
     const id = String(internalId || "").trim();
@@ -234,8 +311,7 @@ export class Room {
     /* 建房 / 重进：同一 internalId 重复进房 → 视为重连，不重复占位 */
     const exist = s.players.filter((p) => p.internalId === id)[0];
     if (exist) {
-      exist.online = true;
-      exist.lastSeen = now();
+      applyPresence(exist, true);
       if (nick && nick !== exist.nickname) {
         if (nickTaken(s, nick, exist.uid)) return { error: "NICKNAME_TAKEN", note: NICK_TAKEN_NOTE };
         exist.nickname = nick;
@@ -244,19 +320,33 @@ export class Room {
       return { player: exist };
     }
 
-    /* 同名接管：页面被系统回收导致 internalId 换新时，同昵称重进
-       直接接管原本那张椅子，而不是新开一个 —— 否则旧座位会变成永远占线的死位。 */
-    const sameNick = s.players.filter((p) => p.nickname === nick)[0];
-    if (sameNick && now() - (sameNick.lastSeen || 0) > NICK_TAKEOVER_MS) {
-      sameNick.internalId = id;
-      sameNick.online = true;
-      sameNick.lastSeen = now();
-      this.bump();
-      return { player: sameNick, takeover: true };
+    /* 昵称唯一：与在座任何一人重名一律拒（含只差大小写）。
+       2026-10-03 修掉一个真 bug：旧版这里藏着一条「同名 + 离线超 60 秒就静默接管旧座位」的
+       逻辑，而「离线」靠的是轮询心跳 —— 房主切出去回个消息的功夫，别人拿同名进房就会把
+       房主的座位连名字一起顶走，房主变成「画面还在房间里、人已经查无此人」的孤儿，任何操作都失败。
+       现在接管改成必须前端明确带 reclaim 的「认领」，而且只认已经不在场的人。 */
+    const sameNick = findNick(s, nick, 0);
+    if (sameNick) {
+      const idle = Math.max(0, now() - (sameNick.lastSeen || 0));
+      const claimable = idle > NICK_TAKEOVER_MS && !isPresent(sameNick);
+      if (reclaim && claimable) {
+        const oldId = sameNick.internalId;
+        sameNick.internalId = id;
+        applyPresence(sameNick, true);
+        sameNick.ready = false;
+        this.sysEvent(sameNick.nickname + " 认领了那个空了 " + Math.round(idle / 1000) + " 秒的旧座位（原设备身份已失效）。");
+        this.bump();
+        return { player: sameNick, reclaimed: true, oldInternalId: oldId };
+      }
+      return {
+        error: "NICKNAME_TAKEN",
+        note: claimable
+          ? "这个昵称对应着一个离线很久的旧座位。如果那就是你自己，点「认领旧座位」回来。"
+          : NICK_TAKEN_NOTE,
+        reclaimAvailable: claimable,
+        idleMs: idle
+      };
     }
-    /* 昵称唯一（2026-09-29）：还在座的人里已有同名（含只差大小写）→ 拒绝进房，
-       否则聊天框里两条「小明」分不清是谁说的。 */
-    if (nickTaken(s, nick, 0)) return { error: "NICKNAME_TAKEN", note: NICK_TAKEN_NOTE };
 
     if (s.players.length >= UID_MAX) return { error: "ROOM_FULL" };
 
@@ -269,6 +359,8 @@ export class Room {
       ready: false,
       solved: false,               /* 多人：本锅是否已猜对汤底（下一锅重置） */
       online: true,
+      visible: true,               /* 2026-10-03：屏幕里看得见本项目才算在线 */
+      stateSince: now(),           /* 上一次「在线↔离线」翻转的时刻，前端据此算时长 */
       lastSeen: now()
     };
     s.players.push(p);
@@ -356,8 +448,21 @@ export class Room {
 
   async heartbeat({ internalId }) {
     const p = this.state.players.filter((x) => x.internalId === internalId)[0];
-    if (p) { p.online = true; p.lastSeen = now(); }
+    if (p) { applyPresence(p, true); }
     return { ok: true };
+  }
+
+  /* 在场心跳（2026-10-03）：前端的屏幕可见性变了就来报一次。
+     只有状态真的翻转才 bump 并广播 —— 平时每十几秒一次的续约不动 rev，不会把全桌吵醒。 */
+  async presence({ internalId, visible }) {
+    const s = this.state;
+    const p = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!p) return { error: "NOT_IN_ROOM" };
+    const flipped = applyPresence(p, visible !== false);
+    if (!flipped) return { ok: true, since: p.stateSince || now() };
+    this.sysEvent(p.nickname + (p.visible ? " 回到了屏幕前。" : " 的页面离开了屏幕，先记为离线。"));
+    this.bump();
+    return { ok: true, since: p.stateSince || now() };
   }
 
   /* 点「离开房间」就立刻从全桌名单里消失，不再留下占座位的幽灵。
@@ -404,6 +509,8 @@ export class Room {
       nickname: p.nickname,
       text: raw,
       clientId: cid,
+      /* @提醒（2026-10-03）：昵称在房里唯一，所以「@名字」能精确对上人 */
+      mentions: mentionUids(s, p.uid, raw),
       at: now()
     };
     s.chatLog.push(item);
@@ -561,29 +668,32 @@ export class Room {
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
 
-    /* 开局阵容里的人（potUids）点「取消准备」→ 整桌掀回大堂（保留原规则）；
-       中途加入的人（第⑧条）退出只把自己移出队列，不打断任何人、不掀桌。 */
+    /* 开局后点「撤回准备」（2026-10-03 重做）：只影响自己 —— 把自己标成未准备
+       并退出本锅的提问队列，别人该干嘛干嘛；中途加入的人本来就是这套逻辑，
+       现在首发的人也一样。以前是「谁一撤，全桌掀回大堂」，一个人手滑把所有人的
+       进度清空，太不讲理。只有一种情况才回大堂：还在房间的每个人都撤了。 */
     if (s.phase === "playing" && !ready) {
-      /* 多人：已经猜对汤底的人不许掀桌 / 退队——TA 已转入旁观，本锅由剩下的人打完 */
+      /* 多人：已经猜对汤底的人本来就旁观，撤回与否都不影响本锅 */
       if (p.solved) { this.bump(); return { ok: true, phase: s.phase, solved: true }; }
-      if (!s.potUids || s.potUids.indexOf(p.uid) !== -1) {
+      const wasTurn = s.order.length > 0 && s.order[s.turnIdx] === p.uid;
+      p.ready = false;
+      s.order = s.order.filter((u) => u !== p.uid);
+      if (s.turnIdx >= s.order.length) s.turnIdx = 0;
+      if (wasTurn && s.order.length) s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
+      /* 还在熬的人一个都不剩：这锅没人玩了，才退回大堂重开
+         （已说破的人只是旁观，TA 有没有勾「准备」不该把全桌钉在这一锅里） */
+      if (!s.players.some((x) => x.ready && !x.solved)) {
         s.phase = "lobby";
         s.order = [];
         s.turnIdx = 0;
         s.turnDeadline = 0;
         s.vote = null;
         this.resetPotSolve(s);
-        s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 撤回了准备，本锅回到大堂。", at: now() });
-        s.players.forEach((x) => { x.ready = false; });
+        s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 撤回了准备，全桌都没有在熬的锅了，回到大堂。", at: now() });
         this.bump();
-        return { ok: true, phase: s.phase };
+        return { ok: true, phase: s.phase, everyoneLeft: true };
       }
-      const wasTurn = s.order.length > 0 && s.order[s.turnIdx] === p.uid;
-      p.ready = false;
-      s.order = s.order.filter((u) => u !== p.uid);
-      if (s.turnIdx >= s.order.length) s.turnIdx = 0;
-      if (wasTurn && s.order.length) s.turnDeadline = s.solo ? 0 : now() + TURN_TIMEOUT_MS;
-      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 退出了本锅的提问队列。", at: now() });
+      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 退出了本锅的提问（别人继续，下一锅要重新准备）。", at: now() });
       this.bump();
       return { ok: true, phase: s.phase };
     }
@@ -846,6 +956,11 @@ export class Room {
     const raw = String(question || "").slice(0, 200);
     if (!raw.trim()) return { error: "EMPTY_QUESTION" };
 
+    /* 合规闸门（本地硬判，先烧规则不烧 key）：开放式提问、要答案、破限长文、骂汤主，
+       一律不记账、不消耗回合，只给警告并计次。 */
+    const viol = questionViolation(raw);
+    if (viol) return this.rejectAsk(s, p, viol.code, viol.why);
+
     let verdict = "irr";
     let reply = "与此无关。";
     let viaAi = false;
@@ -864,6 +979,12 @@ export class Room {
             s.pendingAI = null;
             this.bump();
             return { error: (ai && ai.error) || "AI_OFFLINE", note: (ai && ai.note) || "" };
+          }
+          /* 模型认定这句话根本没法用是 / 不是回：同样走不合规流程，这句不上问答记录 */
+          if (ai.verdict === "invalid") {
+            s.askInFlightUntil = 0;
+            s.pendingAI = null;
+            return this.rejectAsk(s, p, "OPEN", "汤主判定这句没法用「是 / 不是」回答");
           }
           verdict = ai.verdict;
           reply = ai.reply;
@@ -899,9 +1020,50 @@ export class Room {
     s.potAskTotal = (s.potAskTotal || 0) + 1;
     if (!s.potAskByUid) s.potAskByUid = {};
     s.potAskByUid[p.uid] = (s.potAskByUid[p.uid] || 0) + 1;
+    /* 问对了一句合规的话，之前的警告一笔勾销 */
+    if (s.askStrikes) s.askStrikes[p.uid] = 0;
     this.advanceTurn();
     this.bump();
     return { ok: true, item, rev: s.rev };
+  }
+
+  /* 不合规提问：不记账、不消耗回合（单人房除外，那只有自己），只给警告并计次；
+     同一锅累计到 ASK_STRIKE_MAX 次就强制跳过他，把轮次交给下一位。 */
+  rejectAsk(s, p, code, why) {
+    if (!s.askStrikes) s.askStrikes = {};
+    const n = (s.askStrikes[p.uid] || 0) + 1;
+    s.askStrikes[p.uid] = n;
+    const left = ASK_STRIKE_MAX - n;
+    let skipped = false;
+    let nextSeat = 0;
+    if (left <= 0) {
+      skipped = true;
+      s.askStrikes[p.uid] = 0;
+      const before = s.order.length ? s.order[s.turnIdx] : 0;
+      this.advanceTurn();
+      skipped = s.order.length > 1 && s.order[s.turnIdx] !== before;
+      const idx = s.players.findIndex((x) => x.uid === s.order[s.turnIdx]);
+      if (idx >= 0) nextSeat = idx + 1;
+    }
+    const warn = skipped
+      ? "警告：发问不符合游戏规则，本锅已累计 " + ASK_STRIKE_MAX + " 次，这一棒跳过你，轮到下一位玩家。"
+      : "警告：发问不符合游戏规则，再出现 " + left + " 次强制跳过你并轮到下一位玩家。";
+    s.qaLog.push({ kind: "sys", feed: true, text: "#" + (s.players.indexOf(p) + 1) + " " + p.nickname + " 的提问不合规（" + why + "）。", at: now() });
+    if (skipped) {
+      s.qaLog.push({ kind: "sys", feed: true, text: p.nickname + " 连续 " + ASK_STRIKE_MAX + " 次不合规，本轮跳过。", at: now() });
+    }
+    this.bump();
+    return {
+      error: "QUESTION_INVALID",
+      code: code,
+      why: why,
+      strikes: n,
+      left: Math.max(0, left),
+      skipped: skipped,
+      nextSeat: nextSeat,
+      warn: warn,
+      note: warn
+    };
   }
 
   advanceTurn() {
@@ -1092,6 +1254,7 @@ export class Room {
     s.potAskTotal = 0;
     s.potAskByUid = {};
     s.giveupCooldownUntil = 0;
+    s.askStrikes = {};
     s.players.forEach((x) => { x.solved = false; });
     this.bump();
   }
@@ -1243,11 +1406,15 @@ export class Room {
     if (!s) return { exists: false };
     this.sweepTurn();
     this.sweepVote();
-    /* 轮询即心跳：谁在拉快照，就把谁标回在线（前端 1.5s 一次 << 在线窗口） */
+    /* 轮询即心跳：会来拉快照就说明页面正看得见（前端隐藏时不再轮询）。
+       这里只续约、不 bump —— 状态翻转由 /presence 那条路负责播报。 */
     const you = meId ? s.players.filter((p) => p.internalId === meId)[0] : null;
-    if (you && (!you.online || now() - (you.lastSeen || 0) > 5000)) {
+    if (you && (!you.visible || now() - (you.lastSeen || 0) > 5000)) {
+      const before = !!you.visible;
+      you.visible = true;
       you.online = true;
       you.lastSeen = now();
+      if (!before) you.stateSince = now();
     }
     const out = {
       exists: true,
@@ -1303,6 +1470,9 @@ export class Room {
       /* 下一次踩雷要等多久（已按说破人数递减）：给前端把真实秒数说清楚 */
       myNextCooldown: { no: guessCooldownMs(s, "no"), close: guessCooldownMs(s, "close") },
       cooldownTier: { total: s.players.length, solved: (s.solveOrder || []).length, step: cooldownStep(s.players.length) },
+      /* 本锅累计的「提问不合规」警告次数（前端据此显示还剩几次机会） */
+      myStrikes: you && s.askStrikes ? (s.askStrikes[you.uid] || 0) : 0,
+      strikeMax: ASK_STRIKE_MAX,
       /* 私有猜底大改：lastGuess 只留单人模式；多人房不再全桌广播，
          否则等于把「谁/何时/猜了什么/判什么色」泄露给全桌 */
       lastGuess: s.solo ? s.lastGuess : null,
@@ -1364,7 +1534,9 @@ export class Room {
         isHost: p.isHost,
         ready: p.ready,
         solved: !!p.solved,        /* 多人：本锅已说破（旁观中） */
-        online: p.online && now() - (p.lastSeen || 0) < ONLINE_MS,
+        online: isPresent(p),
+        /* 在线/离线的起点：前端据此显示「在线 2 分」「离线 40 秒」 */
+        stateSince: p.stateSince || p.lastSeen || 0,
         /* 房主面板据此点亮「请离死座位」按钮 */
         seatRemovable: !p.isHost && now() - (p.lastSeen || 0) >= DEAD_SEAT_MS
       })),
@@ -1419,9 +1591,13 @@ export class Room {
       const since = Number(url.searchParams.get("since"));
       if (isFinite(since) && since > 0 && since === (this.state.rev || 0)) {
         /* 快路径也必须刷心跳：否则「一直没动作」的玩家会被误判离线。
-           只更新 lastSeen，不动 rev，所以不会把别人也吵醒。 */
+           只更新 lastSeen，不动 rev，所以不会把别人也吵醒。
+           注意别把「已经上报离线」的人偷偷刷回在线 —— 那由 /presence 说了算。 */
         const me = meId ? this.state.players.filter((p) => p.internalId === meId)[0] : null;
-        if (me) { me.online = true; me.lastSeen = now(); }
+        if (me) {
+          me.lastSeen = now();
+          if (me.visible !== false) me.online = true;
+        }
         this.state.updatedAt = now();
         /* 只刷心跳时也要把闹钟对齐：否则上一条请求中途报错会留下过时的 alarm */
         await this.syncAlarm();
@@ -1451,6 +1627,9 @@ export class Room {
         break;
       case "heartbeat":
         out = await this.heartbeat(body);
+        break;
+      case "presence":
+        out = await this.presence(body);
         break;
       case "say":
         out = await this.say(body);

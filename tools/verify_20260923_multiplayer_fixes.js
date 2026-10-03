@@ -44,7 +44,9 @@ ok("net.js 带 since 参数", /since=/.test(net) && /state\.rev/.test(net));
 ok("net.js 处理 unchanged", /snap\.unchanged/.test(net));
 ok("worker index 透传 since", /sinceRaw/.test(widx) && /sinceQ/.test(widx));
 ok("DO 快路径返回 unchanged", /unchanged:\s*true/.test(wroom));
-ok("DO 快路径也刷 lastSeen", /me\.online = true; me\.lastSeen = now\(\)/.test(wroom));
+/* 2026-10-03 起，快路径只续约 lastSeen；online 由 visible（在场上报）说了算，
+   不再被一次顺手轮询偷偷刷回在线 —— 断言同步改成校验这两件事。 */
+ok("DO 快路径也刷 lastSeen", /me\.lastSeen = now\(\)/.test(wroom) && /me\.visible !== false/.test(wroom));
 ok("DO 只在脏时落盘", /if \(this\._dirty\) await this\.save\(\);/.test(wroom));
 
 console.log("\n[多①] AI 飞行锁与全桌「思考中」");

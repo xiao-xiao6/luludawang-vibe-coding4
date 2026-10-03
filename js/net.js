@@ -125,7 +125,7 @@
     });
   }
 
-  function joinRoom(code, nickname) {
+  function joinRoom(code, nickname, opts) {
     ensureId();
     state.roomCode = String(code || "").trim().toUpperCase();
     state.solo = false;
@@ -134,7 +134,8 @@
     persist();
     return req("/api/room/" + state.roomCode + "/join", "POST", {
       internalId: state.internalId,
-      nickname: state.nickname
+      nickname: state.nickname,
+      reclaim: !!(opts && opts.reclaim)
     });
   }
 
@@ -223,14 +224,31 @@
     step();
   }
 
+  /* 在场上报（2026-10-03）：「在线」= 你的屏幕里看得见本项目。
+     页面一隐藏就立刻发 visible:false（keepalive：标签页被冻结也发得出），
+     重新可见立刻发 visible:true 再接上轮询 —— 全桌看到的绿/红就在这一刻翻。 */
+  function reportPresence(visible) {
+    if (!state.roomCode || !state.internalId || !state.base) return;
+    try {
+      fetch(url((state.solo ? "/api/solo/" : "/api/room/") + state.roomCode + "/presence"), {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ internalId: state.internalId, visible: !!visible }),
+        keepalive: true
+      }).catch(function () { /* 丢一拍没关系：回前台的轮询会自己纠偏 */ });
+    } catch (e) { /* 忽略 */ }
+  }
+
   function wireVisibility() {
     if (visWired || typeof document === "undefined") return;
     visWired = true;
     document.addEventListener("visibilitychange", function () {
-      /* 切回前台：立即拉一次 + 连补几次；切后台：停掉定时器，不空转 */
+      /* 切回前台：先报在线，再立即拉一次 + 连补几次；切后台：先报离线再停轮询 */
       if (document.hidden) {
+        reportPresence(false);
         if (state.timer) { clearInterval(state.timer); state.timer = 0; }
       } else if (state.roomCode) {
+        reportPresence(true);
         if (!state.timer) state.timer = setInterval(tickOnce, POLL_MS);
         catchUp();
       }
@@ -238,10 +256,13 @@
     /* 从 bfcache 回来（手机浏览器常走这条路）：同样是「秒恢复」场景 */
     window.addEventListener("pageshow", function (ev) {
       if (ev && ev.persisted && state.roomCode) {
+        reportPresence(!document.hidden);
         if (!state.timer) state.timer = setInterval(tickOnce, POLL_MS);
         catchUp();
       }
     });
+    /* 关页面 / 刷新：趁还发得出请求先道个别，别人立刻看到你变红 */
+    window.addEventListener("pagehide", function () { if (state.roomCode) reportPresence(false); });
   }
 
   function tickOnce() {
