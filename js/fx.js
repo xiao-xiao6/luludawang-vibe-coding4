@@ -29,7 +29,10 @@
     LITE = !!(mqc && mqc.matches);
   } catch (e) { }
 
-  var FRAME_BUDGET = LITE ? 1 / 90 : 0;   /* 0 = 不封顶（桌面） */
+  /* 注意帧距判定的算法：STATE.last 只在真正重绘时推进，所以封顶值必须取
+     「最小可接受帧距」。取 1/120 意味着 60/90/120Hz 屏全部逐帧满跑；
+     若写 1/90，120Hz 屏会因 8.3ms<11.1ms 隔帧丢弃、实测掉回 60fps。 */
+  var FRAME_BUDGET = LITE ? 1 / 120 : 0;   /* 0 = 不封顶（桌面） */
   var DPR_CAP = LITE ? 1.5 : 2;
   var RAIN_BUCKETS = 6;                    /* 雨丝按透明度分桶，每桶一次 stroke */
 
