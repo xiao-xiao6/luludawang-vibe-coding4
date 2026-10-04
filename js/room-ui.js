@@ -186,15 +186,13 @@
     } catch (e) { return false; }
   }
 
-  /* 第⑪条（改）：右栏备忘录常驻 —— 首页 / 汤库 / 随机 / 单人对局都挂着，
-     只有在多人汤屋（建房页和房内）才让位给房间聊天框。 */
+  /* 第⑪条（改）：右栏备忘录常驻 —— 首页 / 汤库 / 随机 / 单人对局 / 汤屋建房页都挂着，
+     只有真正在房内时让位给「房间聊天」（聊天框要占同一个右栏位置）。 */
   function syncMemoVisibility() {
     var memo = document.getElementById("solo-memo");
     if (!memo) return;
     var live = $("#room-live");
-    var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
-    var room = document.getElementById("screen-room");
-    var wantMemo = !inLive && !(room && !room.classList.contains("hidden"));
+    var wantMemo = !(live && !live.classList.contains("hidden") && R.inRoom);
     memo.classList.toggle("hidden", !wantMemo);
     document.body.classList.toggle("solo-memo-mode", wantMemo);
   }
