@@ -17,12 +17,9 @@
     REDUCE = !!(mq && mq.matches);
   } catch (e) { }
 
-  /* 手机省电档（2026-09-27）：触屏设备一律降载——
-   * iPhone 16 Pro 这类 120Hz ProMotion 屏下，rAF 会按 120 次/秒跑，
-   * 雨幕 Canvas 按满像素比铺屏是发烫主因。这里统一：
-   *   · 帧率封顶 30fps（雨幕观感几乎无损，GPU 填充率直接砍半以上）
-   *   · 画布像素比上限 1.5（原来是 2）
-   *   · 雨丝密度 ×0.6、尘埃减半、庆祝粒子减半
+  /* 手机档（2026-10-04 重做）：以前把帧率封顶 30fps，雨幕卡成 PPT、
+   * 闪电像贴图闪现 —— 现在主流手机屏幕 90/120Hz 起步，特效必须跟上眼睛。
+   * 封顶抬到 90fps（60Hz 屏自然跑满 60），省电靠降像素比与密度，不靠降帧。
    */
   var LITE = false;
   try {
@@ -32,7 +29,7 @@
     LITE = !!(mqc && mqc.matches);
   } catch (e) { }
 
-  var FRAME_BUDGET = LITE ? 1 / 30 : 0;   /* 0 = 不封顶（桌面） */
+  var FRAME_BUDGET = LITE ? 1 / 90 : 0;   /* 0 = 不封顶（桌面） */
   var DPR_CAP = LITE ? 1.5 : 2;
   var RAIN_BUCKETS = 6;                    /* 雨丝按透明度分桶，每桶一次 stroke */
 
@@ -180,13 +177,20 @@
     return { main: pts, branches: branches, life: 1 };
   }
 
-  function strike() {
+  /* 闪电（2026-10-04 重做）：真闪电不是「啪一下贴上去」——
+     先 30ms 急亮起振，全程高频闪动衰减，主劈之后 60~160ms 再补一记回劈。 */
+  var boltEchoT = -9;
+  function strike(echo) {
     if (!STATE.enabled) return;
     STATE.bolt = makeBoltPath();
-    STATE.flash = 1;
-    if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("thunder");
-    if (root.dispatchEvent) {
-      try { root.dispatchEvent(new CustomEvent("soup:lightning")); } catch (e) { }
+    STATE.bolt.t = 0;
+    STATE.flash = echo ? 0.8 : 1;
+    if (!echo) {
+      boltEchoT = 0.07 + rand(0, 0.09);
+      if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("thunder");
+      if (root.dispatchEvent) {
+        try { root.dispatchEvent(new CustomEvent("soup:lightning")); } catch (e) { }
+      }
     }
   }
 
@@ -334,6 +338,9 @@
     if (!b) return;
     var ctx = STATE.ctx;
     var a = clamp(b.life, 0, 1);
+    /* 起振：前 30ms 从 0 冲到满亮；全程高频闪动 —— 不再是「贴图突然出现」 */
+    if (b.t < 0.03) a *= b.t / 0.03;
+    a *= 0.62 + 0.38 * Math.abs(Math.sin((b.t || 0) * 26));
     ctx.save();
     ctx.globalAlpha = a;
     /* shadowBlur 是 canvas 里最贵的操作之一：手机端直接用双层描边模拟辉光 */
@@ -602,8 +609,13 @@
     // 闪电计时
     STATE.boltTimer -= dt;
     if (STATE.boltTimer <= 0) { strike(); scheduleBolt(); }
+    if (boltEchoT > 0) {
+      boltEchoT -= dt;
+      if (boltEchoT <= 0) { boltEchoT = -9; strike(true); }
+    }
     if (STATE.bolt) {
-      STATE.bolt.life -= dt * 3.6;
+      STATE.bolt.t = (STATE.bolt.t || 0) + dt;
+      STATE.bolt.life -= dt * 3.2;
       if (STATE.bolt.life <= 0) STATE.bolt = null;
     }
     if (STATE.flash > 0) {

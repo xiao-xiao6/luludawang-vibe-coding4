@@ -249,7 +249,7 @@
       fetch(url("/api/room/" + state.roomCode + "/presence"), {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ internalId: state.internalId, visible: !!visible }),
+        body: JSON.stringify({ internalId: state.internalId, visible: !!visible, at: Date.now() }),
         keepalive: true
       }).catch(function () { /* 丢一拍没关系：回前台的轮询会自己纠偏 */ });
     } catch (e) { /* 忽略 */ }

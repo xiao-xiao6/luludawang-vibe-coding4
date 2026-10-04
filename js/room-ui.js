@@ -251,8 +251,9 @@
     if (l) l.classList.remove("hidden");
     showScreen("screen-room");
     resetRoomSigs();
-    /* 房间聊天默认展开在右下（主人手动收起后本次会话保持收起） */
-    toggleChat(true);
+    /* 房间聊天默认收起在移动端（2026-10-04）：半屏面板不该一进门就压住画面，
+       标题栏挂着「点击展开」提示，想聊点一下就到；PC 保持默认展开。 */
+    toggleChat(!isTouch());
     onRoomSideEffects();
   }
 
@@ -341,6 +342,7 @@
   function leaveRoom() {
     stopWatch();
     stopQaScroll();
+    clearRoomLogs();
     /* 先通知服务器把座位真的清掉，别人视角立刻看不到这个人；
        网络失败也继续清本地，避免自己被卡在旧房号里。 */
     var done = (N && N.leaveRoom) ? N.leaveRoom() : Promise.resolve();
@@ -525,6 +527,15 @@
       ba.classList.toggle("busy", !!R.askBusy);
     }
 
+    /* 跳过（2026-10-04）：轮到自己没思路就交棒，不用硬发一句污染问答池 */
+    var sk = $("#btn-room-skip");
+    if (sk) {
+      sk.disabled = !myTurn || !!pending || R.askBusy;
+      sk.title = myTurn
+        ? "没思路？跳过这一棒交给下一位（不进问答记录，不算不合规）"
+        : "没轮到你，不用跳";
+    }
+
     /* 全桌可见的「思考中」横幅：不管是谁问的，所有人都能看到进度 */
     var pb = $("#room-pending");
     if (pb) {
@@ -545,7 +556,7 @@
     var rb = $("#btn-room-ready");
     if (rb) {
       var mineReady = mine && mine.ready;
-      var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
+      var inThisPot = !!(mine && (s.order || []).indexOf(mine.uid) !== -1);
       rb.classList.toggle("on", !!mineReady);
       if (s.phase === "playing" && iSolved) {
         /* 已说破：不再撤回也不再排队，本锅只剩旁观 */
@@ -1375,6 +1386,23 @@
     R.cgSeenSeq = 0;
     R.mySolvedShown = false;
   }
+
+  /* 离开房间立刻清掉三条流水（2026-10-04）：旧房的问答 / 实时对话 / 聊天
+     不该赖在屏幕上等玩家刷新；左栏交回单人侧按本地历史重画。 */
+  function clearRoomLogs() {
+    ["#room-feed", "#room-chat-log"].forEach(function (sel) {
+      var el = $(sel);
+      if (el) { el.innerHTML = ""; el.__sig = ""; }
+    });
+    var qa = $("#qa-log");
+    if (qa) qa.__sig = "";
+    R.snap = null;
+    R.chatSeen = 0;
+    R.atRung = 0;
+    R.atSeeded = false;
+    closeMpop();
+    if (root.SoupApp && root.SoupApp.renderQaLog) root.SoupApp.renderQaLog();
+  }
   root.SoupAppToast = function (m) {
     var el = document.getElementById("toast");
     if (!el) return;
@@ -1419,14 +1447,17 @@
     var mine = null;
     var s = R.snap;
     if (s) (s.players || []).forEach(function (p) { if (p.uid === myUid(s)) mine = p; });
-    var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
+    /* 在不在本锅，看的是「当前提问队列 order」，不是首发名单 potUids ——
+       退出本锅后 order 里已经没有你，按钮就该翻回「准备以加入本锅」，随时能再进来。 */
+    var inThisPot = !!(mine && (s.order || []).indexOf(mine.uid) !== -1);
     var withdraw = !!(s && s.phase === "playing" && inThisPot);
-    /* 防误触：撤回 = 整桌掀回大堂、提问顺序重排，必须二级确认 */
+    /* 防误触：退出只停自己，但也要二级确认一下 */
     if (withdraw) {
       askConfirm({
-        title: "确认撤回、回大堂？",
-        desc: "你正在本锅提问队列里，撤回会<b>把整桌掀回大堂</b>：全员要重新准备，提问顺序也会重新排队（提问进度保留，但可能有人多问、有人少问）。不想掀桌就点「取消」。",
-        yes: "确认撤回（回大堂）",
+        title: "退出本锅？",
+        desc: "只停你自己：你退出这一锅的提问队列，<b>别人照常一问一答，谁也不受影响</b>。" +
+          "想回来就再点一下「准备以加入本锅」，按编号排回去继续问。",
+        yes: "退出（只停自己）",
         danger: true
       }, readyGo);
       return;
@@ -1442,7 +1473,8 @@
        中途加入 / 退出重进的人（不在 potUids 里）点按钮 = 准备并排进本锅队尾，
        必须发 ready:true —— 旧代码在 playing 一律发 false，
        才会出现「点加入本锅反而退出队列」的死循环 bug。 */
-    var inThisPot = !!(mine && (s.potUids || s.order || []).indexOf(mine.uid) !== -1);
+    /* 在不在本锅只看当前队列 order：刚退出的人不在 order 里 → 再点就是 ready:true 重新排回 */
+    var inThisPot = !!(mine && (s.order || []).indexOf(mine.uid) !== -1);
     var withdraw = !!(s && s.phase === "playing" && inThisPot);
     var next = withdraw ? false : !(mine && mine.ready);
     act("ready", { ready: next }).then(function (snap) {
@@ -2023,12 +2055,73 @@
     try { ib.setSelectionRange(ib.value.length, ib.value.length); } catch (e) { }
   }
 
+  /* ---- @ 自动补全（2026-10-04）：输入 @ 弹房友名单，点选 / ↑↓ + Enter 插入「@昵称 」 ---- */
+  var mpop = null, mlist = [], msel = 0;
+  function closeMpop() {
+    if (mpop && mpop.parentNode) mpop.parentNode.removeChild(mpop);
+    mpop = null; mlist = []; msel = 0;
+  }
+  function mentionQuery() {
+    var ib = $("#room-chat-input");
+    if (!ib) return null;
+    var m = String(ib.value || "").match(/@([^\s@]{0,12})$/);
+    return m ? m[1] : null;
+  }
+  function roomMates(q) {
+    var s = R.snap || {};
+    var my = myUid(s);
+    var qq = String(q || "").toLowerCase();
+    return (s.players || []).filter(function (p) {
+      if (p.uid === my) return false;
+      var n = String(p.nickname || "");
+      return n && (!qq || n.toLowerCase().indexOf(qq) !== -1);
+    });
+  }
+  function paintMsel() {
+    if (!mpop) return;
+    Array.prototype.forEach.call(mpop.children, function (el, i) { el.classList.toggle("on", i === msel); });
+  }
+  function openMpop(q) {
+    mlist = roomMates(q);
+    if (!mlist.length) { closeMpop(); return; }
+    msel = 0;
+    if (!mpop) {
+      mpop = document.createElement("div");
+      mpop.className = "rc-mpop";
+      mpop.addEventListener("mousedown", function (ev) {
+        var b = ev.target.closest ? ev.target.closest(".rc-mitem") : null;
+        if (!b) return;
+        ev.preventDefault();                     // 别抢走输入框焦点
+        pickMention(Number(b.getAttribute("data-i")));
+      });
+      var wrap = $("#room-chat");
+      (wrap || document.body).appendChild(mpop);
+    }
+    mpop.innerHTML = mlist.map(function (p, i) {
+      return '<button type="button" class="rc-mitem' + (i === 0 ? " on" : "") + '" data-i="' + i + '">@' + esc(p.nickname) + "</button>";
+    }).join("");
+  }
+  function pickMention(i) {
+    var p = mlist[i];
+    var ib = $("#room-chat-input");
+    if (!p || !ib) { closeMpop(); return; }
+    ib.value = String(ib.value || "").replace(/@([^\s@]{0,12})$/, "@" + p.nickname + " ");
+    closeMpop();
+    try { ib.focus(); } catch (e) { }
+  }
+  function syncMpop() {
+    var q = mentionQuery();
+    if (q === null) { closeMpop(); return; }
+    openMpop(q);
+  }
+
   function doChat() {
     var ib = $("#room-chat-input");
     var v = ib ? ib.value.trim() : "";
     if (!v) return;
     var cid = me().internalId + ":" + Date.now() + ":" + Math.floor(Math.random() * 1e6);
     if (ib) ib.value = "";
+    closeMpop();
     act("say", { text: v, clientId: cid }).then(function () {
       startWatch();
     }).catch(function (e) {
@@ -2395,8 +2488,31 @@
     /* 聊天（新①） */
     var ct = $("#btn-room-chat-toggle"); if (ct) ct.addEventListener("click", function () { toggleChat(); });
     var cs = $("#btn-room-chat-send"); if (cs) cs.addEventListener("click", doChat);
+    var skb = $("#btn-room-skip");
+    if (skb) skb.addEventListener("click", function () {
+      act("skip", {}).then(function () {
+        R.toast("已跳过这一棒，交给下一位");
+        startWatch();
+      }).catch(function (e) {
+        var m = e.message;
+        R.toast(m === "NOT_YOUR_TURN" ? "还没轮到你，跳不了别人的棒"
+          : (m === "NOT_PLAYING" ? "现在没有在打的锅" : "跳过失败：" + m));
+        startWatch();
+      });
+    });
     var ci = $("#room-chat-input");
-    if (ci) ci.addEventListener("keydown", function (ev) { if (ev.key === "Enter") { ev.preventDefault(); doChat(); } });
+    if (ci) ci.addEventListener("keydown", function (ev) {
+      /* @ 名单开着时：↑↓ 选、Enter 插入、Esc 关闭；其余键照常打字 */
+      if (mpop && mlist.length) {
+        if (ev.key === "ArrowDown") { ev.preventDefault(); msel = (msel + 1) % mlist.length; paintMsel(); return; }
+        if (ev.key === "ArrowUp") { ev.preventDefault(); msel = (msel - 1 + mlist.length) % mlist.length; paintMsel(); return; }
+        if (ev.key === "Enter") { ev.preventDefault(); pickMention(msel); return; }
+        if (ev.key === "Escape") { ev.preventDefault(); closeMpop(); return; }
+      }
+      if (ev.key === "Enter") { ev.preventDefault(); doChat(); }
+    });
+    if (ci) ci.addEventListener("input", syncMpop);
+    if (ci) ci.addEventListener("blur", function () { setTimeout(closeMpop, 150); });
 
     /* 第①条修复（移动端打字）：键盘弹起时旧 CSS 会把整个聊天框 display:none，
        输入框一被藏起来就失焦 → 键盘秒开秒收，永远打不了字。
@@ -2444,6 +2560,7 @@
       stopWatch();
       stopQaScroll();
       paintVote(null);
+      clearRoomLogs();
       R.inRoom = false;
       var sr = document.getElementById("screen-room");
       if (sr) sr.classList.add("hidden");

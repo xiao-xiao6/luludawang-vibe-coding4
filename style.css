@@ -2361,9 +2361,10 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
     max-height: none;
   }
 
-  /* 下：房间聊天 —— 固定高度，日志区内部滚动 */
+  /* 下：房间聊天 —— 固定高度，日志区内部滚动；
+     relative 而非 static：给 @ 补全弹层当定位锚点（布局效果与 static 完全一样） */
   body.room-mode .col-clue .room-chat {
-    position: static;
+    position: relative;
     right: auto;
     bottom: auto;
     flex: 0 0 auto;
@@ -2727,3 +2728,67 @@ body.my-turn .askbar { border-color: var(--yes); box-shadow: 0 0 18px rgba(104, 
 
   /* AI 状态点 / 等待中的省略号：opacity 动画便宜，保留 */
 }
+
+/* ============================================================
+ * 2026-10-04 二批：面板可点提示 / 聊天换行禁横滚 / @ 补全弹层
+ * ============================================================ */
+
+/* 标题栏就是开关：给「房间聊天」「备忘录」都挂上点击提示 + 方向箭头，
+   玩家第一眼就知道这块能收能展（收起 ▸ / 展开 ▾）。 */
+.rc-title::after {
+  content: "▸ 点击展开";
+  margin-left: 8px;
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: .04em;
+  color: var(--dim-2);
+  opacity: .85;
+}
+.rc-title[aria-expanded="true"]::after { content: "▾ 点击收起"; }
+
+/* 聊天日志：只留竖向滚动条；长中文 / 长英文 / 链接一律换行，
+   绝不再出现横向滑块条（2026-10-04）。 */
+.rc-log { overflow-x: hidden; }
+.chat-item,
+.chat-item p {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.rc-log::-webkit-scrollbar { width: 6px; height: 0; }
+.rc-log::-webkit-scrollbar-horizontal { display: none; }
+
+/* @ 自动补全弹层：贴在输入行上方，金汤色描边，点选 / ↑↓ Enter 都能用 */
+.rc-mpop {
+  position: absolute; /* 相对 .room-chat（fixed）定位 */
+  left: 10px;
+  right: 10px;
+  bottom: 46px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 168px;
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: rgba(20, 14, 10, .97);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .55);
+}
+.rc-mitem {
+  text-align: left;
+  border: 0;
+  border-radius: 7px;
+  padding: 7px 10px;
+  min-height: 34px;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--ink);
+  background: none;
+  cursor: pointer;
+}
+.rc-mitem:hover { background: rgba(226, 164, 79, .1); }
+.rc-mitem.on { background: rgba(226, 164, 79, .16); color: var(--broth-2); }
+/* 宽屏 dock 进右栏时是 static 定位：弹层改挂 body 坐标会漂，直接给最小高度兜底 */
+body.room-mode .col-clue .rc-mpop { bottom: 44px; }

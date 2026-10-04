@@ -458,7 +458,7 @@
     if (window.__soupMoreLoaded) return;
     window.__soupMoreLoaded = true;
     var s = document.createElement("script");
-    s.src = "js/data-more.js?v=20261004b";
+    s.src = "js/data-more.js?v=20261004c";
     s.async = true;
     s.onload = function () {
       renderQaLog();
@@ -1092,6 +1092,13 @@
     var box = $("#solo-memo");
     var ta = $("#solo-memo-text");
     if (!box || !ta) return;
+    /* 移动端默认收起（2026-10-04）：一打开项目就是半屏备忘录太挡路，
+       标题栏挂着「点击展开」提示，想记再点开。PC 维持默认展开。 */
+    if (isTouch()) {
+      box.classList.add("collapsed");
+      var tg0 = $("#btn-solo-memo-toggle");
+      if (tg0) tg0.setAttribute("aria-expanded", "false");
+    }
     var KEY = "soup.memo.v1";
     try {
       var saved = localStorage.getItem(KEY);
@@ -2007,6 +2014,8 @@
 
   root.SoupApp = {
     pid: function () { return state.pid; },
+    /* 退房后由 room-ui 调：左栏问答记录交回单人侧按本地历史重画 */
+    renderQaLog: renderQaLog,
     /* 「已熬出汤底」标记：供多人选汤面板复用同一份本地记录 */
     isSolved: isSolved,
     toggleSolved: toggleSolved,

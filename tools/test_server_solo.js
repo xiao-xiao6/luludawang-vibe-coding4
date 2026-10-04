@@ -147,7 +147,36 @@ const isAIReq = (j) => j && (j.error === "AI_REQUIRED" || j.error === "AI_REQUIR
   const aInB2 = (bSnap2.json.players || []).filter((p) => p.uid === 1)[0];
   ok("乙现在看到甲=在线（无需发消息触发）", aInB2 && aInB2.online === true);
 
-  /* ---------- 11. /api/puzzle 限流（放最后，会耗尽本 IP 小时桶） ---------- */
+  /* ---------- 11. 跳过本轮 + 聊天 200 字 + presence 乱序（2026-10-04 二批） ---------- */
+  const room3 = await api("/api/room/new", "POST", { internalId: "u_c1", nickname: "丙" });
+  const rc3 = room3.json.roomCode;
+  await api("/api/room/" + rc3 + "/join", "POST", { internalId: "u_d2", nickname: "丁" });
+  await api("/api/room/" + rc3 + "/choose", "POST", { internalId: "u_c1", puzzleId: "turtle" });
+  await api("/api/room/" + rc3 + "/ready", "POST", { internalId: "u_c1", ready: true });
+  await api("/api/room/" + rc3 + "/ready", "POST", { internalId: "u_d2", ready: true });
+  const st3 = await api("/api/room/" + rc3 + "/state?me=u_c1");
+  const firstTurn = st3.json.turnUid;
+  const skipWrong = await api("/api/room/" + rc3 + "/skip", "POST", { internalId: firstTurn === 2 ? "u_c1" : "u_d2" });
+  ok("没轮到的人跳不过", skipWrong.json.error === "NOT_YOUR_TURN");
+  const skipOk = await api("/api/room/" + rc3 + "/skip", "POST", { internalId: firstTurn === 1 ? "u_c1" : "u_d2" });
+  ok("轮到自己可跳过", skipOk.json.ok === true, JSON.stringify(skipOk.json).slice(0, 100));
+  const st3b = await api("/api/room/" + rc3 + "/state?me=u_c1");
+  ok("跳过后交棒给下一位", st3b.json.turnUid !== firstTurn, "turn " + firstTurn + "→" + st3b.json.turnUid);
+  ok("跳过不进问答记录（只进流水）", (st3b.json.qaLog || []).every((x) => x.kind !== "ask" || x.reply));
+  const longMsg = "汤" + "字".repeat(199);
+  const sayR = await api("/api/room/" + rc3 + "/say", "POST", { internalId: "u_c1", text: longMsg, clientId: "t200-" + Date.now() });
+  ok("聊天单条放宽到 200 字", sayR.json.ok === true && (sayR.json.item.text || "").length === 200, "len=" + ((sayR.json.item || {}).text || "").length);
+  /* presence 乱序：先报离线(at=T1)，再报在线(at=T2)，最后把 T1 那条迟到重放 —— 必须被丢弃 */
+  const T1 = Date.now() - 60000, T2 = Date.now();
+  await api("/api/room/" + rc3 + "/presence", "POST", { internalId: "u_d2", visible: false, at: T1 });
+  await api("/api/room/" + rc3 + "/presence", "POST", { internalId: "u_d2", visible: true, at: T2 });
+  const lateFalse = await api("/api/room/" + rc3 + "/presence", "POST", { internalId: "u_d2", visible: false, at: T1 });
+  ok("迟到的离线上报被丢弃", lateFalse.json.stale === true, JSON.stringify(lateFalse.json));
+  const st3c = await api("/api/room/" + rc3 + "/state?me=u_c1");
+  const dIn3 = (st3c.json.players || []).filter((p) => p.uid === 2)[0];
+  ok("丁仍显示在线", dIn3 && dIn3.online === true);
+
+  /* ---------- 12. /api/puzzle 限流（放最后，会耗尽本 IP 小时桶） ---------- */
   if (!process.env.SKIP_RL) {
     let last429 = 0, first429At = -1;
     for (let i = 0; i < 70; i++) {

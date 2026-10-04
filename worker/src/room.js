@@ -90,7 +90,7 @@ function questionViolation(raw) {
   return null;
 }
 const CHAT_MAX = 200;            /* 聊天日志上限 */
-const CHAT_LEN = 120;            /* 单条聊天字数上限 */
+const CHAT_LEN = 200;            /* 单条聊天字数上限（2026-10-04：120 → 200） */
 const CHAT_GAP_MS = 600;         /* 同一人两条聊天最小间隔，防刷屏 */
 const GUESS_LOG_MAX = 60;        /* 每人私有猜底手账的条数上限（只有猜的人自己看得到） */
 
@@ -450,15 +450,21 @@ export class Room {
     return { ok: true };
   }
 
-  /* 在场心跳（2026-10-03）：前端的屏幕可见性变了就来报一次。
-     只有状态真的翻转才 bump —— 平时每十几秒一次的续约不动 rev，不会把全桌吵醒。
-     2026-10-04：这里绝不往「实时对话」里播报。人一多，切来切去能把整屏刷满，
-     谁在线看名单旁的绿/红时长就够了，不需要每条流水账。 */
-  async presence({ internalId, visible }) {
+  /* 在场心跳（2026-10-03）：「在线」= 你的屏幕里看得见本项目。
+     2026-10-04 二修：快速切屏时「离线/在线」两条上报会乱序到达 ——
+     迟到的 false 把刚回来的人又按成离线，别人就一直看到他离线计时。
+     每条上报带客户端事件时间 at，服务端只认比水位更新的那条；
+     任何路径把玩家翻回在线时都推水位（轮询心跳翻线也算）。 */
+  async presence({ internalId, visible, at }) {
     const s = this.state;
     const p = s.players.filter((x) => x.internalId === internalId)[0];
     if (!p) return { error: "NOT_IN_ROOM" };
+    const ts = Number(at) || 0;
+    if (ts && p.presMark && ts < p.presMark) {
+      return { ok: true, stale: true };   // 过期上报：直接丢，不动状态
+    }
     const flipped = applyPresence(p, visible !== false);
+    if (visible !== false) p.presMark = Math.max(ts, p.presMark || 0, now());
     if (flipped) this.bump();
     return { ok: true, since: p.stateSince || now() };
   }
@@ -624,17 +630,19 @@ export class Room {
     }
   }
 
-  /* 判推理：失败返回 { error, note } */
+  /* 判推理：失败返回 { error, note }。
+     判定输出只有一行小 JSON：maxTokens 压到 220、温度 0.1 —— 又快又稳，
+     也顺手掐掉思考型模型长篇发挥的空间（2026-10-04）。 */
   async aiJudge(puzzle, guess) {
     if (!this.aiReady()) return { error: "AI_OFFLINE", note: "房间还没有配置 AI 汤主" };
-    const cfg = this.state.ai;
+    const cfg = Object.assign({}, this.state.ai, { maxTokens: 220, temperature: 0.1 });
     try {
       const sys = buildJudgeSystem(puzzle);
       const usr = buildJudgeUser(puzzle, guess);
       let text = await callModel(cfg, sys, usr);
       let j = pickJson(text) || looseJudge(text);
       if (!j) {
-        text = await callModel(cfg, sys, usr + "\n\n【上次的回答没被读懂，请重新回答】只输出一个 JSON 对象：{\"level\":\"solved|close|vague|no\",\"note\":\"…\"}。");
+        text = await callModel(cfg, sys, usr + "\n\n【上次的回答没被读懂，请重新回答】只输出一个 JSON 对象：{\"level\":\"solved|close|vague|no\",\"note\":\"…\"}，第一个字符必须是 {，全中文。");
         j = pickJson(text) || looseJudge(text);
       }
       if (!j) return { error: "AI_BAD_FORMAT", note: "汤主两次都没给出可读的判定（已自动重试过）；建议房主换更守格式的模型" };
@@ -646,8 +654,10 @@ export class Room {
       else if (/^vague|^模糊|^太短/.test(rawL)) level = "vague";
       else if (["solved","close","vague","no"].indexOf(rawL) !== -1) level = rawL;
       var note = String(j.note || j.reply || "").slice(0, 120).trim();
-      /* 短评同样过思考链硬过滤：带分析痕迹整段丢弃，多句只留第一短句，全脏回标准话术 */
+      /* 短评同样过思考链硬过滤：带分析痕迹整段丢弃，多句只留第一短句，全脏回标准话术；
+         混进两个以上连续英文单词的（思维链漏网）一律丢。 */
       if (note && REASON_TAIL.test(note)) note = "";
+      if (note && /[A-Za-z]{2,}[ ,][A-Za-z]{2,}/.test(note)) note = "";
       if (note && (note.match(/[。！？]/g) || []).length >= 3) {
         var mFn = note.match(/^[^。！？；]{0,40}/);
         note = mFn ? mFn[0].replace(/\s+$/, "") : "";
@@ -1019,6 +1029,22 @@ export class Room {
     this.advanceTurn();
     this.bump();
     return { ok: true, item, rev: s.rev };
+  }
+
+  /* 跳过本轮（2026-10-04）：轮到自己没思路就直接交棒，不用为了跳过硬发一句污染问答池。
+     只进「实时对话」流水（feed），不进问答记录；不计提问数、不算不合规、不动警告次数。 */
+  async skip({ internalId }) {
+    const s = this.state;
+    if (s.phase !== "playing") return { error: "NOT_PLAYING" };
+    const p = s.players.filter((x) => x.internalId === internalId)[0];
+    if (!p) return { error: "NOT_IN_ROOM" };
+    if (s.solo) return { error: "SOLO_NO_SKIP", note: "单人就你一个，跳过没有意义" };
+    const cur = s.order[s.turnIdx];
+    if (p.uid !== cur) return { error: "NOT_YOUR_TURN", turnUid: cur };
+    this.sysEvent(p.nickname + " 跳过了这一棒，把话头交给下一位。");
+    this.advanceTurn();
+    this.bump();
+    return { ok: true, rev: s.rev };
   }
 
   /* 不合规提问：不记账、不消耗回合（单人房除外，那只有自己），只给警告并计次；
@@ -1421,6 +1447,7 @@ export class Room {
       you.online = true;
       you.lastSeen = now();
       if (!before) you.stateSince = now();
+      you.presMark = now();   // 同快路径：能来拉快照就是看得见
     }
     const out = {
       exists: true,
@@ -1606,6 +1633,7 @@ export class Room {
                直到 TA 做了 say 之类的动作 bump 了 rev 才顺带修好。
                轮询只在页面可见时发生：收到轮询本身就等于「屏幕回来了」，直接翻回在线并广播。 */
             applyPresence(me, true);
+            me.presMark = now();   // 轮询即「屏幕可见」的铁证：把这条水位也推上去
             this.bump();
           } else if (me.visible !== false) {
             me.online = true;
@@ -1673,6 +1701,9 @@ export class Room {
         break;
       case "ask":
         out = await this.ask(body);
+        break;
+      case "skip":
+        out = await this.skip(body);
         break;
       case "hint":
         out = await this.hint(body);
