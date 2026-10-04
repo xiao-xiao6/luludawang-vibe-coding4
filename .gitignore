@@ -4,16 +4,18 @@
 # 关键前提：本仓库是 **public**，且 GitHub Pages 会把整个仓库
 # 目录当静态站发布 —— 仓库里的任何文件都能被匿名下载。
 #
-# 【2026-09-23 策略变更】汤底改为**明文公开**：
-#   公开汤库档（js/library.public.js / js/library.data.js）含 truth，正常提交，
-#   供任何人查阅下载。防作弊交给玩家自觉（汤面网上也搜得到，藏底拦不住真想作弊的人）。
-#   仍不进仓库的，只剩「内部数据管线中间产物」与「服务端部署产物」：
-#   data/library/ 与 worker/src/*.data.js。
+# 【2026-10-04 定档】判定与汤底全部移到 Worker 服务端：
+#   浏览器只发纯元信息汤单（js/data.js、js/data-more.js、js/library.list.js）——
+#   无 surface、无 truth。汤面逐道走 GET /api/puzzle/:id（服务端按 IP 限流）。
+#   汤底（truth）永远只在服务端：含底母本与 Worker 部署产物一律不进仓库，
+#   Pages 上任何路径都不可能拿到某汤面对应的真汤底。
+#   含底母本：data/core/（精品层）与 data/library/（汤库层）+ worker/src/*.data.js。
 # ============================================================
 
-# ---- 内部数据管线与部署产物（仍不进仓库）----
-# data/library/ 与 js/library.data.js 是「源/中间产物」；对外公开的汤底
-# 由构建产物 js/library.public.js 承载（含 truth，正常提交）。
+# ---- 含汤底的母本与部署产物：永不进仓库 ----
+# 精品层母本（含 truth/clues），构建脚本据此产出 worker 数据与纯元信息浏览器档
+data/core/
+# 汤库层母本（含 truth）
 js/library.data.js
 
 # ---- 本地探针 / 临时验证脚本 ----
@@ -149,3 +151,168 @@ tools/_r6_*
 tools/recheck3_ids.json
 tools/recheck3_scan.txt
 tools/recheck5_scan.txt
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
+
+# ---- 2026-10-04 历史清理：曾含汤底/原文数据的体检证据与中间产物，永久不入库（本地留档） ----
+tools/audit_full_20260925_report.json
+tools/audit_recheck_20260925_report.json
+tools/check2_verdicts/align_01.jsonl
+tools/check2_verdicts/align_02.jsonl
+tools/check2_verdicts/align_03.jsonl
+tools/check2_verdicts/align_04.jsonl
+tools/check2_verdicts/align_05.jsonl
+tools/check2_verdicts/pair_01.jsonl
+tools/check2_verdicts/pair_02.jsonl
+tools/check2_verdicts/pair_03.jsonl
+tools/check2_verdicts/pair_04.jsonl
+tools/check2_verdicts/pair_05.jsonl
+tools/check2_verdicts/pair_06.jsonl
+tools/check2_verdicts/pair_07.jsonl
+tools/check2_verdicts/pair_08.jsonl
+tools/check2_verdicts/pair_09.jsonl
+tools/check2_verdicts/pair_10.jsonl
+tools/check2_verdicts/pair_11.jsonl
+tools/check3_verdicts/align_01.jsonl
+tools/check3_verdicts/align_02.jsonl
+tools/check3_verdicts/align_03.jsonl
+tools/check3_verdicts/align_04.jsonl
+tools/check3_verdicts/align_05.jsonl
+tools/check3_verdicts/align_06.jsonl
+tools/check3_verdicts/pair_01.jsonl
+tools/check3_verdicts/pair_02.jsonl
+tools/check3_verdicts/pair_03.jsonl
+tools/check3_verdicts/pair_04.jsonl
+tools/check3_verdicts/pair_05.jsonl
+tools/check3_verdicts/pair_06.jsonl
+tools/check3_verdicts/pair_07.jsonl
+tools/check3_verdicts/pair_08.jsonl
+tools/check3_verdicts/pair_09.jsonl
+tools/check3_verdicts/pair_10.jsonl
+tools/check3_verdicts/pair_11.jsonl
+tools/check3_verdicts/pair_12.jsonl
+tools/check4_verdicts/align_01.jsonl
+tools/check4_verdicts/align_02.jsonl
+tools/check4_verdicts/align_03.jsonl
+tools/check4_verdicts/align_04.jsonl
+tools/check4_verdicts/align_05.jsonl
+tools/check4_verdicts/align_06.jsonl
+tools/check4_verdicts/align_07.jsonl
+tools/check4_verdicts/pair_01.jsonl
+tools/check4_verdicts/pair_02.jsonl
+tools/check4_verdicts/pair_03.jsonl
+tools/check4_verdicts/pair_04.jsonl
+tools/check4_verdicts/pair_05.jsonl
+tools/check4_verdicts/pair_06.jsonl
+tools/check4_verdicts/pair_07.jsonl
+tools/check4_verdicts/pair_08.jsonl
+tools/check4_verdicts/pair_09.jsonl
+tools/check4_verdicts/pair_10.jsonl
+tools/check4_verdicts/pair_11.jsonl
+tools/check4_verdicts/pair_12.jsonl
+tools/check4_verdicts/pair_13.jsonl
+tools/check4_verdicts/pair_14.jsonl
+tools/check4_verdicts/pair_15.jsonl
+tools/check5_verdicts/align_01.jsonl
+tools/check5_verdicts/align_02.jsonl
+tools/check5_verdicts/align_03.jsonl
+tools/check5_verdicts/align_04.jsonl
+tools/check5_verdicts/align_05.jsonl
+tools/check5_verdicts/align_06.jsonl
+tools/check5_verdicts/pair_01.jsonl
+tools/check5_verdicts/pair_02.jsonl
+tools/check5_verdicts/pair_03.jsonl
+tools/check5_verdicts/pair_04.jsonl
+tools/check5_verdicts/pair_05.jsonl
+tools/check5_verdicts/pair_06.jsonl
+tools/check5_verdicts/pair_07.jsonl
+tools/check5_verdicts/pair_08.jsonl
+tools/check5_verdicts/pair_09.jsonl
+tools/check5_verdicts/pair_10.jsonl
+tools/check5_verdicts/pair_11.jsonl
+tools/check5_verdicts/pair_12.jsonl
+tools/check7_verdicts/e2s_01.jsonl
+tools/check7_verdicts/e2s_02.jsonl
+tools/check7_verdicts/e2s_03.jsonl
+tools/check7_verdicts/e2s_04.jsonl
+tools/check7_verdicts/e2s_05.jsonl
+tools/check7_verdicts/e2s_06.jsonl
+tools/check7_verdicts/e2s_07.jsonl
+tools/check7_verdicts/e2s_08.jsonl
+tools/check7_verdicts/e2s_09.jsonl
+tools/checkup_20260927_fix_pollution.py
+tools/checkup_20260928/RECOVER_BRIEF.md
+tools/checkup_20260928/backfill_final.json
+tools/checkup_20260928/recovered.json
+tools/checkup_20260928/tverdicts/pair_01.jsonl
+tools/checkup_20260928/tverdicts/pair_02.jsonl
+tools/checkup_20260928/tverdicts/pair_03.jsonl
+tools/checkup_20260928/tverdicts/pair_04.jsonl
+tools/checkup_20260928/tverdicts/pair_05.jsonl
+tools/checkup_20260928/tverdicts/pair_06.jsonl
+tools/checkup_20260928/tverdicts/pair_07.jsonl
+tools/checkup_20260928/tverdicts/pair_08.jsonl
+tools/checkup_20260928/tverdicts/pair_09.jsonl
+tools/checkup_20260928/verdicts/batch_01.jsonl
+tools/checkup_20260928/verdicts/batch_02.jsonl
+tools/checkup_20260928/verdicts/batch_03.jsonl
+tools/checkup_20260928/verdicts/batch_04.jsonl
+tools/checkup_20260928/verdicts/batch_05a.jsonl
+tools/checkup_20260928/verdicts/batch_05b.jsonl
+tools/checkup_20260928/verdicts/batch_06.jsonl
+tools/checkup_20260928/verdicts/batch_07.jsonl
+tools/checkup_20260928/verdicts/batch_08.jsonl
+tools/checkup_all.json
+tools/dedup_clusters_calibrated.json
+tools/en_dump.json
+tools/en_trans_p1.json
+tools/en_trans_p2.json
+tools/en_trans_p3.json
+tools/en_trans_p4.json
+tools/en_trans_p5.json
+tools/en_trans_p6.json
+tools/en_trans_p7.json
+tools/llt_dump.json
+tools/llt_fresh_final.json
+tools/llt_trans_in/batch_01.json
+tools/llt_trans_in/batch_02.json
+tools/llt_trans_in/batch_03.json
+tools/llt_trans_in/batch_04.json
+tools/llt_trans_in/batch_05.json
+tools/llt_trans_in/batch_06.json
+tools/llt_trans_out/out_01.json
+tools/llt_trans_out/out_02.json
+tools/llt_trans_out/out_03.json
+tools/llt_trans_out/out_04.json
+tools/llt_trans_out/out_05.json
+tools/llt_trans_out/out_06.json
+tools/stage_abc_20260925.py
+tools/stage_d2_log.json
+tools/stage_h_log.json
+tools/stage_j2_log.json
+tools/stage_j3_log.json
+tools/txt_merge_check_20260925_fuzzy.json
+tools/txt_merge_check_20260925_report.json
+tools/untitled_dump.json
+tools/yng_dump.json
+tools/yng_final.json
+tools/yng_fresh.json
+tools/yng_fresh_final.json
+tools/yng_trans_in/batch_01.json
+tools/yng_trans_in/batch_02.json
+tools/yng_trans_in/batch_03.json
+tools/yng_trans_in/batch_04.json
+tools/yng_trans_in/batch_05.json
+tools/yng_trans_in/batch_06.json
+tools/yng_trans_in/batch_07.json
+tools/yng_trans_out/out_01.json
+tools/yng_trans_out/out_02.json
+tools/yng_trans_out/out_03.json
+tools/yng_trans_out/out_04.json
+tools/yng_trans_out/out_05.json
+tools/yng_trans_out/out_06.json
+tools/yng_trans_out/out_07.json
+tools/yng_wordmatch.json

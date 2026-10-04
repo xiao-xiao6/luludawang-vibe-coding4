@@ -5,25 +5,25 @@
  *   - 页面 / 样式 / 脚本 / manifest 走「网络优先」，保证改完就生效
  *   - 图片 / 字体走「缓存优先」，二次访问秒开
  * ============================================================ */
-var CACHE = "deepsea-soup-v27";
+var CACHE = "deepsea-soup-v29";
 var SHELL = [
   "./",
   "index.html",
   "style.css",
   "manifest.webmanifest",
   "assets/vendor/gsap.min.js",
-  "js/data.js",
-  "js/library.public.js",
-  "js/engine.js",
-  "js/ai.js",
-  "js/audio.js",
-  "js/fx.js",
-  "js/transition.js",
-  "js/net.js",
-  "js/icons.js",
-  "js/room-ui.js",
-  "js/app.js",
-  "js/data-more.js",
+  "js/data.js?v=20261004",
+  "js/library.list.js?v=20261004",
+  "js/engine.js?v=20261004",
+  "js/ai.js?v=20261004",
+  "js/audio.js?v=20261004",
+  "js/fx.js?v=20261004",
+  "js/transition.js?v=20261004",
+  "js/net.js?v=20261004",
+  "js/icons.js?v=20261004",
+  "js/room-ui.js?v=20261004",
+  "js/app.js?v=20261004",
+  "js/data-more.js?v=20261004",
   "assets/bg-castle.webp",
   "assets/bg-hall.webp",
   "assets/bg-dawn.webp",

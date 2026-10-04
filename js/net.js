@@ -156,7 +156,7 @@
 
   /* ---------------- 单人（规格 #12 A1：单人同样全走服务端） ----------------
    * 单人 = 一间只有自己的房间（房号 S 开头）。判定 / 汤底都只在服务端，
-   * 前端再也不会拿到 truth —— 和老版本「本地判定 + 前端汤底」彻底切干净。
+   * 前端拿不到 truth —— 汤底只在 AI 汤主判定「解出」的那一刻回给解出者本人。
    */
 
   function soloNew(puzzleId) {
@@ -168,14 +168,19 @@
     }).then(function (r) {
       state.roomCode = r.roomCode;
       state.solo = true;
+      state.rev = 0;
       persist();
       return r;
     });
   }
 
-  function soloAct(action, body) {
-    if (!state.roomCode) return Promise.reject(new Error("NO_ROOM"));
-    return req("/api/solo/" + state.roomCode + "/" + action, "POST",
+  function soloAct(action, body, code) {
+    /* code：显式指定单人房号。不传就用当前记录的房间号——
+       先开单人锅又去串多人房的人，net 里的 roomCode 会被改掉，
+       单人侧（app.js）必须拿自己保存的锅号来动作，否则打错门。 */
+    var c = String(code || state.roomCode || "");
+    if (!c) return Promise.reject(new Error("NO_ROOM"));
+    return req("/api/solo/" + c + "/" + action, "POST",
       Object.assign({ internalId: state.internalId }, body || {}));
   }
 
@@ -185,15 +190,21 @@
     return req("/api/solo/" + state.roomCode + "/state" + q, "GET");
   }
 
-  /* 揭晓后取汤底：服务端只在 phase=revealed 时给，平时 403。
-     掉线 / 未揭晓 / 无底 都安静失败，由调用方决定怎么显示。 */
-  function libTruth(roomCode, puzzleId, pid) {
-    var code = String(roomCode || state.roomCode || "").trim();
-    var id = puzzleId || pid || "";
-    if (!code || !id) return Promise.resolve("");
-    return req("/api/truth/" + encodeURIComponent(code) + "/" + encodeURIComponent(id), "GET")
-      .then(function (r) { return (r && r.truth) || ""; })
-      .catch(function () { return ""; });
+  /* ---------------- 题面（服务端是唯一来源） ----------------
+   * 浏览器包里不再有汤面 / 汤底：
+   *   puzzleDetail(id) → 逐道取单题汤面（无 truth；服务端按 IP 限流）
+   *   puzzleStats()    → 两层题数，显示「共 N 道」用
+   */
+
+  function puzzleDetail(id) {
+    if (!id) return Promise.reject(new Error("NO_ID"));
+    return req("/api/puzzle/" + encodeURIComponent(id), "GET").then(function (r) {
+      return (r && r.puzzle) || null;
+    });
+  }
+
+  function puzzleStats() {
+    return req("/api/puzzle-stats", "GET");
   }
 
   /* ---------------- 轮询 ----------------
@@ -403,7 +414,9 @@
     soloAct: soloAct,
     soloState: soloState,
     soloWatch: soloWatch,
-    libTruth: libTruth,
+    /* 题面 / 统计（服务端唯一来源） */
+    puzzleDetail: puzzleDetail,
+    puzzleStats: puzzleStats,
     isSolo: function () { return !!state.solo; },
     get me() {
       return { internalId: state.internalId, nickname: state.nickname, roomCode: state.roomCode, solo: !!state.solo };

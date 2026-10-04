@@ -282,7 +282,9 @@ export function getPuzzle(id) {
   return ALL_INDEX[id] || null;
 }
 
-/* 下发给前端的题面：**不含 truth**（汤底只在服务端） */
+/* 下发给前端的题面（单题详情）：**不含 truth**；汤底只在服务端。
+ * surface 只在逐道点开时随这一份下发（/api/puzzle/:id 有限流），
+ * 批量清单一律走 metaPuzzle。 */
 export function publicPuzzle(id) {
   var p = ALL_INDEX[id];
   if (!p) return null;
@@ -300,6 +302,17 @@ export function publicPuzzle(id) {
     layer: p.layer,
     clueCount: (p.clues || []).length
   };
+}
+
+/* 批量清单视图：连汤面都不带——只能看到汤名/分类/火候等元信息。
+ * 想读汤面必须逐道走 /api/puzzle/:id（服务端按 IP 限流）。 */
+export function metaPuzzle(id) {
+  var p = publicPuzzle(id);
+  if (!p) return null;
+  delete p.surface;
+  /* 精品层母本只有 title：清单里统一补一个 dispTitle，前端卡片少一层判空 */
+  p.dispTitle = p.dispTitle || p.title || p.id;
+  return p;
 }
 
 export function allPuzzleIds() {

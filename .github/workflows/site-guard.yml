@@ -2,16 +2,15 @@ name: site-guard
 
 # 站点守卫
 #
-# 【2026-09-23 策略变更】单人模式改走「本地真汤底」：
-#   汤库数据（含 truth）**明文公开**、随站点发布，供任何人查阅与下载。
-#   防作弊交给玩家自觉 —— 汤面本身网上也搜得到，藏汤底拦不住真想作弊的人，
-#   只会拦住正常玩的人（AI 汤主拿不到真底 → 空底瞎编）。
-#   多人房判定仍在服务端 Worker，不受影响。
+# 【2026-10-04 定档】判定与汤底全部在 Worker 服务端：
+#   浏览器只发纯元信息汤单（js/data.js / js/data-more.js / js/library.list.js）——
+#   无 surface、无 truth；汤面逐道走 GET /api/puzzle/:id（服务端按 IP 限流）；
+#   汤底只在 AI 汤主判定「解出」的那一刻回给解出者本人。
 #
-# 因此本守卫的职责改为：
-#   1) 内部数据管线源文件（data/library/）不得进仓库；
-#   2) 服务端生成题库（worker/src/*.data.js）不得进仓库；
-#   3) 公开汤库档（js/library.public.js）结构自检：题量、汤底落地、必须可当普通脚本加载。
+# 本守卫的职责：
+#   1) 含底母本与服务端生成题库不得进仓库（data/library/、data/core/、worker/src/*.data.js、js/library.data.js）；
+#   2) 三份浏览器数据档必须可当普通脚本加载，且逐条校验：绝无 surface / truth / clues / hints / keywords；
+#   3) 全仓库跟踪文件扫描：任何文件都不得出现「非空 truth 字段值」样式的汤底数据。
 
 on:
   workflow_dispatch:
@@ -24,43 +23,72 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 内部数据源不得被跟踪
+      - name: 含底母本与服务端题库不得被跟踪
         run: |
-          if git ls-files --error-unmatch "data/library" > /dev/null 2>&1; then
-            echo "::error::data/library/ 下的内部数据源被 Git 跟踪了，必须从仓库移除并加进 .gitignore"
-            git ls-files "data/library"
-            exit 1
-          fi
+          set -e
+          for p in "data/library" "data/core" "js/library.data.js"; do
+            if git ls-files --error-unmatch "$p" > /dev/null 2>&1; then
+              echo "::error::$p 被 Git 跟踪了——含汤底的母本/中间产物绝不进仓库"
+              git ls-files "$p"
+              exit 1
+            fi
+          done
           if git ls-files | grep -q "worker/src/.*\.data\.js$"; then
             echo "::error::服务端生成题库（worker/src/*.data.js）不得进仓库，应只存在于部署环境"
             git ls-files | grep "worker/src/.*\.data\.js$"
             exit 1
           fi
-          echo "✓ 仓库未跟踪任何内部数据源"
+          echo "✓ 仓库未跟踪任何含汤底的数据源"
 
-      - name: 公开汤库档结构自检
+      - name: 浏览器数据档无汤面泄漏 + 题量正常
         run: |
+          set -e
           node -e '
             const fs = require("fs");
             const vm = require("vm");
-            const s = fs.readFileSync("js/library.public.js", "utf8");
-            /* 这条文件是 index.html 用 <script src> 直接加载的普通脚本，
-               不能是 ES module —— 先卡这一条，再用沙箱把它真跑一遍取数据。 */
-            if (/^\s*export\s/m.test(s)) { console.error("::error::js/library.public.js 不能是 ES module：它是 index.html 用 <script src> 直接加载的普通脚本"); process.exit(1); }
-            const ctx = { console: console, module: { exports: {} } };
-            ctx.window = ctx; ctx.globalThis = ctx;
-            vm.createContext(ctx);
-            try { vm.runInContext(s, ctx); } catch (e) { console.error("::error::js/library.public.js 无法作为脚本加载：" + e.message); process.exit(1); }
-            const lib = ctx.SOUP_LIBRARY;
-            if (!Array.isArray(lib)) { console.error("::error::js/library.public.js 未导出 SOUP_LIBRARY 数组"); process.exit(1); }
-            /* 直接数真实数据，不再用正则去猜 JSON 的排版（曾因产物重排把空格写法漏掉而误报） */
-            const n = lib.length;
-            const t = lib.filter(function (p) { return p && typeof p.truth === "string" && p.truth.trim() && p.mode !== "surface"; }).length;
-            /* 阈值留余量：2026-09-25 清洗（去污染/去OCR重复）后题库约 870 题，瘦到 800 以下才算异常 */
-            if (n < 800) { console.error("::error::js/library.public.js 题量异常：" + n); process.exit(1); }
-            if (t < 800) { console.error("::error::js/library.public.js 汤底缺失：只有 " + t + " 条带底（单人模式会退化成空底瞎编）"); process.exit(1); }
-            console.log("✓ js/library.public.js 结构正常（" + n + " 条，含汤底 " + t + " 条，明文公开）");
+            function load(file, varName) {
+              const s = fs.readFileSync(file, "utf8");
+              if (/^\s*export\s/m.test(s)) { console.error("::error::" + file + " 不能是 ES module：<script src> 直接加载的普通脚本"); process.exit(1); }
+              const ctx = { console: console, module: { exports: {} } };
+              ctx.window = ctx; ctx.globalThis = ctx;
+              vm.createContext(ctx);
+              try { vm.runInContext(s, ctx); } catch (e) { console.error("::error::" + file + " 无法作为脚本加载：" + e.message); process.exit(1); }
+              return ctx[varName];
+            }
+            const BAD_KEYS = ["surface", "truth", "truthKeywords", "coreKeywords", "clues", "hints"];
+            let total = 0;
+            for (const [file, name, min] of [
+              ["js/data.js", "PUZZLES", 100],
+              ["js/data-more.js", "PUZZLES_META_MORE", 70],
+              ["js/library.list.js", "SOUP_LIBRARY", 2000]
+            ]) {
+              const list = load(file, name);
+              if (!Array.isArray(list) || list.length < min) {
+                console.error("::error::" + file + " 题量异常：" + (list || []).length + "（应 ≥ " + min + "）");
+                process.exit(1);
+              }
+              const leaked = list.filter((p) => p && BAD_KEYS.some((k) => k in p));
+              if (leaked.length) {
+                console.error("::error::" + file + " 混入汤面/汤底字段：" + leaked.length + " 条（例：" + leaked[0].id + "）");
+                process.exit(1);
+              }
+              total += list.length;
+              console.log("✓ " + file + " 纯元信息 " + list.length + " 条");
+            }
+            console.log("✓ 浏览器端合计 " + total + " 条元信息，无一道带汤面/汤底");
           '
 
-      - name: 汤底污染防回归
-        run: node tools/check_truth_pollution.js
+      - name: 全仓跟踪文件汤底泄漏扫描
+        run: |
+          set -e
+          # 命中样式：「truth」后面紧跟非空字符串值 —— 数据文件特征；
+          # 代码里只会有字段访问（p.truth / .truth || / truth: 变量），不会内联长中文汤底。
+          if git grep -nE '"truth"[[:space:]]*:[[:space:]]*"[^"]{24,}"' -- ':!worker' ':!tools' ':!docs' ':!*.md'; then
+            echo "::error::检测到疑似含非空汤底的数据文件——立即从仓库移除并核查历史"
+            exit 1
+          fi
+          if git grep -nE '"surface"[[:space:]]*:[[:space:]]*"[^"]{40,}"' -- 'js' '*.json' ':!tools' ':!docs'; then
+            echo "::error::浏览器目录检测到成段汤面数据——浏览器档只能有元信息"
+            exit 1
+          fi
+          echo "✓ 全仓未发现汤底/成段汤面数据"

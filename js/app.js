@@ -99,17 +99,23 @@
     music: true,
     playing: true,
     fx: true,
-    volume: 0.6
+    volume: 0.6,
+    /* 2026-10-04 服务端判定：单人 = Worker 上只有自己的小房间。
+       detail = 服务端逐道拉来的汤面（含 surface，绝不含 truth）。 */
+    roomCode: null,
+    detail: null,
+    aiOk: false
   };
+
+  var NET = window.SoupNet;
 
   var progress = loadProgress();
 
-  /* ---------------- 汤库（汤库层 + 精品层合并） ----------------
-   * 汤库里现在同时包含两层：
-   *   · 汤库层（lib_*，来自 js/library.public.js）
+  /* ---------------- 汤库（汤库层 + 精品层合并，均为纯元信息） ----------------
+   * 浏览器包里的两层都只有汤名/分类/火候/来源：
+   *   · 汤库层（lib_*，来自 js/library.list.js）
    *   · 精品层（项目最初那 100 道，来自 js/data.js + data-more.js）
-   * 精品题不在 LIB 里，所以每次渲染时按需合并；
-   * 用两层长度当签名做缓存，data-more.js 异步拉回来后会自然重建。 */
+   * 汤面逐道向 Worker GET /api/puzzle/:id 获取；判定与汤底全在服务端。 */
   var CORE_SRC = "精品汤";
   var mergedCache = null;
   var mergedSig = "";
@@ -118,15 +124,14 @@
     return {
       id: p.id,
       dispTitle: p.title || p.id,
-      surface: p.surface || "",
       cats: p.cats || [],
       difficulty: p.difficulty,
+      par: p.par,
       src: CORE_SRC,
       lang: "zh",
       mode: "truth",
-      hasTruth: !!p.truth,
+      hasTruth: true,          // 汤底在服务端，永远「有底」
       truthSource: p.truthSource || "original",
-      truth: p.truth || "",
       layer: "core"
     };
   }
@@ -165,10 +170,6 @@
 
   function isLibPid(id) {
     return typeof id === "string" && id.indexOf("lib_") === 0;
-  }
-
-  function isLib(p) {
-    return !!(p && isLibPid(p.id));
   }
 
   /* 库层进度：坏档回落空对象，绝不白屏 */
@@ -241,7 +242,8 @@
         asked: state.asked,
         hintsUsed: state.hintsUsed,
         qCount: state.qCount,
-        history: state.history.slice(-20)
+        history: state.history.slice(-20),
+        roomCode: state.roomCode || null
       };
     }
     /* 库题快照写进 LIB_KEY，精品题快照写进 deepsea_soup_v1 */
@@ -456,7 +458,7 @@
     if (window.__soupMoreLoaded) return;
     window.__soupMoreLoaded = true;
     var s = document.createElement("script");
-    s.src = "js/data-more.js";
+    s.src = "js/data-more.js?v=20261004";
     s.async = true;
     s.onload = function () {
       renderQaLog();
@@ -594,166 +596,178 @@
     addLine("host", "sys", esc(text));
   }
 
-  function loadPuzzle(id, restore) {
-    var p = E.getPuzzle(id);
-    if (!p) return;
-    var lib = isLib(p);
-    /* 进汤保留黑幕转场：sceneWipe 先盖黑 → 换内容 → 淡出。
-       之前「一直黑」的根因是面板入场动画从透明起步，与黑幕叠加；
-       面板动画已移除，这里可以安全恢复氛围转场。 */
-    sceneWipe(function () {
-      leaveRoomScreen();
-      /* 两层各自持有「进行中的对局」：库题只认 LIB_KEY，绝不串档 */
-      var snap = restore ? (lib ? libProgress().session : progress.session) : null;
-      if (snap && snap.pid !== id) snap = null;
-      state.pid = id;
-      state.revealed = snap && snap.revealed ? snap.revealed.slice() : [];
-      state.asked = snap && snap.asked ? snap.asked : {};
-      state.hintsUsed = snap ? (snap.hintsUsed || 0) : 0;
-      state.qCount = snap ? (snap.qCount || 0) : 0;
-      state.done = false;
-      state.history = snap && snap.history ? snap.history.slice() : [];
-      state.aiBusy = false;
+  /* ---------------- 单人服务端会话（2026-10-04 定档） ----------------
+   * 汤面逐道向 Worker 取；开锅 = 建一间只有自己的服务端小房间。
+   * 判定 / 汤底全在服务端：浏览器从此拿不到任何一道汤的 truth。 */
 
-      $("#screen-intro").classList.add("hidden");
-      var rs = $("#screen-random");
-      if (rs) rs.classList.add("hidden");
-      var sl = $("#screen-library");
-      if (sl) sl.classList.add("hidden");
-      var gs = $("#screen-game");
-      gs.classList.remove("hidden");
-      gs.style.animation = "none";
-      gs.style.opacity = "1";
-      gs.style.visibility = "visible";
-      setScene("game");
-      /* 第⑪条：进单人对局后刷新右栏备忘录显隐
-         （leaveRoomScreen 时 screen-game 还没显示，那个时机太早） */
-      if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
+  function soloErrText(e) {
+    var m = String((e && e.message) || e || "");
+    var MAP = {
+      RATE_LIMITED: ((e && e.data && e.data.note) || "今天点开的汤太多啦，歇一会儿再来。"),
+      NO_SUCH_PUZZLE: "这一道汤不存在",
+      NO_BASE: "联机服务还没配置好",
+      NO_ROOM: "当前没有开着的锅",
+      NO_NET: "联机模块没加载"
+    };
+    return MAP[m] || m;
+  }
 
-      if (lib) {
-        /* 库层：标题用 dispTitle（永远非空），来源代替大类标签 */
-        set("#p-title", p.dispTitle || p.title || "无题");
-        /* 汤面只留题目和火候，题材 / 来源标签不上汤面 */
-        var ltag = $("#p-tag");
-        if (ltag) { ltag.textContent = ""; ltag.classList.add("hidden"); }
-        var lcats = $("#p-cats");
-        if (lcats) { lcats.innerHTML = ""; lcats.classList.add("hidden"); }
-        set("#p-diff", libDiffDots(p.difficulty) + " 难度");
-        var lorig = $("#p-orig");
-        if (lorig) lorig.classList.add("hidden");
-      } else {
-        set("#p-title", p.title);
-        /* 汤面只留题目和火候，题材标签不上汤面 */
-        var ptag = $("#p-tag");
-        if (ptag) { ptag.textContent = ""; ptag.classList.add("hidden"); }
-        var pcats = $("#p-cats");
-        if (pcats) { pcats.innerHTML = ""; pcats.classList.add("hidden"); }
-        set("#p-diff", new Array(p.difficulty + 1).join("●") + new Array(3 - p.difficulty + 1).join("○") + " 难度");
-      }
-      typeSurface(p.surface);
+  function aiConfigForServer() {
+    if (!AI || !AI.isReady()) return null;
+    var cfg = AI.config();
+    var pre = AI.providerOf(cfg.provider) || {};
+    return {
+      provider: cfg.provider,
+      kind: pre.kind === "anthropic" ? "anthropic" : "openai",
+      baseUrl: cfg.baseUrl,
+      model: cfg.model,
+      apiKey: cfg.apiKey
+    };
+  }
 
-      clearLog();
-      if (lib) {
-        sysLine("（这一锅来自「" + p.src + "」）");
-        if (p.mode === "surface") {
-          /* 只有汤面：五个交互按钮全禁用，明确告知，绝不让 AI 瞎编 */
-          setAskEnabled(false);
-          sysLine("这锅只有汤面，汤底还在熬。");
-          renderTip("这锅只有汤面，汤底还在熬——先看看就好。");
-        } else {
-          setAskEnabled(true);
-          if (p.truthSource === "ai") {
-            sysLine("（注意：这一锅的汤底是 AI 根据汤面编的，不是原题答案）");
-          }
-          sysLine(snap
-            ? "（你回到灶台前，锅里还温着）接着上一锅继续。"
-            : "（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
-          renderTip(aiOn()
-            ? "AI 汤主已经读过这一锅的汤面汤底，用你自己的话问就好。"
-            : "这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型。");
-        }
-      } else {
-        setAskEnabled(true);
-        sysLine(snap
-          ? "（你回到灶台前，锅里还温着）接着上一锅继续。"
-          : "（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
-        renderTip(aiOn()
-          ? "AI 汤主已经读过这一锅的汤面汤底，用你自己的话问就好。"
-          : "随便问点什么吧。关键词越准，汤主掀开的那一层越厚。");
-      }
-      renderClues();
-      renderStats();
-      renderQaLog();
-      paintAiBar();
-
-      var input = $("#q-input");
-      if (input) {
-        input.value = "";
-        if (!lib || p.mode === "truth") {
-          if (!isTouch() && window.innerWidth > 860) input.focus();
-        }
-      }
-      saveSession();
-      paintResume();
-      sfx("page");
+  /* 开一锅：拿汤面 → 建单人房 → 有 AI 配置就当场把配置交给这一锅的服务端汤主。
+     Key 只存在你自己这一间 DO 房间里（规格 #11），不进任何公开存储。 */
+  function enterSoloRoom(id) {
+    if (!NET || !NET.puzzleDetail || !NET.soloNew) return Promise.reject(new Error("NO_NET"));
+    return NET.puzzleDetail(id).then(function (detail) {
+      if (!detail) throw new Error("NO_SUCH_PUZZLE");
+      return NET.soloNew(id).then(function (r) {
+        state.roomCode = r.roomCode;
+        state.detail = detail;
+        var cfg = aiConfigForServer();
+        if (!cfg) { state.aiOk = false; return detail; }
+        return NET.soloAct("set-ai", { config: cfg }, state.roomCode).then(function () {
+          state.aiOk = true;
+          return detail;
+        }, function () {
+          state.aiOk = false;   // 配置没递上去：照样能进锅，问的时候服务端会明说
+          return detail;
+        });
+      });
     });
+  }
+
+  function loadPuzzle(id, restore) {
+    var meta = E.getPuzzle(id) || libPuzzle(id);
+    if (!meta) return;
+    var lib = isLibPid(id);
+    toast("这锅正在点火…");
+    enterSoloRoom(id).then(function (detail) {
+      sceneWipe(function () { renderGame(meta, detail, lib, restore); });
+    }).catch(function (e) {
+      toast("这锅点不着火：" + soloErrText(e));
+    });
+  }
+
+  function renderGame(meta, detail, lib, restore) {
+    var isLibLayer = lib || detail.layer === "lib";
+    leaveRoomScreen();
+    /* 两层各自持有「进行中的对局」：库题只认 LIB_KEY，绝不串档 */
+    var snap = restore ? (lib ? libProgress().session : progress.session) : null;
+    if (snap && snap.pid !== meta.id) snap = null;
+    state.pid = meta.id;
+    state.revealed = [];
+    state.asked = snap && snap.asked ? snap.asked : {};
+    state.hintsUsed = 0;
+    state.qCount = snap ? (snap.qCount || 0) : 0;
+    state.done = false;
+    state.history = snap && snap.history ? snap.history.slice() : [];
+    state.aiBusy = false;
+
+    $("#screen-intro").classList.add("hidden");
+    var rs = $("#screen-random");
+    if (rs) rs.classList.add("hidden");
+    var sl = $("#screen-library");
+    if (sl) sl.classList.add("hidden");
+    var gs = $("#screen-game");
+    gs.classList.remove("hidden");
+    gs.style.animation = "none";
+    gs.style.opacity = "1";
+    gs.style.visibility = "visible";
+    setScene("game");
+    /* 第⑪条：进单人对局后刷新右栏备忘录显隐 */
+    if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
+
+    if (isLibLayer) {
+      /* 库层：标题用 dispTitle（永远非空），来源代替大类标签 */
+      set("#p-title", detail.dispTitle || detail.title || "无题");
+      var ltag = $("#p-tag");
+      if (ltag) { ltag.textContent = ""; ltag.classList.add("hidden"); }
+      var lcats = $("#p-cats");
+      if (lcats) { lcats.innerHTML = ""; lcats.classList.add("hidden"); }
+      set("#p-diff", libDiffDots(detail.difficulty) + " 难度");
+      var lorig = $("#p-orig");
+      if (lorig) lorig.classList.add("hidden");
+    } else {
+      set("#p-title", detail.title || detail.dispTitle);
+      var ptag = $("#p-tag");
+      if (ptag) { ptag.textContent = ""; ptag.classList.add("hidden"); }
+      var pcats = $("#p-cats");
+      if (pcats) { pcats.innerHTML = ""; pcats.classList.add("hidden"); }
+      var d = Number(detail.difficulty) || 1;
+      set("#p-diff", new Array(d + 1).join("●") + new Array(3 - d + 1).join("○") + " 难度");
+    }
+    typeSurface(detail.surface || "");
+
+    clearLog();
+    if (isLibLayer) {
+      sysLine("（这一锅来自「" + (detail.src || meta.src || "汤库") + "」）");
+      if (detail.truthSource === "ai") {
+        sysLine("（注意：这一锅的汤底是 AI 根据汤面编的，不是原题答案）");
+      }
+    }
+    setAskEnabled(true);
+    sysLine(snap
+      ? "（你回到灶台前，锅里还温着）接着上一锅继续。"
+      : "（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
+    sysLine(aiOn()
+      ? "（AI 汤主在服务端守着这一锅的真相，用你自己的话问就好）"
+      : "（汤主在灶台后看着锅——精品汤可以直接问；汤库这一锅要 AI 汤主才能问）");
+    renderClues();
+    renderStats();
+    renderQaLog();
+    paintAiBar();
+
+    var input = $("#q-input");
+    if (input) {
+      input.value = "";
+      if (!isTouch() && window.innerWidth > 860) input.focus();
+    }
+    saveSession();
+    paintResume();
+    sfx("page");
   }
 
   function renderTip() {
-    /* 第⑦条：「汤主的话」独立框已下线，文案并入对话流与状态提示；保留空壳防旧调用 */
+    /* 第⑦条：「汤主的话」独立框已下线，文案并入对话流；保留空壳防旧调用 */
   }
 
   function renderClues() {
+    /* 2026-10-04：线索板随本地判定一起下线——线索只在服务端，
+       得靠 AI 汤主一句句问出来。面板保留，内容统一说明。 */
     var box = $("#clue-list");
-    var p = E.getPuzzle(state.pid);
-    if (!box || !p) return;
-    if (isLib(p)) {
-      box.innerHTML = '<p class="empty">汤库这一锅没有预设线索板——线索得靠 AI 汤主一句句问出来。</p>';
-      var lbadge = $("#clue-badge");
-      if (lbadge) lbadge.textContent = "—";
-      return;
-    }
-    if (!state.revealed.length) {
-      box.innerHTML = '<p class="empty">还没有挖到线索。<br />先问几个「是 / 不是」都能答的问题吧。</p>';
-      return;
-    }
-    var items = state.revealed.slice().sort(function (a, b) { return a - b; }).map(function (i) {
-      var c = p.clues[i];
-      var label = VERDICT_TEXT[c.type] || "线索";
-      return '<div class="clue ' + esc(c.type) + '">' +
-        '<span class="clue-k">线索 ' + (i + 1) + " · " + esc(label) + "</span>" +
-        esc(E.stripLead(c.text)) + "</div>";
-    });
-    var left = p.clues.length - state.revealed.length;
-    if (left > 0) {
-      items.push('<div class="clue empty-card">还有 ' + left + " 条线索还藏在锅里，继续挖。</div>");
-    }
-    box.innerHTML = items.join("");
+    if (!box) return;
+    box.innerHTML = '<p class="empty">线索都藏在服务端的那口锅里——<br />向汤主一句句问，真相自己会浮上来。</p>';
+    var lbadge = $("#clue-badge");
+    if (lbadge) lbadge.textContent = "—";
   }
 
-  /* ---------------- 提问 ---------------- */
+  /* ---------------- 提问（全走服务端） ----------------
+   * 问题原文发进你自己的单人房；服务端 AI 汤主持底回答，
+   * 回来的只有「是 / 不是 / 部分正确 / 与此无关 + 一句答话」。
+   * 合规闸门（要答案 / 开放式 / 超长 / 辱骂）也全在服务端判。 */
 
   function submitQuestion() {
     var input = $("#q-input");
     if (!input) return;
     var raw = input.value.trim();
     if (!raw) { toast("先写点什么，汤主才听得见呀"); return; }
-    if (state.done) { toast("这一锅已经端上桌了，先去揭汤底吧"); return; }
+    if (state.done) { toast("这一锅已经端上桌了，先去熬下一锅吧"); return; }
+    if (!state.roomCode) { toast("这锅的火还没点上——先重进这道汤"); return; }
 
-    var p = E.getPuzzle(state.pid);
-    if (!p) return;
-
-    /* 汤库层没有关键词汤主：必须走 AI，否则不给问 */
-    if (isLib(p) && !aiOn()) {
+    /* 汤库层没有关键词汤主：必须走 AI，否则不给问（服务端同样会拦） */
+    if (isLibPid(state.pid) && !aiOn()) {
       toast("汤库这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型");
-      return;
-    }
-
-    /* 防呆：单人玩库题时，前端必须真的拿到汤底，否则绝不让 AI 空底瞎编。
-       现在 index.html 加载的是含 truth 的完整档，正常不会触发；
-       一旦触发（换了瘦身档 / 数据没加载上），宁可明说也不放幻觉。 */
-    if (isLib(p) && p.mode !== "surface" && !String(p.truth || "").trim()) {
-      toast("这锅的汤底还没加载上，先别问——刷新一下页面试试");
       return;
     }
 
@@ -767,80 +781,72 @@
       input.value = "";
       return;
     }
-    state.qCount++;
-
-    /* 库题没有预设线索：跳过关键词匹配，直接交给 AI 汤主理解 */
-    var res = isLib(p) ? { kind: "none" } : E.ask(p, raw, state.revealed);
-
-    if (aiOn() && res.kind !== "meta") {
-      /* AI 模式：认领哪条线索由模型理解后决定（用自己的话也能挖到线索）；
-         它认不出来时才退回关键词的判定，保证进度不会白费。
-         ⚠ 记账必须等 AI 真正答上才算数：掉线时这一笔要回滚，玩家可以重问 */
-      askAi(p, raw, res, key);
-    } else if (aiOn()) {
-      /* meta（寒暄/超范围）也走 AI，不再外显关键词硬回复 */
-      state.asked[key] = 1;
-      askAi(p, raw, res, null);
-    } else {
-      /* 没接 AI：本项目只走 AI，绝不外显死板关键词回复 */
-      state.qCount--;
-      addLine("host", "sys", esc("AI 汤主掉线了，请重新提问一次。"));
-      sfx("irr");
-      input.value = "";
-      renderStats();
+    if (state.aiBusy) {
+      addLine("host", "sys", esc("汤主还在想上一句，稍等一下下。"));
       return;
     }
-
+    state.qCount++;
     state.asked[key] = 1;
     input.value = "";
     renderStats();
     saveSession();
-    renderTip(aiOn()
-      ? "AI 汤主的小提醒：不用凑关键词，把「为什么」「是不是有人」「那是什么」串成一句人话问它。"
-      : "汤主的小提醒：把「为什么」「是不是有人」「那是什么」串起来问，比只问一个词有效得多。");
+    serverAsk(raw, key);
   }
 
-  /* 线索板记账：AI 模式下提前记，关键词模式由 renderKeywordAnswer 顺手记 */
-  function pushReveal(res) {
-    if (res.kind === "clue" && state.revealed.indexOf(res.index) === -1) state.revealed.push(res.index);
-  }
-
-  /* 关键词汤主的原始答话：没配 AI 时走这里，AI 掉线时也回退到这里 */
-  function renderKeywordAnswer(res, alreadyBooked) {
-    /* 第⑥条：线索板下线——clue / again 只按判定上屏，不再入账弹提示 */
-    if (res.kind === "clue") {
-      var tone = res.verdict;
-      var line = addLine("host", tone,
-        (res.flavor ? esc(res.flavor) + "<br />" : "") +
-        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "答") + "</b> " + esc(qaStrip(VERDICT_TEXT[tone], res.reply)));
+  function serverAsk(raw, key) {
+    state.aiBusy = true;
+    var line = addLine("host", "pending", '<b class="verdict irr">…</b> 汤主正在熬这句话', "AI 汤主");
+    NET.soloAct("ask", { question: raw }, state.roomCode).then(function (r) {
+      state.aiBusy = false;
+      if (line && line.parentNode) line.parentNode.removeChild(line);
+      var item = r && r.item;
+      if (!item) return;
+      state.history.push({ q: raw, a: item.reply });
+      renderQaLog();
+      var tone = item.verdict;
+      var el = addLine("host", tone,
+        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "答") + "</b> " + esc(qaStrip(VERDICT_TEXT[tone], E.stripLead(item.reply))),
+        item.viaAi ? "AI 汤主" : "汤主");
       sfx(tone === "partial" ? "partial" : tone);
-      if (FX && line) {
-        FX.burstAt(line, {
-          count: tone === "yes" ? 26 : 18,
+      if (FX && el) {
+        FX.burstAt(el, {
+          count: tone === "yes" ? 26 : 14,
           colors: tone === "yes" ? ["#68cf9a", "#a8ecc6", "#f6cf90"]
             : tone === "no" ? ["#e0705e", "#ffb3a3", "#e2a44f"]
               : ["#e8c45c", "#ffe9c4", "#e2a44f"]
         });
       }
-    } else if (res.kind === "again") {
-      addLine("host", "sys", esc("这个问题刚才问过啦：") + esc(qaStrip("", res.reply)));
-    } else if (res.kind === "meta") {
-      addLine("host", "sys", esc(res.reply));
+      paintAiBar();
+      saveSession();
+    }, function (e) {
+      state.aiBusy = false;
+      if (line && line.parentNode) line.parentNode.removeChild(line);
+      /* 这句没被受理：回滚记账与次数，玩家可以原样重问 */
+      delete state.asked[key];
+      state.qCount = Math.max(0, state.qCount - 1);
+      var m = String((e && e.message) || e);
+      if (m === "QUESTION_INVALID") {
+        var d = (e && e.data) || {};
+        addLine("host", "sys", esc(d.warn || d.why || "发问不符合游戏规则，这一句没有受理。"));
+        if (d.strikes) toast("不合规警告 " + d.strikes + " 次了，提问只能用「是 / 不是 / 部分正确 / 与此无关」能回答的是非问句");
+      } else if (m === "AI_REQUIRED_LIB") {
+        addLine("host", "sys", esc("汤库这一锅的真相只在服务端守着，必须由 AI 汤主持底回答——先配好模型再问。"));
+        openAiModal();
+      } else if (m === "NOT_PLAYING") {
+        addLine("host", "sys", esc("这一锅已经结束了，换一锅再问吧。"));
+      } else {
+        paintAiBar("汤主没接上（" + soloErrText(e) + "）。", "ai-warn");
+        addLine("host", "sys", esc("汤主掉线了，请重新提问一次。"));
+      }
       sfx("irr");
-    } else if (res.kind === "none") {
-      /* 汤库题不走关键词汤主：能走到这里，只可能是 AI 没接上 */
-      addLine("host", "sys", esc(res.reply || "汤主这一句没接上，再问一次试试。"));
-      sfx("irr");
-    } else {
-      var l2 = addLine("host", "irr",
-        (res.flavor ? esc(res.flavor) + "<br />" : "") +
-        '<b class="verdict irr">与此无关</b> ' + esc(qaStrip("与此无关", E.stripLead(res.reply))));
-      sfx("irr");
-      if (FX && l2) FX.burstAt(l2, { count: 8, power: 0.5, colors: ["#8b8177", "#6f6459"] });
-    }
+      renderStats();
+      saveSession();
+    });
   }
 
-  /* ---------------- AI 汤主 ---------------- */
+  /* ---------------- AI 汤主（配置在本机，判定在服务端） ----------------
+   * 浏览器不再直连任何 AI：填好的服务商/模型/Key 只随开锅递进
+   * 你自己的单人房（DO 房间），由 Worker 持底回答。 */
 
   var AI = window.SoupAI;
 
@@ -855,129 +861,19 @@
     var btn = $("#btn-ai");
     if (!bar || !txt) return;
     var on = aiOn();
-    bar.classList.toggle("on", on);
-    /* 警示与「是否启用」是两件事：AI 开着但这一句掉线了，也要提醒 */
+    bar.classList.toggle("on", on && state.aiOk);
+    /* 警示与「是否启用」是两件事：配置没递到服务端也要提醒 */
     bar.classList.toggle("warn", !!note && /warn/.test(String(tone || "")));
     if (note) txt.textContent = note;
-    else txt.textContent = on ? ("AI 汤主在值班 · " + AI.config().model) : "关键词汤主在值班";
+    else if (on && state.aiOk) txt.textContent = "AI 汤主在值班（服务端） · " + AI.config().model;
+    else if (on) txt.textContent = "AI 配置还没递进这一锅——重进汤或重存配置";
+    else txt.textContent = "汤主在灶台后（服务端判定）";
     txt.className = note && tone ? tone : "";
-    if (link) link.textContent = on ? "调整 AI 设置" : "换成 AI 汤主";
+    if (link) link.textContent = on ? "调整 AI 设置" : "配 AI 汤主";
     if (btn) {
       btn.innerHTML = ic("robot") + (on ? " AI 汤主 · 开" : " AI 汤主");
       btn.setAttribute("aria-pressed", on ? "true" : "false");
     }
-  }
-
-  /* 把已挖到的线索原文整理给模型，避免它和线索板打架 */
-  function revealedTexts(p) {
-    if (!p || !p.clues || !p.clues.length) return [];
-    return state.revealed.slice().sort(function (a, b) { return a - b; }).map(function (i) {
-      return (i + 1) + ". " + E.stripLead(p.clues[i].text);
-    });
-  }
-
-  /* AI 认领线索 → 入账（返回是否真的新增了一条） */
-  function claimClue(p, n) {
-    /* 库层没有线索表：AI 认领编号一律忽略（AI 那边也已被要求只填 0） */
-    if (!p || !p.clues || !p.clues.length) return false;
-    var idx = parseInt(n, 10);
-    if (!isFinite(idx) || idx <= 0 || idx > p.clues.length) return false;
-    idx -= 1;
-    if (state.revealed.indexOf(idx) !== -1) return false;
-    state.revealed.push(idx);
-    renderClues();
-    renderStats();
-    saveSession();
-    toast("挖到新线索：" + E.stripLead(p.clues[idx].text).slice(0, 14) + "…");
-    return true;
-  }
-
-  function askAi(p, raw, res, bookKey) {
-    if (state.aiBusy) {
-      addLine("host", "sys", esc("汤主还在想上一句，稍等一下下。"));
-      if (bookKey) delete state.asked[bookKey];
-      return;
-    }
-    state.aiBusy = true;
-    var booked = false;
-    var commit = function () {
-      if (bookKey && !booked) { state.asked[bookKey] = 1; booked = true; }
-    };
-
-    var line = addLine("host", "pending", '<b class="verdict irr">…</b> 汤主正在琢磨这句话', "AI");
-    var ctx = {
-      revealed: revealedTexts(p),
-      taken: state.revealed.map(function (i) { return i + 1; }),
-      history: state.history.slice(-6)
-    };
-    if (res.kind === "clue") ctx.hintClue = { n: res.index + 1, type: res.verdict, text: E.stripLead(res.clue.text) };
-    else if (res.kind === "again") ctx.hintClue = { n: res.index + 1, type: res.verdict, text: E.stripLead(res.reply) };
-
-    var asked = raw;
-    var fallback = res;
-
-    AI.ask(p, asked, ctx).then(function (out) {
-      state.aiBusy = false;
-      if (line && line.parentNode) line.parentNode.removeChild(line);
-      if (state.pid !== p.id || state.done) return;
-      state.history.push({ q: asked, a: out.reply });
-      /* 单①：这里必须马上刷新左栏。原来只 push 不 render，
-         导致左栏一直不动，直到猜底/换汤等别的动作才把攒下的问答一股脑吐出来。 */
-      renderQaLog();
-      var tone = out.verdict;
-      /* 第⑥条：线索入账与弹.toast 已全部下线，这里只上屏判定 */
-      var el = addLine("host", tone,
-        '<b class="verdict ' + esc(tone) + '">' + esc(VERDICT_TEXT[tone] || "答") + "</b> " + esc(qaStrip(VERDICT_TEXT[tone], E.stripLead(out.reply))),
-        "AI · " + esc(out.model || ""));
-      sfx(tone === "partial" ? "partial" : tone);
-      if (FX && el) {
-        FX.burstAt(el, {
-          count: tone === "yes" ? 26 : 14,
-          colors: tone === "yes" ? ["#68cf9a", "#a8ecc6", "#f6cf90"]
-            : tone === "no" ? ["#e0705e", "#ffb3a3", "#e2a44f"]
-              : ["#e8c45c", "#ffe9c4", "#e2a44f"]
-        });
-      }
-      /* 线索板与 AI 判定不一致时，以题库为准，并且不把新线索算给玩家 */
-      if (res.kind === "clue" && tone !== res.verdict && state.revealed.indexOf(res.index) !== -1 && out.clue === 0) {
-        state.revealed = state.revealed.filter(function (x) { return x !== res.index; });
-        renderClues();
-        renderStats();
-      }
-      paintAiBar();
-    }, function (err) {
-      state.aiBusy = false;
-      if (line && line.parentNode) line.parentNode.removeChild(line);
-      if (state.pid !== p.id) return;
-      var why = AI.describeError(err);
-      /* 掉线：本项目不接关键词汤主，绝不外显死板回复。
-         这一笔记账要回滚、这一问不消耗次数，玩家可以原样重问 */
-      if (bookKey) delete state.asked[bookKey];
-      state.qCount = Math.max(0, state.qCount - 1);
-      paintAiBar("AI 没接上（" + why + "）。", "ai-warn");
-      addLine("host", "sys", esc("AI 汤主掉线了，请重新提问一次。"));
-      sfx("irr");
-      renderStats();
-      toast("AI 掉线了：" + why);
-    });
-  }
-
-  /* 「问问 AI」：让模型基于已挖线索补一句方向 */
-  function askAiHint() {
-    var p = E.getPuzzle(state.pid);
-    if (!p || state.done) return;
-    if (!aiOn()) { toast("先点上方的 AI 汤主配好模型，才能问它"); openAiModal(); return; }
-    /* 提示记账只留一处：先走题库提示，再补一句 AI 方向，避免两套逻辑漂移 */
-    var before = state.hintsUsed;
-    useHint();
-    if (state.hintsUsed === before) return;   /* 提示已经给完了 */
-    AI.ask(p, "我有点卡住了，能不能给我一点方向？只要一句，别告诉我答案。", {
-      revealed: revealedTexts(p),
-      history: state.history.slice(-6)
-    }).then(function (out) {
-      addLine("host", "hint", '<b>AI 汤主</b> · ' + esc(E.stripLead(out.reply)), "AI · 方向");
-      sfx("hint");
-    }, function () { /* 掉线就只用题库提示，不打扰玩家 */ });
   }
 
   /* ---------------- AI 设置面板 ---------------- */
@@ -1055,27 +951,54 @@
     var patch = readAiForm();
     if (typeof forceOn === "boolean") patch.enabled = forceOn;
     var cfg = AI.setConfig(patch);
+    pushAiToRoom(cfg);
     paintAiModal();
     paintAiBar();
     return cfg;
   }
 
+  /* 把本地配置递进当前单人房（服务端判定用这份配置；Key 只留在你自己的房间） */
+  function pushAiToRoom() {
+    if (!state.roomCode || !NET || !NET.soloAct) return Promise.resolve(false);
+    var cfg = aiConfigForServer();
+    if (!cfg) {
+      return NET.soloAct("set-ai", { config: { clear: true } }, state.roomCode).then(function () {
+        state.aiOk = false; paintAiBar(); return true;
+      }, function () { return false; });
+    }
+    return NET.soloAct("set-ai", { config: cfg }, state.roomCode).then(function () {
+      state.aiOk = true; paintAiBar(); return true;
+    }, function () { state.aiOk = false; paintAiBar(); return false; });
+  }
+
   function testAi() {
     var st = $("#ai-status");
-    var patch = readAiForm();
-    patch.enabled = true;
-    AI.setConfig(patch);
-    if (st) { st.className = "ai-note"; st.textContent = "正在连接 " + patch.model + " …"; }
-    AI.test().then(function (r) {
-      paintAiModal(r.message, r.ok ? "ai-ok" : "ai-bad");
+    var cfg = aiConfigForServer();
+    if (!cfg) {
+      paintAiModal("还差一点：接口地址、模型、Key 都要填。", "ai-bad");
+      return;
+    }
+    if (!state.roomCode) {
+      paintAiModal("先随便点开一道汤（服务端要凭你自己的房间试连线），再回来点测试。", "");
+      return;
+    }
+    if (st) { st.className = "ai-note"; st.textContent = "正在让服务端的汤主连接 " + cfg.model + " …"; }
+    NET.soloAct("ai-test", { config: cfg }, state.roomCode).then(function (r) {
+      state.aiOk = true;
+      paintAiModal(r && r.ok ? ("连上了（" + cfg.model + "）：" + ((r.sample || "").slice(0, 40))) : ("测试失败：" + ((r && r.note) || (r && r.error) || "未知错误")), r && r.ok ? "ai-ok" : "ai-bad");
       paintAiBar();
-      if (r.ok) sfx("yes"); else sfx("lose");
+      if (r && r.ok) sfx("yes"); else sfx("lose");
+    }, function (e) {
+      paintAiModal("测试失败：" + soloErrText(e), "ai-bad");
+      paintAiBar("AI 没接上（" + soloErrText(e) + "）。", "ai-warn");
+      sfx("lose");
     });
   }
 
   function clearAi() {
     AI.save(AI.defaults());
-    paintAiModal("配置已清空，回到关键词汤主。", "");
+    pushAiToRoom();
+    paintAiModal("配置已清空。判定仍在服务端——汤库的锅要重新配 AI 才能问。", "");
     paintAiBar();
     toast("AI 配置已清空");
   }
@@ -1155,9 +1078,6 @@
     void quick;   /* 第⑥条：「问问 AI」已随提示机制下线 */
   }
 
-  /* 第⑥条：线索与提示机制已整体下线，useHint 只留空壳防旧调用 */
-  function useHint() { /* no-op */ }
-
   /* 第⑪条：单人右栏备忘录——尺寸/位置完全沿用房间聊天框，只是换了个名字。
      内容存在 localStorage，刷新不丢；进多人房时由 room-ui 藏起来让位给聊天框。 */
   function initSoloMemo() {
@@ -1221,17 +1141,21 @@
     sfx("ui");
   }
 
+  /* ---------------- 猜汤底（判定在服务端） ----------------
+   * 推理原文发进单人房；服务端 AI 汤主持底判定。
+   * 只有判定「解出」的那一刻，汤底才随响应回给解出者本人。 */
+
   function submitGuess() {
-    var p = E.getPuzzle(state.pid);
+    var p = E.getPuzzle(state.pid) || libPuzzle(state.pid);
     var gi = $("#guess-input");
     var fb = $("#guess-feedback");
     if (!p || !gi || !fb) return;
     var text = gi.value.trim();
     if (!text) { fb.textContent = "先写下你的推理，再交给汤主。"; fb.className = "guess-feedback no"; return; }
+    if (!state.roomCode) { fb.textContent = "这锅的火还没点上——先重进这道汤。"; fb.className = "guess-feedback no"; return; }
 
-    /* 库层没有预设答案词，只能让 AI 汤主来判定 */
-    if (isLib(p) && !aiOn()) {
-      fb.textContent = "汤库这一锅没有预设答案词，得先配好 AI 汤主。";
+    if (isLibPid(state.pid) && !aiOn()) {
+      fb.textContent = "汤库这一锅的汤底只在服务端，得先配好 AI 汤主才能判。";
       fb.className = "guess-feedback no";
       return;
     }
@@ -1240,66 +1164,59 @@
     sfx("paper");
     state.qCount++;
 
-    /* 关键词判定只做内部兜底，绝不上屏：本项目只走 AI，判定由 AI 汤主负责 */
-    var j = E.judgeGuess(p, text);
+    fb.textContent = "AI 汤主（服务端）正在判断你的推理…";
+    fb.className = "guess-feedback";
+    var pend = addLine("host", "pending", '<b class="verdict irr">…</b> AI 汤主正在判断你的推理', "AI");
 
-    if (aiOn()) {
-      /* 只显示「正在判断」，不让同步的关键词结果抢跑误导玩家 */
-      fb.textContent = "AI 汤主正在判断你的推理…";
-      fb.className = "guess-feedback";
-      var pend = addLine("host", "pending", '<b class="verdict irr">…</b> AI 汤主正在判断你的推理', "AI");
-      var book = function (lvl, note) {
-        fb.textContent = note;
-        fb.className = "guess-feedback " + (lvl === "solved" ? "ok" : (lvl === "close" || lvl === "vague") ? "close" : "no");
-      };
-
-      AI.judgeGuess(p, text).then(function (out) {
-        if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-        if (state.pid !== p.id || state.done) return;
-        book(out.level, out.note);
-        state.history.push({ q: "【推理】" + text, a: out.note });
-        renderQaLog();   /* 单①：推理入账后同样立刻刷新左栏 */
-        if (out.level === "solved") {
-          var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(qaStrip("对了", out.note)), "AI 判定");
-          sfx("win");
-          if (FX) {
-            /* 说破瞬间弹窗马上要盖上来：庆祝改画在前景层，不再被遮罩糊掉 */
-            if (ln) FX.burstFrontAt(ln, { count: 90, power: 1.4, colors: ["#ffd166", "#f6cf90", "#68cf9a", "#ffe9c4", "#ff8f6e"] });
-            FX.burstFront(window.innerWidth / 2, window.innerHeight * 0.34, { count: 150, power: 1.8 });
-          }
-          setTimeout(function () { finish(); }, 520);
-        } else {
-          addLine("host", out.level === "close" ? "partial" : "irr", esc(qaStrip(out.level === "close" ? "部分正确" : "", out.note)), "AI 判定");
-          sfx(out.level === "close" ? "partial" : "lose");
-          renderStats();
+    NET.soloAct("guess", { text: text }, state.roomCode).then(function (r) {
+      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+      if (state.pid !== p.id || state.done) return;
+      var lvl = (r && r.level) || "no";
+      var note = (r && r.note) || "方向还不对。";
+      fb.textContent = note;
+      fb.className = "guess-feedback " + (lvl === "solved" ? "ok" : (lvl === "close" || lvl === "vague") ? "close" : "no");
+      state.history.push({ q: "【推理】" + text, a: note });
+      renderQaLog();
+      if (lvl === "solved") {
+        var ln = addLine("host", "yes", '<b class="verdict yes">对了</b> ' + esc(qaStrip("对了", note)), "AI 判定");
+        sfx("win");
+        if (FX) {
+          if (ln) FX.burstFrontAt(ln, { count: 90, power: 1.4, colors: ["#ffd166", "#f6cf90", "#68cf9a", "#ffe9c4", "#ff8f6e"] });
+          FX.burstFront(window.innerWidth / 2, window.innerHeight * 0.34, { count: 150, power: 1.8 });
         }
-        paintAiBar();
-      }, function (err) {
-        if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
-        if (state.pid !== p.id || state.done) return;
-        var why = AI.describeError(err);
-        /* 掉线：不显示任何关键词判定，只提示重试，也不计入历史 */
-        state.qCount = Math.max(0, state.qCount - 1);
-        fb.textContent = "AI 汤主掉线了，请重新提交推理。";
-        fb.className = "guess-feedback no";
-        paintAiBar("AI 没接上（" + why + "）。", "ai-warn");
-        toast("AI 掉线了：" + why);
+        setTimeout(function () { finish(r.truth); }, 520);
+      } else {
+        addLine("host", lvl === "close" ? "partial" : "irr", esc(qaStrip(lvl === "close" ? "部分正确" : "", note)), "AI 判定");
+        sfx(lvl === "close" ? "partial" : "lose");
         renderStats();
-      });
-      return;
-    }
-
-    /* 没接 AI：本项目不接关键词汤主，拒绝受理而不是外显死板回复 */
-    state.qCount = Math.max(0, state.qCount - 1);
-    fb.textContent = "AI 汤主掉线了，请重新提交推理。";
-    fb.className = "guess-feedback no";
-    renderStats();
+        saveSession();
+      }
+      paintAiBar();
+    }, function (e) {
+      if (pend && pend.parentNode) pend.parentNode.removeChild(pend);
+      if (state.pid !== p.id || state.done) return;
+      state.qCount = Math.max(0, state.qCount - 1);
+      var m = String((e && e.message) || e);
+      if (m === "AI_REQUIRED_LIB") {
+        fb.textContent = "汤库这一锅必须由 AI 汤主判定——先配好模型。";
+        openAiModal();
+      } else if (m === "NOT_PLAYING") {
+        fb.textContent = "这一锅已经结束了。";
+      } else {
+        fb.textContent = "判定没送达（" + soloErrText(e) + "），请重新提交推理。";
+        paintAiBar("汤主没接上（" + soloErrText(e) + "）。", "ai-warn");
+      }
+      fb.className = "guess-feedback no";
+      renderStats();
+    });
   }
 
-  function finish(fallbackStars) {
-    var p = E.getPuzzle(state.pid);
+  /* 解出者的汤底：只来自服务端响应的那一份（r.truth）。
+     除此之外，浏览器在任何路径上都不可能拿到汤底。 */
+  function finish(solvedTruth) {
+    var p = E.getPuzzle(state.pid) || libPuzzle(state.pid);
     if (!p) return;
-    var lib = isLib(p);
+    var lib = isLibPid(state.pid);
     state.done = true;
     /* 熬出汤底（不管星级）：本地打上「已熬出汤底」绿勾 */
     markSolved(p.id, true);
@@ -1313,10 +1230,11 @@
     }
     closeModal("#modal-guess");
 
-    /* 阶段 1：跨局存档已砍。星级只做本锅的当场结算，不写回任何存档 */
-    var st = typeof fallbackStars === "number" ? fallbackStars : E.stars(p, state.qCount, state.hintsUsed);
+    /* 星级：按服务端下发的 par 当场结算，不写回任何存档 */
+    var parP = state.detail || p;
+    var st = E.stars(parP, state.qCount, state.hintsUsed);
 
-    /* 1 星（提示用光 / 熬太久）走「汤凉了」的灰调场景：sad 与 bg-gate 不再是死资源 */
+    /* 1 星（熬太久）走「汤凉了」的灰调场景 */
     setScene(st <= 1 ? "sad" : "win");
     sfx("reveal");
     if (FX) {
@@ -1327,23 +1245,15 @@
     set("#end-stars", new Array(st + 1).join("★") + new Array(4 - st).join("☆"));
     set("#end-note", "提问 " + state.qCount + " 次 · " + E.starNote(st));
 
-    /* 汤底：库层的汤底只在服务端，凭「已揭晓的房号」取；精品层仍走本地。
-       取不到（掉线 / 未揭晓）就老实说不显示，绝不瞎编。 */
+    var truth = String(solvedTruth || "").trim();
     var meta =
       '<p style="margin:0;color:#a97b38;font-size:12.5px;letter-spacing:.1em;">汤底（真相）' +
-      (p.truth && p.truthSource === "recovered" ? " · 已补底" : "") +
+      (p.truthSource === "recovered" ? " · 已补底" : "") +
       "</p>";
-    var body = p.truth
-      ? meta + '<p style="margin:0">' + esc(p.truth) + "</p>"
-      : meta + '<p style="margin:0;color:#8a8a8a">（这一锅的汤底还在熬…）</p>';
+    var body = truth
+      ? meta + '<p style="margin:0">' + esc(truth) + "</p>"
+      : meta + '<p style="margin:0;color:#8a8a8a">（判定已送达但汤底没随响应回来——在本房间再猜一次「解出」就能看到）</p>';
     $("#end-truth").innerHTML = body;
-
-    /* 库题：异步向服务端要汤底，拿到再补上 */
-    if (isLib(p)) fetchLibTruth(p).then(function (t) {
-      if (!t || state.pid !== p.id) return;
-      var el = $("#end-truth");
-      if (el) el.innerHTML = meta + '<p style="margin:0">' + esc(t) + "</p>";
-    });
 
     openModal("#modal-end", "#btn-next");
     renderStats();
@@ -1352,41 +1262,80 @@
     renderTip("这锅熬完了。换一道汤，试试不同的味道？");
   }
 
-  /* 汤底只在服务端：库题向 Worker 要，要不到就返回空串（不报错、不瞎编） */
-  function fetchLibTruth(p) {
-    if (!p || !isLib(p)) return Promise.resolve("");
-    var net = window.SoupNet;
-    if (!net || !net.libTruth) return Promise.resolve("");
-    /* 先试库层自己的单人房；没有就试多人房号（多人房里熬完也算揭晓） */
-    var codes = [];
-    try {
-      var ls = localStorage.getItem(LIB_KEY);
-      var o = ls ? JSON.parse(ls) : null;
-      if (o && o.roomCode) codes.push(o.roomCode);
-    } catch (e) { /* 忽略 */ }
-    if (state.roomCode) codes.push(state.roomCode);
-    if (net.me && net.me.roomCode) codes.push(net.me.roomCode);
-    if (!codes.length) return Promise.resolve("");
-
-    var i = 0;
-    function attempt() {
-      if (i >= codes.length) return Promise.resolve("");
-      var c = codes[i++];
-      return net.libTruth(c, p.id).then(function (t) {
-        return t ? t : attempt();
-      });
-    }
-    return attempt().catch(function () { return ""; });
-  }
-
   function nextPuzzle() {
     /* 库题继续从库里抽，精品题继续从精品层抽 */
     var lib = isLibPid(state.pid);
     var nxt = lib
-      ? E.drawFromLibrary(LIB, { hasTruth: true })
+      ? E.drawFromLibrary(LIB, {})
       : E.drawFrom(PUZZLES);
     closeModal("#modal-end");
     if (nxt) loadPuzzle(nxt.id);
+  }
+
+  /* ---------------- 放弃（不揭底，2026-10-04 定档） ----------------
+   * 放弃 = 只结束本锅。汤底永远只在「被服务端 AI 汤主判定解出」的那份
+   * 响应里出现；放弃、刷新、任何接口都拿不到。 */
+
+  function soloGiveup() {
+    if (!state.pid) { toast("当前没有开着的锅"); return; }
+    if (state.done) { toast("这一锅已经结束了"); return; }
+    if (!state.roomCode) { toast("这锅的火还没点上，不用放弃——直接换一锅吧"); return; }
+    var host = document.createElement("div");
+    host.className = "modal-wrap";
+    host.innerHTML =
+      '<div class="modal" role="dialog" aria-modal="true">' +
+      '<h3>' + ic("flag") + " 放弃这一锅？</h3>" +
+      '<p class="modal-sub">被卡住了不丢人。放弃会当场结束这一锅——' +
+      "<b>但不揭晓汤底</b>：这一锅的真相只在服务端守着，" +
+      "只有被 AI 汤主判定「解出」的那一刻，才会端给解出的人看。</p>" +
+      '<div class="modal-actions">' +
+      '<button type="button" class="btn ghost" id="gs-no">再想想</button>' +
+      '<button type="button" class="btn giveup-btn" id="gs-yes"><span class="giveup-glyph">放弃，结束本锅</span></button>' +
+      "</div></div>";
+    document.body.appendChild(host);
+    document.body.classList.add("modal-open");
+    var close = function () {
+      if (host.parentNode) host.parentNode.removeChild(host);
+      document.body.classList.remove("modal-open");
+    };
+    host.querySelector("#gs-no").addEventListener("click", close);
+    host.querySelector("#gs-yes").addEventListener("click", function () {
+      close();
+      NET.soloAct("giveup", {}, state.roomCode).then(function () {
+        state.done = true;
+        var lib = isLibPid(state.pid);
+        if (lib) { var lp = libProgress(); lp.session = null; saveLibProgress(lp); }
+        else { progress.session = null; saveProgress(); }
+        paintResume();
+        var rv = document.createElement("div");
+        rv.className = "modal-wrap";
+        rv.innerHTML =
+          '<div class="modal" role="dialog" aria-modal="true">' +
+          "<h3>本锅结束</h3>" +
+          '<div class="truth-box"><p style="margin:0;color:#8a8a8a">你未揭晓本汤汤底。</p></div>' +
+          '<p class="modal-sub">想喝到这一锅的真相，唯一的办法是重新开一锅、' +
+          "把推理说到 AI 汤主点头为止。</p>" +
+          '<div class="modal-actions">' +
+          '<button type="button" class="btn ghost" id="gs-close">知道了</button>' +
+          '<button type="button" class="btn primary" id="gs-again">再熬这一锅</button>' +
+          "</div></div>";
+        document.body.appendChild(rv);
+        document.body.classList.add("modal-open");
+        rv.querySelector("#gs-close").addEventListener("click", function () {
+          if (rv.parentNode) rv.parentNode.removeChild(rv);
+          document.body.classList.remove("modal-open");
+        });
+        rv.querySelector("#gs-again").addEventListener("click", function () {
+          var pid = state.pid;
+          if (rv.parentNode) rv.parentNode.removeChild(rv);
+          document.body.classList.remove("modal-open");
+          loadPuzzle(pid);
+        });
+      }, function (e) {
+        toast("放弃没成功：" + soloErrText(e));
+      });
+    });
+    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
   }
 
   function backToList() {
@@ -1423,14 +1372,13 @@
     };
   }
 
-  /* 随机池（2026-10-03）：精品层 + 全部汤库一起抽。
-     以前「随机模式」的池子来自 E.pool() → 只认 root.PUZZLES 那 100 道精品，
-     主人辛苦收进来的两千多道库题在随机模式里永远抽不到。
-     没底的题（truth 为空）一律不进池，免得抽到后汤主瞎编。 */
+  /* 随机池（2026-10-04）：精品层 + 全部汤库一起抽。
+     浏览器端只剩元信息：池子里的每一道，服务端都 guaranteed 有底
+     （构建时已剔除无底题），抽到就能开锅。 */
   function randPool(opts) {
     var o = opts || {};
     return mergedLib().filter(function (p) {
-      if (!p || !p.truth) return false;
+      if (!p || !p.id) return false;
       if (o.cat && o.cat !== "全部" && (p.cats || []).indexOf(o.cat) === -1) return false;
       if (o.difficulty && p.difficulty !== o.difficulty) return false;
       return true;
@@ -1857,10 +1805,7 @@
     if (guessBtn) guessBtn.addEventListener("click", openGuess);
 
     var unlockBtn = $("#btn-unlock");
-    if (unlockBtn) unlockBtn.addEventListener("click", function () {
-      /* 第⑥条：单人端「放弃」= 确认后直接上汤底（旧密码权区下线） */
-      if (root.SoupRoom && root.SoupRoom.doGiveupSolo) root.SoupRoom.doGiveupSolo();
-    });
+    if (unlockBtn) unlockBtn.addEventListener("click", soloGiveup);
 
     var gCancel = $("#btn-guess-cancel");
     if (gCancel) gCancel.addEventListener("click", function () { closeModal("#modal-guess"); });

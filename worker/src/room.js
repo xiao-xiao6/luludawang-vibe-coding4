@@ -790,7 +790,7 @@ export class Room {
       until: now() + GIVEUP_VOTE_MS
     };
     s.giveupCooldownUntil = now() + GIVEUP_GAP_MS;
-    this.sysEvent(p.nickname + " 发起了「放弃本锅看汤底」投票：要" + s.vote.total + " 个还没猜出来的人全部同意才揭底，一人拒绝就作罢，60 秒内有效。");
+    this.sysEvent(p.nickname + " 发起了「放弃这一锅」投票：要" + s.vote.total + " 个还没猜出来的人全部同意才结束本锅（汤底只给已说破的人看），一人拒绝就作罢，60 秒内有效。");
     this.bump();
     /* 只剩一个人还没猜出来时，TA 自己这一票就是「全员同意」，当场结算 */
     const outcome = this.settleVote(s);
@@ -1188,14 +1188,17 @@ export class Room {
     };
 
     if (s.solo) {
-      /* 单人：房间只有 TA 一个人，走旧通道（判对 = 立刻揭底结算） */
+      /* 单人：房间只有 TA 一个人，走旧通道（判对 = 立刻揭底结算）。
+       * 解出的这一刻，汤底只回给 TA —— 之后快照也只认「解出者本人」。 */
       delete item.priv;
       s.qaLog.push(item);
       if (s.qaLog.length > QA_MAX) s.qaLog = s.qaLog.slice(-QA_MAX);
       s.lastGuess = { uid: p.uid, nickname: p.nickname, level, note, at: item.at };
       this.settleGuess(level, s, puzzle, p);
       this.bump();
-      return { ok: true, item, level, note, cooldownMs: pendingCooldown(s, p) };
+      const out = { ok: true, item, level, note, cooldownMs: pendingCooldown(s, p) };
+      if (level === "solved" && puzzle) out.truth = puzzle.truth || "";
+      return out;
     }
 
     /* 多人：进私有猜底手账，绝不上共享问答流 */
@@ -1228,7 +1231,12 @@ export class Room {
     } else if (level === "close") {
       s.guessCooldowns[player.uid] = now() + guessCooldownMs(s, "close");
     } else if (level === "solved") {
-      if (s.solo) { this.reveal(s, player, "说破"); return; }
+      if (s.solo) {
+        /* 单人说破也标 solved：刷新重进后快照凭 myTruth 继续只给 TA 看汤底 */
+        player.solved = true;
+        this.reveal(s, player, "说破");
+        return;
+      }
       this.markSolved(s, player);
       this.maybeFinishPot(s);
     }
@@ -1543,14 +1551,10 @@ export class Room {
       })),
       updatedAt: s.updatedAt
     };
-    /* 汤底只在揭晓后下发 */
-    if (s.phase === "revealed" && s.puzzleId) {
-      const full = getPuzzle(s.puzzleId);
-      out.truth = full ? full.truth : "";
-    }
-    /* 多人：已说破但本锅未终局的人 —— 单独给他一份汤底，
-       用于刷新 / 重进后恢复个人汤底弹窗（只发给本人，不碰别人的快照） */
-    if (!s.solo && s.phase === "playing" && you && you.solved && s.puzzleId) {
+    /* 汤底（2026-10-04 定档）：**只发给被 AI 汤主判定解出过的本人**，
+     * 绝不进全房广播 —— 没解出的人投票放弃也只能看到「未揭晓」。
+     * 未解出者的界面据 mySolved=false + phase=revealed 自行显示占位文案。 */
+    if (you && you.solved && s.puzzleId) {
       const full = getPuzzle(s.puzzleId);
       out.myTruth = full ? full.truth || "" : "";
     }

@@ -5,8 +5,12 @@
  *   POST /api/room/new        建房（返回 6 位房号）
  *   POST /api/room/:code/*    房间内动作（转发给对应 Durable Object）
  *   GET  /api/room/:code/state 拉取房间快照（HTTP 轮询入口）
+ *   GET  /api/puzzles         批量清单：只有元信息，无汤面无汤底
+ *   GET  /api/puzzle/:id      单道汤面（含汤面，无汤底；每 IP 每小时限流）
+ *   POST /api/solo/new        单人开锅（服务端判定的独立小房间）
  *   GET  /api/health          健康检查
  *
+ * 【2026-10-04 定档】汤底（truth）永不出服务端；/api/truth 已删除。
  * 全部动作统一转发到 DO 的 fetch(?action=xxx)。
  * ============================================================ */
 
@@ -14,41 +18,52 @@ export { Room } from "./room.js";
 import {
   allPuzzleIds as _allIds,
   corePuzzleIds as _coreIds,
+  metaPuzzle as _meta,
   publicPuzzle as _pub,
   puzzleLayer as _layer
 } from "./engine.js";
-import { getPuzzle as _get } from "./engine.js";
 const allPuzzleIds = _allIds;
 const corePuzzleIds = _coreIds;
+const metaPuzzle = _meta;
 const publicPuzzle = _pub;
 const puzzleLayer = _layer;
-const getPuzzle = _get;
 
 /* ---------- 建房限流（规格 #12 阶段 6：防公开网址被刷） ----------
  * 尽力而为的内存计数：同一 isolate 同 IP 每天最多 40 间。
  * 不引入 KV 等新依赖，房内动作不设限（规格：单人限流，多人房不设限）。
+ * 单人房放宽到每天 300 间：认真一天喝两百多锅的人存在，别把人挡在门外。
  */
 const NEW_ROOM_DAILY = 40;
-const newRoomHits = new Map();
+const SOLO_NEW_DAILY = 300;
+/* 逐道读汤面的接口（/api/puzzle/:id）：每 IP 每小时最多 60 次。
+ * 正常玩家一局只点开几道；批量爬库要爬几千次、按小时被掐住，爬不动。 */
+const LOOKUP_HOURLY = 60;
+const hits = new Map();
 
-function todayKey() {
-  return new Date().toISOString().slice(0, 10);
+function bucketKey(ip, windowMs) {
+  return Math.floor(Date.now() / windowMs) + "|" + ip;
 }
 
-function rateLimited(ip) {
-  const key = todayKey() + "|" + ip;
-  const rec = newRoomHits.get(key);
+function bumpCount(mapKey, cap) {
+  const rec = hits.get(mapKey);
   const n = rec ? rec.n : 0;
-  if (n >= NEW_ROOM_DAILY) return true;
-  newRoomHits.set(key, { n: n + 1, at: Date.now() });
-  /* 顺手清掉过期记录，避免 isolate 长期驻留时无限增长 */
-  if (newRoomHits.size > 5000) {
-    const today = todayKey();
-    for (const k of newRoomHits.keys()) {
-      if (k.indexOf(today + "|") !== 0) newRoomHits.delete(k);
+  if (n >= cap) return true;
+  hits.set(mapKey, { n: n + 1, at: Date.now() });
+  if (hits.size > 8000) {
+    const cutoff = Date.now() - 3600000;
+    for (const k of hits.keys()) {
+      if (hits.get(k).at < cutoff) hits.delete(k);
     }
   }
   return false;
+}
+
+function rateLimited(ip, dailyCap) {
+  return bumpCount("d:" + new Date().toISOString().slice(0, 10) + "|" + ip, dailyCap || NEW_ROOM_DAILY);
+}
+
+function lookupLimited(ip) {
+  return bumpCount("p:" + bucketKey(ip, 3600000), LOOKUP_HOURLY);
 }
 
 const CODE_LEN = 6;
@@ -113,20 +128,21 @@ export default {
       return reply({ ok: true, service: "soup-room", at: Date.now() });
     }
 
-    /* 题面清单：只给汤面，**绝不含汤底**（房主选汤用）
-     * 默认只列精品层 100 题；?layer=lib 才列汤库层（900+ 题，量大有分页） */
+    /* 题面清单：只给元信息（汤名/分类/火候），**连汤面都不批量给**（防爬）。
+     * 默认只列精品层 100 题；?layer=lib 才列汤库层（量大分页）。
+     * 想读某一道汤的汤面，只能逐道走 GET /api/puzzle/:id（按 IP 限流）。 */
     if (path === "/api/puzzles" && request.method === "GET") {
       const layer = url.searchParams.get("layer") || "core";
       const ids = layer === "lib" ? allPuzzleIds() : corePuzzleIds();
       const q = (url.searchParams.get("q") || "").trim();
       const offset = Math.max(0, Number(url.searchParams.get("offset")) || 0);
       const limit = Math.min(200, Math.max(1, Number(url.searchParams.get("limit")) || 200));
-      let list = ids.map(publicPuzzle).filter(Boolean);
+      let list = ids.map(metaPuzzle).filter(Boolean);
       list = list.filter((p) => p.layer === (layer === "lib" ? "lib" : "core"));
       if (q) {
+        /* 搜索只匹配汤名：匹配汤面会变成一个「内容探测 oracle」，等于批量抽取 */
         list = list.filter((p) =>
-          String(p.dispTitle || p.title || "").indexOf(q) !== -1 ||
-          String(p.surface || "").indexOf(q) !== -1
+          String(p.dispTitle || p.title || "").indexOf(q) !== -1
         );
       }
       const total = list.length;
@@ -139,32 +155,16 @@ export default {
       });
     }
 
-    /* 单个题面 */
+    /* 单个题面：一次只端一道汤，按 IP 限流，批量爬取不可行 */
     const pm = path.match(/^\/api\/puzzle\/([\w-]+)$/);
     if (pm) {
+      const ip = request.headers.get("cf-connecting-ip") || "unknown";
+      if (lookupLimited(ip)) {
+        return reply({ error: "RATE_LIMITED", note: "今天点开的汤太多啦，歇一会儿再看。" }, 429);
+      }
       const p = publicPuzzle(pm[1]);
       if (!p) return reply({ error: "NO_SUCH_PUZZLE" }, 404);
       return reply({ ok: true, puzzle: p });
-    }
-
-    /* 汤底揭晓：**只能凭房号取，且只有揭晓后（phase=revealed）才给**。
-     * 前端「熬完这锅」结算页调它拿真相，平时 403（规格 #12 A1）。
-     * GET /api/truth/:roomCode/:puzzleId */
-    const tm = path.match(/^\/api\/truth\/([A-Za-z0-9]{4,10})\/([\w-]+)$/);
-    if (tm) {
-      const code = tm[1].toUpperCase();
-      const pid = tm[2];
-      const snap = await roomStub(env, code)
-        .fetch(new Request("https://do/?action=state", { method: "GET" }))
-        .then((r) => r.json())
-        .catch(() => null);
-      if (!snap || !snap.exists) return reply({ error: "NO_SUCH_ROOM" }, 404);
-      if (snap.phase !== "revealed" || snap.puzzleId !== pid) {
-        return reply({ error: "NOT_REVEALED" }, 403);
-      }
-      const full = getPuzzle(pid);
-      if (!full) return reply({ error: "NO_SUCH_PUZZLE" }, 404);
-      return reply({ ok: true, truth: full.truth || "" });
     }
 
     /* 题库概览：两层各多少题（前端显示「共 N 道」用，不含任何汤底） */
@@ -212,7 +212,7 @@ export default {
      */
     if (path === "/api/solo/new" && request.method === "POST") {
       const ip = request.headers.get("cf-connecting-ip") || "unknown";
-      if (rateLimited(ip)) {
+      if (rateLimited(ip, SOLO_NEW_DAILY)) {
         return reply({ error: "RATE_LIMITED", note: "今天的调用有点多，明天再来。" }, 429);
       }
       let body = {};

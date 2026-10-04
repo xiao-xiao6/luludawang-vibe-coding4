@@ -1,13 +1,20 @@
 /* ============================================================
- * 深海汤屋 · 服务端题库构建
+ * 深海汤屋 · 题库构建（2026-10-04 服务端判定版）
  * ------------------------------------------------------------
- * 产出两份 ES module：
- *   worker/src/puzzles.data.js  ← js/data.js + js/data-more.js（精品层，100 题）
- *   worker/src/library.data.js  ← data/library/library.data.js（汤库层母本）
+ * 母本（全部只留在本机，不进 git）：
+ *   data/core/master-data.js + master-data-more.js  精品层 100 题（含 truth/clues）
+ *   data/library/library.data.js                   汤库层母本（含 truth）
  *
- * 为什么要搬库层：库层原本把 truth 整段塞在前端，
- * F12 打开 library.data.js 就能直接看答案。搬进 Worker 后
- * 汤底只在服务端，前端拿不到（规格 #12 A1）。
+ * 产出：
+ *   worker/src/puzzles.data.js   精品层全量（含 truth）——服务端专用
+ *   worker/src/library.data.js   汤库层全量（含 truth）——服务端专用
+ *   js/data.js                   精品层元信息（id/title/cats/difficulty/par，无 surface 无 truth）
+ *   js/data-more.js              精品层元信息分片（其余 80 题）
+ *   js/library.list.js           汤库层元信息（无 surface 无 truth）
+ *
+ * 【策略】汤面（surface）与汤底（truth）都不再进浏览器包：
+ *   汤面逐道走 GET /api/puzzle/:id（服务端限流），
+ *   汤底只在 Worker 服务端，AI 汤主判定「解出」后才发给解出者本人。
  *
  * 用法：node tools/build_worker_data.js
  *       node tools/build_worker_data.js --check   （幂等自检，不写盘）
@@ -22,14 +29,15 @@ const JS = path.join(ROOT, "js");
 const SRC = path.join(ROOT, "worker", "src");
 const CHECK = process.argv.indexOf("--check") !== -1;
 
-/* 汤库源码已在发布瘦身时搬出 js/，只读 data/library/ 母本。
- * 注：旧版 js/library.data.js（1361 条、清洗前）已于 2026-09-26 隔离到 _local_backup/，
- *     不再作为回落源，避免构建静默回退到污染数据。 */
 const LIB_SRC_FILE = path.join(ROOT, "data", "library", "library.data.js");
-if (!fs.existsSync(LIB_SRC_FILE)) {
-  console.error("✗ 找不到汤库母本：data/library/library.data.js");
-  process.exit(1);
-}
+const CORE_MASTER = ["master-data.js", "master-data-more.js"].map((f) =>
+  path.join(ROOT, "data", "core", f));
+[LIB_SRC_FILE].concat(CORE_MASTER).forEach((f) => {
+  if (!fs.existsSync(f)) {
+    console.error("✗ 找不到母本：" + path.relative(ROOT, f));
+    process.exit(1);
+  }
+});
 
 function loadSandbox(files, baseDir) {
   const sandbox = { console, Math, JSON, module: { exports: {} } };
@@ -37,18 +45,18 @@ function loadSandbox(files, baseDir) {
   sandbox.globalThis = sandbox;
   vm.createContext(sandbox);
   files.forEach((f) => {
-    const src = fs.readFileSync(path.join(baseDir || JS, f), "utf8");
+    const src = fs.readFileSync(path.join(baseDir, f), "utf8");
     vm.runInContext(src, sandbox, { filename: f });
   });
   return sandbox;
 }
 
-/* ---------------- 精品层 ---------------- */
+/* ---------------- 精品层（母本：data/core/） ---------------- */
 
-const core = loadSandbox(["data.js", "data-more.js"]);
+const core = loadSandbox(CORE_MASTER.map((f) => path.basename(f)), path.join(ROOT, "data", "core"));
 const coreList = core.PUZZLES || [];
-if (!coreList.length) {
-  console.error("✗ 没抽到任何精品题，检查 js/data.js");
+if (coreList.length < 100) {
+  console.error("✗ 精品层母本题数异常：" + coreList.length);
   process.exit(1);
 }
 
@@ -69,7 +77,22 @@ const coreSlim = coreList.map((p) => ({
   layer: "core"
 }));
 
-/* ---------------- 汤库层 ---------------- */
+/* 浏览器端精品层：只留浏览/筛选/结算要用的元信息，绝无 surface / truth */
+function coreMeta(p) {
+  return {
+    id: p.id,
+    title: p.title || "",
+    tag: p.tag || "",
+    cats: p.cats || [],
+    difficulty: p.difficulty,
+    par: p.par,
+    original: !!p.original,
+    layer: "core"
+  };
+}
+const coreMetaList = coreList.map(coreMeta);
+
+/* ---------------- 汤库层（母本：data/library/） ---------------- */
 
 const lib = loadSandbox([path.basename(LIB_SRC_FILE)], path.dirname(LIB_SRC_FILE));
 const libList = lib.SOUP_LIBRARY || [];
@@ -78,8 +101,6 @@ if (!libList.length) {
   process.exit(1);
 }
 
-/* 库层没有 clues / keywords，判定只能走 AI；
-   汤面为空的题（mode=surface）压根不该上服务端，直接剔掉 */
 const libSlim = libList
   .filter((p) => p && p.surface && p.truth && p.mode !== "surface")
   .map((p) => ({
@@ -94,6 +115,19 @@ const libSlim = libList
     truthSource: p.truthSource,
     layer: "lib"
   }));
+
+const libMeta = libSlim.map((p) => ({
+  id: p.id,
+  title: p.title || "",
+  dispTitle: p.dispTitle || p.title || "",
+  cats: p.cats || [],
+  difficulty: p.difficulty,
+  src: p.src || "",
+  truthSource: p.truthSource || "",
+  mode: "truth",
+  hasTruth: true,
+  layer: "lib"
+}));
 
 /* ---------------- 写盘 ---------------- */
 
@@ -121,7 +155,7 @@ function emit(outPath, banner, varName, list, extra, classic) {
 emit(
   path.join(SRC, "puzzles.data.js"),
   `/* 自动生成，请勿手改 —— 由 tools/build_worker_data.js 产出
- * 来源：js/data.js + js/data-more.js
+ * 来源：data/core/master-data.js + master-data-more.js（精品层母本，只留本机）
  * 共 ${coreSlim.length} 题。汤底（truth）只存在服务端，前端拿不到。
  */
 `,
@@ -133,7 +167,7 @@ emit(
 emit(
   path.join(SRC, "library.data.js"),
   `/* 自动生成，请勿手改 —— 由 tools/build_worker_data.js 产出
- * 来源：data/library/library.data.js（汤库层母本）
+ * 来源：data/library/library.data.js（汤库层母本，只留本机）
  * 共 ${libSlim.length} 题。汤底（truth）只存在服务端，前端拿不到。
  */
 `,
@@ -141,61 +175,88 @@ emit(
   libSlim
 );
 
-/* ---------------- 前端题库（策略变更：不剥底，明文发布） ----------------
- * js/library.public.js：**含完整 truth**，进发布目录。
- * 【2026-09-23 策略变更】单人模式改走「本地真汤底」：前端必须拿到 truth
- * 才能让 AI 汤主吃真底判定（否则就是空底瞎编）。防作弊交给玩家自觉。
- * 多人房判定仍在服务端 Worker，不受影响。
- */
-const libPublic = libList.map((p) => Object.assign({
-  id: p.id,
-  srcNo: p.srcNo,
-  title: p.title || "",
-  dispTitle: p.dispTitle || p.title || "",
-  surface: p.surface || "",
-  truth: p.truth || "",
-  truthKeywords: p.truthKeywords || [],
-  coreKeywords: p.coreKeywords || [],
-  clues: p.clues || [],
-  hints: p.hints || [],
-  cats: p.cats || [],
-  difficulty: p.difficulty,
-  src: p.src || "",
-  lang: p.lang || "",
-  mode: p.mode || (p.truth ? "truth" : "surface"),
-  hasTruth: !!(p.truth && p.mode !== "surface"),
-  truthSource: p.truthSource || ""
-}, (p.alsoIn && p.alsoIn.length) ? { alsoIn: p.alsoIn } : {}));
+/* ---------------- 浏览器端产物（一律不含 surface / truth） ---------------- */
 
-/* 策略变更后不再做「不能有 truth」的自检（现在 truth 是必须的）。
-   保留一条正向自检：确认带底题目的 truth 真的落进了产物。 */
-if (libPublic.filter((p) => p.hasTruth).some((p) => !String(p.truth || "").trim())) {
-  console.error("✗ 权重异常：有 hasTruth=true 的题却没带上 truth");
-  process.exit(1);
+/* 硬自检：任何浏览器产物里出现 surface/truth 字段即构建失败 */
+function assertNoSecrets(list, label) {
+  const bad = list.filter((p) => ("surface" in p) || ("truth" in p) || ("truthKeywords" in p) || ("coreKeywords" in p) || ("clues" in p) || ("hints" in p));
+  if (bad.length) {
+    console.error("✗ " + label + " 混入了敏感字段（surface/truth/clues/hints/keywords）：" + bad.length + " 条");
+    process.exit(1);
+  }
 }
+assertNoSecrets(coreMetaList, "js/data.js");
+assertNoSecrets(libMeta, "js/library.list.js");
 
 emit(
-  path.join(JS, "library.public.js"),
+  path.join(JS, "data.js"),
   `/* ============================================================
- * 深海汤屋 · 汤库层（含水完整公开版）
- * ------------------------------------------------------------
- * 自动生成，请勿手改 —— 由 tools/build_worker_data.js 产出
- * 来源：data/library/library.data.js（汤库层母本，同一份源，永不走样；2026-09-25 清洗过污染/空格/重复）
- *
- * 共 ${libPublic.length} 题（有汤底 ${libPublic.filter((p) => p.hasTruth).length} / 仅汤面 ${libPublic.length - libPublic.filter((p) => p.hasTruth).length}）。
- * 【策略】本文件**含完整汤底（truth）**，明文开源：供单人模式本地判定，
- * 也供任何人直接查阅。防作弊交给玩家自觉；多人房判定仍在服务端 Worker。
- * 重跑命令：node tools/build_worker_data.js
+ * 深海汤屋 · 精品层元信息（自动生成，请勿手改）
+ * 由 tools/build_worker_data.js 产出；母本在 data/core/（只留本机）。
+ * 只有浏览/筛选/结算要用的元信息：绝无汤面（surface）与汤底（truth）。
+ * 汤面逐道向 Worker GET /api/puzzle/:id 获取；判定全在服务端。
+ * ============================================================ */
+`,
+  "PUZZLES",
+  coreMetaList,
+  "\nvar PUZZLES_TOTAL = " + coreMetaList.length + ";\n" +
+  "if (typeof module !== \"undefined\" && module.exports) { module.exports = { PUZZLES: PUZZLES, PUZZLES_TOTAL: PUZZLES_TOTAL }; }\n",
+  true
+);
+
+emit(
+  path.join(JS, "data-more.js"),
+  `/* ============================================================
+ * 深海汤屋 · 精品层元信息分片（自动生成，请勿手改）
+ * 首屏之后的其余精品题；由 app.js 异步拉回并并入 PUZZLES。
+ * 与 js/data.js 同口径：只有元信息，无 surface / truth。
+ * ============================================================ */
+`,
+  "PUZZLES_META_MORE",
+  coreMetaList.slice(20),
+  "\n(function (root) {\n" +
+  "  \"use strict\";\n" +
+  "  if (Array.isArray(root.PUZZLES) && PUZZLES_META_MORE.length) {\n" +
+  "    for (var i = 0; i < PUZZLES_META_MORE.length; i++) {\n" +
+  "      var p = PUZZLES_META_MORE[i];\n" +
+  "      var dup = false;\n" +
+  "      for (var k = 0; k < root.PUZZLES.length; k++) {\n" +
+  "        if (root.PUZZLES[k].id === p.id) { dup = true; break; }\n" +
+  "      }\n" +
+  "      if (!dup) root.PUZZLES.push(p);\n" +
+  "    }\n" +
+  "  }\n" +
+  "  if (typeof module !== \"undefined\" && module.exports) { module.exports = { PUZZLES_META_MORE: PUZZLES_META_MORE }; }\n" +
+  "})(typeof globalThis !== \"undefined\" ? globalThis : this);\n",
+  true
+);
+
+emit(
+  path.join(JS, "library.list.js"),
+  `/* ============================================================
+ * 深海汤屋 · 汤库层元信息（自动生成，请勿手改）
+ * 由 tools/build_worker_data.js 产出；母本在 data/library/（只留本机）。
+ * 共 ${libMeta.length} 题。只有汤名/分类/火候/来源等元信息：
+ * 绝无汤面（surface），绝无汤底（truth）。
+ * 汤面逐道向 Worker GET /api/puzzle/:id 获取（服务端限流）；
+ * 判定与汤底全在 Worker 服务端，AI 汤主判「解出」才发给解出者本人。
  * ============================================================ */
 `,
   "SOUP_LIBRARY",
-  libPublic,
+  libMeta,
   "\nvar SOUP_LIB_CATS = " + JSON.stringify(lib.SOUP_LIB_CATS || []) + ";\n" +
-  "var SOUP_LIB_TOTAL = " + libPublic.length + ";\n" +
+  "var SOUP_LIB_TOTAL = " + libMeta.length + ";\n" +
   "if (typeof module !== \"undefined\" && module.exports) {\n" +
   "  module.exports = { SOUP_LIBRARY: SOUP_LIBRARY, SOUP_LIB_CATS: SOUP_LIB_CATS, SOUP_LIB_TOTAL: SOUP_LIB_TOTAL };\n" +
   "}\n",
-  true /* classic：这份是浏览器 <script src> 直接加载的普通脚本，必须用 var，不能用 export */
+  true
 );
 
-if (CHECK) console.log("✓ 产物幂等：两份题库文件与重建结果一致");
+/* 旧版含汤底的浏览器包：清掉，不再产出 */
+const oldPublic = path.join(JS, "library.public.js");
+if (!CHECK && fs.existsSync(oldPublic)) {
+  fs.unlinkSync(oldPublic);
+  console.log("✓ 已删除旧含底包 js/library.public.js");
+}
+
+if (CHECK) console.log("✓ 产物幂等：五份题库文件与重建结果一致");

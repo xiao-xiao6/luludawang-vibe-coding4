@@ -584,8 +584,10 @@
       showMySolvedPopup({ truth: s.myTruth, rank: s.myRank, total: s.potCount, stats: myEntry && myEntry.stats });
     }
     if (s.phase !== "playing" || !iSolved) R.mySolvedShown = false;
-    /* 揭底（全员说破 / 投票放弃才走到这里；单人说破同一条通道） */
-    if (s.phase === "revealed" && s.truth && !R.revealedShown && !R.personalOpen) {
+    /* 揭底弹窗（2026-10-04 定档）：全员说破 / 投票放弃都会走到 revealed。
+     * 快照不再广播 truth —— 解出过的人凭 myTruth 再见一次汤底，
+     * 没解出的人只显示「你未揭晓本汤汤底」。 */
+    if (s.phase === "revealed" && !R.revealedShown && !R.personalOpen) {
       R.revealedShown = true;
       showReveal(s);
     }
@@ -1120,7 +1122,7 @@
 
   /* 「放弃」按钮的三种沉默：已说破（旁观）/ 投票在跑 / 60 秒发起冷却 */
   function paintGiveupBtn(bg2, s) {
-    if (s.phase !== "playing") { bg2.disabled = false; bg2.textContent = "放弃"; bg2.title = "开局后可发起「放弃本锅看汤底」投票"; return; }
+    if (s.phase !== "playing") { bg2.disabled = false; bg2.textContent = "放弃"; bg2.title = "开局后可发起「放弃这一锅」投票（放弃只结束本锅，不揭底）"; return; }
     if (s.vote) {
       bg2.disabled = true;
       bg2.textContent = "投票中…";
@@ -1136,7 +1138,7 @@
     }
     bg2.disabled = false;
     bg2.textContent = "放弃";
-    bg2.title = "卡住了？发起放弃投票：要所有还没猜出来的人全部同意才揭底，一人拒绝就作罢";
+    bg2.title = "卡住了？发起放弃投票：要所有还没猜出来的人全部同意才结束本锅（汤底不揭晓），一人拒绝就作罢";
   }
 
   /* 发言顺序条（2026-09-29）：#1 → #2 → #3 → #1 真顺序轮转，
@@ -1233,8 +1235,9 @@
   }
 
   function showReveal(s) {
-    /* 揭底即算「本机熬过这锅」：以前只有单人局自动打钩，多人房要回汤库手点 */
-    markPotSolved(s && s.puzzleId);
+    /* 打钩只属于亲眼见过汤底的人：没解出的人这一锅不算「熬过」 */
+    var iSolvedIt = !!(s && s.myTruth);
+    if (iSolvedIt) markPotSolved(s && s.puzzleId);
     var host = document.createElement("div");
     var allSolved = !!s.allSolved;
     host.className = "modal-wrap reveal-final" + (allSolved ? " all-solved" : "");
@@ -1248,16 +1251,21 @@
         "</div>"
       : "";
     var note = byVote
-      ? ic("flag") + " 全房投票放弃，直接上汤底"
+      ? ic("flag") + " 全房投票放弃，本锅结束——汤底只给已说破的人再看一遍"
       : (allSolved
         ? ic("party") + " 全员说破！猜对的人各自庆功，汤底此刻统一上桌"
         : (s.winnerNick ? ic("popper") + " " + esc(s.winnerNick) + " 说破了汤底" : "本锅结束"));
+    /* 解出者：再见一次真汤底；没解出：明确告知未揭晓（永远拿不到） */
+    var truthHtml = iSolvedIt
+      ? '<div class="truth-box"><p style="margin:0">' + esc(s.myTruth) + "</p></div>"
+      : '<div class="truth-box"><p style="margin:0;color:#8a8a8a">你未揭晓本汤汤底。</p></div>' +
+        '<p class="end-note" style="text-align:center">这一锅的真相只在服务端守着——想喝到它，回来熬到 AI 汤主点头为止。</p>';
     host.innerHTML =
       '<div class="modal modal-reveal" role="dialog" aria-modal="true">' +
-      "<h3>" + (allSolved ? "全员说破 · 统一揭底 &amp; 排行榜" : "汤底揭晓") + "</h3>" +
+      "<h3>" + (allSolved ? "全员说破 · 统一揭底 &amp; 排行榜" : (iSolvedIt ? "汤底揭晓" : "本锅结束")) + "</h3>" +
       '<p class="end-note">' + note + " · 共 " + ((s.qaLog || []).filter(function (x) { return x.kind === "ask"; }).length) + " 问</p>" +
       winnerLine +
-      '<div class="truth-box"><p style="margin:0">' + esc(s.truth) + "</p></div>" +
+      truthHtml +
       rankBoardHtml(s) +
       '<div class="modal-actions">' +
       '<button type="button" class="btn ghost" id="rv-close">知道了</button>' +
@@ -1316,9 +1324,9 @@
       if (host.parentNode) host.parentNode.removeChild(host);
       document.body.classList.remove("modal-open");
       R.personalOpen = false;
-      /* 压轴的全体揭底：等个人弹窗关完再弹，不叠罗汉 */
+      /* 压轴的收场弹窗：等个人弹窗关完再弹，不叠罗汉（解出者见底，未解出见占位） */
       var snap = R.snap;
-      if (snap && snap.phase === "revealed" && snap.truth && !R.revealedShown) {
+      if (snap && snap.phase === "revealed" && !R.revealedShown) {
         R.revealedShown = true;
         showReveal(snap);
       }
@@ -1764,7 +1772,7 @@
       "</div>" +
       '<div class="chips cats" id="room-lib-cats" style="margin-bottom:8px"></div>' +
       '<div class="chips" id="room-lib-diffs" style="margin-bottom:10px"></div>' +
-      '<input id="pick-kw" class="input" type="search" placeholder="搜索汤名或汤面，例如：电梯" autocomplete="off" />' +
+      '<input id="pick-kw" class="input" type="search" placeholder="搜索汤名，例如：气球" autocomplete="off" />' +
       '<p class="ai-note" id="pick-meta">加载中…</p>' +
       '<div class="room-library" id="pick-list"></div>' +
       '<div class="modal-actions">' +
@@ -1803,7 +1811,8 @@
     function matchCore(p) {
       if (st.kw) {
         var k = String(st.kw).toLowerCase();
-        var hay = String((p.dispTitle || p.title || "") + "\n" + (p.surface || "")).toLowerCase();
+        /* 浏览器包只剩元信息：搜索只匹配汤名 */
+        var hay = String((p.dispTitle || "") + "\n" + (p.title || "")).toLowerCase();
         if (hay.indexOf(k) === -1) return false;
       }
       if (st.cat && st.cat !== "全部") {
@@ -1875,7 +1884,6 @@
       var SA = window.SoupApp;
       listEl.insertAdjacentHTML("beforeend", arr.map(function (p) {
         var name = esc(p.dispTitle || p.title || "无题");
-        var surf = esc(String(p.surface || "").slice(0, 60)) + (p.surface && p.surface.length > 60 ? "…" : "");
         var diff = esc(libDiffDots2(p.difficulty));
         var src = esc(p.src ? libShortSrc2(p.src) : "精品");
         /* tag 标签：和单人汤库同款胶囊，选汤时就能看到脑洞 / 悬疑 / 都市 等题材 */
@@ -1888,7 +1896,6 @@
           '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
           'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? ic("check") : "") + "</span>" +
           '<div class="pz-title">' + name + "</div>" +
-          '<div class="pz-surface">' + surf + "</div>" +
           '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div>" +
           (cats ? '<div class="pz-cats">' + cats + "</div>" : "") +
           "</button>";
@@ -2031,142 +2038,6 @@
     });
   }
 
-  /* 本地找汤底：精品层在 PUZZLES，汤库层在 SOUP_LIBRARY / LIB。
-     【策略】汤底明文公开（js/library.public.js 含 truth），所以单人 / 多人
-     都能直接查，不必等房号进 revealed 阶段。 */
-  function localTruth(pid) {
-    if (!pid) return "";
-    var pools = [root.PUZZLES, root.SOUP_LIBRARY, root.LIB];
-    for (var k = 0; k < pools.length; k++) {
-      var list = pools[k];
-      if (!list || !list.length) continue;
-      for (var i = 0; i < list.length; i++) {
-        if (list[i] && list[i].id === pid) {
-          if (list[i].truth) return String(list[i].truth);
-          break;   /* 同一 id 只在一层，找到就够 */
-        }
-      }
-    }
-    /* 引擎索引也会命中核心层：再退一步问它 */
-    var E2 = root.SoupEngine;
-    var p = E2 && E2.getPuzzle ? E2.getPuzzle(pid) : null;
-    return (p && p.truth) ? String(p.truth) : "";
-  }
-
-  /* 第⑥条：单人端「放弃」——没有全房可投票，点一下确认就直接上汤底。 */
-  function doGiveupSolo() {
-    var host = document.createElement("div");
-    host.className = "modal-wrap";
-    host.innerHTML =
-      '<div class="modal" role="dialog" aria-modal="true">' +
-      '<h3>' + ic("flag") + " 放弃这一锅？</h3>" +
-      '<p class="modal-sub">被卡住了不丢人。放弃后直接揭开本锅汤底，这锅就算过去了。</p>' +
-      '<div class="modal-actions">' +
-      '<button type="button" class="btn ghost" id="gs-no">再想想</button>' +
-      '<button type="button" class="btn giveup-btn" id="gs-yes"><span class="giveup-glyph">放弃，上汤底</span></button>' +
-      "</div></div>";
-    document.body.appendChild(host);
-    document.body.classList.add("modal-open");
-    var close = function () {
-      if (host.parentNode) host.parentNode.removeChild(host);
-      document.body.classList.remove("modal-open");
-    };
-    host.querySelector("#gs-no").addEventListener("click", close);
-    host.querySelector("#gs-yes").addEventListener("click", function () {
-      close();
-      var pid0 = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
-      var truth = localTruth(pid0);
-      var rv = document.createElement("div");
-      rv.className = "modal-wrap";
-      rv.innerHTML =
-        '<div class="modal" role="dialog" aria-modal="true">' +
-        "<h3>汤底揭晓</h3>" +
-        '<p class="end-note">' + ic("flag") + " 你选择了放弃，直接上汤底。</p>" +
-        '<div class="truth-box"><p style="margin:0">' + esc(truth || "这一锅没有汤底。") + "</p></div>" +
-        '<div class="modal-actions"><button type="button" class="btn ghost" id="gs-close">知道了</button></div></div>';
-      document.body.appendChild(rv);
-      document.body.classList.add("modal-open");
-      if (root.SoupAudio && root.SoupAudio.sfx) root.SoupAudio.sfx("reveal");
-      rv.querySelector("#gs-close").addEventListener("click", function () {
-        if (rv.parentNode) rv.parentNode.removeChild(rv);
-        document.body.classList.remove("modal-open");
-      });
-    });
-    host.addEventListener("click", function (ev) { if (ev.target === host) close(); });
-  }
-
-  /* 密码看汤底（权区）：正确密码 608521。只在本机弹出汤底，不改房间阶段。
-     这是「噜噜大王」的专属后门，文案走搞怪风；按钮独立放在别的区域，不跟提问 / 猜底挤一起。 */
-  var TRUTH_CODE = "608521";
-  function doUnlock(solo) {
-    var host = document.createElement("div");
-    host.className = "modal-wrap";
-    host.innerHTML =
-      '<div class="modal modal-unlock" role="dialog" aria-modal="true" aria-labelledby="unlock-title">' +
-      '<h3 id="unlock-title" class="unlock-head">' + ic("key") + " 密码看汤底（权区）</h3>" +
-      '<p class="modal-sub unlock-sub">此密码只有勤奋迷人善良可爱纯洁的本项目主——噜噜大王！才知晓，闲杂人等速速退去！耶嘿嘿嘿！！！</p>' +
-      '<input id="unlock-code" class="input" type="password" inputmode="numeric" maxlength="12" placeholder="输入密码" autocomplete="off" />' +
-      '<p class="guess-feedback" id="unlock-fb"></p>' +
-      '<div class="truth-box hidden" id="unlock-truth"></div>' +
-      '<div class="modal-actions">' +
-      '<button type="button" class="btn ghost" id="unlock-cancel">取消</button>' +
-      '<button type="button" class="btn primary" id="unlock-ok">确认</button>' +
-      "</div></div>";
-    document.body.appendChild(host);
-    document.body.classList.add("modal-open");
-    var input = host.querySelector("#unlock-code");
-    var fb = host.querySelector("#unlock-fb");
-    var box = host.querySelector("#unlock-truth");
-    var close = function () {
-      if (host.parentNode) host.parentNode.removeChild(host);
-      document.body.classList.remove("modal-open");
-    };
-    function reveal(text) {
-      box.classList.remove("hidden");
-      box.innerHTML = "<p style=\"margin:0\">" + esc(text || "这一锅没有汤底。") + "</p>";
-      fb.textContent = "密码正确，汤底在下面。";
-      fb.className = "guess-feedback ok";
-    }
-
-    /* 本地找汤底走模块级 localTruth（精品 / 汤库 / 引擎索引三层兜底） */
-    function submit() {
-      var v = String(input.value || "").trim();
-      if (v !== TRUTH_CODE) {
-        fb.textContent = "密码不对。";
-        fb.className = "guess-feedback no";
-        box.classList.add("hidden");
-        return;
-      }
-      if (solo) {
-        var pid0 = root.SoupApp && root.SoupApp.pid ? root.SoupApp.pid() : "";
-        reveal(localTruth(pid0) || "这一锅没有汤底。");
-        return;
-      }
-      /* 多人房：先看本地汤库（含真底），拿不到再向服务端要。
-         服务端只在 phase=revealed 才给底，所以以前没开锅时
-         密码输了也会回一句「这一锅没有汤底」—— 现在本地兜住。 */
-      var s = R.snap || {};
-      var puzzleId = s.puzzleId || "";
-      var mine = localTruth(puzzleId);
-      if (mine) { reveal(mine); return; }
-      if (s.truth) { reveal(s.truth); return; }
-      var code = s.roomCode || (me().roomCode || "");
-      if (!code || !puzzleId || !N || !N.libTruth) {
-        fb.textContent = "还没有开锅，暂时没有汤底可看。";
-        fb.className = "guess-feedback no";
-        return;
-      }
-      fb.textContent = "密码正确，正在取汤底…";
-      fb.className = "guess-feedback";
-      N.libTruth(code, puzzleId).then(function (t) {
-        reveal(t || localTruth(puzzleId) || "这一锅没有汤底。");
-      });
-    }
-    host.querySelector("#unlock-ok").addEventListener("click", submit);
-    host.querySelector("#unlock-cancel").addEventListener("click", close);
-    input.addEventListener("keydown", function (ev) { if (ev.key === "Enter") submit(); });
-    setTimeout(function () { input.focus(); }, 30);
-  }
 
   /* ------------------------------------------------------------
    * 「放弃」投票（2026-09-29 重做）
@@ -2180,7 +2051,7 @@
     /* 防误触（2026-09-25）：发起投票会全房弹窗打断所有人，先二级确认 */
     askConfirm({
       title: "放弃这一锅？",
-      desc: "点确认会向「还没猜出来的人」发起放弃投票：所有人都同意才揭开本锅汤底，任何一人拒绝就作罢；一轮结束后 60 秒内不能再发起。",
+      desc: "点确认会向「还没猜出来的人」发起放弃投票：所有人都同意才结束本锅（汤底不揭晓，只给已说破的人再看一遍），任何一人拒绝就作罢；一轮结束后 60 秒内不能再发起。",
       yes: "发起投票",
       danger: true
     }, giveupGo);
@@ -2188,7 +2059,7 @@
 
   function giveupGo() {
     act("giveup", {}).then(function (r) {
-      R.toast("已发起「放弃看汤底」投票：要还没猜出来的人全部同意");
+      R.toast("已发起「放弃这一锅」投票：要还没猜出来的人全部同意（放弃只结束本锅，不揭底）");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
       startWatch();
     }).catch(function (e) {
@@ -2214,7 +2085,7 @@
   function castVote(yes) {
     lockVote(yes);
     act("vote", { agree: !!yes, yes: !!yes }).then(function (r) {
-      if (r && r.passed) R.toast("全员同意，放弃投票通过 —— 上汤底！");
+      if (r && r.passed) R.toast("全员同意，放弃投票通过 —— 本锅结束（汤底只给已说破的人看）");
       else if (r && r.passed === false) R.toast("有人拒绝，放弃投票当场作废，本锅继续（" + ((r.byNick || "有人")) + " 投的拒绝）");
       else R.toast(yes ? "你的票已记下：同意" : "你的票已记下：拒绝");
       if (r && r.snapshot && r.snapshot.exists) { R.snap = r.snapshot; render(r.snapshot); }
@@ -2277,7 +2148,7 @@
     }
     card.classList.remove("hidden");
     var t = $("#vc-title", card);
-    if (t) t.innerHTML = ic("flag") + " " + esc(v.byNick || "有玩家") + " 想放弃本锅，直接看汤底";
+    if (t) t.innerHTML = ic("flag") + " " + esc(v.byNick || "有玩家") + " 想放弃本锅（放弃只结束本锅，不揭汤底）";
     var left = Math.max(0, Math.ceil((v.until - Date.now()) / 1000));
     var sub = $("#vc-sub", card);
     if (sub) sub.textContent = voteSubText(v, left);
@@ -2566,8 +2437,6 @@
       var box = $("#qa-log");
       if (box) watchManualScroll(box);
     },
-    doUnlock: doUnlock,
-    doGiveupSolo: doGiveupSolo,
     /* 从房间界面切走（去汤库 / 随机 / 单人对局）：停轮询、收起房间屏、摘掉 room-mode，
        并把右下角聊天框藏起来 —— 它只属于「正在多人房间内」的状态 */
     leaveScreen: function () {
