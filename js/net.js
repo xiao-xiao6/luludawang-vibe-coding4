@@ -31,8 +31,9 @@
     base: DEFAULT_BASE,
     internalId: "",
     nickname: "",
-    roomCode: "",
-    solo: false,      /* 当前房号是不是单人局（决定走 /api/solo 还是 /api/room） */
+    roomCode: "",     /* 多人房号（断线恢复只认它） */
+    soloCode: "",     /* 单人锅房号：与多人房号分开存，互不覆盖（2026-10-04） */
+    solo: false,      /* 当前 watch 轮询的是不是单人局 */
     timer: 0,
     catchup: 0,       /* 补救轮询的剩余次数 */
     handler: null,
@@ -60,6 +61,7 @@
       state.internalId = o.internalId || "";
       state.nickname = o.nickname || "";
       state.roomCode = o.roomCode || "";
+      state.soloCode = o.soloCode || "";
       state.solo = !!o.solo;
       state.base = o.base || state.base;
     } catch (e) { /* 忽略损坏的本地数据 */ }
@@ -71,6 +73,7 @@
         internalId: state.internalId,
         nickname: state.nickname,
         roomCode: state.roomCode,
+        soloCode: state.soloCode,
         solo: !!state.solo,
         base: state.base
       }));
@@ -166,7 +169,7 @@
       nickname: state.nickname || "汤客",
       puzzleId: puzzleId || ""
     }).then(function (r) {
-      state.roomCode = r.roomCode;
+      state.soloCode = r.roomCode;
       state.solo = true;
       state.rev = 0;
       persist();
@@ -178,16 +181,16 @@
     /* code：显式指定单人房号。不传就用当前记录的房间号——
        先开单人锅又去串多人房的人，net 里的 roomCode 会被改掉，
        单人侧（app.js）必须拿自己保存的锅号来动作，否则打错门。 */
-    var c = String(code || state.roomCode || "");
+    var c = String(code || state.soloCode || "");
     if (!c) return Promise.reject(new Error("NO_ROOM"));
     return req("/api/solo/" + c + "/" + action, "POST",
       Object.assign({ internalId: state.internalId }, body || {}));
   }
 
   function soloState() {
-    if (!state.roomCode) return Promise.reject(new Error("NO_ROOM"));
+    if (!state.soloCode) return Promise.reject(new Error("NO_ROOM"));
     var q = state.internalId ? ("?me=" + encodeURIComponent(state.internalId)) : "";
-    return req("/api/solo/" + state.roomCode + "/state" + q, "GET");
+    return req("/api/solo/" + state.soloCode + "/state" + q, "GET");
   }
 
   /* ---------------- 题面（服务端是唯一来源） ----------------
@@ -239,9 +242,11 @@
      页面一隐藏就立刻发 visible:false（keepalive：标签页被冻结也发得出），
      重新可见立刻发 visible:true 再接上轮询 —— 全桌看到的绿/红就在这一刻翻。 */
   function reportPresence(visible) {
+    /* 在场播报只属于多人房：单人锅没人看在线名单。
+       房号用 roomCode（多人），与 soloCode 互不干扰。 */
     if (!state.roomCode || !state.internalId || !state.base) return;
     try {
-      fetch(url((state.solo ? "/api/solo/" : "/api/room/") + state.roomCode + "/presence"), {
+      fetch(url("/api/room/" + state.roomCode + "/presence"), {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ internalId: state.internalId, visible: !!visible }),
@@ -303,6 +308,9 @@
     state.handler = handler || null;
     unwatch();
     wireVisibility();
+    /* 挂上轮询就先向服务端报一次「我在」（2026-10-04：刷新/重进房时
+       visibilitychange 不会触发，不补这一枪，别人会一直看到你离线） */
+    reportPresence(true);
     tickOnce();
     state.timer = setInterval(tickOnce, POLL_MS);
   }
@@ -317,6 +325,7 @@
     state.handler = handler || null;
     unwatch();
     wireVisibility();
+    reportPresence(true);
     tickOnce();
     state.timer = setInterval(tickOnce, POLL_MS);
   }
@@ -386,10 +395,11 @@
 
   /* 只清房号，不清身份 */
   function clearRoom() {
+    /* 只退多人房；单人锅的房号另存，互不牵连 */
     state.roomCode = "";
-    state.solo = false;
     state.last = null;
     state.rev = 0;
+    state.solo = false;
     persist();
   }
 
@@ -418,8 +428,9 @@
     puzzleDetail: puzzleDetail,
     puzzleStats: puzzleStats,
     isSolo: function () { return !!state.solo; },
+    clearSolo: function () { state.soloCode = ""; state.solo = false; persist(); },
     get me() {
-      return { internalId: state.internalId, nickname: state.nickname, roomCode: state.roomCode, solo: !!state.solo };
+      return { internalId: state.internalId, nickname: state.nickname, roomCode: state.roomCode, soloCode: state.soloCode, solo: !!state.solo };
     },
     get state() { return state.last; }
   };

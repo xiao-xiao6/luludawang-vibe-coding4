@@ -1464,7 +1464,8 @@
     AI_GATEWAY_BLOCKED: "这个中转站的防火墙拦掉了服务器来源（已带浏览器伪装头仍被拦）。不是 key 或模型名的问题，建议换中转站或换直连服务商（DeepSeek / Kimi 官方等）",
     AI_TIMEOUT: "请求超时，稍后再试",
     AI_NETWORK: "机房连不上这个接口地址，请让房主核对地址",
-    AI_REQUIRED_LIB: "这锅汤是汤库层，必须先配好 AI 汤主才能问"
+    AI_REQUIRED: "所有汤都必须配好 AI 汤主才能问/判——请房主点「AI 汤主」配好模型",
+    AI_REQUIRED_LIB: "所有汤都必须配好 AI 汤主才能问/判——请房主点「AI 汤主」配好模型"
   };
 
   function aiErrText(code, note) {
@@ -1764,7 +1765,7 @@
     host.innerHTML =
       '<div class="modal modal-library" role="dialog" aria-modal="true">' +
       "<h3>选一锅汤 · 汤库</h3>" +
-      '<p class="modal-sub">你选的这锅，全房一起喝。精品层支持关键词汤主；汤库层需要配好 AI 汤主才能问。</p>' +
+      '<p class="modal-sub">你选的这锅，全房一起喝。两层都必须配好 AI 汤主才能问/判（服务端持底，未配 AI 直接拒答）。</p>' +
       '<div class="chips" id="room-lib-layers" style="margin-bottom:10px">' +
       '<button type="button" class="chip on" data-layer="all">全部题</button>' +
       '<button type="button" class="chip" data-layer="core">精品 100</button>' +

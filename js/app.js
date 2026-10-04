@@ -458,7 +458,7 @@
     if (window.__soupMoreLoaded) return;
     window.__soupMoreLoaded = true;
     var s = document.createElement("script");
-    s.src = "js/data-more.js?v=20261004";
+    s.src = "js/data-more.js?v=20261004b";
     s.async = true;
     s.onload = function () {
       renderQaLog();
@@ -647,14 +647,20 @@
     });
   }
 
+  /* 连点不同汤时的竞态守卫：只有最后一次点开的那道能上屏 */
+  var loadSeq = 0;
+
   function loadPuzzle(id, restore) {
     var meta = E.getPuzzle(id) || libPuzzle(id);
     if (!meta) return;
     var lib = isLibPid(id);
+    var seq = ++loadSeq;
     toast("这锅正在点火…");
     enterSoloRoom(id).then(function (detail) {
+      if (seq !== loadSeq) return;          // 手快点了两道：旧的这一路直接丢弃
       sceneWipe(function () { renderGame(meta, detail, lib, restore); });
     }).catch(function (e) {
+      if (seq !== loadSeq) return;
       toast("这锅点不着火：" + soloErrText(e));
     });
   }
@@ -722,7 +728,7 @@
       : "（锅盖揭开，热气涌上来）汤主问你：这一锅，你看出了什么？");
     sysLine(aiOn()
       ? "（AI 汤主在服务端守着这一锅的真相，用你自己的话问就好）"
-      : "（汤主在灶台后看着锅——精品汤可以直接问；汤库这一锅要 AI 汤主才能问）");
+      : "（这一锅由服务端 AI 汤主守着——点上方「AI 汤主」配好模型才能问）");
     renderClues();
     renderStats();
     renderQaLog();
@@ -765,9 +771,9 @@
     if (state.done) { toast("这一锅已经端上桌了，先去熬下一锅吧"); return; }
     if (!state.roomCode) { toast("这锅的火还没点上——先重进这道汤"); return; }
 
-    /* 汤库层没有关键词汤主：必须走 AI，否则不给问（服务端同样会拦） */
-    if (isLibPid(state.pid) && !aiOn()) {
-      toast("汤库这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型");
+    /* 2026-10-04：关键词汤主已下线——所有汤都必须 AI 才能问（服务端同样会拦） */
+    if (!aiOn()) {
+      toast("这一锅要 AI 汤主才能问——点上方「AI 汤主」配好模型");
       return;
     }
 
@@ -795,10 +801,12 @@
 
   function serverAsk(raw, key) {
     state.aiBusy = true;
+    var pid = state.pid;   // 回包时可能已经换了锅：只认发起时那一口
     var line = addLine("host", "pending", '<b class="verdict irr">…</b> 汤主正在熬这句话', "AI 汤主");
     NET.soloAct("ask", { question: raw }, state.roomCode).then(function (r) {
       state.aiBusy = false;
       if (line && line.parentNode) line.parentNode.removeChild(line);
+      if (state.pid !== pid) return;
       var item = r && r.item;
       if (!item) return;
       state.history.push({ q: raw, a: item.reply });
@@ -829,8 +837,8 @@
         var d = (e && e.data) || {};
         addLine("host", "sys", esc(d.warn || d.why || "发问不符合游戏规则，这一句没有受理。"));
         if (d.strikes) toast("不合规警告 " + d.strikes + " 次了，提问只能用「是 / 不是 / 部分正确 / 与此无关」能回答的是非问句");
-      } else if (m === "AI_REQUIRED_LIB") {
-        addLine("host", "sys", esc("汤库这一锅的真相只在服务端守着，必须由 AI 汤主持底回答——先配好模型再问。"));
+      } else if (m === "AI_REQUIRED_LIB" || m === "AI_REQUIRED") {
+        addLine("host", "sys", esc("这一锅的真相只在服务端，必须由 AI 汤主持底回答——先配好模型再问。"));
         openAiModal();
       } else if (m === "NOT_PLAYING") {
         addLine("host", "sys", esc("这一锅已经结束了，换一锅再问吧。"));
@@ -867,7 +875,7 @@
     if (note) txt.textContent = note;
     else if (on && state.aiOk) txt.textContent = "AI 汤主在值班（服务端） · " + AI.config().model;
     else if (on) txt.textContent = "AI 配置还没递进这一锅——重进汤或重存配置";
-    else txt.textContent = "汤主在灶台后（服务端判定）";
+    else txt.textContent = "汤主还没上岗——点上方「AI 汤主」配好模型才能开问";
     txt.className = note && tone ? tone : "";
     if (link) link.textContent = on ? "调整 AI 设置" : "配 AI 汤主";
     if (btn) {
@@ -1029,7 +1037,7 @@
     if (en) en.addEventListener("click", function () {
       var on = en.getAttribute("aria-pressed") !== "true";
       saveAiForm(on);
-      paintAiModal(on ? "已启用。记得填全三样再保存。" : "已关闭，回到关键词汤主。", "");
+      paintAiModal(on ? "已启用。记得填全三样再保存。" : "已关闭——不配 AI 汤主，一锅都问不了。", "");
       sfx("ui");
     });
 
@@ -1154,8 +1162,8 @@
     if (!text) { fb.textContent = "先写下你的推理，再交给汤主。"; fb.className = "guess-feedback no"; return; }
     if (!state.roomCode) { fb.textContent = "这锅的火还没点上——先重进这道汤。"; fb.className = "guess-feedback no"; return; }
 
-    if (isLibPid(state.pid) && !aiOn()) {
-      fb.textContent = "汤库这一锅的汤底只在服务端，得先配好 AI 汤主才能判。";
+    if (!aiOn()) {
+      fb.textContent = "这一锅的汤底只在服务端，得先配好 AI 汤主才能判。";
       fb.className = "guess-feedback no";
       return;
     }
@@ -1197,8 +1205,8 @@
       if (state.pid !== p.id || state.done) return;
       state.qCount = Math.max(0, state.qCount - 1);
       var m = String((e && e.message) || e);
-      if (m === "AI_REQUIRED_LIB") {
-        fb.textContent = "汤库这一锅必须由 AI 汤主判定——先配好模型。";
+      if (m === "AI_REQUIRED_LIB" || m === "AI_REQUIRED") {
+        fb.textContent = "这一锅必须由 AI 汤主判定——先配好模型。";
         openAiModal();
       } else if (m === "NOT_PLAYING") {
         fb.textContent = "这一锅已经结束了。";

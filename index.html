@@ -115,9 +115,9 @@
           <li><b>1.</b> 用提问一点点逼近真相，右侧备忘录可以随手记下推理。</li>
           <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
           <li><b>3.</b> 提问越少，星级越高。汤底可以重熬，存档自动保存。</li>
-          <li><b>4.</b> 精品汤单独挑选打磨，每一道都有完整汤面和汤底，可直接开问。</li>
+          <li><b>4.</b> 精品汤单独挑选打磨，每一道都有完整汤面和汤底；开问前先在顶上配好 AI 汤主。</li>
           <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗。</li>
-          <li><b>6.</b> 嫌关键词太死板？点顶上的 <b><span class="ic" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="10.8" rx="2.8"/><path d="M12 8V5.2"/><circle cx="12" cy="3.9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9.2" cy="13.3" r="1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.3" r="1" fill="currentColor" stroke="none"/><path d="M10 16.4h4"/></svg></span> AI 汤主</b> 填上自己的模型 Key，汤主就换成大模型来听懂你的话——它读过汤面汤底，也绝不会把答案漏给你。</li>
+          <li><b>6.</b> 汤主就是 AI：点顶上的 <b><span class="ic" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="10.8" rx="2.8"/><path d="M12 8V5.2"/><circle cx="12" cy="3.9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9.2" cy="13.3" r="1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.3" r="1" fill="currentColor" stroke="none"/><path d="M10 16.4h4"/></svg></span> AI 汤主</b> 填上自己的模型 Key——每一锅都由服务端的大模型读着汤面汤底应答，它听得懂人话，也绝不会把答案漏给你。</li>
         </ul>
         <div class="intro-actions">
           <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
@@ -143,8 +143,8 @@
 
       <p class="ai-bar" id="ai-bar">
         <span class="ai-dot" id="ai-dot" aria-hidden="true"></span>
-        <span id="ai-bar-text">关键词汤主在值班</span>
-        <button type="button" class="ai-link" id="btn-ai-bar">换成 AI 汤主</button>
+        <span id="ai-bar-text">汤主还没上岗——配好 AI 才能开问</span>
+        <button type="button" class="ai-link" id="btn-ai-bar">配 AI 汤主</button>
       </p>
 
       <!-- 第⑥条：线索 / 提示 / 探索度随机制一并下线，只留提问计数 -->
@@ -341,7 +341,7 @@
 <div class="modal-wrap hidden" id="modal-ai">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ai-title">
     <h3 id="ai-title">AI 汤主 · 接入你自己的模型</h3>
-    <p class="modal-sub">2026-10-04 起判定全部在服务端：开锅时这份配置会<b>只递进你自己的那间单人房</b>（Worker 房间），由服务端的 AI 汤主持底回答——浏览器不再直连模型，也永远拿不到汤底。Key 不出你的房间；不配 AI 时精品汤走服务端关键词汤主，汤库汤无法提问。</p>
+    <p class="modal-sub">2026-10-04 起判定全部在服务端：开锅时这份配置会<b>只递进你自己的那间单人房</b>（Worker 房间），由服务端的 AI 汤主持底回答——浏览器不再直连模型，也永远拿不到汤底。Key 不出你的房间；<b>精品与汤库一视同仁：不配 AI 汤主，一锅都问不了、判不了</b>。</p>
 
     <label class="ai-field">
       <span class="ai-k">服务商</span>
@@ -369,7 +369,7 @@
       <button type="button" class="chip" id="ai-reveal" aria-pressed="false">显示 Key</button>
     </div>
 
-    <p class="ai-note" id="ai-status">未启用，正在用关键词汤主。</p>
+    <p class="ai-note" id="ai-status">未启用——不配 AI 汤主就无法提问。</p>
     <p class="ai-note ai-warn" id="ai-warn"></p>
 
     <div class="modal-actions">
@@ -401,20 +401,20 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="assets/vendor/gsap.min.js" defer></script>
-<script src="js/data.js?v=20261004" defer></script>
+<script src="js/data.js?v=20261004b" defer></script>
 <!-- 【2026-10-04 定档】浏览器端只发纯元信息汤单：无汤面、无汤底。
      汤面逐道向 Worker GET /api/puzzle/:id 领取（服务端按 IP 限流，批量爬不动）；
      判定与汤底全在 Worker 服务端——只有被 AI 汤主判定「解出」的那一刻，
      汤底才回给解出者本人。放弃 / 投票 / 任何接口都拿不到真相。 -->
 <script src="js/library.list.js" defer></script>
-<script src="js/engine.js?v=20261004" defer></script>
-<script src="js/ai.js?v=20261004" defer></script>
-<script src="js/audio.js?v=20261004" defer></script>
-<script src="js/fx.js?v=20261004" defer></script>
-<script src="js/transition.js?v=20261004" defer></script>
-<script src="js/icons.js?v=20261004" defer></script>
-<script src="js/net.js?v=20261004" defer></script>
-<script src="js/room-ui.js?v=20261004" defer></script>
-<script src="js/app.js?v=20261004" defer></script>
+<script src="js/engine.js?v=20261004b" defer></script>
+<script src="js/ai.js?v=20261004b" defer></script>
+<script src="js/audio.js?v=20261004b" defer></script>
+<script src="js/fx.js?v=20261004b" defer></script>
+<script src="js/transition.js?v=20261004b" defer></script>
+<script src="js/icons.js?v=20261004b" defer></script>
+<script src="js/net.js?v=20261004b" defer></script>
+<script src="js/room-ui.js?v=20261004b" defer></script>
+<script src="js/app.js?v=20261004b" defer></script>
 </body>
 </html>

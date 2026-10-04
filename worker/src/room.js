@@ -14,9 +14,7 @@ import {
   getPuzzle,
   publicPuzzle,
   ask as engineAsk,
-  judgeGuess,
-  stars,
-  puzzleLayer
+  stars
 } from "./engine.js";
 import {
   buildSystemPrompt,
@@ -993,14 +991,10 @@ export class Room {
           s.askInFlightUntil = 0;
           s.pendingAI = null;
         }
-      } else if (puzzleLayer(s.puzzleId) === "lib") {
-        /* 库层没有预设线索/关键词，关键词判定会瞎猜 → 必须房主先配 AI */
-        return { error: "AI_REQUIRED_LIB" };
       } else {
-        /* 未配 AI：精品层保留关键词汤主（规格 #14） */
-        const res = engineAsk(puzzle, raw, s.revealed);
-        verdict = res.kind === "empty" ? "irr" : (res.verdict || "irr");
-        reply = (res.flavor ? res.flavor + " " : "") + String(res.reply || "与此无关。");
+        /* 2026-10-04：关键词汤主整体下线——精品层与汤库一律必须 AI 汤主。
+           汤底只在服务端 AI 手里，没有底可撞的关键词汤主已无存在意义。 */
+        return { error: "AI_REQUIRED", note: "这一锅的真相只在服务端 AI 汤主手里：先配好模型才能提问" };
       }
     }
 
@@ -1028,8 +1022,14 @@ export class Room {
   }
 
   /* 不合规提问：不记账、不消耗回合（单人房除外，那只有自己），只给警告并计次；
-     同一锅累计到 ASK_STRIKE_MAX 次就强制跳过他，把轮次交给下一位。 */
+     同一锅累计到 ASK_STRIKE_MAX 次就强制跳过他，把轮次交给下一位。
+     单人房没有「下一位」：文案只说重新提问，计次也不产生跳过后果。 */
   rejectAsk(s, p, code, why) {
+    if (s.solo) {
+      this.bump();
+      const soloWarn = "警告：发问不符合游戏规则，请重新提问";
+      return { error: "QUESTION_INVALID", code: code, why: why, note: soloWarn, warn: soloWarn };
+    }
     if (!s.askStrikes) s.askStrikes = {};
     const n = (s.askStrikes[p.uid] || 0) + 1;
     s.askStrikes[p.uid] = n;
@@ -1166,12 +1166,9 @@ export class Room {
         level = ai.level;
         note = ai.note;
         viaAi = true;
-      } else if (puzzleLayer(s.puzzleId) === "lib") {
-        return { error: "AI_REQUIRED_LIB" };
       } else {
-        const j = judgeGuess(puzzle, raw);
-        level = j.level;
-        note = j.note;
+        /* 猜底同样一律 AI 判（关键词汤主已下线） */
+        return { error: "AI_REQUIRED", note: "推理要由服务端 AI 汤主来判：先配好模型再猜" };
       }
     }
 
@@ -1601,7 +1598,18 @@ export class Room {
         const me = meId ? this.state.players.filter((p) => p.internalId === meId)[0] : null;
         if (me) {
           me.lastSeen = now();
-          if (me.visible !== false) me.online = true;
+          if (me.visible === false) {
+            /* 2026-10-04 修「回来了却还显示离线」：
+               手机端切回前台时那条 presence(true) 偶发丢失（keepalive 被杀 / 弱网），
+               而此后 TA 的每一次轮询都走这条快路径 —— 旧代码只续 lastSeen 不翻 visible，
+               全量快照路径又只翻「当次轮询者本人」，于是别人眼里 TA 一直离线、秒数一直涨，
+               直到 TA 做了 say 之类的动作 bump 了 rev 才顺带修好。
+               轮询只在页面可见时发生：收到轮询本身就等于「屏幕回来了」，直接翻回在线并广播。 */
+            applyPresence(me, true);
+            this.bump();
+          } else if (me.visible !== false) {
+            me.online = true;
+          }
         }
         this.state.updatedAt = now();
         /* 只刷心跳时也要把闹钟对齐：否则上一条请求中途报错会留下过时的 alarm */
