@@ -152,9 +152,7 @@
     kw: "",
     cat: "全部",
     difficulty: 0,
-    src: "全部",
-    hasTruth: false,
-    en: false
+    src: "全部"
   };
 
   function libPuzzle(id) {
@@ -1573,9 +1571,7 @@
     return E.libraryPool(list, {
       cat: libState.cat,
       difficulty: libState.difficulty,
-      src: libState.src,
-      hasTruth: libState.hasTruth,
-      lang: libState.en ? "en" : ""
+      src: libState.src
     });
   }
 
@@ -1786,26 +1782,6 @@
         }, 200);
       });
     }
-
-    var libTruth = $("#lib-truth-only");
-    if (libTruth) libTruth.addEventListener("click", function () {
-      libState.hasTruth = !libState.hasTruth;
-      libState.page = 1;
-      libTruth.classList.toggle("on", libState.hasTruth);
-      libTruth.setAttribute("aria-pressed", libState.hasTruth ? "true" : "false");
-      sfx("ui");
-      renderLibrary();
-    });
-
-    var libEn = $("#lib-en");
-    if (libEn) libEn.addEventListener("click", function () {
-      libState.en = !libState.en;
-      libState.page = 1;
-      libEn.classList.toggle("on", libState.en);
-      libEn.setAttribute("aria-pressed", libState.en ? "true" : "false");
-      sfx("ui");
-      renderLibrary();
-    });
 
     /* 音效开关 */
     var snd = $("#btn-sound");

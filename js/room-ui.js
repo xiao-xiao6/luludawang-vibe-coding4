@@ -186,15 +186,15 @@
     } catch (e) { return false; }
   }
 
-  /* 第⑪条：单人局右栏备忘录的显隐 —— 进多人房就藏起来让位给聊天框；
-     只在单人对局屏（screen-game 可见）时挂出来。 */
+  /* 第⑪条（改）：右栏备忘录常驻 —— 首页 / 汤库 / 随机 / 单人对局都挂着，
+     只有在多人汤屋（建房页和房内）才让位给房间聊天框。 */
   function syncMemoVisibility() {
     var memo = document.getElementById("solo-memo");
     if (!memo) return;
     var live = $("#room-live");
     var inLive = !!(live && !live.classList.contains("hidden") && R.inRoom);
-    var game = document.getElementById("screen-game");
-    var wantMemo = !inLive && !!(game && !game.classList.contains("hidden"));
+    var room = document.getElementById("screen-room");
+    var wantMemo = !inLive && !(room && !room.classList.contains("hidden"));
     memo.classList.toggle("hidden", !wantMemo);
     document.body.classList.toggle("solo-memo-mode", wantMemo);
   }
@@ -2548,6 +2548,8 @@
 
     /* 断点监听：窗口从宽屏变窄（或反过来）时，让聊天框在右栏与右下角之间正确归位 */
     watchBreakpoint();
+    /* 首屏就把右栏备忘录挂出来（首页 / 汤库 / 随机 / 单人对局常驻） */
+    syncChatVisibility();
   }
 
   /* ---------------- 导出（给 app.js 用） ---------------- */

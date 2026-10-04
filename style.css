@@ -1381,12 +1381,6 @@ body.modal-open .room-chat { display: none; }
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#lib-truth-only.on,
-#lib-en.on {
-  color: var(--broth-2);
-  border-color: var(--broth);
-  background: rgba(226, 164, 79, .12);
-}
 
 .noscript-note {
   margin: 0;

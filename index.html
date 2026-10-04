@@ -196,10 +196,6 @@
       <div class="chips" id="lib-diff" role="group" aria-label="按难度筛选"></div>
       <p class="chips-label">来源</p>
       <div class="chips" id="lib-src" role="group" aria-label="按来源筛选"></div>
-      <div class="rand-row">
-        <button type="button" class="chip" id="lib-truth-only" aria-pressed="false">只看有汤底</button>
-        <button type="button" class="chip" id="lib-en" aria-pressed="false">只看英文</button>
-      </div>
       <div class="puzzle-list lib-list" id="lib-list" role="list"></div>
       <div class="rand-actions">
         <button type="button" class="btn primary" id="btn-lib-more">加载更多</button>
@@ -300,10 +296,10 @@
 
   </section>
 
-  <!-- 第⑥条：线索板与「汤主的话」已下线；第⑪条：单人时右栏换成备忘录。
-       尺寸与位置沿用原右栏；进多人房时由 JS 把「房间聊天」挂进来并藏起备忘录。 -->
+  <!-- 第⑥条：线索板与「汤主的话」已下线；第⑪条：右栏备忘录常驻，
+       首页 / 汤库 / 随机 / 单人对局都在，只有进多人汤屋时让位给「房间聊天」。 -->
   <aside class="col-clue" id="col-clue" aria-label="备忘录与聊天">
-    <div class="room-chat memo-box hidden" id="solo-memo">
+    <div class="room-chat memo-box" id="solo-memo">
       <div class="rc-head">
         <span class="rc-title" id="btn-solo-memo-toggle" aria-expanded="true"><span class="ic" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6.2" y="3.6" width="13" height="16.8" rx="2"/><path d="M9.6 3.6v16.8"/><path d="M12.4 3.6h4.2v5l-2.1-1.3-2.1 1.3z"/></svg></span> 备忘录＆线索整理处</span>
         <span class="rc-hint">只存在你自己的浏览器里</span>
