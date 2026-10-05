@@ -458,7 +458,7 @@
     if (window.__soupMoreLoaded) return;
     window.__soupMoreLoaded = true;
     var s = document.createElement("script");
-    s.src = "js/data-more.js?v=20261004c";
+    s.src = "js/data-more.js?v=20261004d";
     s.async = true;
     s.onload = function () {
       renderQaLog();
@@ -833,7 +833,10 @@
       delete state.asked[key];
       state.qCount = Math.max(0, state.qCount - 1);
       var m = String((e && e.message) || e);
-      if (m === "QUESTION_INVALID") {
+      if (m === "MULTI_QUESTION") {
+        /* 一问一答：AI 检出多个问题 —— 不计警告不扣次数，挑一个重问就行 */
+        addLine("host", "sys", esc((e.data && e.data.note) || "检测到您的发问中存在多个问题，请挑一个问，每次提问只允许问一个问题。"));
+      } else if (m === "QUESTION_INVALID") {
         var d = (e && e.data) || {};
         addLine("host", "sys", esc(d.warn || d.why || "发问不符合游戏规则，这一句没有受理。"));
         if (d.strikes) toast("不合规警告 " + d.strikes + " 次了，提问只能用「是 / 不是 / 部分正确 / 与此无关」能回答的是非问句");
@@ -1212,7 +1215,13 @@
       if (state.pid !== p.id || state.done) return;
       state.qCount = Math.max(0, state.qCount - 1);
       var m = String((e && e.message) || e);
-      if (m === "AI_REQUIRED_LIB" || m === "AI_REQUIRED") {
+      if (m === "COOLDOWN") {
+        /* 冷却不是故障：把还剩几秒说清楚，别误导成「判定没送达」 */
+        var until = (e.data && e.data.until) || 0;
+        var sec = Math.max(1, Math.ceil((until - Date.now()) / 1000));
+        fb.textContent = "你还在猜底冷却中，" + sec + " 秒后再猜（冷却只算在你自己身上）。";
+        fb.className = "guess-feedback no";
+      } else if (m === "AI_REQUIRED_LIB" || m === "AI_REQUIRED") {
         fb.textContent = "这一锅必须由 AI 汤主判定——先配好模型。";
         openAiModal();
       } else if (m === "NOT_PLAYING") {

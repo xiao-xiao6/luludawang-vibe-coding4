@@ -110,14 +110,14 @@
       <div class="intro">
         <div class="pot" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5h15"/><path d="M6 10.5v5.2a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-5.2"/><path d="M4.5 10.5H3m18 0h-1.5"/><path d="M9.2 7.3c-.6-1 .6-1.7 0-2.7M12 7.3c-.6-1 .6-1.7 0-2.7M14.8 7.3c-.6-1 .6-1.7 0-2.7"/></svg></div>
         <h2>欢迎来到深海汤屋</h2>
-        <p class="intro-lead">汤面（谜面）已经备好，你只能向汤主提问。<br />汤主只会回答三种话：<b class="c-yes">是</b>、<b class="c-no">不是</b>、<b class="c-irr">与此无关</b>。</p>
+        <p class="intro-lead">汤面（谜面）已经备好，你只能向汤主提问。<br />汤主只会回答四种话：<b class="c-yes">是</b>、<b class="c-no">不是</b>、<b class="c-part">部分正确</b>、<b class="c-irr">与此无关</b>。</p>
         <ul class="rules">
-          <li><b>1.</b> 用提问一点点逼近真相，右侧备忘录可以随手记下推理。</li>
-          <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚。</li>
-          <li><b>3.</b> 提问越少，星级越高。汤底可以重熬，存档自动保存。</li>
-          <li><b>4.</b> 精品汤单独挑选打磨，每一道都有完整汤面和汤底；开问前先在顶上配好 AI 汤主。</li>
-          <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b>，按题材和火候让汤主随手舀一碗。</li>
-          <li><b>6.</b> 汤主就是 AI：点顶上的 <b><span class="ic" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="10.8" rx="2.8"/><path d="M12 8V5.2"/><circle cx="12" cy="3.9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9.2" cy="13.3" r="1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.3" r="1" fill="currentColor" stroke="none"/><path d="M10 16.4h4"/></svg></span> AI 汤主</b> 填上自己的模型 Key——每一锅都由服务端的大模型读着汤面汤底应答，它听得懂人话，也绝不会把答案漏给你。</li>
+          <li><b>1.</b> 每次只许问一个问题，而且要能用「是 / 不是」回答；一句话夹带好几个问题，汤主会请你挑一个重问。</li>
+          <li><b>2.</b> 觉得想通了，就点「我要猜汤底」，用自己的话把推理讲清楚——服务端 AI 汤主对照真实汤底判定，说破真相那层才算过。</li>
+          <li><b>3.</b> 提问越少，星级越高。汤底可以重熬，存档自动保存；<b>放弃只结束这一锅，不揭晓汤底</b>——真相只端给熬到说破的人。</li>
+          <li><b>4.</b> 全部 2500 道（精品 100 + 汤库 2400）都带完整汤面与汤底；汤面逐道向服务端领取，<b>汤底从不下发浏览器</b>。</li>
+          <li><b>5.</b> 拿不定主意？点顶上的 <b>随机模式</b> 或 <b>汤库</b>，按题材和火候挑一碗。</li>
+          <li><b>6.</b> 汤主就是 AI：开问前先点顶上的 <b><span class="ic" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="8" width="14" height="10.8" rx="2.8"/><path d="M12 8V5.2"/><circle cx="12" cy="3.9" r="1.2" fill="currentColor" stroke="none"/><circle cx="9.2" cy="13.3" r="1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.3" r="1" fill="currentColor" stroke="none"/><path d="M10 16.4h4"/></svg></span> AI 汤主</b> 填上自己的模型 Key——配置只进你自己的服务端小房间，由它读底应答，它听得懂人话，也绝不会把答案漏给你。</li>
         </ul>
         <div class="intro-actions">
           <button type="button" class="btn primary" id="btn-start">从第一题开始</button>
@@ -402,20 +402,20 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="assets/vendor/gsap.min.js" defer></script>
-<script src="js/data.js?v=20261004c" defer></script>
+<script src="js/data.js?v=20261004d" defer></script>
 <!-- 【2026-10-04 定档】浏览器端只发纯元信息汤单：无汤面、无汤底。
      汤面逐道向 Worker GET /api/puzzle/:id 领取（服务端按 IP 限流，批量爬不动）；
      判定与汤底全在 Worker 服务端——只有被 AI 汤主判定「解出」的那一刻，
      汤底才回给解出者本人。放弃 / 投票 / 任何接口都拿不到真相。 -->
 <script src="js/library.list.js" defer></script>
-<script src="js/engine.js?v=20261004c" defer></script>
-<script src="js/ai.js?v=20261004c" defer></script>
-<script src="js/audio.js?v=20261004c" defer></script>
-<script src="js/fx.js?v=20261004c" defer></script>
-<script src="js/transition.js?v=20261004c" defer></script>
-<script src="js/icons.js?v=20261004c" defer></script>
-<script src="js/net.js?v=20261004c" defer></script>
-<script src="js/room-ui.js?v=20261004c" defer></script>
-<script src="js/app.js?v=20261004c" defer></script>
+<script src="js/engine.js?v=20261004d" defer></script>
+<script src="js/ai.js?v=20261004d" defer></script>
+<script src="js/audio.js?v=20261004d" defer></script>
+<script src="js/fx.js?v=20261004d" defer></script>
+<script src="js/transition.js?v=20261004d" defer></script>
+<script src="js/icons.js?v=20261004d" defer></script>
+<script src="js/net.js?v=20261004d" defer></script>
+<script src="js/room-ui.js?v=20261004d" defer></script>
+<script src="js/app.js?v=20261004d" defer></script>
 </body>
 </html>

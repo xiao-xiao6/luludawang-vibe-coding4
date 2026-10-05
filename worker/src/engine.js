@@ -278,6 +278,28 @@ export function exploration(puzzle, revealedCount) {
   return Math.max(0, Math.min(100, Math.round((revealedCount / total) * 100)));
 }
 
+/* 判定话术泄底硬检测（2026-10-04）：AI 汤主的 note 里如果原样带出汤底的
+ * 连续片段（≥7 字），而玩家自己没说过、汤面里也没有 —— 就是泄底。
+ * 提示词已经禁了，这里再兜一层：命中即整条 note 丢弃换安全话术。 */
+export function leaksTruth(puzzle, guess, note) {
+  var t = normalize((puzzle && puzzle.truth) || "");
+  var n = normalize(note);
+  var g = normalize(guess);
+  var s = surfaceText(puzzle);
+  if (!t || !n) return false;
+  var best = 0;
+  for (var i = 0; i < t.length; i++) {
+    for (var j = best + 1; i + j <= t.length; j++) {
+      var seg = t.substr(i, j);
+      if (n.indexOf(seg) === -1) break;
+      /* 玩家自己说过 / 汤面本来就写着：不算汤主泄的底 */
+      if (g.indexOf(seg) !== -1 || s.indexOf(seg) !== -1) continue;
+      if (j > best) best = j;
+    }
+  }
+  return best >= 7;
+}
+
 export function getPuzzle(id) {
   return ALL_INDEX[id] || null;
 }

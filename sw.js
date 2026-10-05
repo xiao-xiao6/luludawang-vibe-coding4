@@ -5,25 +5,25 @@
  *   - 页面 / 样式 / 脚本 / manifest 走「网络优先」，保证改完就生效
  *   - 图片 / 字体走「缓存优先」，二次访问秒开
  * ============================================================ */
-var CACHE = "deepsea-soup-v31";
+var CACHE = "deepsea-soup-v32";
 var SHELL = [
   "./",
   "index.html",
   "style.css",
   "manifest.webmanifest",
   "assets/vendor/gsap.min.js",
-  "js/data.js?v=20261004c",
-  "js/library.list.js?v=20261004c",
-  "js/engine.js?v=20261004c",
-  "js/ai.js?v=20261004c",
-  "js/audio.js?v=20261004c",
-  "js/fx.js?v=20261004c",
-  "js/transition.js?v=20261004c",
-  "js/net.js?v=20261004c",
-  "js/icons.js?v=20261004c",
-  "js/room-ui.js?v=20261004c",
-  "js/app.js?v=20261004c",
-  "js/data-more.js?v=20261004c",
+  "js/data.js?v=20261004d",
+  "js/library.list.js?v=20261004d",
+  "js/engine.js?v=20261004d",
+  "js/ai.js?v=20261004d",
+  "js/audio.js?v=20261004d",
+  "js/fx.js?v=20261004d",
+  "js/transition.js?v=20261004d",
+  "js/net.js?v=20261004d",
+  "js/icons.js?v=20261004d",
+  "js/room-ui.js?v=20261004d",
+  "js/app.js?v=20261004d",
+  "js/data-more.js?v=20261004d",
   "assets/bg-castle.webp",
   "assets/bg-hall.webp",
   "assets/bg-dawn.webp",

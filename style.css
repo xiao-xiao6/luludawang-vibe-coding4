@@ -393,6 +393,7 @@ body.room-mode .qa-clear { display: none; }
 .intro-lead { color: var(--dim); font-size: 14.5px; max-width: 560px; margin: 0 auto 18px; }
 .c-yes { color: var(--yes); }
 .c-no { color: var(--no); }
+.c-part { color: var(--part); }
 .c-irr { color: var(--irr); }
 .rules {
   text-align: left;

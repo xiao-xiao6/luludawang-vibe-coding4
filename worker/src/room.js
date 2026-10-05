@@ -14,7 +14,8 @@ import {
   getPuzzle,
   publicPuzzle,
   ask as engineAsk,
-  stars
+  stars,
+  leaksTruth
 } from "./engine.js";
 import {
   buildSystemPrompt,
@@ -635,7 +636,7 @@ export class Room {
      也顺手掐掉思考型模型长篇发挥的空间（2026-10-04）。 */
   async aiJudge(puzzle, guess) {
     if (!this.aiReady()) return { error: "AI_OFFLINE", note: "房间还没有配置 AI 汤主" };
-    const cfg = Object.assign({}, this.state.ai, { maxTokens: 220, temperature: 0.1 });
+    const cfg = Object.assign({}, this.state.ai, { maxTokens: 220, temperature: 0.35 });
     try {
       const sys = buildJudgeSystem(puzzle);
       const usr = buildJudgeUser(puzzle, guess);
@@ -658,6 +659,9 @@ export class Room {
          混进两个以上连续英文单词的（思维链漏网）一律丢。 */
       if (note && REASON_TAIL.test(note)) note = "";
       if (note && /[A-Za-z]{2,}[ ,][A-Za-z]{2,}/.test(note)) note = "";
+      /* 泄底硬过滤：note 原样带出汤底连续 ≥7 字而玩家没说过 → 整条丢弃。
+         提示词再禁也只是概率，这一层是确定性的（图二那种「未说出同伴死亡与用其肉钓鱼」就是它拦）。 */
+      if (note && leaksTruth(puzzle, raw, note)) note = "";
       if (note && (note.match(/[。！？]/g) || []).length >= 3) {
         var mFn = note.match(/^[^。！？；]{0,40}/);
         note = mFn ? mFn[0].replace(/\s+$/, "") : "";
@@ -993,6 +997,14 @@ export class Room {
             s.askInFlightUntil = 0;
             s.pendingAI = null;
             return this.rejectAsk(s, p, "OPEN", "汤主判定这句没法用「是 / 不是」回答");
+          }
+          /* 一问一答（2026-10-04）：模型检出这句话里包着多个问题 ——
+             整句不答，原样回一句纠正提示；不计警告、不消耗回合、不上问答池。 */
+          if (ai.verdict === "multi") {
+            s.askInFlightUntil = 0;
+            s.pendingAI = null;
+            const multiNote = "检测到您的发问中存在多个问题，请挑一个问，每次提问只允许问一个问题。";
+            return { error: "MULTI_QUESTION", code: "MULTI", why: "一句话里问了多个问题", note: multiNote, warn: multiNote };
           }
           verdict = ai.verdict;
           reply = ai.reply;

@@ -1557,6 +1557,11 @@
       if (m === "AI_BUSY") R.toast("上一句汤主还在熬，等它答完再问。");
       else if (m === "NOT_YOUR_TURN") R.toast("还没轮到你哦");
       else if (m === "EMPTY_QUESTION") R.toast("先写一句问题");
+      else if (m === "MULTI_QUESTION") {
+        /* 一问一答：不计警告不耗回合，输入框原话留着让他挑一个改问 */
+        R.toast((e.data && e.data.note) || "检测到您的发问中存在多个问题，请挑一个问，每次提问只允许问一个问题。");
+        if (qi) { qi.focus(); }
+      }
       else if (m === "QUESTION_INVALID") {
         /* 合规闸门：这一句不记账、不消耗回合（累计到第三次才跳过），输入框原话留着好改 */
         var d = (e && e.data) || {};
