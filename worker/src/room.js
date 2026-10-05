@@ -661,7 +661,7 @@ export class Room {
       if (note && /[A-Za-z]{2,}[ ,][A-Za-z]{2,}/.test(note)) note = "";
       /* 泄底硬过滤：note 原样带出汤底连续 ≥7 字而玩家没说过 → 整条丢弃。
          提示词再禁也只是概率，这一层是确定性的（图二那种「未说出同伴死亡与用其肉钓鱼」就是它拦）。 */
-      if (note && leaksTruth(puzzle, raw, note)) note = "";
+      if (note && leaksTruth(puzzle, guess, note)) note = "";
       if (note && (note.match(/[。！？]/g) || []).length >= 3) {
         var mFn = note.match(/^[^。！？；]{0,40}/);
         note = mFn ? mFn[0].replace(/\s+$/, "") : "";
