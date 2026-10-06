@@ -88,7 +88,7 @@
     pid: null,
     revealed: [],
     asked: {},
-    hintsUsed: 0,
+    /* hintsUsed 已随提示机制下线（报告 P3-8）：存档里若有残留字段会被忽略 */
     qCount: 0,
     done: false,
     randCat: "全部",
@@ -100,6 +100,8 @@
     playing: true,
     fx: true,
     volume: 0.6,
+    /* 报告 P3-6：只有玩家真拖过滑条才算「明确音量」，才允许落盘 */
+    volumeTouched: false,
     /* 2026-10-04 服务端判定：单人 = Worker 上只有自己的小房间。
        detail = 服务端逐道拉来的汤面（含 surface，绝不含 truth）。 */
     roomCode: null,
@@ -136,12 +138,13 @@
     };
   }
 
-  /* 汤库列表的数据源：汤库层 + 精品层 */
+  /* 汤库列表的数据源：汤库层（懒加载） + 精品层（首屏本地包） */
   function mergedLib() {
     var core = (typeof PUZZLES !== "undefined" && PUZZLES && PUZZLES.length) ? PUZZLES : [];
-    var sig = LIB.length + "|" + core.length;
+    var lib = LIB_OF();
+    var sig = lib.length + "|" + core.length;
     if (mergedCache && mergedSig === sig) return mergedCache;
-    var out = LIB.slice();
+    var out = lib.slice();
     for (var i = 0; i < core.length; i++) {
       if (core[i] && core[i].id) out.push(coreAsLib(core[i]));
     }
@@ -150,7 +153,10 @@
     return out;
   }
 
-  var LIB = window.SOUP_LIBRARY || [];
+  /* 汤库层元信息是懒加载的（js/library.source.js）：首屏没有，
+     进汤库 / 随机模式 / 多人房选汤时才注入 window.SOUP_LIBRARY。
+     一律通过 LIB_OF() 取，别把数组引用存成局部变量。 */
+  function LIB_OF() { return window.SOUP_LIBRARY || []; }
 
   var libState = {
     page: 1,
@@ -162,8 +168,9 @@
 
   function libPuzzle(id) {
     if (!id) return null;
-    for (var i = 0; i < LIB.length; i++) {
-      if (LIB[i].id === id) return LIB[i];
+    var lib = LIB_OF();
+    for (var i = 0; i < lib.length; i++) {
+      if (lib[i].id === id) return lib[i];
     }
     return null;
   }
@@ -227,7 +234,16 @@
       progress.music = state.music;
       progress.playing = state.playing;
       progress.fx = state.fx;
-      progress.volume = state.volume;
+      /* 报告 P3-6 第2条的读写护栏：音量只在「玩家明确动过」或
+         「存档里本来就有合法音量」时持久化——把时序 / 自动化环境
+         里可能的异常归零挡在存档之外；越界坏值顺手从档里剔除。 */
+      var saved = progress.volume;
+      var hasExplicit = typeof saved === "number" && isFinite(saved) && saved >= 0 && saved <= 1;
+      if (hasExplicit || state.volumeTouched) {
+        progress.volume = Math.max(0, Math.min(1, Number(state.volume) || 0));
+      } else if ("volume" in progress) {
+        delete progress.volume;
+      }
       localStorage.setItem(STORE_KEY, JSON.stringify(progress));
     } catch (e) { /* 忽略 */ }
   }
@@ -240,7 +256,6 @@
         pid: state.pid,
         revealed: state.revealed.slice(),
         asked: state.asked,
-        hintsUsed: state.hintsUsed,
         qCount: state.qCount,
         history: state.history.slice(-20),
         roomCode: state.roomCode || null
@@ -366,9 +381,19 @@
       dm.setAttribute("aria-pressed", state.music ? "true" : "false");
     }
     var v = $("#vol");
-    if (v && Number(v.value) !== Math.round(state.volume * 100)) v.value = String(Math.round(state.volume * 100));
+    if (v) paintVolFill();
     var dock = $("#music-dock");
     if (dock) dock.classList.toggle("dim", !state.music || !state.playing);
+  }
+
+  /* 报告 P3-6 第1条：滑轨按当前值动态填充金色进度，
+     拖到 0 一眼能看出来，不再靠 12px 的小拇指判断 */
+  function paintVolFill() {
+    var v = $("#vol");
+    if (!v) return;
+    var pct = Math.round(Math.max(0, Math.min(1, state.volume)) * 100);
+    if (Number(v.value) !== pct) v.value = String(pct);
+    v.style.setProperty("--vol-p", pct + "%");
   }
 
   function applyAudioSettings() {
@@ -423,9 +448,13 @@
     toast(state.playing ? "音乐继续" : "音乐已暂停（音效照常）");
   }
 
-  function setVolume(v) {
-    state.volume = Math.max(0, Math.min(1, v));
+  function setVolume(v, fromUser) {
+    var n = Number(v);
+    if (!isFinite(n)) return;               /* 坏值直接忽略，绝不写 0 */
+    state.volume = Math.max(0, Math.min(1, n));
+    if (fromUser) state.volumeTouched = true; /* 玩家亲手拖的才算明确偏好 */
     if (AU) AU.setVolume(state.volume);
+    paintVolFill();
     saveProgress();
   }
 
@@ -458,7 +487,7 @@
     if (window.__soupMoreLoaded) return;
     window.__soupMoreLoaded = true;
     var s = document.createElement("script");
-    s.src = "js/data-more.js?v=20261004d";
+    s.src = "js/data-more.js?v=20261006a";
     s.async = true;
     s.onload = function () {
       renderQaLog();
@@ -674,7 +703,6 @@
     state.pid = meta.id;
     state.revealed = [];
     state.asked = snap && snap.asked ? snap.asked : {};
-    state.hintsUsed = 0;
     state.qCount = snap ? (snap.qCount || 0) : 0;
     state.done = false;
     state.history = snap && snap.history ? snap.history.slice() : [];
@@ -695,12 +723,23 @@
     if (window.SoupRoom && window.SoupRoom.syncChat) window.SoupRoom.syncChat();
 
     if (isLibLayer) {
-      /* 库层：标题用 dispTitle（永远非空），来源代替大类标签 */
+      /* 库层：标题用 dispTitle（永远非空）；题材走展示视图，
+         翻译状态与原始来源降级成小字（报告 P2-3 / P2-4） */
       set("#p-title", detail.dispTitle || detail.title || "无题");
+      var lvcats = E.catsView(detail);
+      var lxl = E.xlateOf(detail);
       var ltag = $("#p-tag");
-      if (ltag) { ltag.textContent = ""; ltag.classList.add("hidden"); }
+      if (ltag) {
+        ltag.textContent = lxl || "";
+        ltag.classList.toggle("hidden", !lxl);
+      }
       var lcats = $("#p-cats");
-      if (lcats) { lcats.innerHTML = ""; lcats.classList.add("hidden"); }
+      if (lcats) {
+        lcats.innerHTML = lvcats.map(function (c) {
+          return '<span class="pz-cat">' + esc(c) + "</span>";
+        }).join("");
+        lcats.classList.toggle("hidden", !lvcats.length);
+      }
       set("#p-diff", libDiffDots(detail.difficulty) + " 难度");
       var lorig = $("#p-orig");
       if (lorig) lorig.classList.add("hidden");
@@ -717,7 +756,8 @@
 
     clearLog();
     if (isLibLayer) {
-      sysLine("（这一锅来自「" + (detail.src || meta.src || "汤库") + "」）");
+      var rawSrc = String(detail.src || meta.src || "汤库");
+      sysLine("（这一锅来自「" + E.srcGroupOf(rawSrc) + "」，原始来源 " + rawSrc + "）");
       if (detail.truthSource === "ai") {
         sysLine("（注意：这一锅的汤底是 AI 根据汤面编的，不是原题答案）");
       }
@@ -919,11 +959,20 @@
       en.setAttribute("aria-pressed", cfg.enabled ? "true" : "false");
       en.textContent = cfg.enabled ? "已启用 AI 汤主" : "启用 AI 汤主";
     }
+    /* 报告改善④：「记住 Key」开关——默认记本机；关掉后 Key 只活在本次会话 */
+    var rm = $("#ai-remember");
+    if (rm) {
+      var remember = cfg.rememberKey !== false;
+      rm.classList.toggle("on", remember);
+      rm.setAttribute("aria-pressed", remember ? "true" : "false");
+      rm.textContent = remember ? "记住 Key 到本机" : "Key 只记本次会话";
+    }
     var st = $("#ai-status");
     if (st) {
       st.className = "ai-note" + (tone ? " " + tone : "");
       st.textContent = status || (AI.isReady(cfg)
-        ? "已就绪 · " + pre.label + " / " + cfg.model + " · Key " + AI.maskKey(cfg.apiKey)
+        ? "已就绪 · " + pre.label + " / " + cfg.model + " · Key " + AI.maskKey(cfg.apiKey) +
+          (cfg.rememberKey === false ? "（不落盘：关标签页就忘）" : "")
         : "还没填全（需要接口地址、模型和 Key 三样）。");
     }
   }
@@ -950,11 +999,16 @@
     var bu = $("#ai-baseurl");
     var md = $("#ai-model");
     var kk = $("#ai-key");
+    var rm = $("#ai-remember");
+    var rememberKey = rm
+      ? rm.getAttribute("aria-pressed") !== "false"
+      : (!AI || AI.config().rememberKey !== false);
     return {
       provider: sel ? sel.value : "deepseek",
       baseUrl: bu ? bu.value.trim() : "",
       model: md ? md.value.trim() : "",
-      apiKey: kk ? kk.value.trim() : ""
+      apiKey: kk ? kk.value.trim() : "",
+      rememberKey: rememberKey
     };
   }
 
@@ -1055,6 +1109,20 @@
       sfx("ui");
     });
 
+    var rmv = $("#ai-remember");
+    if (rmv) rmv.addEventListener("click", function () {
+      var cur = AI.config();
+      var nextRemember = cur.rememberKey === false;
+      var patch = readAiForm();
+      patch.rememberKey = nextRemember;
+      AI.setConfig(patch);
+      paintAiModal(nextRemember
+        ? "好，Key 会记在这台浏览器里（localStorage），下次直接能用。"
+        : "好，Key 不再落盘：只活在本次会话里，关掉标签页就忘——共享电脑推荐这样。", nextRemember ? "" : "ai-ok");
+      paintAiBar();
+      sfx("ui");
+    });
+
     var testBtn = $("#btn-ai-test");
     if (testBtn) testBtn.addEventListener("click", testAi);
 
@@ -1095,12 +1163,27 @@
     var box = $("#solo-memo");
     var ta = $("#solo-memo-text");
     if (!box || !ta) return;
-    /* 移动端默认收起（2026-10-04）：一打开项目就是半屏备忘录太挡路，
-       标题栏挂着「点击展开」提示，想记再点开。PC 维持默认展开。 */
-    if (isTouch()) {
-      box.classList.add("collapsed");
-      var tg0 = $("#btn-solo-memo-toggle");
-      if (tg0) tg0.setAttribute("aria-expanded", "false");
+    var tg = $("#btn-solo-memo-toggle");
+    /* 报告 P1-1：≤860px 视口里它是压在页面中部的 fixed 悬浮窗，
+       窄屏（含桌面窄窗口）默认收起、与 CSS 注释口径一致；宽屏维持默认展开。
+       本会话玩家手动开关过就不再替他做主。 */
+    var userToggled = false;
+    var mqNarrow = null;
+    try { mqNarrow = window.matchMedia("(max-width: 860px)"); } catch (e) { /* 老浏览器 */ }
+    function setMemoOpen(open) {
+      box.classList.toggle("collapsed", !open);
+      if (tg) tg.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    function syncByWidth() {
+      if (userToggled) return;
+      var touch = false;
+      try { touch = isTouch(); } catch (e) { /* 忽略 */ }
+      setMemoOpen(!(mqNarrow ? mqNarrow.matches : false) && !touch);
+    }
+    syncByWidth();
+    if (mqNarrow) {
+      if (mqNarrow.addEventListener) mqNarrow.addEventListener("change", syncByWidth);
+      else if (mqNarrow.addListener) mqNarrow.addListener(syncByWidth);
     }
     var KEY = "soup.memo.v1";
     try {
@@ -1114,11 +1197,40 @@
         try { localStorage.setItem(KEY, ta.value); } catch (e) { /* 忽略 */ }
       }, 400);
     });
-    var tg = $("#btn-solo-memo-toggle");
     if (tg) tg.addEventListener("click", function () {
       var open = !box.classList.contains("collapsed");
-      box.classList.toggle("collapsed", open);
-      tg.setAttribute("aria-expanded", open ? "false" : "true");
+      userToggled = true;
+      setMemoOpen(!open);
+    });
+  }
+
+  /* 报告改善③：窄屏（≤860px）下左栏「问答记录」默认收成一条头栏，
+     只留「N 问」徽章可点，点开才展开——两处重复记录不再抢窄屏的滚动空间 */
+  function initQaCollapse() {
+    var panel = document.querySelector(".col-qa .qa-panel");
+    var head = $("#btn-qa-collapse");
+    if (!panel || !head) return;
+    var userToggled = false;
+    var mqNarrow = null;
+    try { mqNarrow = window.matchMedia("(max-width: 860px)"); } catch (e) { /* 老浏览器 */ }
+    function setOpen(open) {
+      panel.classList.toggle("qa-collapsed", !open);
+      head.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    function syncByWidth() {
+      if (userToggled) return;
+      setOpen(!(mqNarrow && mqNarrow.matches));
+    }
+    syncByWidth();
+    if (mqNarrow) {
+      if (mqNarrow.addEventListener) mqNarrow.addEventListener("change", syncByWidth);
+      else if (mqNarrow.addListener) mqNarrow.addListener(syncByWidth);
+    }
+    head.addEventListener("click", function () {
+      var wasCollapsed = panel.classList.contains("qa-collapsed");
+      userToggled = true;
+      setOpen(wasCollapsed);
+      sfx("ui");
     });
   }
 
@@ -1256,7 +1368,7 @@
 
     /* 星级：按服务端下发的 par 当场结算，不写回任何存档 */
     var parP = state.detail || p;
-    var st = E.stars(parP, state.qCount, state.hintsUsed);
+    var st = E.stars(parP, state.qCount);
 
     /* 1 星（熬太久）走「汤凉了」的灰调场景 */
     setScene(st <= 1 ? "sad" : "win");
@@ -1290,10 +1402,20 @@
     /* 库题继续从库里抽，精品题继续从精品层抽 */
     var lib = isLibPid(state.pid);
     var nxt = lib
-      ? E.drawFromLibrary(LIB, {})
+      ? E.drawFromLibrary(LIB_OF(), {})
       : E.drawFrom(PUZZLES);
     closeModal("#modal-end");
-    if (nxt) loadPuzzle(nxt.id);
+    if (nxt) { loadPuzzle(nxt.id); return; }
+    if (lib && window.SoupLibSource && !SoupLibSource.ready()) {
+      /* 极小概率：首访 2 秒内就熬完一道库题，汤架还没取回来 */
+      toast("正在从汤架取菜单，稍等…");
+      SoupLibSource.ensure().then(function () {
+        var n2 = E.drawFromLibrary(LIB_OF(), {});
+        if (n2) loadPuzzle(n2.id);
+      }).catch(function () { toast("汤架没取到，先回首页换一锅吧"); });
+      return;
+    }
+    toast("下一锅没抽上，回首页换一锅吧");
   }
 
   /* ---------------- 放弃（不揭底，2026-10-04 定档） ----------------
@@ -1403,7 +1525,7 @@
     var o = opts || {};
     return mergedLib().filter(function (p) {
       if (!p || !p.id) return false;
-      if (o.cat && o.cat !== "全部" && (p.cats || []).indexOf(o.cat) === -1) return false;
+      if (o.cat && o.cat !== "全部" && !E.hasCatView(p, o.cat)) return false;
       if (o.difficulty && p.difficulty !== o.difficulty) return false;
       return true;
     });
@@ -1443,8 +1565,9 @@
 
     var cbox = $("#rand-cats");
     if (cbox) {
-      /* 题材标签与汤库页同一套词表（含库层标签），两边筛出来的结果才对得上 */
-      var cats = ["全部"].concat(E.libraryCats(mergedLib()));
+      /* 题材词表与汤库页同一套展示视图（剔翻译标签 + 「其他」补分类），
+         两边筛出来的结果才对得上（报告 P2-4） */
+      var cats = ["全部"].concat(E.catFacet(mergedLib()));
       cbox.innerHTML = cats.map(function (c) {
         return '<button type="button" class="chip cat' + (c === state.randCat ? " on" : "") +
           '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
@@ -1458,16 +1581,17 @@
       });
     }
 
-    /* 可选数量按「精品 + 汤库」合并池统计 */
+    /* 可选数量按「精品 + 汤库」合并池统计；汤库元信息懒加载中先按精品口径报 */
     var total = randPool({ cat: state.randCat, difficulty: state.randDiff }).length;
     var poolEl = $("#rand-pool");
     if (poolEl) {
+      var loadingLib = window.SoupLibSource && !SoupLibSource.ready();
       poolEl.textContent = total === 0
-        ? "这个条件下暂时没有汤，换个题材或火候试试"
-        : total + " 道可选";
+        ? (loadingLib ? "正在从汤架取菜单…" : "这个条件下暂时没有汤，换个题材或火候试试")
+        : total + " 道可选" + (loadingLib ? "（汤架取完还会更多）" : "");
     }
     var go = $("#btn-rand-go");
-    if (go) go.disabled = total === 0;
+    if (go) go.disabled = total === 0 && !(window.SoupLibSource && !SoupLibSource.ready());
   }
 
   /* 从「多人汤屋」切走时：收起房间面板 + 停掉房间轮询 + 藏右下角聊天，
@@ -1491,6 +1615,12 @@
     $("#screen-game").classList.add("hidden");
     $("#screen-random").classList.remove("hidden");
     renderRandom();
+    /* 汤库元信息没到位就先去取：到位后重画，把「2500 道可选」补齐 */
+    if (window.SoupLibSource && !SoupLibSource.ready()) {
+      SoupLibSource.ensure().then(function () {
+        if ($("#screen-random") && !$("#screen-random").classList.contains("hidden")) renderRandom();
+      }).catch(function () { /* 保底：精品层照抽不误 */ });
+    }
     sfx("ui");
   }
 
@@ -1503,15 +1633,36 @@
   }
 
   function drawRandom() {
+    if (window.SoupLibSource && !SoupLibSource.ready()) {
+      toast("汤架还在路上，稍等一下再抽");
+      SoupLibSource.ensure().catch(function () { });
+      return;
+    }
     var p = randDraw(randOpts());
     if (!p) { toast("这个条件下暂时没有可抽的汤，放宽一点试试"); return; }
     toast("抽到：" + (p.dispTitle || p.title));
     loadPuzzle(p.id);
   }
 
-  /* 首页/顶栏「随机一题」：与随机模式同一个池、同一套权重（精品 + 全量汤库）。 */
+  /* 首页/顶栏「随机一题」：与随机模式同一个池、同一套权重（精品 + 全量汤库）。
+     首访头两秒汤架可能还没取回来：先抽精品层垫上，绝不让人干等。 */
   function randomAnywhere() {
+    if (window.SoupLibSource && !SoupLibSource.ready() && SoupLibSource.count() === 0) return null;
     return randDraw({});
+  }
+
+  function randomAnywhereWithToast(prefix) {
+    var r = randomAnywhere();
+    if (r) {
+      loadPuzzle(r.id);
+      if (prefix) toast(prefix + "：" + (r.dispTitle || r.title));
+      return;
+    }
+    var core = E.drawFrom(PUZZLES);
+    if (core) {
+      toast("汤架还在路上，先来一锅精品汤");
+      loadPuzzle(core.id);
+    }
   }
 
   /* ---------------- 汤库模式 ---------------- */
@@ -1530,7 +1681,7 @@
     return new Array(n + 1).join("●") + new Array(4 - n).join("○");
   }
 
-  /* 来源短名：github:owner/repo → owner，免得筛选条被长串撑爆 */
+  /* 来源短名：github:owner/repo → owner（详情页小字用，不再进筛选条） */
   function libShortSrc(s) {
     var v = String(s || "");
     if (!v) return "未知";
@@ -1538,28 +1689,32 @@
     return v;
   }
 
+  /* 筛选走展示视图（E.catsView / E.srcGroupOf）：翻译状态不占题材位，
+     27 个原始来源归并成几组可读标签（报告 P2-3 / P2-4） */
   function libraryFiltered() {
     var list = E.searchLibrary(mergedLib(), libState.kw);
-    return E.libraryPool(list, {
-      cat: libState.cat,
-      difficulty: libState.difficulty,
-      src: libState.src
+    return list.filter(function (p) {
+      if (!p) return false;
+      if (libState.cat && libState.cat !== "全部" && !E.hasCatView(p, libState.cat)) return false;
+      if (libState.difficulty && p.difficulty !== libState.difficulty) return false;
+      if (libState.src && libState.src !== "全部" && !E.hasSrcGroup(p, libState.src)) return false;
+      return true;
     });
   }
 
-  function libSrcList() {
-    var seen = {}, out = [];
-    mergedLib().forEach(function (p) {
-      if (p && p.src && !seen[p.src]) { seen[p.src] = 1; out.push(p.src); }
-    });
-    out.sort();
-    return out;
+  /* 元信息还没懒加载好：列表区先挂「取汤架」占位 */
+  function libLoadingHint(target) {
+    if (target) target.innerHTML = '<p class="pz-empty">正在从汤架取新菜单…<br />第一次稍等一两秒，之后离线也秒开。</p>';
+    var badge = $("#lib-count");
+    if (badge) badge.textContent = "…";
+    var more = $("#btn-lib-more");
+    if (more) more.classList.add("hidden");
   }
 
   function renderLibraryFilters() {
     var cbox = $("#lib-cat");
     if (cbox) {
-      var cats = ["全部"].concat(E.libraryCats(mergedLib()));
+      var cats = ["全部"].concat(E.catFacet(mergedLib()));
       cbox.innerHTML = cats.map(function (c) {
         return '<button type="button" class="chip cat' + (c === libState.cat ? " on" : "") +
           '" data-cat="' + esc(c) + '">' + esc(c) + "</button>";
@@ -1569,7 +1724,6 @@
           libState.cat = btn.dataset.cat;
           libState.page = 1;
           sfx("ui");
-          renderLibraryFilters();
           renderLibrary();
         });
       });
@@ -1587,7 +1741,6 @@
           libState.difficulty = Number(btn.dataset.diff) || 0;
           libState.page = 1;
           sfx("ui");
-          renderLibraryFilters();
           renderLibrary();
         });
       });
@@ -1595,27 +1748,31 @@
 
     var sbox = $("#lib-src");
     if (sbox) {
-      var srcs = ["全部"].concat(libSrcList());
+      var srcs = ["全部"].concat(E.srcFacet(mergedLib()));
       sbox.innerHTML = srcs.map(function (s) {
         return '<button type="button" class="chip' + (s === libState.src ? " on" : "") +
-          '" data-src="' + esc(s) + '" title="' + esc(s) + '">' + esc(libShortSrc(s)) + "</button>";
+          '" data-src="' + esc(s) + '" title="' + esc(s) + '">' + esc(s) + "</button>";
       }).join("");
       $$(".chip", sbox).forEach(function (btn) {
         btn.addEventListener("click", function () {
           libState.src = btn.dataset.src;
           libState.page = 1;
           sfx("ui");
-          renderLibraryFilters();
           renderLibrary();
         });
       });
     }
   }
 
-  /* 分页渲染：1374 条全量 innerHTML 会把移动端拖卡，必须切片 */
+  /* 分页渲染：2400 条全量 innerHTML 会把移动端拖卡，必须切片 */
   function renderLibrary() {
     var box = $("#lib-list");
     if (!box) return;
+    if (!window.SoupLibSource || !SoupLibSource.ready()) {
+      renderLibraryFilters();
+      libLoadingHint(box);
+      return;
+    }
     var list = libraryFiltered();
     var show = list.slice(0, libState.page * LIB_PAGE_SIZE);
 
@@ -1624,6 +1781,7 @@
     } else {
       box.innerHTML = show.map(function (p) {
         var solv = isSolved(p.id);
+        var xl = E.xlateOf(p);
         return '<button type="button" role="listitem" class="pz-card lib-card' + (solv ? " solved" : "") +
           '" data-lib-id="' + esc(p.id) +
           '" aria-label="' + esc(p.dispTitle) + '，难度' + p.difficulty + '">' +
@@ -1632,10 +1790,11 @@
           'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? ic("check") : "") + "</span>" +
           '<div class="pz-title">' + esc(p.dispTitle) + "</div>" +
           '<div class="pz-meta"><span class="pz-diff" aria-hidden="true">' + libDiffDots(p.difficulty) + "</span>" +
-          "<span>" + esc(libShortSrc(p.src)) + "</span>" +
+          "<span>" + esc(E.srcGroupOf(p.src)) + "</span>" +
+          (xl ? '<span class="lib-xlate">' + esc(xl) + "</span>" : "") +
           (p.truthSource === "recovered" ? '<span class="lib-notruth">已补底</span>' : "") +
           "</div>" +
-          '<div class="pz-cats">' + (p.cats || []).map(function (c) {
+          '<div class="pz-cats">' + E.catsView(p).map(function (c) {
             return '<span class="pz-cat">' + esc(c) + "</span>";
           }).join("") + "</div>" +
           "</button>";
@@ -1667,6 +1826,19 @@
     if (more) more.classList.toggle("hidden", show.length >= list.length);
   }
 
+  /* 懒加载就绪后的统一善后：重画当前打开的列表页 + 服务端口径校准 */
+  function onLibReady() {
+    var libOpen = $("#screen-library") && !$("#screen-library").classList.contains("hidden");
+    var randOpen = $("#screen-random") && !$("#screen-random").classList.contains("hidden");
+    if (libOpen) { renderLibraryFilters(); renderLibrary(); }
+    if (randOpen) renderRandom();
+    /* 服务端口径：/api/puzzle-stats 与本地清单对不上就提示刷新取新 */
+    var sc = window.SoupLibSource && SoupLibSource.serverCounts && SoupLibSource.serverCounts();
+    if (libOpen && sc && typeof sc.lib === "number" && sc.lib !== SoupLibSource.count()) {
+      toast("服务端汤架有更新（现共 " + sc.total + " 道），刷新页面可取最新");
+    }
+  }
+
   function openLibrary() {
     setScene("menu");
     leaveRoomScreen();
@@ -1675,8 +1847,18 @@
     var r = $("#screen-random");
     if (r) r.classList.add("hidden");
     $("#screen-library").classList.remove("hidden");
+    /* 首屏不带汤库元信息：此刻才取（SW 缓存命中时近乎无感） */
+    if (window.SoupLibSource && !SoupLibSource.ready()) {
+      renderLibraryFilters();
+      libLoadingHint($("#lib-list"));
+      SoupLibSource.ensure().catch(function () {
+        var box = $("#lib-list");
+        if (box) box.innerHTML = '<p class="pz-empty">汤架暂时取不到，检查网络后重试。<br />（精品 100 道不受影响，可先随便来一锅）</p>';
+      });
+    }
     renderLibraryFilters();
     renderLibrary();
+    if (window.SoupLibSource) SoupLibSource.probeServer();
     sfx("ui");
   }
 
@@ -1700,12 +1882,11 @@
     if (resumeBtn) resumeBtn.addEventListener("click", resumeSession);
 
     var randBtn = $("#btn-start-random");
-    if (randBtn) randBtn.addEventListener("click", function () { var r = randomAnywhere(); if (r) loadPuzzle(r.id); });
+    if (randBtn) randBtn.addEventListener("click", function () { randomAnywhereWithToast(); });
 
     var topRand = $("#btn-random");
     if (topRand) topRand.addEventListener("click", function () {
-      var r = randomAnywhere();
-      if (r) { loadPuzzle(r.id); toast("随机一锅：" + (r.dispTitle || r.title)); }
+      randomAnywhereWithToast("随机一锅");
     });
 
     /* 随机模式：按题材 / 火候 / 是否熬过 抽题 */
@@ -1787,9 +1968,15 @@
     var dp = $("#dock-play");
     if (dp) dp.addEventListener("click", togglePlay);
 
-    /* 音量 */
+    /* 音量（玩家拖动 = 明确偏好，允许持久化） */
     var vol = $("#vol");
-    if (vol) vol.addEventListener("input", function () { setVolume(Number(vol.value) / 100); });
+    if (vol) vol.addEventListener("input", function () { setVolume(Number(vol.value) / 100, true); });
+
+    /* 报告改善③：窄屏下左栏「问答记录」默认收成一条头栏（N 问徽章仍可点） */
+    initQaCollapse();
+
+    /* 懒加载就绪：重画当前开着的汤库 / 随机面板 + 服务端口径校准 */
+    root.addEventListener("soup:libready", onLibReady);
 
     /* 快捷键：M 静音音乐 / 空格在非输入状态暂停音乐 */
     document.addEventListener("keydown", function (ev) {
@@ -1987,7 +2174,16 @@
         if (mqcFx && mqcFx.matches) state.fx = false;
       } catch (e) { /* 忽略 */ }
     }
-    state.volume = typeof progress.volume === "number" ? progress.volume : 0.6;
+    /* 音量读数校验（报告 P3-6）：越界 / NaN / 字符串坏值一律回默认 0.6，
+       且不当作「明确偏好」——等玩家亲手碰滑条才回写存档 */
+    var pv = progress.volume;
+    var volValid = typeof pv === "number" && isFinite(pv) && pv >= 0 && pv <= 1;
+    state.volume = volValid ? pv : 0.6;
+    state.volumeTouched = volValid;
+    if (!volValid && progress && "volume" in progress) {
+      delete progress.volume;
+      saveProgress();   /* 存档里的坏值当场自愈，不留到下次才洗 */
+    }
 
     if (FX) FX.init();
     applyAudioSettings();

@@ -260,17 +260,18 @@ export function judgeGuess(puzzle, guess) {
   });
 }
 
-export function stars(puzzle, questionCount, hintsUsed) {
+export function stars(puzzle, questionCount) {
+  /* 2026-10-06（报告 P3-8）：hintsUsed 恒 0 死参数已删，判定只看提问数 */
   var par = (puzzle && puzzle.par) || 8;
-  if (hintsUsed === 0 && questionCount <= par) return 3;
-  if (hintsUsed <= 1 && questionCount <= par + 5) return 2;
+  if (questionCount <= par) return 3;
+  if (questionCount <= par + 5) return 2;
   return 1;
 }
 
 export function starNote(n) {
-  if (n >= 3) return "汤色清亮，一滴提示都没浪费——这锅熬得漂亮！";
-  if (n === 2) return "味道不错，只是中间多搅了两下。";
-  return "汤是端上来了，但火候全靠提示撑着。再熬一次试试？";
+  if (n >= 3) return "汤色清亮，问题没超纲——这锅熬得漂亮！";
+  if (n === 2) return "味道不错，只是中间多问了几圈。";
+  return "汤是端上来了，火候全靠题海堆的。下次先想好再问？";
 }
 
 export function exploration(puzzle, revealedCount) {

@@ -21,6 +21,8 @@
 
   var E = root.SoupEngine;
   var STORE_KEY = "deepsea_soup_ai_v1";
+  /* 报告改善④：不记 Key 模式下，Key 只进这个会话级存储（关标签页即忘） */
+  var SS_KEY = "deepsea_soup_ai_key_session";
 
   var VERDICTS = ["yes", "no", "partial", "irr"];
   var LEAD_OF = { yes: "是", no: "不是", partial: "部分正确", irr: "与此无关" };
@@ -52,6 +54,8 @@
     baseUrl: "https://api.deepseek.com/v1",
     model: "deepseek-chat",
     apiKey: "",
+    /* 老存档没有这个字段：默认仍记本机（true），不改变既有玩家体验 */
+    rememberKey: true,
     timeoutMs: 20000,
     maxTokens: 1200,
     temperature: 0.4
@@ -84,6 +88,7 @@
       baseUrl: typeof o.baseUrl === "string" ? o.baseUrl.trim().replace(/\/+$/, "") : d.baseUrl,
       model: typeof o.model === "string" ? o.model.trim() : d.model,
       apiKey: typeof o.apiKey === "string" ? o.apiKey.trim() : "",
+      rememberKey: o.rememberKey === false ? false : true,
       timeoutMs: clampNum(o.timeoutMs, 3000, 120000, d.timeoutMs),
       maxTokens: clampNum(o.maxTokens, 64, 4000, d.maxTokens),
       temperature: clampNum(o.temperature, 0, 1.5, d.temperature)
@@ -105,6 +110,13 @@
     var obj = null;
     if (raw) { try { obj = JSON.parse(raw); } catch (e) { obj = null; } }
     cache = clean(obj);
+    /* 不记 Key 模式：磁盘上只有脱敏版，真正的 Key 从本标签页 sessionStorage 认领 */
+    if (cache.rememberKey === false && !cache.apiKey) {
+      try {
+        var s = root.sessionStorage && root.sessionStorage.getItem(SS_KEY);
+        if (s) cache.apiKey = s;
+      } catch (e) { /* 忽略 */ }
+    }
     return cache;
   }
 
@@ -128,7 +140,18 @@
 
   function save(cfg) {
     cache = clean(cfg);
-    try { if (root.localStorage) root.localStorage.setItem(STORE_KEY, JSON.stringify(cache)); } catch (e) { /* 隐私模式：忽略 */ }
+    /* 报告改善④：不记 Key 时，localStorage 只存脱敏副本，
+       Key 本体进 sessionStorage——同标签页刷新还能用，关标签页就忘 */
+    var persist = {};
+    for (var k in cache) if (Object.prototype.hasOwnProperty.call(cache, k)) persist[k] = cache[k];
+    if (!cache.rememberKey) persist.apiKey = "";
+    try { if (root.localStorage) root.localStorage.setItem(STORE_KEY, JSON.stringify(persist)); } catch (e) { /* 隐私模式：忽略 */ }
+    try {
+      if (root.sessionStorage) {
+        if (!cache.rememberKey && cache.apiKey) root.sessionStorage.setItem(SS_KEY, cache.apiKey);
+        else root.sessionStorage.removeItem(SS_KEY);
+      }
+    } catch (e) { /* 忽略 */ }
     emit(cache);
     return cache;
   }

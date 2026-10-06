@@ -913,7 +913,7 @@ export class Room {
       s.winnerNick = "";
     }
     s.revealHow = how || "说破";
-    s.stars = puzzle ? stars(puzzle, s.qaLog.filter((x) => x.kind === "ask").length, 0) : 1;
+    s.stars = puzzle ? stars(puzzle, s.qaLog.filter((x) => x.kind === "ask").length) : 1;
   }
 
   /* 房主选汤（规格 #5：只有 #1 能选） */

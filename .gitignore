@@ -316,3 +316,13 @@ tools/yng_trans_out/out_05.json
 tools/yng_trans_out/out_06.json
 tools/yng_trans_out/out_07.json
 tools/yng_wordmatch.json
+
+# ---- 2026-10-06 仓库卫生补强（调试报告 P3-7）----
+# wrangler dev 反复生成的编号残留目录：本地已全部清理，规则兜底防再生成
+worker/.wrangler*/
+# 根目录一切下划线调试遗留（双保险，Pages 公开仓绝不发这些）
+/_tmp_*
+/_probe_*
+/_imp*
+/_import_out*
+/_verify_*

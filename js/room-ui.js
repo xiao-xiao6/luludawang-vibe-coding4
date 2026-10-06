@@ -456,14 +456,25 @@
     var pz = $("#room-puzzle");
     if (pz) {
       if (s.puzzle) {
-        var pzCats = (s.puzzle.cats || []).map(function (c) {
+        /* 报告 P2-5：难度全站统一圆点制，不再是「火候 3」一种皮肤；
+           P2-4：题材走展示视图（翻译状态降级为小字徽章） */
+        var EV = window.SoupEngine;
+        var vCats = EV && EV.catsView ? EV.catsView(s.puzzle) : (s.puzzle.cats || []);
+        var vXlate = EV && EV.xlateOf ? EV.xlateOf(s.puzzle) : "";
+        var vDots = (function (d) {
+          var n = Number(d);
+          if (!isFinite(n) || n < 1 || n > 3) n = 2;
+          return new Array(n + 1).join("●") + new Array(4 - n).join("○");
+        })(s.puzzle.difficulty);
+        var pzCats = vCats.map(function (c) {
           return '<span class="pz-cat">' + esc(c) + "</span>";
         }).join("");
         pz.innerHTML =
           '<div class="room-pz-title">' + esc(s.puzzle.dispTitle || s.puzzle.title) + "</div>" +
           '<p class="room-pz-surface">' + esc(s.puzzle.surface || "") + "</p>" +
           (pzCats ? '<div class="pz-cats">' + pzCats + "</div>" : "") +
-          '<p class="room-pz-meta">火候 ' + (s.puzzle.difficulty || "-") + "</p>";
+          '<p class="room-pz-meta"><span class="pz-diff" aria-hidden="true">' + vDots + "</span> 火候" +
+          (vXlate ? " · " + esc(vXlate) : "") + "</p>";
       } else {
         pz.innerHTML = '<p class="empty">房主还没选汤。</p>';
       }
@@ -1793,7 +1804,8 @@
      题目走本地精品层 + 汤库（和单人汤库同一份），不另做选汤页。 */
   function doChoose() {
     var E2 = window.SoupEngine;
-    var LIB2 = window.SOUP_LIBRARY || [];
+    /* 汤库元信息改为懒加载：选汤面板一弹就取，取到前先用精品层顶着 */
+    function lib2() { return window.SOUP_LIBRARY || []; }
     var PUZ2 = window.PUZZLES || [];
     var st = { page: 1, kw: "", cat: "全部", difficulty: 0, layer: "all" };
     var PAGE = 60;
@@ -1854,14 +1866,14 @@
         if (hay.indexOf(k) === -1) return false;
       }
       if (st.cat && st.cat !== "全部") {
-        var cs = p.cats || [];
-        if (cs.indexOf(st.cat) === -1) return false;
+        if (E2 && E2.hasCatView) { if (!E2.hasCatView(p, st.cat)) return false; }
+        else if ((p.cats || []).indexOf(st.cat) === -1) return false;
       }
       if (st.difficulty && p.difficulty !== st.difficulty) return false;
       return true;
     }
 
-    /* 本地候选：core 用 PUZZLES，lib 用 SOUP_LIBRARY（与单人汤库同一份）。
+    /* 本地候选：core 用 PUZZLES，lib 用懒加载回来的 SOUP_LIBRARY（与单人汤库同一份）。
        layer=all 时两层都合进来，随机一题才能抽到精品以外的题。 */
     function localPool() {
       var out = [];
@@ -1869,9 +1881,14 @@
         (PUZ2 || []).forEach(function (p) { if (matchCore(p)) out.push(p); });
       }
       if (st.layer !== "core") {
+        var LIB2 = lib2();
         var list = E2 ? E2.searchLibrary(LIB2, st.kw) : LIB2;
-        var lib = E2 ? E2.libraryPool(list, { cat: st.cat, difficulty: st.difficulty, hasTruth: false }) : (list || []);
-        out = out.concat(lib || []);
+        var filtered = list.filter(function (p) {
+          if (st.cat && st.cat !== "全部" && E2 && E2.hasCatView && !E2.hasCatView(p, st.cat)) return false;
+          if (st.difficulty && p.difficulty !== st.difficulty) return false;
+          return true;
+        });
+        out = out.concat(filtered || []);
       }
       return out;
     }
@@ -1879,9 +1896,13 @@
     function renderCats() {
       var cats = ["全部"];
       if (st.layer === "core") {
-        if (E2) cats = ["全部"].concat(E2.allCats(PUZ2));
+        if (E2 && E2.catFacet) cats = ["全部"].concat(E2.catFacet(PUZ2));
+      } else if (E2 && E2.catFacet) {
+        cats = ["全部"].concat(E2.catFacet(st.layer === "lib" ? lib2() : lib2().concat(PUZ2)));
+      } else if (st.layer !== "lib" && PUZ2) {
+        cats = ["全部"].concat(E2.allCats(PUZ2));
       } else if (E2) {
-        cats = ["全部"].concat(E2.libraryCats(st.layer === "lib" ? LIB2 : LIB2.concat(PUZ2)));
+        cats = ["全部"].concat(E2.libraryCats(st.layer === "lib" ? lib2() : lib2().concat(PUZ2)));
       }
       if (cats.indexOf(st.cat) === -1) st.cat = "全部";
       catEl.innerHTML = cats.map(function (c) {
@@ -1923,18 +1944,24 @@
       listEl.insertAdjacentHTML("beforeend", arr.map(function (p) {
         var name = esc(p.dispTitle || p.title || "无题");
         var diff = esc(libDiffDots2(p.difficulty));
-        var src = esc(p.src ? libShortSrc2(p.src) : "精品");
-        /* tag 标签：和单人汤库同款胶囊，选汤时就能看到脑洞 / 悬疑 / 都市 等题材 */
-        var cats = (p.cats || []).map(function (c) {
+        /* 来源用可读分组（与单人汤库同一套口径，报告 P2-3）；
+           精品层母本对象没有 src 字段：归「精品自制」 */
+        var src = esc(E2 && E2.srcGroupOf
+          ? (p.src ? E2.srcGroupOf(p.src) : "精品自制")
+          : (p.src ? libShortSrc2(p.src) : "精品"));
+        /* tag 标签：展示视图题材（翻译状态不再混进来，报告 P2-4） */
+        var cats = (E2 && E2.catsView ? E2.catsView(p) : (p.cats || [])).map(function (c) {
           return '<span class="pz-cat">' + esc(c) + "</span>";
         }).join("");
+        var xlate = E2 && E2.xlateOf ? E2.xlateOf(p) : "";
         /* 绿勾：与单人汤库共享同一份本地记录，谁玩过哪个汤都不一样 */
         var solv = !!(SA && SA.isSolved && SA.isSolved(p.id));
         return '<button type="button" class="pz-card' + (solv ? " solved" : "") + '" data-id="' + esc(p.id) + '">' +
           '<span class="pz-check' + (solv ? " on" : "") + '" data-check="' + esc(p.id) + '" role="checkbox" ' +
           'aria-checked="' + (solv ? "true" : "false") + '" title="标记为已熬出汤底">' + (solv ? ic("check") : "") + "</span>" +
           '<div class="pz-title">' + name + "</div>" +
-          '<div class="pz-meta"><span>' + diff + '</span><span>' + src + "</span></div>" +
+          '<div class="pz-meta"><span>' + diff + "</span><span>" + src + "</span>" +
+          (xlate ? '<span class="lib-xlate">' + esc(xlate) + "</span>" : "") + "</div>" +
           (cats ? '<div class="pz-cats">' + cats + "</div>" : "") +
           "</button>";
       }).join(""));
@@ -2010,12 +2037,31 @@
     renderCats();
     renderDiffs();
     load(true);
+    /* 汤架还没取回来：取完自动刷新整个面板（含题材词表与计数） */
+    if (window.SoupLibSource && !SoupLibSource.ready()) {
+      metaEl.textContent = "正在从汤架取菜单…（精品 100 道可先选）";
+      SoupLibSource.ensure()
+        .then(function () {
+          if (!host.parentNode) return;
+          renderCats();
+          load(true);
+        })
+        .catch(function () {
+          if (host.parentNode) metaEl.textContent = "汤架没取到，只能先选精品层的汤";
+        });
+    }
     setTimeout(function () { kwEl.focus(); }, 40);
   }
 
   /* 房主「随机一题」：精品 + 汤库全部可抽，抽到就直接选上，不再只在精品 100 里转 */
   function doRoomRandom() {
     var E2 = window.SoupEngine;
+    if (window.SoupLibSource && !SoupLibSource.ready()) {
+      /* 懒加载还没回来：取完再抽，保证与单人随机同一个池 */
+      SoupLibSource.ensure().then(function () { doRoomRandom(); })
+        .catch(function () { R.toast("汤架没取到，稍后再试"); });
+      return;
+    }
     var LIB2 = window.SOUP_LIBRARY || [];
     var PUZ2 = window.PUZZLES || [];
     var libAvail = (LIB2.length && E2 && E2.drawFromLibrary) ? E2.drawFromLibrary(LIB2, { hasTruth: false }) : null;

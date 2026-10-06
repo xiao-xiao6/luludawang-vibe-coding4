@@ -229,6 +229,36 @@ body {
   letter-spacing: .16em;
   color: var(--broth-2);
 }
+/* 报告改善③：左栏「问答记录」头栏可点——窄屏默认收成一条头栏胶囊 */
+button.qa-collapse-btn {
+  background: none;
+  border: 0;
+  padding: 0 4px 0 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-align: left;
+}
+button.qa-collapse-btn:hover { color: var(--broth); }
+.qa-chev {
+  font-size: 11px;
+  color: var(--dim-2);
+  transition: transform .15s ease;
+}
+.qa-panel.qa-collapsed .qa-chev { transform: rotate(-90deg); }
+.qa-panel.qa-collapsed .qa-log { display: none; }
+.qa-panel.qa-collapsed .qa-clear { display: none; }
+.qa-panel.qa-collapsed .panel-head { margin-bottom: 0; }
+/* 翻译状态徽章（报告 P2-4）：从题材 chips 里挪出来，降级成卡片小字 */
+.lib-xlate {
+  color: var(--dim-2);
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 0 6px;
+  font-size: 10.5px;
+  line-height: 1.6;
+}
 .qa-head-actions {
   display: flex;
   align-items: center;
@@ -601,9 +631,10 @@ body.room-mode .qa-clear { display: none; }
   padding: calc(20px + var(--sat)) calc(20px + var(--sar)) calc(20px + var(--sab)) calc(20px + var(--sal));
   background: rgba(6, 4, 3, .74);
   backdrop-filter: blur(3px);
-  animation: fade .18s ease both;
+  animation: fade .14s ease both;
 }
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+/* 报告改善①：入场不从全透明起步——快操作时不再有「点了没反应」的空窗帧 */
+@keyframes fade { from { opacity: .35; } to { opacity: 1; } }
 
 /* ---------- 通用二级确认面板（防误触，2026-09-25） ---------- */
 .confirm-wrap .modal { max-width: 430px; }
@@ -628,9 +659,9 @@ body.room-mode .qa-clear { display: none; }
   background: linear-gradient(180deg, #241a13, #191310);
   box-shadow: 0 26px 60px rgba(0, 0, 0, .7);
   padding: 20px 20px 18px;
-  animation: rise-in .26s cubic-bezier(.2, .9, .3, 1.1) both;
+  animation: rise-in .16s cubic-bezier(.2, .9, .3, 1.1) both;
 }
-@keyframes rise-in { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes rise-in { from { opacity: .55; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
 
 .modal h3 {
   margin: 0 0 6px;
@@ -902,7 +933,9 @@ body[data-scene="sad"] .bg-img  { filter: saturate(.5) contrast(1.1) brightness(
   width: 84px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--broth-dim), rgba(76,54,37,.6));
+  /* 报告 P3-6 第1条：按 --vol-p（JS 随音量设置）动态填充金色进度，
+     拖到 0 时轨道一眼见底，不再「看起来依旧是满的」 */
+  background: linear-gradient(90deg, var(--broth) 0 var(--vol-p, 60%), rgba(76, 54, 37, .6) var(--vol-p, 60%) 100%);
   cursor: pointer;
 }
 .dock-vol::-webkit-slider-thumb {
@@ -1257,7 +1290,8 @@ body.fx-off .steam-field { display: none !important; }
   .dock-vol { width: 60px; }
   .dock-btn { width: 28px; height: 28px; }
 
-  /* 窄屏：聊天框仍钉在右下，默认展开；固定尺寸靠上拉长，避开刘海与提问栏 */
+  /* 窄屏：聊天框仍钉在右下——展开与否由 JS 按「窄屏/触屏默认收起」同步（报告 P1-1）；
+     固定尺寸靠上拉长，避开刘海与提问栏 */
   .room-chat {
     right: calc(8px + var(--sar));
     bottom: calc(8px + var(--sab));
@@ -1296,9 +1330,9 @@ body.modal-open .room-chat { display: none; }
   .brand-txt p { font-size: 11px; }
   .layout { grid-template-columns: minmax(0, 1fr); padding: 0 14px 26px; gap: 14px; }
   .col-clue { grid-template-columns: 1fr; }
-  .puzzle-list { flex-direction: row; overflow-x: auto; overflow-y: hidden; max-height: none; padding-bottom: 5px; }
-  .pz-card { min-width: 168px; flex: 0 0 auto; }
-  .pz-card:hover { transform: none; }
+  /* 报告改善②：窄屏不再用横滑卡片流——纵向列表配「加载更多」，
+     翻 2500 题不用横竖手势来回打架 */
+  .puzzle-list { flex-direction: column; overflow-x: hidden; overflow-y: auto; padding-bottom: 5px; }
   .log { height: 46vh; }
   .askbar .btn { flex: 1 1 auto; }
   .input { flex: 1 1 100%; }
@@ -1308,6 +1342,11 @@ body.modal-open .room-chat { display: none; }
 
   .music-dock { padding: 0 8px 0 0; gap: 6px; }
   .dock-mid { min-width: 76px; }
+  /* 审美①：≤860px 时音乐胶囊整颗不可分段——内部不换行，避免 600px 下
+     「音乐 / 滑块」在胶囊里折行、行高突兀；顶栏按钮行距收紧一档 */
+  .music-dock { flex-wrap: nowrap; white-space: nowrap; min-width: 0; }
+  .music-dock #btn-music { padding: 7px 10px; }
+  .top-actions { row-gap: 6px; }
   .bg-img { background-position: center 38%; }
 
   .btn { min-height: var(--tap); }
@@ -2138,6 +2177,10 @@ body.room-mode .qa-log {
 .memo-area::placeholder { color: var(--dim-2); line-height: 1.9; }
 .memo-area:focus { border-top-color: var(--broth); box-shadow: 0 0 0 3px rgba(226, 164, 79, .1) inset; }
 .memo-box.collapsed .memo-area { display: none; }
+/* 宽屏三栏时右栏头栏窄：标题不换行；「只存在你自己的浏览器」提示
+   展开时收起（textarea 的 placeholder 已带同款信息），收起胶囊态才显示 */
+.memo-box .rc-title { white-space: nowrap; }
+body.solo-memo-mode .col-clue .memo-box:not(.collapsed) .rc-hint { display: none; }
 @media (min-width: 1181px) {
   body.solo-memo-mode .col-clue {
     display: flex;
