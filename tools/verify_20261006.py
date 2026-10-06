@@ -4,7 +4,7 @@ import io, json, os, subprocess, sys, time, urllib.request, urllib.parse
 import websocket
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = "http://127.0.0.1:5199/index.html"
+BASE = os.environ.get("SOUP_BASE", "http://127.0.0.1:5199/index.html")
 PORT = 9357
 CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 OUT = os.path.join(ROOT, "tools", "_verify_20261006.txt")
